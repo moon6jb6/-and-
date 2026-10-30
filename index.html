@@ -269,8 +269,8 @@ function srcBlock(m){
   return `<div class="sec" style="color:#38bdf8">
       <div class="sec-t">证据链 · 模块级 ${m.srcs.length} 条来源</div>
       <ul class="li src">${items}</ul>
-      <div class="hint" style="margin-top:8px">说明：来源为模块级绑定，非逐参数绑定。
-      逐参数级证据链需在参数表中为每条数据登记文号、页码与适用范围。</div>
+      <div class="hint" style="margin-top:8px">说明：此处为模块级绑定，用于定位该模块的整体依据；
+      逐参数级登记见「参数证据台账」视图（含来源编号 / 年份 / 单位 / 适用范围）。</div>
     </div>`;
 }
 
@@ -357,10 +357,14 @@ function overview(){
           <span class="org">8 个工作表，可载入模型</span></li>
         <li><a href="missing_data_spec.py" target="_blank" rel="noopener">缺失数据任务单</a>
           <span class="org">35 条 / 172 个数据点，含自检脚本</span></li>
+        <li><a href="audit-response-round2.md" target="_blank" rel="noopener">第二轮审计响应</a>
+          <span class="org">2026 政策核实、α 方向修正、状态体系重构</span></li>
         <li><a href="audit-response-round1.md" target="_blank" rel="noopener">第一轮审计响应</a>
           <span class="org">逐条核实记录与修正说明</span></li>
         <li><a href="framework-map.svg" target="_blank" rel="noopener">静态矢量总图</a>
-          <span class="org">2000 × 3730 SVG</span></li>
+          <span class="org">2000 × 3890 SVG，与页面同源生成</span></li>
+        <li><a href="framework_core.py" target="_blank" rel="noopener">单一事实源</a>
+          <span class="org">全部数据 + 双轴标定 + 生成期断言，可本地复现</span></li>
       </ul>
     </div>`;
 }
@@ -856,7 +860,7 @@ function drawAxes(){
     <div class="card">
       <h2>本轮仍未完成的事项</h2>
       <ul class="li gap">
-        <li>逐参数级证据链：目前是模块级绑定，缺 source_doc / page / scope / valid_from / valid_to 五个字段</li>
+        <li>页码级引用核验：87 条参数已登记 src / year / unit / scope 四项（63 条绑定文号、24 条仅模块级），仍缺 page 字段与逐条原文比对记录</li>
         <li>城市级实证验证：未选定城市，未做一次完整核算并与成熟数据库交叉核对</li>
         <li>误差传播：已有公式与分布要求，但未真正跑出蒙特卡洛区间</li>
         <li>MRIO 消费端：只给出模型与数据需求，未接入实际投入产出表</li>
