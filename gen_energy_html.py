@@ -140,6 +140,7 @@ HTML = r"""<!doctype html>
     <div class="pill"><b id="s-ind">0</b>个可算指标</div>
     <div class="pill"><b id="s-ds">0</b>个数据集</div>
     <div class="pill"><b id="s-md">0</b>个模型</div>
+    <div class="pill"><b id="s-an">0</b>条数据锚点</div>
     <div class="pill" style="border-color:#3f5c8f"><b id="s-ver" style="color:#34d399">v4</b><span id="s-built"></span></div>
   </div>
 </header>
@@ -147,6 +148,7 @@ HTML = r"""<!doctype html>
 <div class="tabs" id="tabs">
   <button class="tab on" data-v="matrix">分析矩阵 · 12×4</button>
   <button class="tab" data-v="qs">研究问题总表</button>
+  <button class="tab" data-v="anchors">数据锚点</button>
   <button class="tab" data-v="dom">分域详解</button>
   <button class="tab" data-v="models">模型库</button>
   <button class="tab" data-v="data">数据源字典</button>
@@ -174,6 +176,9 @@ HTML = r"""<!doctype html>
   <aside id="panel2"></aside>
 </div>
 
+<div class="wrap view" id="view-anchors" hidden style="grid-template-columns:1fr">
+  <main id="mAnchors"></main>
+</div>
 <div class="wrap view" id="view-dom" hidden style="grid-template-columns:1fr">
   <main id="mDom"></main>
 </div>
@@ -377,8 +382,106 @@ function showQ(id){
     </div>`;
 }
 
-/* ================= 分域详解 ================= */
-function drawDomains(){
+/* ================= 数据锚点 ================= */
+const ST_ANC = {
+  "已核实": ["已核实", "#34d399"],
+  "部分核实": ["部分核实", "#fbbf24"],
+  "计算值": ["计算值", "#a78bfa"]
+};
+function drawAnchors(){
+  const A = DATA.anchors, sm = DATA.anchorSummary, ts = DATA.totals.anchorStatus;
+  const rows = A.map(a=>{
+    const s = ST_ANC[a.status]||["—","#8ba0c2"];
+    return `<tr>
+      <td class="num" style="white-space:nowrap">${a.id}</td>
+      <td style="color:${domAccent(a.dom)};white-space:nowrap">${a.dom}</td>
+      <td>${esc(a.name)}</td>
+      <td class="num" style="min-width:130px"><b style="color:#e8eefb">${esc(a.val)}</b></td>
+      <td style="white-space:nowrap">${esc(a.unit)}</td>
+      <td style="white-space:nowrap">${esc(a.year)}</td>
+      <td style="font-size:12px;color:#8ba0c2">${esc(a.scope)}</td>
+      <td style="white-space:nowrap;color:${s[1]}">${s[0]}</td>
+      <td style="font-size:11.5px;color:#6d86ab">${esc(a.src)}
+        ${a.url?`<div><a href="${a.url}" target="_blank" rel="noopener" style="color:#7dd3fc">原文</a></div>`:''}</td>
+    </tr>`;
+  }).join('');
+
+  const traps = DATA.anchorTraps.map(t=>`<li><b style="color:#fbbf24">${esc(t.t)}</b><br>
+    <span style="color:#a9bfdc;font-size:12.5px;line-height:1.7">${esc(t.d)}</span></li>`).join('');
+
+  const issues = DATA.anchorIssues.map(x=>`
+    <div class="card" style="border-left:3px solid #38bdf8">
+      <h2>${x.id}　${esc(x.title)}
+        <span class="tagx" style="color:#34d399;border-color:#34d39955">${esc(x.status)}</span></h2>
+      <div class="lead">${esc(x.detail)}</div>
+      <div class="formula" style="color:#a5e3ff">${esc(x.resolution)}</div>
+    </div>`).join('');
+
+  const gaps = DATA.anchorGaps.map(g=>`<tr>
+      <td class="num">${g.id}</td><td>${esc(g.item)}</td>
+      <td style="font-size:12px;color:#8ba0c2">${esc(g.why)}</td>
+      <td style="font-size:12px;color:#7dd3fc">${esc(g.next)}</td></tr>`).join('');
+
+  document.getElementById('mAnchors').innerHTML = `
+    <div class="card" style="border-left:3px solid #34d399">
+      <h2>数据锚点（2024–2025 中国能源经济）</h2>
+      <div class="lead">
+        研究问题需要指标，指标需要数值，数值必须能追到出处。本页是本系统唯一的数字来源清单——
+        <b>凡本系统出现的中国能源经济数值，都应能在本页找到对应行与来源链接</b>。
+        核查方式为逐条打开来源页比对，未使用任何未溯源数字。
+      </div>
+      <table class="tbl">
+        <tr><th style="width:30%">状态</th><th style="width:16%">内联展示</th><th>含义</th></tr>
+        <tr><td style="color:#34d399">已核实</td><td class="num">${ts['已核实']||0}</td>
+            <td>直接抓取到一手官方页面（stats.gov.cn / nea.gov.cn / gov.cn / 欧盟委员会），数值出现在正文或表格中</td></tr>
+        <tr><td style="color:#fbbf24">部分核实</td><td class="num">${ts['部分核实']||0}</td>
+            <td>权威机构数据但经二手转述；或只有增速/区间无绝对值；或存在两套并行口径</td></tr>
+        <tr><td style="color:#a78bfa">计算值</td><td class="num">${ts['计算值']||0}</td>
+            <td>由核查者换算或推导（如弃电率 = 100 − 利用率），非官方发布</td></tr>
+        <tr><td style="color:#fb7185">未核实</td><td class="num">${sm.byStatus['未核实']}</td>
+            <td>检索后仍无可信来源，已逐条列出检索路径与建议（见本页末）</td></tr>
+      </table>
+      <div class="warn">
+        <b>最关键的一个数字</b>：原始核查表的 52 条数值中，只有 <b>16 条</b>（30.8%）能追到一手官方页面原文，
+        29 条（55.8%）必须靠二手转述支撑，7 条（13.5%）无法核实。
+        这不是检索不力，而是中国能源统计的真实可得性——公开数据大量存在于公报、图片表、JS 渲染页与行业协会 PDF 中。
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>五个必须先说清的口径陷阱</h2>
+      <div class="lead">能源经济研究里最常见的错误不是算错，而是把两个不同口径的数放在一起比。以下五条是本轮核查中实际遇到的。</div>
+      <ul class="li">${traps}</ul>
+    </div>
+
+    <div class="card">
+      <h2>三处内部不一致 —— 及处理结论</h2>
+      <div class="lead">同一份材料里出现互相矛盾的数字时，不能选一个信、把另一个丢掉；必须定位原因。以下三处已逐一处理。</div>
+    </div>
+    ${issues}
+
+    <div class="card">
+      <h2>逐条锚点（${A.length} 条）</h2>
+      <table class="tbl">
+        <tr><th style="width:5%">编号</th><th style="width:4%">域</th><th style="width:13%">指标</th>
+            <th style="width:13%">数值</th><th style="width:6%">单位</th><th style="width:7%">年份</th>
+            <th style="width:22%">口径说明</th><th style="width:7%">状态</th><th>来源</th></tr>
+        ${rows}
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>七项未核实 —— 附检索路径与建议</h2>
+      <div class="lead">这七项没有用推测值填补。每项都记录了「为什么拿不到」与「拿到它的具体办法」。</div>
+      <table class="tbl">
+        <tr><th style="width:6%">编号</th><th style="width:20%">缺失项</th>
+            <th style="width:38%">未获原因</th><th>建议路径</th></tr>
+        ${gaps}
+      </table>
+    </div>`;
+}
+
+/* ================= 分域详解 ================= */function drawDomains(){
   document.getElementById('mDom').innerHTML = DATA.domains.map(d=>{
     const cellRows = DATA.layers.map(l=>{
       const ids = d.cells[l.id];
@@ -541,7 +644,7 @@ function applyFilter(){
 let filter='all';
 
 /* ================= Tab ================= */
-const VIEWS = {matrix:'view-matrix', qs:'view-qs', dom:'view-dom',
+const VIEWS = {matrix:'view-matrix', qs:'view-qs', anchors:'view-anchors', dom:'view-dom',
                models:'view-models', data:'view-data', evid:'view-evid', carbon:'view-carbon'};
 document.getElementById('tabs').addEventListener('click', ev=>{
   const b = ev.target.closest('.tab'); if(!b) return;
@@ -562,10 +665,11 @@ document.getElementById('s-q').textContent = DATA.totals.questions;
 document.getElementById('s-ind').textContent = DATA.totals.indicatorCount;
 document.getElementById('s-ds').textContent = DATA.totals.datasets;
 document.getElementById('s-md').textContent = DATA.totals.models;
+document.getElementById('s-an').textContent = DATA.totals.anchors;
 document.getElementById('s-ver').textContent = DATA.version;
 document.getElementById('s-built').textContent = ' · ' + DATA.built;
 
-drawMatrix(); drawQList(); drawDomains(); drawModels(); drawData(); drawEvid(); drawCarbon();
+drawMatrix(); drawQList(); drawAnchors(); drawDomains(); drawModels(); drawData(); drawEvid(); drawCarbon();
 
 // 矩阵单元格点击 → 跳到问题总表并筛选
 document.getElementById('mMatrix').addEventListener('click', ev=>{

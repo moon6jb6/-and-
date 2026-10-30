@@ -85,9 +85,12 @@
 <rect x="884" y="210" width="125" height="42" rx="21" fill="#152441" stroke="#2f4570"/>
 <text x="910" y="241" font-family="Microsoft YaHei" font-size="26" font-weight="700" fill="#7dd3fc">22</text>
 <text x="949" y="239" font-family="Microsoft YaHei" font-size="15" fill="#8ba0c2">模型</text>
-<rect x="1021" y="210" width="125" height="42" rx="21" fill="#152441" stroke="#2f4570"/>
-<text x="1047" y="241" font-family="Microsoft YaHei" font-size="26" font-weight="700" fill="#7dd3fc">8</text>
-<text x="1071" y="239" font-family="Microsoft YaHei" font-size="15" fill="#8ba0c2">层证据</text>
+<rect x="1021" y="210" width="155" height="42" rx="21" fill="#152441" stroke="#2f4570"/>
+<text x="1047" y="241" font-family="Microsoft YaHei" font-size="26" font-weight="700" fill="#7dd3fc">50</text>
+<text x="1086" y="239" font-family="Microsoft YaHei" font-size="15" fill="#8ba0c2">数据锚点</text>
+<rect x="1188" y="210" width="125" height="42" rx="21" fill="#152441" stroke="#2f4570"/>
+<text x="1214" y="241" font-family="Microsoft YaHei" font-size="26" font-weight="700" fill="#7dd3fc">8</text>
+<text x="1238" y="239" font-family="Microsoft YaHei" font-size="15" fill="#8ba0c2">层证据</text>
 <text x="1736" y="112" text-anchor="end" font-family="Microsoft YaHei" font-size="24" font-weight="700" fill="#34d399">v4</text>
 <text x="1736" y="140" text-anchor="end" font-family="Microsoft YaHei" font-size="15" fill="#8ba0c2">建立 2026-10-30　·　与 index.html 同源生成</text>
 <text x="64" y="378" font-family="Microsoft YaHei" font-size="19" font-weight="600" fill="#9db4d6">研究域 ↓　×　分析层次 →</text>
@@ -313,6 +316,6 @@
 <text x="1344" y="1439" font-family="Microsoft YaHei" font-size="13.5" fill="#8ba0c2">情景预测</text>
 <line x1="64" y1="1618" x2="1736" y2="1618" stroke="#2c4064" stroke-width="2"/>
 <text x="64" y="1648" font-family="Microsoft YaHei" font-size="14" font-weight="600" fill="#7dd3fc">v4 数据锚点（与 index.html 同源）</text>
-<text x="64" y="1672" font-family="Consolas,Microsoft YaHei" font-size="13.5" fill="#9db4d6">107 条问题 · 307 个指标 · 30 个数据集 · 22 个模型 · 8 层证据 · 碳子模块 137 对象 / 87 参数 / 63 缺口</text>
+<text x="64" y="1672" font-family="Consolas,Microsoft YaHei" font-size="13.5" fill="#9db4d6">107 条问题 · 307 个指标 · 30 个数据集 · 22 个模型 · 8 层证据 · 50 条数据锚点（18 已核实 / 31 部分核实 / 1 计算值 / 7 未核实）· 碳子模块 137 对象 / 87 参数 / 63 缺口</text>
 <text x="64" y="1696" font-family="Microsoft YaHei" font-size="12.5" fill="#5d7398">碳排放核算子模块见 carbon.html 与 framework-map.svg｜证据链与逐参数台账见碳子模块「参数证据台账」页</text>
 </svg>

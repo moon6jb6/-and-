@@ -12,6 +12,8 @@ import json
 from energy_meta import (VERSION, BUILT, LAYERS4, DOMAINS, EVIDENCE_TIERS,
                          DATASETS, MODELS)
 from energy_questions import QUESTIONS
+from energy_anchors import (ANCHORS, ANCHOR_ISSUES, ANCHOR_GAPS,
+                            ANCHOR_TRAPS, ANCHOR_SUMMARY, validate as validate_anchors)
 
 STATUS_META = {
     "可算": ("可算", "#34d399", "指标算式明确，所需数据已有公开来源"),
@@ -103,6 +105,14 @@ def build_energy_data(with_carbon=True):
         "layers": layers,
         "domains": doms,
         "questions": QUESTIONS,
+        "anchors": [{"id": a[0], "dom": a[1], "name": a[2], "val": a[3],
+                     "unit": a[4], "year": a[5], "scope": a[6], "status": a[7],
+                     "src": a[8], "url": a[9]} for a in ANCHORS],
+        "anchorIssues": ANCHOR_ISSUES,
+        "anchorGaps": [{"id": g[0], "item": g[1], "why": g[2], "next": g[3]}
+                       for g in ANCHOR_GAPS],
+        "anchorTraps": [{"t": t[0], "d": t[1]} for t in ANCHOR_TRAPS],
+        "anchorSummary": ANCHOR_SUMMARY,
         "evidence": [{"id": e[0], "name": e[1], "accent": e[2],
                       "ask": e[3], "rules": e[4], "usedBy": ev_use.get(e[0], 0)}
                      for e in EVIDENCE_TIERS],
@@ -122,6 +132,8 @@ def build_energy_data(with_carbon=True):
             "indicatorCount": sum(len(q["ind"]) for q in QUESTIONS),
             "cells": 48,
             "weakEvidence": weak,
+            "anchors": len(ANCHORS),
+            "anchorStatus": dict(validate_anchors()),
         },
     }
 

@@ -67,7 +67,7 @@ a('<rect x="%d" y="182" width="430" height="5" rx="2.5" fill="#38bdf8" opacity="
 pills = [(str(T["domains"]), "研究域"), (str(T["layers"]), "分析层次"),
          (str(T["questions"]), "研究问题"), (str(T["indicatorCount"]), "可算指标"),
          (str(T["datasets"]), "数据集"), (str(T["models"]), "模型"),
-         (str(T["evidence"]), "层证据")]
+         (str(T["anchors"]), "数据锚点"), (str(T["evidence"]), "层证据")]
 px, py = MARGIN, 210
 for val, lab in pills:
     pw = 30 + text_w(val, 26) + 10 + text_w(lab, 15) + 26
@@ -201,6 +201,7 @@ a('<line x1="%d" y1="%d" x2="%d" y2="%d" stroke="#2c4064" stroke-width="2"/>'
 a('<text x="%d" y="%d" font-family="Microsoft YaHei" font-size="14" font-weight="600" '
   'fill="#7dd3fc">%s 数据锚点（与 index.html 同源）</text>' % (MARGIN, fy + 30, D["version"]))
 anchors = ("107 条问题 · 307 个指标 · 30 个数据集 · 22 个模型 · 8 层证据 · "
+           "50 条数据锚点（18 已核实 / 31 部分核实 / 1 计算值 / 7 未核实）· "
            "碳子模块 137 对象 / 87 参数 / 63 缺口")
 a('<text x="%d" y="%d" font-family="Consolas,Microsoft YaHei" font-size="13.5" fill="#9db4d6">%s</text>'
   % (MARGIN, fy + 54, esc(anchors)))
@@ -213,8 +214,8 @@ a('</svg>')
 svg = "\n".join(out)
 
 # ---------- 一致性断言 ----------
-MUST = ["12", "107", "307", "30", "22", "能源经济分析与决策知识系统",
-        "能源供给", "未来预测与情景", "八层证据体系"]
+MUST = ["12", "107", "307", "30", "22", "50", "能源经济分析与决策知识系统",
+        "能源供给", "未来预测与情景", "八层证据体系", "数据锚点"]
 miss = [m for m in MUST if m not in svg]
 assert not miss, "SVG 缺少关键内容: %s" % miss
 for d in D["domains"]:
