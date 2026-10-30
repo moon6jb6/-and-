@@ -14,6 +14,9 @@ from energy_meta import (VERSION, BUILT, LAYERS4, DOMAINS, EVIDENCE_TIERS,
 from energy_questions import QUESTIONS
 from energy_anchors import (ANCHORS, ANCHOR_ISSUES, ANCHOR_GAPS,
                             ANCHOR_TRAPS, ANCHOR_SUMMARY, validate as validate_anchors)
+from data_tasks import (TASKS, SUMMARY as TASK_SUMMARY, STANDARDS, LEVELS,
+                        STATUS_META as TASK_STATUS, SCHEMA_FIELDS, CORE_TABLES,
+                        ROADMAP)
 
 STATUS_META = {
     "可算": ("可算", "#34d399", "指标算式明确，所需数据已有公开来源"),
@@ -113,6 +116,19 @@ def build_energy_data(with_carbon=True):
                        for g in ANCHOR_GAPS],
         "anchorTraps": [{"t": t[0], "d": t[1]} for t in ANCHOR_TRAPS],
         "anchorSummary": ANCHOR_SUMMARY,
+        "tasks": TASKS,
+        "taskSummary": TASK_SUMMARY,
+        "taskStandards": [{"name": s[0], "key": s[1], "levels": s[2], "def": s[3]}
+                          for s in STANDARDS],
+        "taskLevels": [{"id": l[0], "name": l[1], "accent": l[2], "def": l[3]}
+                       for l in LEVELS],
+        "taskStatus": {k: {"label": v[0], "accent": v[1], "def": v[2]}
+                       for k, v in TASK_STATUS.items()},
+        "schemaFields": [{"key": f[0], "type": f[1], "def": f[2], "req": f[3]}
+                         for f in SCHEMA_FIELDS],
+        "coreTables": CORE_TABLES,
+        "roadmap": [{"stage": r[0], "name": r[1], "work": r[2], "out": r[3]}
+                    for r in ROADMAP],
         "evidence": [{"id": e[0], "name": e[1], "accent": e[2],
                       "ask": e[3], "rules": e[4], "usedBy": ev_use.get(e[0], 0)}
                      for e in EVIDENCE_TIERS],
@@ -134,6 +150,8 @@ def build_energy_data(with_carbon=True):
             "weakEvidence": weak,
             "anchors": len(ANCHORS),
             "anchorStatus": dict(validate_anchors()),
+            "tasks": TASK_SUMMARY["total"],
+            "taskStatus": TASK_SUMMARY["byStatus"],
         },
     }
 

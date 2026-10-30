@@ -141,6 +141,7 @@ HTML = r"""<!doctype html>
     <div class="pill"><b id="s-ds">0</b>个数据集</div>
     <div class="pill"><b id="s-md">0</b>个模型</div>
     <div class="pill"><b id="s-an">0</b>条数据锚点</div>
+    <div class="pill"><b id="s-tk">0</b>项数据任务</div>
     <div class="pill" style="border-color:#3f5c8f"><b id="s-ver" style="color:#34d399">v4</b><span id="s-built"></span></div>
   </div>
 </header>
@@ -149,6 +150,7 @@ HTML = r"""<!doctype html>
   <button class="tab on" data-v="matrix">分析矩阵 · 12×4</button>
   <button class="tab" data-v="qs">研究问题总表</button>
   <button class="tab" data-v="anchors">数据锚点</button>
+  <button class="tab" data-v="tasks">数据补充总表</button>
   <button class="tab" data-v="dom">分域详解</button>
   <button class="tab" data-v="models">模型库</button>
   <button class="tab" data-v="data">数据源字典</button>
@@ -178,6 +180,9 @@ HTML = r"""<!doctype html>
 
 <div class="wrap view" id="view-anchors" hidden style="grid-template-columns:1fr">
   <main id="mAnchors"></main>
+</div>
+<div class="wrap view" id="view-tasks" hidden style="grid-template-columns:1fr">
+  <main id="mTasks"></main>
 </div>
 <div class="wrap view" id="view-dom" hidden style="grid-template-columns:1fr">
   <main id="mDom"></main>
@@ -481,6 +486,198 @@ function drawAnchors(){
     </div>`;
 }
 
+/* ================= 数据补充任务总表 ================= */
+const mTasks = document.getElementById('mTasks');
+let taskFilter = {cat:'all', status:'all', level:'all', exist:'all'};
+
+function drawTasks(){
+  const T = DATA.tasks, S = DATA.taskSummary, TS = DATA.taskStatus;
+  const stNames = Object.keys(TS);
+
+  const bar = stNames.map(k=>{
+    const n = S.byStatus[k]||0;
+    return `<i title="${k} ${n}" style="width:${n/T.length*100}%;background:${TS[k].accent}"></i>`;
+  }).join('');
+  const legend = stNames.map(k=>{
+    const n = S.byStatus[k]||0;
+    return `<span><i style="background:${TS[k].accent}"></i>${k} ${n}</span>`;
+  }).join('');
+
+  const catOpts = ['all'].concat([...new Set(T.map(t=>t.catName))]).map(c=>
+    `<option value="${c}">${c==='all'?'全部分类':c}</option>`).join('');
+  const stOpts = ['all'].concat(stNames).map(c=>
+    `<option value="${c}">${c==='all'?'全部状态':c}</option>`).join('');
+  const lvOpts = ['all','L1','L2','L3'].map(c=>
+    `<option value="${c}">${c==='all'?'全部层级':c}</option>`).join('');
+  const exOpts = ['all','有','部分','无'].map(c=>
+    `<option value="${c}">${c==='all'?'全部存在性':'存在性：'+c}</option>`).join('');
+
+  const rows = T.map(t=>`
+    <tr data-cat="${t.catName}" data-status="${t.status}" data-level="${t.level}" data-exist="${t.exist}">
+      <td class="num" style="white-space:nowrap">${t.id}</td>
+      <td style="white-space:nowrap;color:#8ba0c2;font-size:12px">${esc(t.catName)}</td>
+      <td>${esc(t.name)}
+        ${t.mod!=='—'?`<div style="font-size:11px;color:#6d86ab">${esc(t.mod)} · 第 ${esc(t.rows)} 行
+          ${t.gapId?`· <span style="font-family:Consolas,monospace">${esc(t.gapId)}</span>`:''}</div>`:
+          (t.note?`<div style="font-size:11px;color:#6d86ab">${esc(t.note)}</div>`:'')}</td>
+      <td style="white-space:nowrap;font-size:12px">${esc(t.year)}<br><span style="color:#6d86ab">${esc(t.geo)}</span></td>
+      <td style="font-size:11.5px;color:#a9bfdc">${esc(t.primary)}
+        ${t.alt&&t.alt!=='—'?`<div style="color:#6d86ab">替代：${esc(t.alt)}</div>`:''}</td>
+      <td style="font-size:11.5px;color:#8ba0c2">${esc(t.method)}</td>
+      <td style="text-align:center;white-space:nowrap;font-size:11.5px">
+        <span style="color:${t.exist==='有'?'#34d399':t.exist==='部分'?'#fbbf24':'#fb7185'}">${t.exist}</span> /
+        <span style="color:${t.access==='公开'?'#34d399':t.access==='受限'?'#fbbf24':'#fb7185'}">${t.access}</span><br>
+        <span style="color:#8ba0c2">${t.compute} / ${t.trace}</span></td>
+      <td style="white-space:nowrap;text-align:center">
+        <b style="color:${(DATA.taskLevels.find(l=>l.id===t.level)||{}).accent||'#8ba0c2'}">${t.level}</b></td>
+      <td style="white-space:nowrap;color:${TS[t.status].accent}">${t.status}</td>
+    </tr>`).join('');
+
+  mTasks.innerHTML = `
+    <div class="card" style="border-left:3px solid #38bdf8">
+      <h2>数据补充任务总表（${T.length} 项）</h2>
+      <div class="lead">
+        每个缺口的价值不一样：有的数据根本不存在，有的存在但拿不到，有的拿得到但要自己算。
+        这页把 ${T.length} 项任务（碳核算 ${S.carbon} 项 + 能源经济 ${S.energy} 项）按
+        <b>四个标准</b>拆开，再给三级来源机制与执行状态。
+      </div>
+      <table class="tbl">
+        <tr><th style="width:12%">标准</th><th style="width:26%">取值</th><th>为什么必须分开</th></tr>
+        ${DATA.taskStandards.map(s=>`<tr>
+          <td style="color:#7dd3fc"><b>${esc(s.name)}</b><div style="font-size:11px;color:#6d86ab;font-family:Consolas,monospace">${esc(s.key)}</div></td>
+          <td style="font-family:Consolas,monospace;font-size:12px">${s.levels.map(l=>esc(l)).join(' / ')}</td>
+          <td style="font-size:12.5px;color:#a9bfdc">${esc(s.def)}</td></tr>`).join('')}
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>四标准实测分布</h2>
+      <div class="lead">这是对「63 项缺口到底有多缺」的直接回答——不是都缺，而是缺的方式各不相同。</div>
+      <table class="tbl">
+        <tr><th style="width:14%">维度</th><th>分布</th></tr>
+        <tr><td>存在性</td><td>${Object.entries(S.byExist).map(([k,v])=>
+          `<span class="tagx" style="margin-right:6px">${k} <b style="color:#7dd3fc">${v}</b></span>`).join('')}</td></tr>
+        <tr><td>可取得性</td><td>${Object.entries(S.byAccess).map(([k,v])=>
+          `<span class="tagx" style="margin-right:6px">${k} <b style="color:#7dd3fc">${v}</b></span>`).join('')}</td></tr>
+        <tr><td>可计算性</td><td>${Object.entries(S.byCompute).map(([k,v])=>
+          `<span class="tagx" style="margin-right:6px">${k} <b style="color:#7dd3fc">${v}</b></span>`).join('')}</td></tr>
+        <tr><td>可追溯性</td><td>${Object.entries(S.byTrace).map(([k,v])=>
+          `<span class="tagx" style="margin-right:6px">${k} <b style="color:#7dd3fc">${v}</b></span>`).join('')}</td></tr>
+        <tr><td>来源层级</td><td>${Object.entries(S.byLevel).map(([k,v])=>
+          `<span class="tagx" style="margin-right:6px">${k} <b style="color:#7dd3fc">${v}</b></span>`).join('')}</td></tr>
+      </table>
+      <div class="warn">
+        <b>关键结论</b>：${T.length} 项任务里，真正「不存在」的只有 <b>${S.byExist['无']||0}</b> 项、
+        「不可得」的只有 <b>${S.byAccess['不可得']||0}</b> 项。
+        其余 ${T.length-(S.byAccess['不可得']||0)} 项都有获取路径——
+        其中 <b>${S.byStatus['可获取未取']||0} 项是「公开可得但还没采」</b>，
+        ${(S.byStatus['需计算']||0)+(S.byStatus['需模型']||0)} 项需要计算或建模。
+        所以「63 项缺口」不等于「63 项没数据」，而是「还没人按口径把它们整理出来」。
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>三级来源机制</h2>
+      <div class="lead">同一个缺口可以用不同层级的来源填补，但必须标注层级——层级决定它能支撑什么强度的结论。</div>
+      <table class="tbl">
+        <tr><th style="width:8%">层级</th><th style="width:18%">名称</th><th style="width:8%">任务数</th><th>使用规则</th></tr>
+        ${DATA.taskLevels.map(l=>`<tr>
+          <td style="color:${l.accent};font-weight:700">${l.id}</td>
+          <td>${esc(l.name)}</td>
+          <td class="num">${S.byLevel[l.id]||0}</td>
+          <td style="font-size:12.5px;color:#a9bfdc">${esc(l.def)}</td></tr>`).join('')}
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>执行状态分布</h2>
+      <div class="layerbar">${bar}</div>
+      <div class="lg">${legend}</div>
+      <div class="hint">「已入库」= 已进入数据锚点并有来源链接；「可获取未取」= 来源公开、方法明确，只是还没采。</div>
+    </div>
+
+    <div class="card">
+      <h2>任务清单（${T.length} 项）</h2>
+      <div class="tools" style="margin-bottom:10px">
+        <select class="fsel" id="tCat">${catOpts}</select>
+        <select class="fsel" id="tSt">${stOpts}</select>
+        <select class="fsel" id="tLv">${lvOpts}</select>
+        <select class="fsel" id="tEx">${exOpts}</select>
+        <span id="tCount" style="font-size:12.5px;color:#6d86ab"></span>
+      </div>
+      <div style="overflow-x:auto">
+      <table class="tbl" id="tblTasks">
+        <tr><th style="width:5%">编号</th><th style="width:9%">分类</th><th style="width:19%">指标 / 缺口</th>
+            <th style="width:8%">年份<br>空间</th><th style="width:16%">主来源</th><th style="width:11%">计算方法</th>
+            <th style="width:11%">存在/取得<br>计算/追溯</th><th style="width:4%">层</th>
+            <th style="width:9%">状态</th></tr>
+        ${rows}
+      </table></div>
+    </div>
+
+    <div class="card">
+      <h2>数据记录 Schema（${DATA.schemaFields.length} 字段）</h2>
+      <div class="lead">每一条数据记录至少包含以下字段。其中 <b>value 缺失必须填 None，禁止填 0</b>；
+      <b>estimated=True 的记录不得与官方统计值混列</b>——这两条是最容易被违反、后果最严重的规则。</div>
+      <table class="tbl">
+        <tr><th style="width:16%">字段</th><th style="width:9%">类型</th><th style="width:6%">必填</th><th>说明</th></tr>
+        ${DATA.schemaFields.map(f=>`<tr>
+          <td style="font-family:Consolas,monospace;font-size:12px;color:#7dd3fc">${esc(f.key)}</td>
+          <td style="font-size:12px;color:#8ba0c2">${esc(f.type)}</td>
+          <td style="text-align:center;color:${f.req?'#34d399':'#5e7ba0'}">${f.req?'✓':'—'}</td>
+          <td style="font-size:12.5px;color:#a9bfdc">${esc(f.def)}</td></tr>`).join('')}
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>四张核心关联表</h2>
+      <div class="lead">数据不是清单，是关系。四张表通过 region / year / sector / tech 四个键咬合，才能把能源—经济—碳连起来。</div>
+      ${DATA.coreTables.map(t=>`
+        <div class="sec" style="color:#22d3ee">
+          <div class="sec-t">${esc(t.name)}</div>
+          <div class="mt"><b style="color:#9fc3ee">主键</b>：<span style="font-family:Consolas,monospace">${esc(t.key)}</span></div>
+          <div class="mt"><b style="color:#9fc3ee">字段</b>：${t.cols.map(c=>`<span class="tagx" style="margin:2px">${esc(c)}</span>`).join('')}</div>
+          <div class="mt"><b style="color:#9fc3ee">关联</b>：${esc(t.joins)}</div>
+          <div class="warn">${esc(t.trap)}</div>
+        </div>`).join('')}
+    </div>
+
+    <div class="card">
+      <h2>六阶段执行顺序</h2>
+      <div class="lead">不建议一次性补齐所有城市、行业与年份——那样工作量大且口径极易不一致。按层级递进。</div>
+      <table class="tbl">
+        <tr><th style="width:10%">阶段</th><th style="width:18%">工作</th><th style="width:20%">交付</th><th>说明</th></tr>
+        ${DATA.roadmap.map(r=>`<tr>
+          <td style="color:#7dd3fc;white-space:nowrap">${esc(r.stage)}</td>
+          <td><b>${esc(r.name)}</b></td>
+          <td style="font-size:12.5px;color:#a5e3ff">${esc(r.out)}</td>
+          <td style="font-size:12.5px;color:#a9bfdc">${esc(r.work)}</td></tr>`).join('')}
+      </table>
+      <div class="warn">当前进度：<b>第一阶段尚未完成</b>。63 项碳缺口与 47 项能源任务已标定四标准，
+        但尚未进入逐项采集；数据锚点（50 条）只是第二阶段的极小一部分。</div>
+    </div>`;
+
+  const apply = ()=>{
+    const c = document.getElementById('tCat').value;
+    const s = document.getElementById('tSt').value;
+    const l = document.getElementById('tLv').value;
+    const e = document.getElementById('tEx').value;
+    let n = 0;
+    document.querySelectorAll('#tblTasks tr[data-cat]').forEach(tr=>{
+      const ok = (c==='all'||tr.dataset.cat===c) && (s==='all'||tr.dataset.status===s) &&
+                 (l==='all'||tr.dataset.level===l) && (e==='all'||tr.dataset.exist===e);
+      tr.style.display = ok ? '' : 'none';
+      if(ok) n++;
+    });
+    document.getElementById('tCount').textContent = '显示 ' + n + ' / ' + T.length + ' 项';
+  };
+  ['tCat','tSt','tLv','tEx'].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.addEventListener('change', apply);
+  });
+  apply();
+}
+
 /* ================= 分域详解 ================= */function drawDomains(){
   document.getElementById('mDom').innerHTML = DATA.domains.map(d=>{
     const cellRows = DATA.layers.map(l=>{
@@ -644,7 +841,8 @@ function applyFilter(){
 let filter='all';
 
 /* ================= Tab ================= */
-const VIEWS = {matrix:'view-matrix', qs:'view-qs', anchors:'view-anchors', dom:'view-dom',
+const VIEWS = {matrix:'view-matrix', qs:'view-qs', anchors:'view-anchors',
+               tasks:'view-tasks', dom:'view-dom',
                models:'view-models', data:'view-data', evid:'view-evid', carbon:'view-carbon'};
 document.getElementById('tabs').addEventListener('click', ev=>{
   const b = ev.target.closest('.tab'); if(!b) return;
@@ -666,10 +864,11 @@ document.getElementById('s-ind').textContent = DATA.totals.indicatorCount;
 document.getElementById('s-ds').textContent = DATA.totals.datasets;
 document.getElementById('s-md').textContent = DATA.totals.models;
 document.getElementById('s-an').textContent = DATA.totals.anchors;
+document.getElementById('s-tk').textContent = DATA.totals.tasks;
 document.getElementById('s-ver').textContent = DATA.version;
 document.getElementById('s-built').textContent = ' · ' + DATA.built;
 
-drawMatrix(); drawQList(); drawAnchors(); drawDomains(); drawModels(); drawData(); drawEvid(); drawCarbon();
+drawMatrix(); drawQList(); drawAnchors(); drawTasks(); drawDomains(); drawModels(); drawData(); drawEvid(); drawCarbon();
 
 // 矩阵单元格点击 → 跳到问题总表并筛选
 document.getElementById('mMatrix').addEventListener('click', ev=>{
