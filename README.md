@@ -12,15 +12,19 @@
 
 ## 零、如何核对当前版本（防止读到缓存页）
 
-若看到的数字与本节不符，说明打开的是缓存或旧快照。三个可自证的方法：
+若看到的数字与本节不符，说明打开的是缓存或旧快照。四种可自证的方法：
 
-| 方法 | 操作 | 应看到 |
+| 方法 | 操作 | 说明 |
 |---|---|---|
-| 提交号 | 打开 https://github.com/moon6jb6/-and-/commits/main | 最新提交含 `data_tasks.py` |
-| 文件数 | 打开仓库根目录 | **23+ 个文件**（不是 3 个） |
-| 直读原文 | 打开 https://raw.githubusercontent.com/moon6jb6/-and-/main/README.md | 本文件（12 域 / 107 问 / 110 项数据任务） |
+| 提交列表 | https://github.com/moon6jb6/-and-/commits/main | 看最新提交是否含 `data_tasks.py` |
+| 文件数 | 打开仓库根目录 | 应为 **24 个文件**（不是 3 个） |
+| **Pages 站**（最准） | https://moon6jb6.github.io/-and-/ | 加 `?v=任意数字` 破缓存后强制刷新 |
+| raw 直链（**有缓存**） | https://raw.githubusercontent.com/moon6jb6/-and-/main/README.md | 见下方警告 |
 
-浏览器强制刷新：`Ctrl+F5`（Windows）/ `Cmd+Shift+R`（Mac）。GitHub 的 README 渲染有 CDN 缓存，raw 链接不走缓存。
+> ⚠️ **实测发现的坑**：`raw.githubusercontent.com` 走 CDN，**会滞后于最新提交**。本次推送后实测：
+> Pages 返回 209,669 B 且 SHA256 与本地一致（最新版），而同一时刻 raw 仍返回 136,870 B 的旧版。
+> 因此**核对版本请以 Pages 站为准**，或给 raw 链接加 `?v=时间戳` 强制回源。
+> GitHub 仓库首页的 README 渲染同样有缓存，需 `Ctrl+F5`（Windows）/ `Cmd+Shift+R`（Mac）。
 
 **当前顶层口径**（v4）：
 
