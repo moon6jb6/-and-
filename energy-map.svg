@@ -1,0 +1,318 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 1714" width="1800" height="1714" role="img" aria-labelledby="ttl">
+<title id="ttl">能源经济分析与决策知识系统 · 12 域 × 4 层研究矩阵</title>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="0.25" y2="1" color-interpolation="linearRGB"><stop offset="0%" stop-color="#070d1a"/><stop offset="45%" stop-color="#0d1730"/><stop offset="100%" stop-color="#101c36"/></linearGradient>
+<radialGradient id="glow" cx="0.5" cy="0.5" r="0.5"><stop offset="0%" stop-color="#1e40af" stop-opacity="0.40"/><stop offset="60%" stop-color="#1e3a8a" stop-opacity="0.12"/><stop offset="100%" stop-color="#0a1020" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="1800" height="1714" fill="url(#bg)"/>
+<ellipse cx="900" cy="110" rx="900" ry="700" fill="url(#glow)"/>
+<g stroke="#2b3f63" stroke-width="1" opacity="0.16">
+<line x1="0" y1="0" x2="0" y2="1714"/>
+<line x1="50" y1="0" x2="50" y2="1714"/>
+<line x1="100" y1="0" x2="100" y2="1714"/>
+<line x1="150" y1="0" x2="150" y2="1714"/>
+<line x1="200" y1="0" x2="200" y2="1714"/>
+<line x1="250" y1="0" x2="250" y2="1714"/>
+<line x1="300" y1="0" x2="300" y2="1714"/>
+<line x1="350" y1="0" x2="350" y2="1714"/>
+<line x1="400" y1="0" x2="400" y2="1714"/>
+<line x1="450" y1="0" x2="450" y2="1714"/>
+<line x1="500" y1="0" x2="500" y2="1714"/>
+<line x1="550" y1="0" x2="550" y2="1714"/>
+<line x1="600" y1="0" x2="600" y2="1714"/>
+<line x1="650" y1="0" x2="650" y2="1714"/>
+<line x1="700" y1="0" x2="700" y2="1714"/>
+<line x1="750" y1="0" x2="750" y2="1714"/>
+<line x1="800" y1="0" x2="800" y2="1714"/>
+<line x1="850" y1="0" x2="850" y2="1714"/>
+<line x1="900" y1="0" x2="900" y2="1714"/>
+<line x1="950" y1="0" x2="950" y2="1714"/>
+<line x1="1000" y1="0" x2="1000" y2="1714"/>
+<line x1="1050" y1="0" x2="1050" y2="1714"/>
+<line x1="1100" y1="0" x2="1100" y2="1714"/>
+<line x1="1150" y1="0" x2="1150" y2="1714"/>
+<line x1="1200" y1="0" x2="1200" y2="1714"/>
+<line x1="1250" y1="0" x2="1250" y2="1714"/>
+<line x1="1300" y1="0" x2="1300" y2="1714"/>
+<line x1="1350" y1="0" x2="1350" y2="1714"/>
+<line x1="1400" y1="0" x2="1400" y2="1714"/>
+<line x1="1450" y1="0" x2="1450" y2="1714"/>
+<line x1="1500" y1="0" x2="1500" y2="1714"/>
+<line x1="1550" y1="0" x2="1550" y2="1714"/>
+<line x1="1600" y1="0" x2="1600" y2="1714"/>
+<line x1="1650" y1="0" x2="1650" y2="1714"/>
+<line x1="1700" y1="0" x2="1700" y2="1714"/>
+<line x1="1750" y1="0" x2="1750" y2="1714"/>
+<line x1="1800" y1="0" x2="1800" y2="1714"/>
+<line x1="0" y1="0" x2="1800" y2="0"/>
+<line x1="0" y1="100" x2="1800" y2="100"/>
+<line x1="0" y1="200" x2="1800" y2="200"/>
+<line x1="0" y1="300" x2="1800" y2="300"/>
+<line x1="0" y1="400" x2="1800" y2="400"/>
+<line x1="0" y1="500" x2="1800" y2="500"/>
+<line x1="0" y1="600" x2="1800" y2="600"/>
+<line x1="0" y1="700" x2="1800" y2="700"/>
+<line x1="0" y1="800" x2="1800" y2="800"/>
+<line x1="0" y1="900" x2="1800" y2="900"/>
+<line x1="0" y1="1000" x2="1800" y2="1000"/>
+<line x1="0" y1="1100" x2="1800" y2="1100"/>
+<line x1="0" y1="1200" x2="1800" y2="1200"/>
+<line x1="0" y1="1300" x2="1800" y2="1300"/>
+<line x1="0" y1="1400" x2="1800" y2="1400"/>
+<line x1="0" y1="1500" x2="1800" y2="1500"/>
+<line x1="0" y1="1600" x2="1800" y2="1600"/>
+<line x1="0" y1="1700" x2="1800" y2="1700"/>
+</g>
+<text x="64" y="112" font-family="Microsoft YaHei" font-size="52" font-weight="700" fill="#e8eefb" letter-spacing="2">能源经济分析与决策知识系统</text>
+<text x="64" y="158" font-family="Microsoft YaHei" font-size="19" fill="#8ba0c2" letter-spacing="1">12 个研究域 × 4 个分析层次 × 8 层证据体系　·　碳排放是结果变量模块（05），不是系统全部</text>
+<rect x="64" y="182" width="150" height="5" rx="2.5" fill="#38bdf8"/>
+<rect x="64" y="182" width="430" height="5" rx="2.5" fill="#38bdf8" opacity="0.18"/>
+<rect x="64" y="210" width="140" height="42" rx="21" fill="#152441" stroke="#2f4570"/>
+<text x="90" y="241" font-family="Microsoft YaHei" font-size="26" font-weight="700" fill="#7dd3fc">12</text>
+<text x="129" y="239" font-family="Microsoft YaHei" font-size="15" fill="#8ba0c2">研究域</text>
+<rect x="216" y="210" width="140" height="42" rx="21" fill="#152441" stroke="#2f4570"/>
+<text x="242" y="241" font-family="Microsoft YaHei" font-size="26" font-weight="700" fill="#7dd3fc">4</text>
+<text x="266" y="239" font-family="Microsoft YaHei" font-size="15" fill="#8ba0c2">分析层次</text>
+<rect x="368" y="210" width="169" height="42" rx="21" fill="#152441" stroke="#2f4570"/>
+<text x="394" y="241" font-family="Microsoft YaHei" font-size="26" font-weight="700" fill="#7dd3fc">107</text>
+<text x="448" y="239" font-family="Microsoft YaHei" font-size="15" fill="#8ba0c2">研究问题</text>
+<rect x="550" y="210" width="169" height="42" rx="21" fill="#152441" stroke="#2f4570"/>
+<text x="576" y="241" font-family="Microsoft YaHei" font-size="26" font-weight="700" fill="#7dd3fc">307</text>
+<text x="630" y="239" font-family="Microsoft YaHei" font-size="15" fill="#8ba0c2">可算指标</text>
+<rect x="732" y="210" width="140" height="42" rx="21" fill="#152441" stroke="#2f4570"/>
+<text x="758" y="241" font-family="Microsoft YaHei" font-size="26" font-weight="700" fill="#7dd3fc">30</text>
+<text x="797" y="239" font-family="Microsoft YaHei" font-size="15" fill="#8ba0c2">数据集</text>
+<rect x="884" y="210" width="125" height="42" rx="21" fill="#152441" stroke="#2f4570"/>
+<text x="910" y="241" font-family="Microsoft YaHei" font-size="26" font-weight="700" fill="#7dd3fc">22</text>
+<text x="949" y="239" font-family="Microsoft YaHei" font-size="15" fill="#8ba0c2">模型</text>
+<rect x="1021" y="210" width="125" height="42" rx="21" fill="#152441" stroke="#2f4570"/>
+<text x="1047" y="241" font-family="Microsoft YaHei" font-size="26" font-weight="700" fill="#7dd3fc">8</text>
+<text x="1071" y="239" font-family="Microsoft YaHei" font-size="15" fill="#8ba0c2">层证据</text>
+<text x="1736" y="112" text-anchor="end" font-family="Microsoft YaHei" font-size="24" font-weight="700" fill="#34d399">v4</text>
+<text x="1736" y="140" text-anchor="end" font-family="Microsoft YaHei" font-size="15" fill="#8ba0c2">建立 2026-10-30　·　与 index.html 同源生成</text>
+<text x="64" y="378" font-family="Microsoft YaHei" font-size="19" font-weight="600" fill="#9db4d6">研究域 ↓　×　分析层次 →</text>
+<text x="523" y="400" text-anchor="middle" font-family="Microsoft YaHei" font-size="17" font-weight="700" fill="#38bdf8">L1 事实描述</text>
+<text x="523" y="420" text-anchor="middle" font-family="Microsoft YaHei" font-size="12.5" fill="#8ba0c2">现在是什么状态</text>
+<text x="842" y="400" text-anchor="middle" font-family="Microsoft YaHei" font-size="17" font-weight="700" fill="#a78bfa">L2 机制解释</text>
+<text x="842" y="420" text-anchor="middle" font-family="Microsoft YaHei" font-size="12.5" fill="#8ba0c2">为什么会形成这种状态</text>
+<text x="1161" y="400" text-anchor="middle" font-family="Microsoft YaHei" font-size="17" font-weight="700" fill="#fbbf24">L3 影响评估</text>
+<text x="1161" y="420" text-anchor="middle" font-family="Microsoft YaHei" font-size="12.5" fill="#8ba0c2">这种状态产生了什么后果</text>
+<text x="1480" y="400" text-anchor="middle" font-family="Microsoft YaHei" font-size="17" font-weight="700" fill="#34d399">L4 未来判断</text>
+<text x="1480" y="420" text-anchor="middle" font-family="Microsoft YaHei" font-size="12.5" fill="#8ba0c2">未来会如何、应当如何调整</text>
+<text x="1688" y="410" text-anchor="middle" font-family="Microsoft YaHei" font-size="14" fill="#8ba0c2">合计</text>
+<rect x="64" y="436" width="288" height="52" rx="10" fill="#101c34" fill-opacity="0.55" stroke="#fbbf24" stroke-opacity="0.25"/>
+<text x="78" y="462" font-family="Microsoft YaHei" font-size="18" font-weight="700" fill="#fbbf24">01</text>
+<text x="114" y="462" font-family="Microsoft YaHei" font-size="17" font-weight="600" fill="#e8eefb">能源供给</text>
+<text x="114" y="481" font-family="Microsoft YaHei" font-size="12.5" fill="#8ba0c2">能源从哪里来</text>
+<rect x="368" y="436" width="311" height="52" rx="10" fill="#fbbf24" fill-opacity="0.370" stroke="#fbbf24" stroke-opacity="0.22"/>
+<text x="523" y="472" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">4</text>
+<rect x="687" y="436" width="311" height="52" rx="10" fill="#fbbf24" fill-opacity="0.220" stroke="#fbbf24" stroke-opacity="0.22"/>
+<text x="842" y="472" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">2</text>
+<rect x="1006" y="436" width="311" height="52" rx="10" fill="#fbbf24" fill-opacity="0.145" stroke="#fbbf24" stroke-opacity="0.22"/>
+<text x="1161" y="472" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">1</text>
+<rect x="1325" y="436" width="311" height="52" rx="10" fill="#fbbf24" fill-opacity="0.145" stroke="#fbbf24" stroke-opacity="0.22"/>
+<text x="1480" y="472" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">1</text>
+<rect x="1646" y="436" width="84" height="52" rx="10" fill="#16274a" stroke="#2f4570"/>
+<text x="1688" y="472" text-anchor="middle" font-family="Microsoft YaHei" font-size="20" font-weight="700" fill="#7dd3fc">8</text>
+<rect x="64" y="498" width="288" height="52" rx="10" fill="#101c34" fill-opacity="0.55" stroke="#fb923c" stroke-opacity="0.25"/>
+<text x="78" y="524" font-family="Microsoft YaHei" font-size="18" font-weight="700" fill="#fb923c">02</text>
+<text x="114" y="524" font-family="Microsoft YaHei" font-size="17" font-weight="600" fill="#e8eefb">能源需求</text>
+<text x="114" y="543" font-family="Microsoft YaHei" font-size="12.5" fill="#8ba0c2">能源被谁消费</text>
+<rect x="368" y="498" width="311" height="52" rx="10" fill="#fb923c" fill-opacity="0.295" stroke="#fb923c" stroke-opacity="0.22"/>
+<text x="523" y="534" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">3</text>
+<rect x="687" y="498" width="311" height="52" rx="10" fill="#fb923c" fill-opacity="0.370" stroke="#fb923c" stroke-opacity="0.22"/>
+<text x="842" y="534" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">4</text>
+<rect x="1006" y="498" width="311" height="52" rx="10" fill="#fb923c" fill-opacity="0.145" stroke="#fb923c" stroke-opacity="0.22"/>
+<text x="1161" y="534" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">1</text>
+<rect x="1325" y="498" width="311" height="52" rx="10" fill="#fb923c" fill-opacity="0.145" stroke="#fb923c" stroke-opacity="0.22"/>
+<text x="1480" y="534" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">1</text>
+<rect x="1646" y="498" width="84" height="52" rx="10" fill="#16274a" stroke="#2f4570"/>
+<text x="1688" y="534" text-anchor="middle" font-family="Microsoft YaHei" font-size="20" font-weight="700" fill="#7dd3fc">9</text>
+<rect x="64" y="560" width="288" height="52" rx="10" fill="#101c34" fill-opacity="0.55" stroke="#f97316" stroke-opacity="0.25"/>
+<text x="78" y="586" font-family="Microsoft YaHei" font-size="18" font-weight="700" fill="#f97316">03</text>
+<text x="114" y="586" font-family="Microsoft YaHei" font-size="17" font-weight="600" fill="#e8eefb">能源市场与价格</text>
+<text x="114" y="605" font-family="Microsoft YaHei" font-size="12.5" fill="#8ba0c2">能源如何定价交易</text>
+<rect x="368" y="560" width="311" height="52" rx="10" fill="#f97316" fill-opacity="0.295" stroke="#f97316" stroke-opacity="0.22"/>
+<text x="523" y="596" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">3</text>
+<rect x="687" y="560" width="311" height="52" rx="10" fill="#f97316" fill-opacity="0.295" stroke="#f97316" stroke-opacity="0.22"/>
+<text x="842" y="596" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">3</text>
+<rect x="1006" y="560" width="311" height="52" rx="10" fill="#f97316" fill-opacity="0.145" stroke="#f97316" stroke-opacity="0.22"/>
+<text x="1161" y="596" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">1</text>
+<rect x="1325" y="560" width="311" height="52" rx="10" fill="#f97316" fill-opacity="0.145" stroke="#f97316" stroke-opacity="0.22"/>
+<text x="1480" y="596" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">1</text>
+<rect x="1646" y="560" width="84" height="52" rx="10" fill="#16274a" stroke="#2f4570"/>
+<text x="1688" y="596" text-anchor="middle" font-family="Microsoft YaHei" font-size="20" font-weight="700" fill="#7dd3fc">8</text>
+<rect x="64" y="622" width="288" height="52" rx="10" fill="#101c34" fill-opacity="0.55" stroke="#fb7185" stroke-opacity="0.25"/>
+<text x="78" y="648" font-family="Microsoft YaHei" font-size="18" font-weight="700" fill="#fb7185">04</text>
+<text x="114" y="648" font-family="Microsoft YaHei" font-size="17" font-weight="600" fill="#e8eefb">能源产业</text>
+<text x="114" y="667" font-family="Microsoft YaHei" font-size="12.5" fill="#8ba0c2">转型如何改变产业结构</text>
+<rect x="368" y="622" width="311" height="52" rx="10" fill="#fb7185" fill-opacity="0.295" stroke="#fb7185" stroke-opacity="0.22"/>
+<text x="523" y="658" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">3</text>
+<rect x="687" y="622" width="311" height="52" rx="10" fill="#fb7185" fill-opacity="0.295" stroke="#fb7185" stroke-opacity="0.22"/>
+<text x="842" y="658" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">3</text>
+<rect x="1006" y="622" width="311" height="52" rx="10" fill="#fb7185" fill-opacity="0.220" stroke="#fb7185" stroke-opacity="0.22"/>
+<text x="1161" y="658" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">2</text>
+<rect x="1325" y="622" width="311" height="52" rx="10" fill="#fb7185" fill-opacity="0.145" stroke="#fb7185" stroke-opacity="0.22"/>
+<text x="1480" y="658" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">1</text>
+<rect x="1646" y="622" width="84" height="52" rx="10" fill="#16274a" stroke="#2f4570"/>
+<text x="1688" y="658" text-anchor="middle" font-family="Microsoft YaHei" font-size="20" font-weight="700" fill="#7dd3fc">9</text>
+<rect x="64" y="684" width="288" height="52" rx="10" fill="#101c34" fill-opacity="0.55" stroke="#c084fc" stroke-opacity="0.25"/>
+<text x="78" y="710" font-family="Microsoft YaHei" font-size="18" font-weight="700" fill="#c084fc">05</text>
+<text x="114" y="710" font-family="Microsoft YaHei" font-size="17" font-weight="600" fill="#e8eefb">能源与碳排放</text>
+<text x="114" y="729" font-family="Microsoft YaHei" font-size="12.5" fill="#8ba0c2">经济活动产生多少环境成本</text>
+<rect x="368" y="684" width="311" height="52" rx="10" fill="#c084fc" fill-opacity="0.295" stroke="#c084fc" stroke-opacity="0.22"/>
+<text x="523" y="720" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">3</text>
+<rect x="687" y="684" width="311" height="52" rx="10" fill="#c084fc" fill-opacity="0.370" stroke="#c084fc" stroke-opacity="0.22"/>
+<text x="842" y="720" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">4</text>
+<rect x="1006" y="684" width="311" height="52" rx="10" fill="#c084fc" fill-opacity="0.145" stroke="#c084fc" stroke-opacity="0.22"/>
+<text x="1161" y="720" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">1</text>
+<rect x="1325" y="684" width="311" height="52" rx="10" fill="#c084fc" fill-opacity="0.145" stroke="#c084fc" stroke-opacity="0.22"/>
+<text x="1480" y="720" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">1</text>
+<rect x="1646" y="684" width="84" height="52" rx="10" fill="#16274a" stroke="#2f4570"/>
+<text x="1688" y="720" text-anchor="middle" font-family="Microsoft YaHei" font-size="20" font-weight="700" fill="#7dd3fc">9</text>
+<rect x="64" y="746" width="288" height="52" rx="10" fill="#101c34" fill-opacity="0.55" stroke="#818cf8" stroke-opacity="0.25"/>
+<text x="78" y="772" font-family="Microsoft YaHei" font-size="18" font-weight="700" fill="#818cf8">06</text>
+<text x="114" y="772" font-family="Microsoft YaHei" font-size="17" font-weight="600" fill="#e8eefb">能源与宏观经济</text>
+<text x="114" y="791" font-family="Microsoft YaHei" font-size="12.5" fill="#8ba0c2">能源如何影响整个经济</text>
+<rect x="368" y="746" width="311" height="52" rx="10" fill="#818cf8" fill-opacity="0.145" stroke="#818cf8" stroke-opacity="0.22"/>
+<text x="523" y="782" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">1</text>
+<rect x="687" y="746" width="311" height="52" rx="10" fill="#818cf8" fill-opacity="0.220" stroke="#818cf8" stroke-opacity="0.22"/>
+<text x="842" y="782" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">2</text>
+<rect x="1006" y="746" width="311" height="52" rx="10" fill="#818cf8" fill-opacity="0.520" stroke="#818cf8" stroke-opacity="0.22"/>
+<text x="1161" y="782" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">6</text>
+<rect x="1325" y="746" width="311" height="52" rx="10" fill="#818cf8" fill-opacity="0.145" stroke="#818cf8" stroke-opacity="0.22"/>
+<text x="1480" y="782" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">1</text>
+<rect x="1646" y="746" width="84" height="52" rx="10" fill="#16274a" stroke="#2f4570"/>
+<text x="1688" y="782" text-anchor="middle" font-family="Microsoft YaHei" font-size="20" font-weight="700" fill="#7dd3fc">10</text>
+<rect x="64" y="808" width="288" height="52" rx="10" fill="#101c34" fill-opacity="0.55" stroke="#60a5fa" stroke-opacity="0.25"/>
+<text x="78" y="834" font-family="Microsoft YaHei" font-size="18" font-weight="700" fill="#60a5fa">07</text>
+<text x="114" y="834" font-family="Microsoft YaHei" font-size="17" font-weight="600" fill="#e8eefb">能源安全</text>
+<text x="114" y="853" font-family="Microsoft YaHei" font-size="12.5" fill="#8ba0c2">能源体系是否稳定</text>
+<rect x="368" y="808" width="311" height="52" rx="10" fill="#60a5fa" fill-opacity="0.370" stroke="#60a5fa" stroke-opacity="0.22"/>
+<text x="523" y="844" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">4</text>
+<rect x="687" y="808" width="311" height="52" rx="10" fill="#60a5fa" fill-opacity="0.295" stroke="#60a5fa" stroke-opacity="0.22"/>
+<text x="842" y="844" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">3</text>
+<rect x="1006" y="808" width="311" height="52" rx="10" fill="#60a5fa" fill-opacity="0.145" stroke="#60a5fa" stroke-opacity="0.22"/>
+<text x="1161" y="844" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">1</text>
+<rect x="1325" y="808" width="311" height="52" rx="10" fill="#60a5fa" fill-opacity="0.145" stroke="#60a5fa" stroke-opacity="0.22"/>
+<text x="1480" y="844" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">1</text>
+<rect x="1646" y="808" width="84" height="52" rx="10" fill="#16274a" stroke="#2f4570"/>
+<text x="1688" y="844" text-anchor="middle" font-family="Microsoft YaHei" font-size="20" font-weight="700" fill="#7dd3fc">9</text>
+<rect x="64" y="870" width="288" height="52" rx="10" fill="#101c34" fill-opacity="0.55" stroke="#22d3ee" stroke-opacity="0.25"/>
+<text x="78" y="896" font-family="Microsoft YaHei" font-size="18" font-weight="700" fill="#22d3ee">08</text>
+<text x="114" y="896" font-family="Microsoft YaHei" font-size="17" font-weight="600" fill="#e8eefb">能源技术</text>
+<text x="114" y="915" font-family="Microsoft YaHei" font-size="12.5" fill="#8ba0c2">未来能源体系如何变化</text>
+<rect x="368" y="870" width="311" height="52" rx="10" fill="#22d3ee" fill-opacity="0.295" stroke="#22d3ee" stroke-opacity="0.22"/>
+<text x="523" y="906" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">3</text>
+<rect x="687" y="870" width="311" height="52" rx="10" fill="#22d3ee" fill-opacity="0.295" stroke="#22d3ee" stroke-opacity="0.22"/>
+<text x="842" y="906" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">3</text>
+<rect x="1006" y="870" width="311" height="52" rx="10" fill="#22d3ee" fill-opacity="0.145" stroke="#22d3ee" stroke-opacity="0.22"/>
+<text x="1161" y="906" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">1</text>
+<rect x="1325" y="870" width="311" height="52" rx="10" fill="#22d3ee" fill-opacity="0.220" stroke="#22d3ee" stroke-opacity="0.22"/>
+<text x="1480" y="906" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">2</text>
+<rect x="1646" y="870" width="84" height="52" rx="10" fill="#16274a" stroke="#2f4570"/>
+<text x="1688" y="906" text-anchor="middle" font-family="Microsoft YaHei" font-size="20" font-weight="700" fill="#7dd3fc">9</text>
+<rect x="64" y="932" width="288" height="52" rx="10" fill="#101c34" fill-opacity="0.55" stroke="#2dd4bf" stroke-opacity="0.25"/>
+<text x="78" y="958" font-family="Microsoft YaHei" font-size="18" font-weight="700" fill="#2dd4bf">09</text>
+<text x="114" y="958" font-family="Microsoft YaHei" font-size="17" font-weight="600" fill="#e8eefb">能源政策与制度</text>
+<text x="114" y="977" font-family="Microsoft YaHei" font-size="12.5" fill="#8ba0c2">政府如何改变能源经济</text>
+<rect x="368" y="932" width="311" height="52" rx="10" fill="#2dd4bf" fill-opacity="0.220" stroke="#2dd4bf" stroke-opacity="0.22"/>
+<text x="523" y="968" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">2</text>
+<rect x="687" y="932" width="311" height="52" rx="10" fill="#2dd4bf" fill-opacity="0.295" stroke="#2dd4bf" stroke-opacity="0.22"/>
+<text x="842" y="968" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">3</text>
+<rect x="1006" y="932" width="311" height="52" rx="10" fill="#2dd4bf" fill-opacity="0.295" stroke="#2dd4bf" stroke-opacity="0.22"/>
+<text x="1161" y="968" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">3</text>
+<rect x="1325" y="932" width="311" height="52" rx="10" fill="#2dd4bf" fill-opacity="0.145" stroke="#2dd4bf" stroke-opacity="0.22"/>
+<text x="1480" y="968" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">1</text>
+<rect x="1646" y="932" width="84" height="52" rx="10" fill="#16274a" stroke="#2f4570"/>
+<text x="1688" y="968" text-anchor="middle" font-family="Microsoft YaHei" font-size="20" font-weight="700" fill="#7dd3fc">9</text>
+<rect x="64" y="994" width="288" height="52" rx="10" fill="#101c34" fill-opacity="0.55" stroke="#34d399" stroke-opacity="0.25"/>
+<text x="78" y="1020" font-family="Microsoft YaHei" font-size="18" font-weight="700" fill="#34d399">10</text>
+<text x="114" y="1020" font-family="Microsoft YaHei" font-size="17" font-weight="600" fill="#e8eefb">区域能源经济</text>
+<text x="114" y="1039" font-family="Microsoft YaHei" font-size="12.5" fill="#8ba0c2">不同地区差异何在</text>
+<rect x="368" y="994" width="311" height="52" rx="10" fill="#34d399" fill-opacity="0.295" stroke="#34d399" stroke-opacity="0.22"/>
+<text x="523" y="1030" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">3</text>
+<rect x="687" y="994" width="311" height="52" rx="10" fill="#34d399" fill-opacity="0.295" stroke="#34d399" stroke-opacity="0.22"/>
+<text x="842" y="1030" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">3</text>
+<rect x="1006" y="994" width="311" height="52" rx="10" fill="#34d399" fill-opacity="0.145" stroke="#34d399" stroke-opacity="0.22"/>
+<text x="1161" y="1030" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">1</text>
+<rect x="1325" y="994" width="311" height="52" rx="10" fill="#34d399" fill-opacity="0.145" stroke="#34d399" stroke-opacity="0.22"/>
+<text x="1480" y="1030" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">1</text>
+<rect x="1646" y="994" width="84" height="52" rx="10" fill="#16274a" stroke="#2f4570"/>
+<text x="1688" y="1030" text-anchor="middle" font-family="Microsoft YaHei" font-size="20" font-weight="700" fill="#7dd3fc">8</text>
+<rect x="64" y="1056" width="288" height="52" rx="10" fill="#101c34" fill-opacity="0.55" stroke="#a3e635" stroke-opacity="0.25"/>
+<text x="78" y="1082" font-family="Microsoft YaHei" font-size="18" font-weight="700" fill="#a3e635">11</text>
+<text x="114" y="1082" font-family="Microsoft YaHei" font-size="17" font-weight="600" fill="#e8eefb">国际能源经济</text>
+<text x="114" y="1101" font-family="Microsoft YaHei" font-size="12.5" fill="#8ba0c2">全球格局如何变化</text>
+<rect x="368" y="1056" width="311" height="52" rx="10" fill="#a3e635" fill-opacity="0.295" stroke="#a3e635" stroke-opacity="0.22"/>
+<text x="523" y="1092" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">3</text>
+<rect x="687" y="1056" width="311" height="52" rx="10" fill="#a3e635" fill-opacity="0.295" stroke="#a3e635" stroke-opacity="0.22"/>
+<text x="842" y="1092" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">3</text>
+<rect x="1006" y="1056" width="311" height="52" rx="10" fill="#a3e635" fill-opacity="0.220" stroke="#a3e635" stroke-opacity="0.22"/>
+<text x="1161" y="1092" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">2</text>
+<rect x="1325" y="1056" width="311" height="52" rx="10" fill="#a3e635" fill-opacity="0.145" stroke="#a3e635" stroke-opacity="0.22"/>
+<text x="1480" y="1092" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">1</text>
+<rect x="1646" y="1056" width="84" height="52" rx="10" fill="#16274a" stroke="#2f4570"/>
+<text x="1688" y="1092" text-anchor="middle" font-family="Microsoft YaHei" font-size="20" font-weight="700" fill="#7dd3fc">9</text>
+<rect x="64" y="1118" width="288" height="52" rx="10" fill="#101c34" fill-opacity="0.55" stroke="#84cc16" stroke-opacity="0.25"/>
+<text x="78" y="1144" font-family="Microsoft YaHei" font-size="18" font-weight="700" fill="#84cc16">12</text>
+<text x="114" y="1144" font-family="Microsoft YaHei" font-size="17" font-weight="600" fill="#e8eefb">未来预测与情景</text>
+<text x="114" y="1163" font-family="Microsoft YaHei" font-size="12.5" fill="#8ba0c2">将走向哪里</text>
+<rect x="368" y="1118" width="311" height="52" rx="10" fill="#84cc16" fill-opacity="0.145" stroke="#84cc16" stroke-opacity="0.22"/>
+<text x="523" y="1154" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">1</text>
+<rect x="687" y="1118" width="311" height="52" rx="10" fill="#84cc16" fill-opacity="0.145" stroke="#84cc16" stroke-opacity="0.22"/>
+<text x="842" y="1154" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">1</text>
+<rect x="1006" y="1118" width="311" height="52" rx="10" fill="#84cc16" fill-opacity="0.145" stroke="#84cc16" stroke-opacity="0.22"/>
+<text x="1161" y="1154" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">1</text>
+<rect x="1325" y="1118" width="311" height="52" rx="10" fill="#84cc16" fill-opacity="0.550" stroke="#84cc16" stroke-opacity="0.22"/>
+<text x="1480" y="1154" text-anchor="middle" font-family="Microsoft YaHei" font-size="21" font-weight="700" fill="#e8eefb">7</text>
+<rect x="1646" y="1118" width="84" height="52" rx="10" fill="#16274a" stroke="#2f4570"/>
+<text x="1688" y="1154" text-anchor="middle" font-family="Microsoft YaHei" font-size="20" font-weight="700" fill="#7dd3fc">10</text>
+<text x="64" y="1202" font-family="Microsoft YaHei" font-size="13" fill="#5d7398">格子数值 = 该单元格下的研究问题条数；48 个单元格在构建期断言校验，不允许为空</text>
+<line x1="64" y1="1218" x2="1736" y2="1218" stroke="#2c4064" stroke-width="2"/>
+<text x="64" y="1250" font-family="Microsoft YaHei" font-size="18" font-weight="600" fill="#9db4d6">四个层次的方法论要点</text>
+<rect x="68" y="1282" width="10" height="10" rx="5" fill="#38bdf8"/>
+<text x="88" y="1292" font-family="Microsoft YaHei" font-size="16" font-weight="700" fill="#38bdf8">L1 事实描述</text>
+<text x="88" y="1312" font-family="Microsoft YaHei" font-size="13.5" fill="#8ba0c2">33 问　·　现在是什么状态</text>
+<rect x="68" y="1334" width="10" height="10" rx="5" fill="#a78bfa"/>
+<text x="88" y="1344" font-family="Microsoft YaHei" font-size="16" font-weight="700" fill="#a78bfa">L2 机制解释</text>
+<text x="88" y="1364" font-family="Microsoft YaHei" font-size="13.5" fill="#8ba0c2">34 问　·　为什么会形成这种状态</text>
+<rect x="68" y="1386" width="10" height="10" rx="5" fill="#fbbf24"/>
+<text x="88" y="1396" font-family="Microsoft YaHei" font-size="16" font-weight="700" fill="#fbbf24">L3 影响评估</text>
+<text x="88" y="1416" font-family="Microsoft YaHei" font-size="13.5" fill="#8ba0c2">21 问　·　这种状态产生了什么后果</text>
+<rect x="68" y="1438" width="10" height="10" rx="5" fill="#34d399"/>
+<text x="88" y="1448" font-family="Microsoft YaHei" font-size="16" font-weight="700" fill="#34d399">L4 未来判断</text>
+<text x="88" y="1468" font-family="Microsoft YaHei" font-size="13.5" fill="#8ba0c2">19 问　·　未来会如何、应当如何调整</text>
+<text x="584" y="1250" font-family="Microsoft YaHei" font-size="18" font-weight="600" fill="#9db4d6">可执行状态</text>
+<rect x="584.0" y="1268" width="119.6" height="16" rx="4" fill="#34d399"/>
+<rect x="703.6" y="1268" width="412.7" height="16" rx="4" fill="#fbbf24"/>
+<rect x="1116.3" y="1268" width="107.7" height="16" rx="4" fill="#fb7185"/>
+<circle cx="589" cy="1308" r="5" fill="#34d399"/>
+<text x="602" y="1313" font-family="Microsoft YaHei" font-size="14.5" fill="#8ba0c2">可算 20 条（19%）</text>
+<circle cx="589" cy="1334" r="5" fill="#fbbf24"/>
+<text x="602" y="1339" font-family="Microsoft YaHei" font-size="14.5" fill="#8ba0c2">部分可算 69 条（64%）</text>
+<circle cx="589" cy="1360" r="5" fill="#fb7185"/>
+<text x="602" y="1365" font-family="Microsoft YaHei" font-size="14.5" fill="#8ba0c2">缺关键数据 18 条（17%）</text>
+<text x="584" y="1388" font-family="Microsoft YaHei" font-size="13" fill="#5d7398">「可算」只表示数据有公开来源，不表示已算出结果；「缺关键数据」是真实约束，不是框架缺陷</text>
+<text x="1304" y="1250" font-family="Microsoft YaHei" font-size="18" font-weight="600" fill="#9db4d6">八层证据体系</text>
+<text x="1304" y="1278" font-family="Microsoft YaHei" font-size="14" font-weight="700" fill="#38bdf8">E1</text>
+<text x="1344" y="1278" font-family="Microsoft YaHei" font-size="13.5" fill="#8ba0c2">统计数据</text>
+<text x="1304" y="1301" font-family="Microsoft YaHei" font-size="14" font-weight="700" fill="#22d3ee">E2</text>
+<text x="1344" y="1301" font-family="Microsoft YaHei" font-size="13.5" fill="#8ba0c2">核算方法</text>
+<text x="1304" y="1324" font-family="Microsoft YaHei" font-size="14" font-weight="700" fill="#a78bfa">E3</text>
+<text x="1344" y="1324" font-family="Microsoft YaHei" font-size="13.5" fill="#8ba0c2">经济模型</text>
+<text x="1304" y="1347" font-family="Microsoft YaHei" font-size="14" font-weight="700" fill="#f472b6">E4</text>
+<text x="1344" y="1347" font-family="Microsoft YaHei" font-size="13.5" fill="#8ba0c2">因果识别</text>
+<text x="1304" y="1370" font-family="Microsoft YaHei" font-size="14" font-weight="700" fill="#60a5fa">E5</text>
+<text x="1344" y="1370" font-family="Microsoft YaHei" font-size="13.5" fill="#8ba0c2">空间分析</text>
+<text x="1304" y="1393" font-family="Microsoft YaHei" font-size="14" font-weight="700" fill="#fbbf24">E6</text>
+<text x="1344" y="1393" font-family="Microsoft YaHei" font-size="13.5" fill="#8ba0c2">不确定性</text>
+<text x="1304" y="1416" font-family="Microsoft YaHei" font-size="14" font-weight="700" fill="#a3e635">E7</text>
+<text x="1344" y="1416" font-family="Microsoft YaHei" font-size="13.5" fill="#8ba0c2">国际比较</text>
+<text x="1304" y="1439" font-family="Microsoft YaHei" font-size="14" font-weight="700" fill="#34d399">E8</text>
+<text x="1344" y="1439" font-family="Microsoft YaHei" font-size="13.5" fill="#8ba0c2">情景预测</text>
+<line x1="64" y1="1618" x2="1736" y2="1618" stroke="#2c4064" stroke-width="2"/>
+<text x="64" y="1648" font-family="Microsoft YaHei" font-size="14" font-weight="600" fill="#7dd3fc">v4 数据锚点（与 index.html 同源）</text>
+<text x="64" y="1672" font-family="Consolas,Microsoft YaHei" font-size="13.5" fill="#9db4d6">107 条问题 · 307 个指标 · 30 个数据集 · 22 个模型 · 8 层证据 · 碳子模块 137 对象 / 87 参数 / 63 缺口</text>
+<text x="64" y="1696" font-family="Microsoft YaHei" font-size="12.5" fill="#5d7398">碳排放核算子模块见 carbon.html 与 framework-map.svg｜证据链与逐参数台账见碳子模块「参数证据台账」页</text>
+</svg>

@@ -1,0 +1,909 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>城市碳核算与政策分析框架 · 交互地图</title>
+<style>
+  :root{
+    --bg:#080e1c; --bg2:#0d1730; --card:#121f3a; --card2:#0e1830;
+    --line:#26375a; --txt:#e8eefb; --dim:#8ba0c2; --dim2:#5e7ba0;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:radial-gradient(900px 500px at 50% -100px,rgba(30,64,175,.35),transparent 70%),
+               linear-gradient(160deg,var(--bg),var(--bg2) 60%,#101c36);
+    color:var(--txt);
+    font-family:"Microsoft YaHei","PingFang SC","Hiragino Sans GB",system-ui,sans-serif;
+    min-height:100vh; padding-bottom:60px;
+  }
+  /* ---------- 顶栏 ---------- */
+  header{padding:26px 22px 0;max-width:1720px;margin:0 auto}
+  h1{font-size:30px;letter-spacing:1px;font-weight:700}
+  .sub{color:var(--dim);font-size:14px;margin-top:6px;letter-spacing:.5px}
+  .stats{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0 0}
+  .pill{background:#152441;border:1px solid var(--line);border-radius:20px;
+        padding:6px 15px;font-size:13px;color:var(--dim);display:flex;gap:7px;align-items:center}
+  .pill b{color:#7dd3fc;font-size:16px;font-weight:700}
+  /* ---------- 层按钮 ---------- */
+  nav{max-width:1720px;margin:16px auto 0;padding:0 22px;
+      display:flex;gap:9px;flex-wrap:wrap;position:sticky;top:0;z-index:30;
+      background:linear-gradient(#080e1c 72%,rgba(8,14,28,0));padding-top:12px;padding-bottom:14px}
+  .lbtn{cursor:pointer;border:1px solid var(--line);background:#101c34;color:var(--txt);
+        border-radius:11px;padding:9px 15px;font-size:14px;font-family:inherit;
+        display:flex;gap:9px;align-items:center;transition:.15s;white-space:nowrap}
+  .lbtn:hover{border-color:#3f5c8f;transform:translateY(-1px)}
+  .lbtn .no{font-size:12px;font-weight:700;opacity:.9}
+  .lbtn.on{background:#1a2c4e;border-color:currentColor;box-shadow:0 0 0 1px currentColor inset}
+  /* ---------- 布局 ---------- */
+  .wrap{max-width:1720px;margin:0 auto;padding:0 22px;
+        display:grid;grid-template-columns:minmax(0,1fr) 452px;gap:20px;align-items:start}
+  @media(max-width:1180px){.wrap{grid-template-columns:1fr}}
+  /* ---------- 图 ---------- */
+  .layer{margin-bottom:16px}
+  .lhead{display:flex;align-items:center;gap:12px;padding:10px 4px 10px}
+  .lno{width:44px;height:44px;flex:0 0 44px;border-radius:13px;display:grid;place-items:center;
+       font-weight:700;font-size:19px;border:1.5px solid currentColor;background:rgba(255,255,255,.045)}
+  .lname{font-size:20px;font-weight:700}
+  .lsub{font-size:13px;color:var(--dim);margin-left:2px}
+  .mods{display:grid;gap:10px;
+        grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+  .mods.one{grid-template-columns:1fr}
+  .layer{scroll-margin-top:88px}
+  .mod{background:linear-gradient(150deg,var(--card),var(--card2));
+       border:1px solid var(--line);border-left:3px solid currentColor;
+       border-radius:14px;padding:13px 14px;cursor:pointer;transition:.15s;text-align:left;
+       font-family:inherit;color:var(--txt);width:100%}
+  .mod:hover{border-color:#3f5c8f;border-left-color:currentColor;transform:translateY(-2px);
+             box-shadow:0 10px 24px -12px #000}
+  .mod.on{background:#17305a;box-shadow:0 0 0 1.5px currentColor inset}
+  .mod-h{display:flex;align-items:center;gap:8px;margin-bottom:3px}
+  .mod-h h3{font-size:16px;font-weight:700;flex:1}
+  .rng{font-size:11.5px;color:var(--dim);font-variant-numeric:tabular-nums}
+  .dot{width:8px;height:8px;border-radius:50%;flex:0 0 8px}
+  .chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+  .chip{font-size:12px;padding:3px 7px;border-radius:7px;cursor:pointer;
+        background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);
+        color:#c9d8ef;font-family:inherit;transition:.12s}
+  .chip:hover,.chip:focus-visible{background:rgba(125,211,252,.18);border-color:#7dd3fc;color:#fff;outline:none}
+  .mod:focus-visible,.lbtn:focus-visible{outline:2px solid #7dd3fc;outline-offset:2px}
+  .chip b{opacity:.55;font-weight:400;margin-right:3px;font-variant-numeric:tabular-nums}
+  /* ---------- 右栏 ---------- */
+  aside{position:sticky;top:82px;max-height:calc(100vh - 100px);overflow:auto;
+        background:linear-gradient(165deg,#13203c,#0d172c);border:1px solid var(--line);
+        border-radius:18px;padding:18px}
+  aside::-webkit-scrollbar{width:8px}
+  aside::-webkit-scrollbar-thumb{background:#2b4067;border-radius:4px}
+  .p-kicker{font-size:11.5px;letter-spacing:1.4px;color:var(--dim);text-transform:uppercase}
+  .p-title{font-size:22px;font-weight:700;margin:5px 0 3px}
+  .p-meta{font-size:12.5px;color:var(--dim);display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .tag{font-size:11.5px;padding:2.5px 9px;border-radius:20px;border:1px solid currentColor}
+  .sec{margin-top:16px;border-top:1px solid var(--line);padding-top:13px}
+  .sec-t{font-size:12px;letter-spacing:1px;color:var(--dim);margin-bottom:8px;
+         display:flex;align-items:center;gap:7px}
+  .sec-t::before{content:"";width:3px;height:12px;border-radius:2px;background:currentColor}
+  .first{font-size:14.5px;line-height:1.78;color:#dfe9fa;
+         background:rgba(125,211,252,.07);border:1px solid rgba(125,211,252,.22);
+         border-radius:11px;padding:12px 13px}
+  .formula{font-family:Consolas,"Courier New",monospace;font-size:13.5px;line-height:1.7;
+           background:#0a1424;border:1px solid var(--line);border-radius:10px;
+           padding:11px 13px;color:#a5e3ff;white-space:pre-wrap;word-break:break-word}
+  ul.li{list-style:none;display:grid;gap:7px}
+  ul.li li{font-size:13px;line-height:1.62;color:#c8d7ee;padding-left:18px;position:relative}
+  ul.li li::before{content:"▸";position:absolute;left:2px;opacity:.65}
+  ul.li.gap li::before{content:"○";color:#fbbf24}
+  .spec{font-family:Consolas,monospace;font-size:11.5px;color:#fbbf24;opacity:.95}
+  ul.src li::before{content:"\2197";color:#38bdf8}
+  ul.src a{color:#7dd3fc;text-decoration:none;border-bottom:1px dotted rgba(125,211,252,.4)}
+  ul.src a:hover{color:#bae6fd}
+  ul.src .org{font-size:11.5px;color:#6d86ab;margin-top:2px;display:block}
+  .unit-row{display:flex;gap:10px;font-size:12.5px;padding:6px 0;border-bottom:1px dashed rgba(255,255,255,.07)}
+  .unit-row b{color:#9fc3ee;flex:0 0 118px;font-weight:600}
+  .unit-row span{color:#b9cbe6;line-height:1.55}
+  .unit-row em{color:#5f7599;font-style:normal;flex:0 0 92px}
+  .empty{font-size:13px;color:#5f7599;font-style:italic}
+  .ov-row{display:flex;justify-content:space-between;font-size:13px;padding:6px 0;
+          border-bottom:1px dashed rgba(255,255,255,.07)}
+  .ov-row span:last-child{font-variant-numeric:tabular-nums;color:#9fc3ee}
+  .bar{height:7px;border-radius:4px;background:#1b2b49;overflow:hidden;margin-top:8px;display:flex}
+  .bar i{display:block;height:100%}
+  .legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px;font-size:12px;color:var(--dim)}
+  .legend i{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:5px}
+  .hint{font-size:12px;color:#5f7599;line-height:1.7;margin-top:14px}
+  /* ---------- 搜索 ---------- */
+  .tools{display:flex;gap:9px;align-items:center;margin:0 0 14px;flex-wrap:wrap}
+  .search{flex:1;min-width:200px;background:#101c34;border:1px solid var(--line);
+          border-radius:10px;padding:9px 13px;color:var(--txt);font-size:13.5px;
+          font-family:inherit;outline:none}
+  .search:focus{border-color:#3f5c8f}
+  .fbtn{cursor:pointer;background:#101c34;border:1px solid var(--line);color:var(--dim);
+        border-radius:9px;padding:8px 12px;font-size:12.5px;font-family:inherit}
+  .fbtn.on{color:#7dd3fc;border-color:#3f5c8f;background:#16274a}
+  .hidden{display:none !important}
+  /* ---------- 视图切换 ---------- */
+  .view[hidden]{display:none}
+  .tabs{max-width:1720px;margin:14px auto 0;padding:0 22px;display:flex;gap:8px;flex-wrap:wrap}
+  .tab{cursor:pointer;border:1px solid var(--line);background:#0e1830;color:var(--dim);
+       border-radius:10px;padding:9px 16px;font-size:13.5px;font-family:inherit;transition:.15s}
+  .tab:hover{border-color:#3f5c8f;color:#c9d8ef}
+  .tab.on{background:#17305a;color:#7dd3fc;border-color:#3f5c8f;box-shadow:0 0 0 1px #3f5c8f inset}
+  .card{background:linear-gradient(150deg,var(--card),var(--card2));border:1px solid var(--line);
+        border-radius:14px;padding:16px 18px;margin-bottom:14px}
+  .card h2{font-size:17px;margin-bottom:5px}
+  .card .lead{font-size:13px;color:var(--dim);line-height:1.72;margin-bottom:11px}
+  table.tbl{width:100%;border-collapse:collapse;font-size:13px}
+  table.tbl th,table.tbl td{border-bottom:1px solid rgba(255,255,255,.08);padding:8px 9px;
+        text-align:left;vertical-align:top;line-height:1.6}
+  table.tbl th{color:#8ba0c2;font-weight:600;font-size:12px;letter-spacing:.4px;background:rgba(255,255,255,.03)}
+  table.tbl td.num{font-variant-numeric:tabular-nums;text-align:right;color:#a5e3ff;white-space:nowrap}
+  table.tbl tr:last-child td{border-bottom:none}
+  .md{display:inline-flex;gap:5px;flex-wrap:wrap}
+  .md i{font-style:normal;font-size:10.5px;padding:1.5px 6px;border-radius:6px;
+        border:1px solid currentColor;opacity:.9;white-space:nowrap}
+  .calc input{width:118px;background:#0a1424;border:1px solid var(--line);border-radius:7px;
+              padding:6px 9px;color:#a5e3ff;font-family:Consolas,monospace;font-size:13px}
+  .calc .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:8px 0;font-size:13px}
+  .calc .out{font-family:Consolas,monospace;font-size:14.5px;color:#34d399;margin-top:6px;line-height:1.8}
+  .mt{font-size:12px;color:#6d86ab;margin-top:9px;line-height:1.68}
+  .warn{font-size:12.5px;color:#fbbf24;background:rgba(251,191,36,.08);
+        border:1px solid rgba(251,191,36,.28);border-radius:9px;padding:9px 11px;line-height:1.7;margin-top:9px}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>城市碳核算与政策分析框架</h1>
+  <div class="sub">ENERGY · CARBON · ECONOMY　点击任意层 / 模块 / 条目，查看第一性原理与最新进展</div>
+  <div class="stats">
+    <div class="pill"><b>137</b>核算对象</div>
+    <div class="pill"><b>26</b>一级模块</div>
+    <div class="pill"><b>8</b>层结构</div>
+    <div class="pill"><b id="s-ver">0</b>条参数（附来源）</div>
+    <div class="pill"><b id="s-gap">0</b>项待补缺口</div>
+    <div class="pill" style="border-color:#3f5c8f"><b id="s-ver2" style="color:#34d399">v3</b><span id="s-built"></span></div>
+  </div>
+</header>
+
+<nav id="nav"></nav>
+
+<div class="tabs" id="tabs">
+  <button class="tab on" data-v="map">框架地图</button>
+  <button class="tab" data-v="method">研究方法层 · 6 类</button>
+  <button class="tab" data-v="data">数据序列 · 电力因子</button>
+  <button class="tab" data-v="params">参数证据台账</button>
+  <button class="tab" data-v="policy">2026 政策台账</button>
+  <button class="tab" data-v="axes">双轴状态与恒等式</button>
+</div>
+
+<div class="wrap view" id="view-map">
+  <main>
+    <div class="tools">
+      <input class="search" id="q" placeholder="搜索条目 / 模块名，例如：电力、CCER、稻田…">
+      <button class="fbtn on" data-f="all">全部</button>
+      <button class="fbtn" data-f="verified">已核实</button>
+      <button class="fbtn" data-f="partial">部分可用</button>
+      <button class="fbtn" data-f="pending">待补参数</button>
+    </div>
+    <div id="map"></div>
+  </main>
+  <aside id="panel"></aside>
+</div>
+
+<div class="wrap view" id="view-method" hidden style="grid-template-columns:1fr">
+  <main id="mMethod"></main>
+</div>
+<div class="wrap view" id="view-data" hidden style="grid-template-columns:1fr">
+  <main id="mData"></main>
+</div>
+<div class="wrap view" id="view-params" hidden style="grid-template-columns:1fr">
+  <main id="mParams"></main>
+</div>
+<div class="wrap view" id="view-policy" hidden style="grid-template-columns:1fr">
+  <main id="mPolicy"></main>
+</div>
+<div class="wrap view" id="view-axes" hidden style="grid-template-columns:1fr">
+  <main id="mAxes"></main>
+</div>
+
+<script>
+const DATA = {"version":"v3","built":"2026-10-30","keyFigures":["0.5306","0.6096","0.8273","CCER—14—002—V02","A = E × (1 + α)","C_in − C_out + C_gen − C_cons − ΔS = 0","LMDI"],"layers":[{"no":"01","name":"边界","sub":"确定统计什么、什么时候","accent":"#94a3b8","first":"会计主体假设。核算前必须固定主体与时点——边界决定了所有强度指标的分母，边界一变，任何跨期跨区比较都失去意义。","mods":[{"name":"空间边界","rows":"1–2","chips":[{"n":"1","t":"行政区划"},{"n":"2","t":"时间边界"}],"status":"partial","M":3,"D":3,"first":"边界的本质是定义分母。行政边界、建成区、园区三种口径会给出完全不同的强度指标，必须先固定再算。","formula":"强度 = 排放量 ÷ 同一系统边界内的产出","verified":["边界依据 GB/T 2260 行政区划代码","第三次国土调查成果（界线与地类）","排污许可名录可作设施底表主键（含统一社会信用代码）"],"gaps":[{"t":"城市级能源平衡表（多数城市并不存在，需自行编制）","id":"CITY_ENERGY_BALANCE"}],"srcs":[]}]},{"no":"02","name":"能源输入","sub":"进入城市边界的能源与含碳物料","accent":"#fbbf24","first":"碳守恒。进入边界的碳量 = Σ(实物量 × 单位热值含碳量)，排放上限由此锁定；氧化率只决定碳何时释放，不决定释放多少。","mods":[{"name":"能源输入","rows":"3–10","chips":[{"n":"3","t":"煤炭"},{"n":"4","t":"石油及成品油"},{"n":"5","t":"天然气"},{"n":"6","t":"电力与热力"},{"n":"7","t":"可再生能源"},{"n":"8","t":"非能源含碳原料"},{"n":"9","t":"外部产品"},{"n":"10","t":"外部废弃物"}],"status":"partial","M":3,"D":3,"first":"碳守恒：输入碳 = Σ(实物量 × 单位热值含碳量)。排放上限被碳输入锁定，无法通过「烧得更干净」降低。","formula":"CO₂ = Q × NCV × CC × OX × 44/12","verified":["IPCC 2006 缺省因子已核实（原煤/原油/汽油/柴油/燃料油/天然气）","反算校验值：原煤 1.98、原油 3.10、汽油 3.07、柴油 3.19 tCO₂/t","官方电力因子三套口径已核实（见「电力与热力」）"],"gaps":[{"t":"省级清单指南分品种本地化因子 NCV / CC / OX","id":"EF_FUEL_PROVINCIAL"}],"srcs":[]}]},{"no":"03","name":"能源转换","sub":"从一次能源到可用能，含开采与输配","accent":"#fb923c","first":"热力学第一定律 + 第二定律。转换不消灭碳，只改变化学形态；第二定律给出效率上限，所以「发多少电」与「排多少碳」是两个解耦的量。","mods":[{"name":"能源转换","rows":"11–18","chips":[{"n":"11","t":"煤炭开采"},{"n":"12","t":"油气开采与储运"},{"n":"13","t":"炼油与焦化"},{"n":"14","t":"燃煤电厂"},{"n":"15","t":"燃气电厂"},{"n":"16","t":"热电联产"},{"n":"17","t":"锅炉与工业供热"},{"n":"18","t":"输配电与储能"}],"status":"partial","M":4,"D":3,"first":"能量守恒 + 效率决定强度。转换不消灭碳，只改形态。给定燃料投入时，总排放由含碳量锁定、与效率无关；但单位电量排放 = (CC × OX × 44/12) ÷ η，热效率越高，单位电量排放越低。两者必须分开表述。","formula":"【总排放】 E = Q_f × NCV × CC × OX × 44/12        ← 只由燃料投入决定\n【发电量】 Q_e = Q_f × NCV × η                  ← η 为转换效率\n【排放强度】 EF_e = E ÷ Q_e = (CC × OX × 44/12) ÷ η\n【关键】 燃料投入不变 → 效率↑ → Q_e↑ → EF_e↓\n         电量需求不变 → 效率↑ → Q_f↓ → E↓\n两种情形结论相反，因此「与热效率无关」只在「给定燃料投入」这一前提下成立，\n不能作为发电排放的一般结论——电力由电量需求驱动，属于第二种情形。","verified":["2022 全国电力平均 CO₂ 因子 0.5366 kgCO₂/kWh","2023 全国电力平均 CO₂ 因子 0.5306 kgCO₂/kWh（较 2022 年 −1.1%）","2023 区域因子：华北 0.6361 / 东北 0.5122 / 华东 0.5500 / 华中 0.5271 / 西北 0.5543 / 南方 0.4042 / 西南 0.2472","2024 电力平均碳足迹因子 0.5777 kgCO₂e/kWh（2023 年 0.6205；注意：碳足迹因子 ≠ CO₂ 排放因子，不可拼接为同一时间序列）","2023 全国化石能源电力 CO₂ 因子 0.8273 kgCO₂/kWh","【已改】v1 原句「发电排放 100% 由输入燃料的碳决定，与热效率无关」在电量需求驱动的前提下不成立，已拆为「总排放」与「排放强度」两式"],"gaps":[{"t":"热力排放因子","id":"EF_HEAT"},{"t":"各行业配额分配强度基准值","id":"ETS_BENCHMARKS"}],"srcs":["S1","S2","S3","S4"]}]},{"no":"04","name":"排放源","sub":"九类活动的直接排放与逸散","accent":"#fb7185","first":"化学计量必然性。燃烧是 C + O₂ → CO₂（定比 44/12），煅烧是 CaCO₃ → CaO + CO₂。排放是反应的必然产物，人能改变的只有「投入多少」。","mods":[{"name":"工业排放","rows":"19–24","chips":[{"n":"19","t":"钢铁"},{"n":"20","t":"水泥"},{"n":"21","t":"石灰与玻璃"},{"n":"22","t":"化工"},{"n":"23","t":"有色金属"},{"n":"24","t":"其他制造业"}],"status":"pending","M":3,"D":1,"first":"化学计量必然性。工艺排放不是浪费，是化学反应的产物：CaCO₃ → CaO + CO₂ 的 0.44 tCO₂/t 是固定的，能改变的只有「用多少熟料」。","formula":"工艺排放 = 原料量 × 排放因子；燃烧排放另行单列","verified":["碳市场已纳入钢铁/水泥/铝冶炼，管控气体为 CO₂ + CF₄ + C₂F₆","覆盖门槛：高炉-转炉长流程、熟料生产线、电解铝工序（占行业全流程排放 98% 以上）","独立电炉短流程与独立钢压延暂不纳入配额管理"],"gaps":[{"t":"水泥熟料工艺排放因子","id":"EF_CEMENT_CLINKER"},{"t":"钢铁各工序排放因子","id":"EF_STEEL"},{"t":"电解铝 + 阳极效应含氟气体","id":"EF_ALUMINIUM"},{"t":"石灰/玻璃/纯碱/电石/硝酸/己二酸等缺失品种","id":"EF_OTHER_PROCESS"},{"t":"城市级工业产品产量","id":"ACTIVITY_INDUSTRY_CITY"}],"srcs":[]},{"name":"工业能源","rows":"25–26","chips":[{"n":"25","t":"工业电力消费"},{"n":"26","t":"余热与副产气"}],"status":"partial","M":3,"D":3,"first":"二次能源的归属问题。电量本身不含碳，碳在发电端；若发电侧与用电侧同时计入，就是重复计算。","formula":"间接排放 = 外购电量 × 电力因子（必须声明口径与年份）","verified":["三套电力因子全部核实，可按核算目的选用","碳市场核算明确不覆盖外购电力热力的间接排放"],"gaps":[{"t":"自备电厂识别与发电/用电拆分规则","id":"ACTIVITY_MISSING_SECTORS"}],"srcs":[]},{"name":"建筑能源","rows":"27–28","chips":[{"n":"27","t":"居民建筑"},{"n":"28","t":"商业与公共建筑"}],"status":"pending","M":2,"D":1,"first":"能源服务需求驱动：排放 = 面积 × 单位面积强度 × 碳密度。三个乘数各对应一类政策（总量控制 / 能效标准 / 能源结构）。","formula":"建筑排放 = Σ(面积 × EUI × 因子) + 制冷剂泄漏 × GWP","verified":["2024 城镇化率 67.00%（+0.84 pp）","居民人均消费支出 28,227 元（2024）"],"gaps":[{"t":"分气候区建筑能耗强度 EUI","id":"ACTIVITY_MISSING_SECTORS"},{"t":"制冷剂充注量与年泄漏率","id":"EF_REFRIGERANT"}],"srcs":[]},{"name":"交通能源","rows":"29–31","chips":[{"n":"29","t":"道路交通"},{"n":"30","t":"铁路交通"},{"n":"31","t":"航空与水运"}],"status":"pending","M":2,"D":1,"first":"移动源的活动量是「车·公里」而非「车」。排放 = 里程 × 单位油耗 × 碳密度；电动化只是把排放从尾气搬到电网，并未消除。","formula":"道路排放 = Σ(保有量 × 年里程 × 单位油耗) × 因子","verified":["2024 新能源汽车保有量 3,140 万辆（+1,099 万辆）","旅客运输总量 171 亿人次、货物运输 578 亿吨"],"gaps":[{"t":"分车型年均行驶里程 VKT","id":"ACTIVITY_TRANSPORT"},{"t":"非道路移动机械活动水平","id":"ACTIVITY_TRANSPORT"},{"t":"港口船舶与航空 LTO 的边界归属规则","id":"ACTIVITY_TRANSPORT"}],"srcs":[]},{"name":"农业排放","rows":"32–34","chips":[{"n":"32","t":"稻田"},{"n":"33","t":"化肥与农田土壤"},{"n":"34","t":"畜牧业"}],"status":"pending","M":3,"D":1,"first":"生物过程的非 CO₂ 路径。稻田是厌氧产甲烷，化肥是氮循环产 N₂O；两者都不能按碳量算，只能按面积/头数 × 排放因子。","formula":"CH₄ = 面积 × EF × 修正系数；N₂O = N投入 × EF1 × 44/28","verified":["2024 稻谷播种面积 2,901 万公顷、产量 20,753 万吨","生猪存栏 42,743 万头 / 出栏 70,256 万头","牛肉 779、羊肉 518、禽肉 2,660 万吨"],"gaps":[{"t":"中国分区稻田 CH₄ 排放因子","id":"EF_AGRICULTURE"},{"t":"分畜种肠道发酵与粪污管理因子","id":"EF_AGRICULTURE"},{"t":"农田 N₂O 直接/间接排放系数","id":"EF_AGRICULTURE"},{"t":"秸秆露天焚烧排放","id":"EF_CROP_RESIDUE_BURNING"}],"srcs":[]},{"name":"土地与生态","rows":"35–38","chips":[{"n":"35","t":"森林"},{"n":"36","t":"草地、农田与湿地"},{"n":"37","t":"城市绿地"},{"n":"38","t":"土地利用变化"}],"status":"pending","M":3,"D":1,"first":"存量 vs 通量。碳汇是「碳库的年变化」，不是「总碳储量」。森林碳储量再大，若年际不变，年汇即为零。","formula":"净碳汇 = 期末碳库 − 期初碳库（植被 + 土壤）","verified":["2024 造林面积 445 万公顷（人工造林 118 万公顷，占 26.6%）","森林火灾 292 起、受害面积 0.7 万公顷（可作为扣减项）","CCER 已认定蓝碳「三大件」：盐沼、海草床、红树林"],"gaps":[{"t":"分树种生物量扩展因子与植被/土壤碳密度","id":"CARBON_DENSITY_LULUCF"},{"t":"蓝碳三大件碳密度与埋藏速率","id":"BLUE_CARBON"}],"srcs":[]},{"name":"逸散排放","rows":"39–40","chips":[{"n":"39","t":"煤矿甲烷"},{"n":"40","t":"油气系统"}],"status":"pending","M":3,"D":2,"first":"逃逸 ≠ 燃烧。CH₄ 未经氧化直接进入大气，其 GWP 是 CO₂ 的 27.9–29.8 倍，所以少量泄漏在 CO₂e 口径下被急剧放大。","formula":"逸散量 = 抽采/泄漏气体量 × CH₄ 浓度 × GWP100","verified":["AR6 GWP100：CH₄ 化石源 29.8 / 非化石源 27.0 / 未区分 27.9"],"gaps":[{"t":"分瓦斯等级煤矿 CH₄ 排放因子","id":"EF_FUGITIVE"},{"t":"油气系统设备级逸散因子","id":"EF_FUGITIVE"}],"srcs":[]},{"name":"工业气体","rows":"41","chips":[{"n":"41","t":"制冷剂与含氟气体"}],"status":"pending","M":3,"D":2,"first":"GWP 跨度达四个数量级。1 kg SF₆ ≈ 2.4 万 kg CO₂e，微量泄漏在当量口径下被急剧放大——这是唯一「质量极小但影响极大」的类别。","formula":"CO₂e = Σ(气体质量 × GWP100)","verified":["N₂O GWP100 = 273（AR6）","碳市场已将 CF₄、C₂F₆ 纳入管控气体"],"gaps":[{"t":"AR6 各含氟气体 GWP 精确值（SF₆ / NF₃ / HFCs）","id":"GWP_AR6_FGAS"},{"t":"AR6 GWP20（短期气候效益评估用）","id":"GWP_AR6_GWP20"},{"t":"AR5 历史口径（重算历史序列用）","id":"GWP_AR5_FGAS"}],"srcs":[]},{"name":"废弃物","rows":"42–44","chips":[{"n":"42","t":"垃圾焚烧"},{"n":"43","t":"垃圾填埋"},{"n":"44","t":"污水处理"}],"status":"pending","M":3,"D":2,"first":"厌氧降解的时间尺度。填埋场在几十年内持续产甲烷，当年排放只是历史投放的「回声」，因此必须用一阶衰减模型而非当年投放量。","formula":"CH₄ = 废物量 × DOC × DOCf × F × 16/12 × (1 − 收集率) × (1 − 氧化率)","verified":["清单与碳市场的方法学框架已明确"],"gaps":[{"t":"DOC / DOCf / F / 氧化因子 / 收集率","id":"EF_WASTE"},{"t":"生活垃圾焚烧的化石碳比例","id":"EF_WASTE"},{"t":"污水 CH₄ / N₂O 排放因子","id":"EF_WASTE"}],"srcs":[]}]},{"no":"05","name":"碳流","sub":"碳在城市系统内的去向与存留","accent":"#c084fc","first":"碳质量守恒。这是全表唯一的对账依据：任何「消失的碳」都指向口径错误，而不是碳蒸发了。","mods":[{"name":"碳流","rows":"45–56","chips":[{"n":"45","t":"大气排放"},{"n":"46","t":"生态系统吸收"},{"n":"47","t":"产品碳储存"},{"n":"48","t":"废弃物与废水碳"},{"n":"49","t":"跨设施转移"},{"n":"50","t":"跨区域转移"},{"n":"51","t":"地质封存"},{"n":"52","t":"碳矿化"},{"n":"53","t":"碳利用"},{"n":"54","t":"水泥碳化"},{"n":"55","t":"生物源碳"},{"n":"56","t":"碳库存变化"}],"status":"pending","M":3,"D":2,"first":"碳质量守恒，但守恒式只在边界闭合时成立。必须先声明：是否含进口商品与跨区域调入、是否含出口与废物转移、生物源与化石源是否分列、库存变化的时间尺度、捕集利用矿化封存之间是否重复计量。","formula":"一般控制体质量守恒：  C_in − C_out + C_gen − C_cons − ΔS = 0\n  C_in   外部输入碳（化石燃料、含碳原料、进口/调入产品隐含碳）\n  C_out  边界输出碳（出口/调出产品隐含碳、废物外运、外输 CO₂）\n  C_gen  系统内产生（燃烧释放、工艺排放、逸散泄漏）\n  C_cons 系统内消耗或转化（光合固碳、水泥碳化、地质封存固定）\n  ΔS     系统碳库存变化\n分账要求：化石碳 / 生物源碳 / 产品储碳 / 废物碳 必须分列，不得合并为单一 S\n特例：边界闭合且无调入调出时，退化为 C_in = C_排放 + 产品固碳 + 废物残渣 + ΔS + 封存\n量纲：碳质量 tC 与 tCO₂ 不可混用，1 tC = 44/12 tCO₂","verified":["CCER 已认定蓝碳「三大件」：盐沼、海草床、红树林营造","2025 年新增淤地坝碳汇方法学（全球首个水土保持工程碳汇核算规则）","【已改】v1 原式「碳输入 = 大气排放 + 产品固碳 + 废物 + Δ库存 + 封存」缺 C_out 项，边界不闭合时必然漏算跨区域调出，已改为一般控制体形式"],"gaps":[{"t":"产品碳储存半衰期与释放比例","id":"PRODUCT_CARBON_STORAGE"},{"t":"生物源与化石源分列规则","id":"EF_WASTE"}],"srcs":["S10","S11"]}]},{"no":"06","name":"城市清单","sub":"把碳流汇总成可考核的账","accent":"#22d3ee","first":"可加性与互斥性（MECE）。总量要有意义，各分项必须不重不漏；属地、生产、消费三种口径必然给出不同结果，混用即口径错误。","mods":[{"name":"城市清单","rows":"57–65","chips":[{"n":"57","t":"直接排放总量"},{"n":"58","t":"间接排放"},{"n":"59","t":"消费端隐含排放"},{"n":"60","t":"生产端排放"},{"n":"61","t":"净排放"},{"n":"62","t":"设施排放占比"},{"n":"63","t":"行业排放占比"},{"n":"64","t":"能源关联排放占比"},{"n":"65","t":"减排与移除贡献"}],"status":"partial","M":4,"D":3,"first":"可加性与互斥性（MECE）。总量要有意义，各分项必须不重不漏。地理口径、市场口径、生产端、消费端四种视角必然给出不同结果，混用即口径错误；同一份清单只能声明一种视角。","formula":"地理口径：外购电量 × 全国/区域/省级平均 CO₂ 因子\n市场口径：绿电电量记 0 + 剩余外购电量 × 不含市场化交易非化石电量因子\n消费端（恒等式，非算法）：属地 + 调入隐含碳 − 调出隐含碳 = 消费端\n  适用前提：调入/调出必须同为「隐含碳」且核算口径一致；用实物量代替隐含碳、\n  或调入调出采用不同排放系数，恒等式即不成立。真正求解需 MRIO，见「研究方法层」","verified":["【地理口径】2023 全国 0.5306；区域与省级平均因子同表发布","【市场口径】2023 全国 0.6096 kgCO₂/kWh（不含市场化交易的非化石能源电量）；购绿电对应电量记 0，剩余电量用该因子","【化石电源】2023 全国 0.8273 kgCO₂/kWh","【口径限定】区域与省级因子未发布「扣除非化石市场化交易电量」版本，不可套用全国市场口径规则","2024 万元 GDP CO₂ 排放 −3.4%（按 2020 年价）"],"gaps":[{"t":"口径矩阵与跨口径对账表（框架缺项，需自建）","id":"GREEN_CERTIFICATE_RULES"},{"t":"地区间投入产出表（MRIO），用于消费端隐含碳","id":"ACTIVITY_INDUSTRY_CITY"}],"srcs":["S1","S2","S3","S8"]}]},{"no":"07","name":"政策工具","sub":"总量、市场、信用与移除的完整链条","accent":"#34d399","first":"稀缺性定价 + 边际均等化。政策要么制造稀缺（总量），要么直接定价（税），目的都是让各主体的边际减排成本相等。Weitzman 指出：在不确定性下价格工具与数量工具并不等价。","mods":[{"name":"碳预算","rows":"66","chips":[{"n":"66","t":"国家与行业碳预算"}],"status":"partial","M":3,"D":3,"first":"存量约束，不是流量约束。剩余碳预算管的是「自起算点起的累计排放额度」，因此允许年度波动但累计不许突破。不同来源的预算起算点不同，不可直接相减比较。","formula":"剩余碳预算(t) = 目标对应累计上限 − 自起算点至 t 的累计排放","verified":["GCB 2025（2025-11-13 发布）：1.5℃ 剩余预算 170 GtCO₂，约合 2025 年排放水平的 4 年","AR6 综合报告历史基准（自 2020 年初起算）：1.5℃/50% = 500 GtCO₂；2℃/67% = 1150 GtCO₂","关键：GCB 起算点约 2026 年初，AR6 起算点为 2020 年初，两者相差约 6 年排放量，不可直接对比","AR6 WGI 另列 2℃/50% = 1350 GtCO₂，概率条件不可省略"],"gaps":[{"t":"GCB 2025 的 1.7℃ 与 2℃ 剩余预算数值（需 ESSD 数据文件确认）","id":"CARBON_BUDGET"},{"t":"中国累计排放上限估计","id":"CARBON_BUDGET"}],"srcs":["S12","S13"]},{"name":"总量控制","rows":"67–75","chips":[{"n":"67","t":"全国碳市场覆盖范围"},{"n":"68","t":"市场配额总量"},{"n":"69","t":"强度控制"},{"n":"70","t":"总量控制"},{"n":"71","t":"强度向总量转型"},{"n":"72","t":"配额分配"},{"n":"73","t":"配额收紧"},{"n":"74","t":"配额盈缺与清缴"},{"n":"75","t":"控制效果评估"}],"status":"partial","M":4,"D":3,"first":"总量控制制造稀缺，强度控制制造效率激励。前者管结果（排放总量封顶），后者管过程（单位产出排放下降）；在经济增长下两者含义完全不同。2026 年起四行业全面采用强度法，但发电用「基准法」、钢铁水泥铝冶炼用「系数法」——同名强度、算法不同，不可混用同一公式。","formula":"【发电 · 强度基准法】 A = A_e + A_h\n    A_e = Q_e × B_e × F_f    （发电量 × 该类别发电基准值 × 调峰修正系数）\n    A_h = Q_h × B_h          （供热量 × 供热基准值）\n    2026 发电基准值 B_e：0.7894 / 0.7985 / 0.8080 / 0.3288 tCO₂/MWh；供热 B_h：0.1021 / 0.0533 tCO₂/GJ\n【钢铁/水泥/铝冶炼 · 强度系数法】 A = E × (1 + α)\n    E = 该企业（熟料生产线 / 铝电解工序）当年度经核查碳排放量\n    α = 碳排放强度系数，由强度偏离度 X 决定：  X = (BP − I) ÷ BP\n      BP 行业平衡值（使行业配额总量 = 应清缴总量时对应的工序碳排放强度）；I 企业主要工序吨产品碳排放量\n      −20% < X < 20% → α = 0.15X；  X ≥ 20% → α = 0.03；  X ≤ −20% → α = −0.03\n    【方向】 α > 0 ⟺ 企业强度优于行业基准（X>0）⟺ A > E ⟺ 盈余\n             α < 0 ⟺ 企业强度劣于行业基准（X<0）⟺ A < E ⟺ 缺口\n【盈缺】 缺口 = E − A；履约成本 ≈ 缺口 × 碳价（缺口>0）或 收益 ≈ −缺口 × 碳价（缺口<0）\n【总量】 ΣA ≈ ΣE，行业配额总量锚定行业核查总排放，故 α 的设计使奖惩在行业内自相抵","verified":["【2026 方案】国环规气候〔2026〕1号，2026-09-02 印发；适用范围＝2025+2026 年度发电行业、2026 年度钢铁/水泥/铝冶炼（三行业 2025 年度仍按《2024、2025年度…方案》执行）","【方法分工·原文】「发电行业采用碳排放强度基准法分配配额，钢铁、水泥、铝冶炼行业 2026 年度采用碳排放强度系数法分配配额」","【三行业公式·原文】A = E ×（1 + α）；α「当企业优于行业基准水平时取值＞0；反之＜0」","【α 取值表】X 偏离度：−20%<X<20% → 0.15X；X≥20% → 0.03；X≤−20% → −0.03（偏离度封顶 ±3%）","【2026 发电基准值】0.7894 / 0.7985 / 0.8080 / 0.3288 tCO₂/MWh；供热 0.1021 / 0.0533 tCO₂/GJ","【预分配】原则上按上一年度核查排放量的 50% 预分配，多退少补","【结转·重要】取消历史配额结转：2019—2024 年度配额不可用于 2025 年度及以后清缴","【CCER 抵销】仅限 2024-01-22 之后登记的减排量","【特殊情形等量分配】掺烧生物质≥20% 机组、富氢碳循环氧气高炉钢铁、白硅熟料线、电石渣替代率>30%、年排放<2.6 万吨等","【纳管规模】2026 年 3,680 家、约 83 亿吨、占全国排放 65% 以上；累计成交 9.61 亿吨 / 656.99 亿元（截至 2026-08 底）","【路线图】2027 年基本覆盖工业主要行业；2030 年建成以总量控制为基础、免费与有偿相结合的市场；石化化工、造纸、民航前期准备已启动"],"gaps":[{"t":"各行业「行业平衡值 BP」的具体数值（管理平台可查，未公开发布全表）","id":"ETS_BENCHMARKS"},{"t":"有偿分配比例与启动时点（2030 目标下的分年安排未定）","id":"ETS_ALLOCATION_RULES"},{"t":"2025 年度起的跨期结转（banking）新规则（历史结转已取消，新安排未明）","id":"ETS_ALLOCATION_RULES"}],"srcs":["S15","S16"]},{"name":"碳市场","rows":"76–78","chips":[{"n":"76","t":"全国碳排放权交易"},{"n":"77","t":"碳价格"},{"n":"78","t":"配额市场稳定性"}],"status":"verified","M":4,"D":4,"first":"价格由配额的稀缺程度与履约需求共同出清，但碳价 ≠ 边际减排成本 ≠ 企业履约成本 ≠ 社会减排成本，四者是不同概念，不可互相替代。","formula":"出清条件：配额供给 = 履约需求 + 投机/储备需求\n碳价 ≠ MAC（边际减排成本）≠ 履约成本 ≠ SCC（社会碳成本）","verified":["2025 累计成交 8.65 亿吨 / 576.63 亿元","【截至 2026-08 底】累计成交 9.61 亿吨 / 656.99 亿元","2025 年末收盘 74.63 元/吨，全年交易均价 62.36 元/吨","2025 成交量 2.35 亿吨（同比 +24.36%），243 个交易日，146.30 亿元","《全国碳市场发展报告（2026）》2026-09-15 于中国碳市场大会（湖北武汉）发布，中英文版","价格形成受配额供给、结转规则、履约周期、市场流动性、政策预期共同影响"],"gaps":[],"srcs":["S6","S7","S15"]},{"name":"碳信用","rows":"79–90","chips":[{"n":"79","t":"CCER项目资格"},{"n":"80","t":"额外性"},{"n":"81","t":"基准线"},{"n":"82","t":"项目减排量"},{"n":"83","t":"泄漏"},{"n":"84","t":"持久性与逆转"},{"n":"85","t":"测量不确定性"},{"n":"86","t":"重复计算与重复签发"},{"n":"87","t":"核证与登记"},{"n":"88","t":"抵消资格与比例"},{"n":"89","t":"信用注销"},{"n":"90","t":"信用质量评价"}],"status":"partial","M":4,"D":3,"first":"额外性是信用的全部价值来源。如果「没有这个项目，减排照样会发生」，那信用就是凭空印出来的钱——这是碳信用市场唯一的根本检验。","formula":"减排量 = 基准线排放 − 项目排放 − 泄漏 − 适用扣减","verified":["CCER 抵消上限 5%（国环规气候〔2024〕1号；明确仅适用 2023、2024 履约年度，不可外推）","【2025 年度】发布 12 项方法学；登记 33 个项目、1,776.37 万吨；累计成交 921.94 万吨，均价 70.76 元/吨","【截至 2026-08 底·累计】登记 41 个项目 / 2,423.35 万吨；成交 2,170.68 万吨 / 17.37 亿元；累计发布 18 项方法学","【2026 抵销新规】CCER 抵销仅限 2024-01-22 之后登记的减排量（国环规气候〔2026〕1号）","【V02 造林碳汇 CCER—14—001—V02，2026-10-10，环办气候函〔2026〕385号】减排量属于林木所有权人；业主非所有权人须提供所有权证明 + 减排量转让协议；须取得寿命期内不皆伐承诺证明；项目须产权清晰","【V02 红树林营造 CCER—14—002—V02，2026-10-10，环办气候函〔2026〕384号】同一省域内红树林/盐沼/海草床可合并申请；须取得全部所有者授权并分别核算三类减排量；任一项目权属丧失则合并项目计入期结束","【状态分离】2026-10-16 环办便函〔2026〕345号公开征求 5 项方法学意见（截止 10-23），为征求意见稿，未生效"],"gaps":[{"t":"各方法学的基准线、默认参数与发布文号（需逐项提取正式文本）","id":"CCER_PARAMS"},{"t":"累计 18 项方法学中，除 2025 年 12 项与两项 V02 外的其余 6 项清单待补","id":"CCER_PARAMS"},{"t":"方法学版本台账：V01→V02 生效日、30 日过渡期内项目适用性判定","id":"CCER_VERSION_LEDGER"},{"t":"项目权属与计入期管理规则（权属变更、跨省合并、计入期重启）","id":"CCER_OWNERSHIP_RULES"},{"t":"征求意见稿转正状态跟踪（5 项：合成氨/矿卡电动化/抽水蓄能/废塑料再生/厨余沼气）","id":"CCER_DRAFT_TRACK"}],"srcs":["S9","S10","S11","S15","S16","S17","S18"]},{"name":"碳移除","rows":"91–104","chips":[{"n":"91","t":"移除路径分类"},{"n":"92","t":"大气来源证明"},{"n":"93","t":"总移除量"},{"n":"94","t":"生命周期排放"},{"n":"95","t":"净移除量"},{"n":"96","t":"储存期限"},{"n":"97","t":"逆转监测"},{"n":"98","t":"项目确权"},{"n":"99","t":"方法学适用性"},{"n":"100","t":"第三方核查"},{"n":"101","t":"项目登记与信用签发"},{"n":"102","t":"信用交易与注销"},{"n":"103","t":"单位净移除成本"},{"n":"104","t":"技术扩散与规模化"}],"status":"pending","M":3,"D":2,"first":"移除 ≠ 避免排放。只有从大气中取走的碳才算移除；化石点源捕集只是把碳换个地方放，属「避免排放」。且储存期限决定其价值的折现。","formula":"净移除 = 总移除 − 生命周期排放 − 适用扣减","verified":["蓝碳三大件方法学已发布（盐沼、海草床、红树林营造）","淤地坝碳汇：全球首个水土保持工程碳汇核算规则","绿氢方法学明确：从电网取用的电量不计入减排量","SF₆ 回收方法学：适用于 66 kV 及以上电气设备"],"gaps":[{"t":"单位净移除成本","id":"TECH_COST_PARAMS"},{"t":"DACCS 方法学（中国目前尚无）","id":"TECH_COST_PARAMS"}],"srcs":[]},{"name":"碳税","rows":"105–107","chips":[{"n":"105","t":"税基与税率"},{"n":"106","t":"税收与排放响应"},{"n":"107","t":"分配效应"}],"status":"pending","M":2,"D":1,"first":"庇古税：把外部成本内部化，使私人成本等于社会成本。合意税率应等于边际外部损害，即碳的社会成本（SCC）。","formula":"应纳税额 = 税基 × 税率，且税率 ≈ SCC","verified":["中国目前未开征碳税（现行仅有环境保护税、消费税、资源税）"],"gaps":[{"t":"现行相关税种税率","id":"TAX_PARAMS"},{"t":"中国 SCC 估计","id":"SCC_CHINA"}],"srcs":[]},{"name":"碳交易","rows":"108–110","chips":[{"n":"108","t":"企业履约成本"},{"n":"109","t":"碳价传导"},{"n":"110","t":"市场覆盖与竞争"}],"status":"pending","M":2,"D":2,"first":"覆盖范围决定碳泄漏。只管一半企业，减排就会搬到不管的那一半去——所以「覆盖范围」本身就是政策强度的一部分。","formula":"净履约成本 = 缺口 × 碳价 − 盈余 × 碳价","verified":["碳价序列已核实，可直接作为履约成本计算的输入"],"gaps":[{"t":"CBAM 默认排放值与免费配额递减系数","id":"CBAM_PARAMS"},{"t":"碳价传导率","id":"CARBON_PASS_THROUGH"}],"srcs":[]},{"name":"自愿碳市场","rows":"111–112","chips":[{"n":"111","t":"CCER项目收入"},{"n":"112","t":"其他碳信用标准"}],"status":"partial","M":2,"D":3,"first":"自愿价格不反映履约稀缺，而反映企业的声誉支付意愿。所以它与强制市场价格脱钩，不能互相套利定价。","formula":"项目收入 = 签发量 × 成交价 − 开发成本","verified":["2025 CCER 均价 70.76 元/吨，同期配额均价 62.36 元/吨（存在正向溢价）","CCER 的抵消资格受 5% 上限约束，故其价格上限由履约需求而非自愿声誉需求决定"],"gaps":[{"t":"VCS / Gold Standard / Puro.earth 等国际标准对中国项目的签发与注销数据","id":"CCER_PARAMS"},{"t":"CCER 与配额价差的期限结构（无公开连续报价）","id":"ETS_ALLOCATION_RULES"}],"srcs":[]}]},{"no":"08","name":"分析与数据","sub":"驱动因素、核算质量与情景推演","accent":"#60a5fa","first":"可测量性与误差传播。不能测的不能管；任何核算都是估计，其不确定性必须可追溯，否则决策只是伪精确。","mods":[{"name":"能源经济","rows":"113–123","chips":[{"n":"113","t":"能源价格"},{"n":"114","t":"能源强度"},{"n":"115","t":"碳强度"},{"n":"116","t":"减排成本"},{"n":"117","t":"产业结构"},{"n":"118","t":"企业投资与融资"},{"n":"119","t":"财政与补贴"},{"n":"120","t":"绿色金融"},{"n":"121","t":"居民消费"},{"n":"122","t":"产业链隐含碳"},{"n":"123","t":"政策因果效应"}],"status":"partial","M":4,"D":3,"first":"驱动因素分解（Kaya）：排放 = 人口 × 人均GDP × 能源强度 × 碳强度。四个乘数各有独立政策工具，混为一谈就无法归因。消费端隐含碳则需供应链模型，不能由能源统计年鉴直接推出。","formula":"【恒等式】 CO₂ = P × (GDP/P) × (E/GDP) × (CO₂/E)      ← 只做恒等拆分，本身不是因果模型\n【LMDI 加法分解】 ΔC = ΔC_P + ΔC_g + ΔC_e + ΔC_i\n   每一项 ΔC_x = Σᵢ L(wᵢᵗ, wᵢ⁰) · ln(xᵢᵗ / xᵢ⁰)，  L(a,b) = (a−b)/(ln a − ln b)\n   LMDI 无残差、可完全加和，故可直接用于归因陈述\n【SDA 结构分解】 基于投入产出：ΔE = 强度效应 + 技术效应 + 最终需求结构效应 + 规模效应\n【消费端】 需地区间投入产出表（MRIO）：f = (I − A)⁻¹y，E_c = e·L·y，见「研究方法层」","verified":["2024 GDP 1,349,084 亿元；能源消费 59.6 亿 tce；煤炭占比 53.2%","万元 GDP 能耗 −3.8%、万元 GDP CO₂ 排放 −3.4%","绿色贷款余额 36.6 万亿元（+6.5 万亿元）","关键限制：仅凭城市能源统计年鉴无法计算消费端碳足迹，调入调出须为隐含碳排放而非实物量"],"gaps":[{"t":"能源需求弹性与回弹效应","id":"ELASTICITIES"},{"t":"减污降碳协同效益与 VSL","id":"COBENEFIT"},{"t":"中国 SCC 估计","id":"SCC_CHINA"},{"t":"技术成本与学习率","id":"TECH_COST_PARAMS"}],"srcs":["S8"]},{"name":"MRV 与质量","rows":"124–128","chips":[{"n":"124","t":"活动数据"},{"n":"125","t":"排放因子"},{"n":"126","t":"实测与估算"},{"n":"127","t":"误差与不确定性"},{"n":"128","t":"重复计算检查"}],"status":"partial","M":4,"D":3,"first":"可测量性：不能测的不能管。MRV 的价值在于把「申报」变成「可核查」，并把误差显式量化传播。误差项不可默认独立——共享统计来源的变量之间存在相关性。","formula":"Var(Y) ≈ Σᵢ(∂Y/∂xᵢ)²·Var(xᵢ) + 2·Σ_{i<j}(∂Y/∂xᵢ)(∂Y/∂xⱼ)·Cov(xᵢ,xⱼ)\n仅当各变量相互独立时，才退化为 U = √ΣᵢUᵢ²","verified":["月度信息化存证（钢铁/水泥/铝冶炼强制）","年度数据质量控制方案 + 「三级联审」+ 飞行检查","以核算方法为主、自动监测为辅的多源交叉核验","注：城市核算中能源消费量与排放因子常同源，协方差项不可省略","【A 类 / B 类】A 类＝对若干分量重复测量用统计方法求得；B 类＝依经验/厂家/文献假定的区间，按分布换算为标准不确定度（IPCC 2006 Vol.1 Ch.3）","【相关性】共享统计来源的变量（如能源消费量与活动水平）须给出相关系数矩阵 R，用 Σ = D^{1/2} R D^{1/2} 合成，再抽样"],"gaps":[{"t":"蒙特卡洛参数分布与置信区间输出","id":"MONTE_CARLO"},{"t":"误差相关性矩阵（变量两两相关系数）","id":"ERROR_CORRELATION"},{"t":"敏感性分析（方差贡献分解 / Sobol 指数）","id":"SENSITIVITY_ANALYSIS"}],"srcs":["S7"]},{"name":"数据体系","rows":"129–132","chips":[{"n":"129","t":"设施数据库"},{"n":"130","t":"能源数据库"},{"n":"131","t":"碳流数据库"},{"n":"132","t":"经济政策数据库"}],"status":"pending","M":2,"D":1,"first":"主键唯一性。所有数据库设计的第一性原理是「一个实体一个 ID」；碳流网络能否对账，取决于设施是否有唯一编号。","formula":"能源平衡：输入 + 产出转换 − 消费 − Δ库存 = 0；   碳平衡：输入 = 输出 + Δ库存","verified":["排污许可管理信息平台（含统一社会信用代码）可作设施主表底稿"],"gaps":[{"t":"设施级排放数据的可比对库（碳市场报送数据不对外开放，无公开 API）","id":"DATA_INFRA"},{"t":"能源平衡表口径映射表（统计年鉴部门分类 ↔ IPCC/GPC 部门分类）","id":"DATA_INFRA"},{"t":"碳流数据库的实体主键标准（设施 ID ↔ 企业 ID ↔ 行政区代码）","id":"DATA_INFRA"},{"t":"跨库对账脚本与版本快照机制（保证可复现）","id":"DATA_INFRA"}],"srcs":[]},{"name":"情景模拟","rows":"133–137","chips":[{"n":"133","t":"能源替代"},{"n":"134","t":"工业技术改造"},{"n":"135","t":"碳价与总量政策"},{"n":"136","t":"碳移除规模化"},{"n":"137","t":"综合政策组合"}],"status":"pending","M":2,"D":2,"first":"反事实。情景不是预测，而是「其他条件不变时只改一个变量」的差异；基线情景的可信度决定全部结论的可信度。","formula":"净效应 = 项目情景 − 基线情景","verified":["碳价与配额参数可直接用于情景设定（2025 全序列已核实）"],"gaps":[{"t":"模型平台与关键参数（LEAP / CGE）","id":"TECH_COST_PARAMS"}],"srcs":[]}]}],"statusMeta":{"verified":["已核实","#34d399","方法成熟且参数齐备，可直接计算"],"partial":["部分可用","#fbbf24","方法明确，但至少 1 个关键参数缺失"],"pending":["待补参数","#fb7185","缺关键数据，暂不能出可靠数值"]},"axes":{"M":[{"k":0,"code":"M0","t":"概念未界定"},{"k":1,"code":"M1","t":"框架明确，未公式化"},{"k":2,"code":"M2","t":"公式明确，但无公认标准方法学"},{"k":3,"code":"M3","t":"公式明确且有官方/学界标准方法学"},{"k":4,"code":"M4","t":"标准方法学 + 版本管理 + 可复现实现"}],"D":[{"k":0,"code":"D0","t":"无任何数据"},{"k":1,"code":"D1","t":"仅有宏观背景数据，无法进入核算"},{"k":2,"code":"D2","t":"关键参数部分到位，仍不能出数"},{"k":3,"code":"D3","t":"能出粗略数值，但 ≥1 个关键参数缺失"},{"k":4,"code":"D4","t":"参数齐全且有来源，可复现计算"}]},"sources":{"S1":{"org":"生态环境部、国家统计局","doc":"《关于发布2022年电力二氧化碳排放因子的公告》公告 2024 年第 33 号","date":"2024-12-26","url":"https://www.mee.gov.cn/xxgk2018/xxgk/xxgk01/202412/t20241226_1099413.html"},"S2":{"org":"生态环境部、国家统计局","doc":"《关于发布2023年电力二氧化碳排放因子的公告》公告 2025 年第 47 号","date":"2025-12-31","url":"https://www.mee.gov.cn/xxgk2018/xxgk/xxgk01/202512/t20251231_1139517.html"},"S3":{"org":"生态环境部","doc":"《关于发布2023年电力二氧化碳排放因子的公告》答记者问","date":"2026-01-05","url":"https://www.mee.gov.cn/ywdt/zbft/202601/t20260105_1139911.shtml"},"S4":{"org":"生态环境部、国家统计局、国家能源局","doc":"《关于发布2024年电力碳足迹因子数据的公告》公告 2025 年第 19 号","date":"2025-10-23","url":"https://www.mee.gov.cn/xxgk2018/xxgk/xxgk01/202510/t20251024_1130734.html"},"S5":{"org":"生态环境部","doc":"《关于发布2024年电力碳足迹因子数据的公告》答记者问","date":"2025-10-24","url":"https://www.mee.gov.cn/ywdt/zbft/202510/t20251024_1130763.shtml"},"S6":{"org":"生态环境部","doc":"《2025年全国碳市场平稳有序运行 圆满完成年度建设工作》","date":"2026-01-01","url":"https://www.mee.gov.cn/ywgz/ydqhbh/wsqtkz/202601/t20260101_1139528.shtml"},"S7":{"org":"生态环境部应对气候变化司","doc":"《2024、2025年度全国碳排放权交易市场钢铁、水泥、铝冶炼行业配额总量和分配方案》答记者问","date":"2025-11-19","url":"https://www.mee.gov.cn/ywdt/zbft/202511/t20251119_1134197.shtml"},"S8":{"org":"国家统计局","doc":"《中华人民共和国2024年国民经济和社会发展统计公报》","date":"2025-02-28","url":"https://www.cpnn.com.cn/news/xwtt/202502/t20250228_1776689_wap.html"},"S9":{"org":"生态环境部","doc":"《关于做好2023、2024年度发电行业全国碳排放权交易配额分配及清缴相关工作的通知》国环规气候〔2024〕1号","date":"2024-10-16","url":"https://www.mee.gov.cn/xxgk2018/xxgk/xxgk03/202410/t20241021_1089750.html"},"S10":{"org":"生态环境部应对气候变化司","doc":"《就2025年发布的12项温室气体自愿减排项目方法学答记者问》","date":"2026-01","url":"http://www.isenlin.cn/sf_40123D744FFC4EB89B8BC39114C04B21_209_8C0B6735583.html"},"S11":{"org":"生态环境部办公厅、国家林草局办公室","doc":"《关于发布〈温室气体自愿减排项目方法学 造林碳汇（CCER—14—001—V02）〉的通知》环办气候函〔2026〕385号（印发后 30 日施行）","date":"2026-10-10","url":"https://www.mee.gov.cn/xxgk2018/xxgk/xxgk06/202610/t20261010_1175960.html"},"S12":{"org":"Global Carbon Project","doc":"Global Carbon Budget 2025（ESSD）","date":"2025-11-13","url":"https://globalcarbonbudget.org/fossil-fuel-co2-emissions-hit-record-high-in-2025/"},"S13":{"org":"IPCC","doc":"AR6 Synthesis Report — Summary for Policymakers","date":"2023","url":"https://www.ipcc.ch/report/ar6/syr/summary-for-policymakers/"},"S14":{"org":"国务院办公厅","doc":"《加快构建碳排放双控制度体系工作方案》国办发〔2024〕39号","date":"2024-07-30","url":"https://www.mee.gov.cn/zcwj/gwywj/202408/t20240806_1083433.shtml"},"S15":{"org":"生态环境部","doc":"《全国碳市场发展报告（2026）》","date":"2026-09-15","url":"https://cdmfund.cn/37117.html"},"S16":{"org":"生态环境部","doc":"《全国碳排放权交易市场2025、2026年度发电行业以及2026年度钢铁、水泥、铝冶炼行业配额总量和分配方案》国环规气候〔2026〕1号","date":"2026-09-02","url":"https://www.mee.gov.cn/xxgk2018/xxgk/xxgk03/202609/W020260903551498752549.pdf"},"S17":{"org":"生态环境部办公厅、自然资源部办公厅","doc":"《关于发布〈温室气体自愿减排项目方法学 红树林营造（CCER—14—002—V02）〉的通知》环办气候函〔2026〕384号","date":"2026-10-10","url":"https://www.mee.gov.cn/xxgk2018/xxgk/xxgk06/202610/t20261010_1175958.html"},"S18":{"org":"生态环境部办公厅","doc":"《关于公开征求〈温室气体自愿减排项目方法学 可再生能源合成氨（征求意见稿）〉等5项方法学意见的函》环办便函〔2026〕345号（征求意见截止 2026-10-23）","date":"2026-10-16","url":"https://www.mee.gov.cn/xxgk2018/xxgk/xxgk06/202610/t20261016_1183138.html"},"S19":{"org":"IPCC","doc":"2006 IPCC Guidelines, Vol.1 Ch.3 — Uncertainties","date":"2006","url":"https://www.ipcc-nggip.iges.or.jp/public/2006gl/vol1.html"},"S20":{"org":"国家统计局","doc":"《中国能源统计年鉴》","date":"年度","url":"https://www.stats.gov.cn/sj/ndsj/"},"S21":{"org":"IPCC","doc":"2006 IPCC Guidelines, Vol.2 — Energy","date":"2006","url":"https://www.ipcc-nggip.iges.or.jp/public/2006gl/vol2.html"},"S22":{"org":"IPCC","doc":"AR6 WGI Chapter 7 — The Earth's Energy Budget, Climate Feedbacks and Climate Sensitivity（含 GWP100 表 7.15）","date":"2021","url":"https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-7/"}},"units":[{"k":"质量","a":"tC 与 tCO₂ 不可混用","b":"1 tC = 44/12 tCO₂ ≈ 3.667 tCO₂"},{"k":"质量","a":"tCO₂ 与 tCO₂e","b":"tCO₂e = Σ(气体质量 × GWP₁₀₀)，仅 CO₂ 时二者相等"},{"k":"能量","a":"tce 与 GJ","b":"1 tce = 29.3076 GJ（GB/T 2589）"},{"k":"能量","a":"kWh 与 GJ","b":"1 kWh = 3.6 MJ = 3.6×10⁻³ GJ"},{"k":"能量","a":"低位热值 NCV","b":"GJ/t 或 GJ/10³m³，必须用实测煤质/气质"},{"k":"因子","a":"kgCO₂/kWh 与 kgCO₂e/kWh","b":"前者仅含 CO₂，后者为当量总量，不可混用"},{"k":"因子","a":"含碳量","b":"tC/TJ；与 CO₂ 排放因子关系：EF = CC × 44/12 × 10³ kgCO₂/TJ"},{"k":"通量","a":"碳汇","b":"tC/ha·yr 与 tCO₂/ha·yr 差 3.667 倍"}],"elec":[{"id":"S-CO2-NAT","name":"电力消费 CO₂ 排放因子 · 全国","unit":"kgCO₂/kWh","scope":"地理口径（清单法）。外购电量乘此因子 = 间接排放","rule":"用于城市/企业温室气体清单的范围二（地理口径）核算","srcs":["S1","S2"],"values":[["2022","0.5366"],["2023","0.5306"]],"note":"2023 较 2022 下降 1.1%；0.5306 为官方口径值"},{"id":"S-CO2-MKT","name":"电力消费 CO₂ 排放因子 · 市场口径（不含市场化交易非化石电量）","unit":"kgCO₂/kWh","scope":"市场口径。购买绿电对应电量记 0，剩余外购电量乘此因子","rule":"仅用于可追溯绿电的市场口径核算；不得与地理口径因子混用","srcs":["S3"],"values":[["2022","0.5856"],["2023","0.6096"]],"note":"市场口径因子高于地理口径，因分母剔除了非化石电量；仅全国口径发布，区域/省级无此版本"},{"id":"S-CO2-FOSSIL","name":"化石能源电力 CO₂ 排放因子 · 全国","unit":"kgCO₂/kWh","scope":"仅统计化石电源发电量对应的 CO₂","rule":"用于「只看化石电源」的对比分析，不可当作全社会平均因子","srcs":["S2"],"values":[["2022","0.8325"],["2023","0.8273"]],"note":"分母仅为化石电源电量，故显著高于全社会平均"},{"id":"S-FOOT-NAT","name":"全国电力平均碳足迹因子（生命周期）","unit":"kgCO₂e/kWh","scope":"产品碳足迹口径：含燃料开采、运输、发电、输配全生命周期","rule":"用于电力产品碳足迹与出口产品碳足迹核算；不得用于清单范围二","srcs":["S4","S5"],"values":[["2023","0.6205"],["2024","0.5777"]],"note":"单位为 kgCO₂e（当量），与 CO₂ 因子量纲不同，不可拼接成同一时间序列"},{"id":"S-CO2-REG","name":"电力消费 CO₂ 排放因子 · 区域（2023）","unit":"kgCO₂/kWh","scope":"七大区域电网平均，地理口径","rule":"城市清单若按区域电网核算，用对应区域值；跨区域平均值不可替代","srcs":["S2"],"values":[["华北","0.6361"],["东北","0.5122"],["华东","0.5500"],["华中","0.5271"],["西北","0.5543"],["南方","0.4042"],["西南","0.2472"]],"note":"区域极差 0.2472–0.6361，达 2.57 倍；选错区域会带来量级误差"}],"ets":{"asof":"2026-09-02","doc":"国环规气候〔2026〕1号","srcs":["S15","S16"],"rows":[{"ind":"发电","method":"碳排放强度基准法","formula":"A = A_e + A_h\nA_e = Q_e × B_e × F_f\nA_h = Q_h × B_h","vars":"Q_e 发电量；B_e 该类别发电基准值（2026：0.7894 / 0.7985 / 0.8080 / 0.3288 tCO₂/MWh）；F_f 调峰修正系数；Q_h 供热量；B_h 供热基准值（0.1021 / 0.0533 tCO₂/GJ）","note":"配额由「产出量 × 基准值」直接给出，与自身排放量无关——同一类别机组同一基准，故效率低于基准者必然短缺"},{"ind":"钢铁","method":"碳排放强度系数法","formula":"A = E × (1 + α)\nα = f(X)，X = (BP − I)/BP","vars":"E 经核查碳排放量；BP 行业平衡值；I 主要工序吨产品碳排放量","note":"长流程高炉-转炉纳入；独立电炉短流程与独立钢压延暂不纳入；富氢碳循环氧气高炉属特殊情形等量分配"},{"ind":"水泥","method":"碳排放强度系数法","formula":"A = E × (1 + α)","vars":"E 经核查排放量（熟料生产线）；BP 行业平衡值","note":"覆盖熟料生产线，占行业全流程排放 98% 以上；白硅熟料线、电石渣替代率>30% 属特殊情形"},{"ind":"铝冶炼","method":"碳排放强度系数法","formula":"A = E × (1 + α)","vars":"E 经核查排放量（含 CF₄ / C₂F₆ 折算）；BP 行业平衡值","note":"覆盖铝电解工序；管控气体为 CO₂ + CF₄ + C₂F₆"}],"alpha":[["−20% < X < 20%","α = 0.15 X","线性区：偏离度按 15% 折算为配额调整率"],["X ≥ 20%","α = +0.03","上限封顶：强度远优于平衡值，盈余率不超过 3%"],["X ≤ −20%","α = −0.03","下限封底：强度远劣于平衡值，亏缺率不超过 3%"]],"common":["【α 方向·易错】α > 0 ⟺ 企业强度优于行业基准 ⟺ 配额 A > 排放 E ⟺ 形成盈余（奖励先进）；α < 0 ⟺ 劣于基准 ⟺ A < E ⟺ 形成缺口。方向不可反写。","【平衡值定义·原文】行业平衡值 BP = 使「行业配额总量与应清缴总量相等」时对应的主要工序碳排放强度水平，可在管理平台查询。","【预分配】原则上按上一年度核查排放量的 50% 预分配，年度结束后多退少补。","【结转·2026 新规】取消历史配额结转：2019—2024 年度配额不可用于 2025 年度及以后清缴。","【CCER 抵销】仅限 2024-01-22 之后登记的减排量。","【特殊情形等量分配】掺烧生物质≥20% 机组、富氢碳循环氧气高炉钢铁、白硅熟料线、电石渣替代率>30%、年排放<2.6 万吨等，按等量原则分配。","【规模】2026 年纳管 3,680 家、约 83 亿吨、占全国排放 65% 以上（2025 年为 3,378 家）。","【路线图】2027 年基本覆盖工业主要行业；2030 年建成以总量控制为基础、免费与有偿相结合的市场；石化化工、造纸、民航前期准备已启动。","【总量恒等】ΣA ≈ ΣE：α 的奖惩在行业内自相抵，故强度系数法不改变行业配额总量，只改变企业间分配。"],"caveat":"本页公式、基准值、α 取值表与结转规则均取自国环规气候〔2026〕1号正文（PDF 逐字比对）。仍未取得的是各行业「行业平衡值 BP」的具体数值全表与有偿分配的分年比例安排，已列为待补缺口。"},"ccer":{"ledger":[{"code":"CCER—14—001","name":"造林碳汇","ver":"V01（CCER—14—001—01）","date":"2025","status":"已被 V02 取代","srcs":["S10"],"changes":["初始版本，建立基线识别与碳汇计量框架","V02 施行前已按 V01 登记的项目继续沿用原方法学"]},{"code":"CCER—14—001","name":"造林碳汇","ver":"V02","date":"2026-10-10（环办气候函〔2026〕385号）","status":"现行 · 印发后 30 日施行","srcs":["S11"],"changes":["减排量权属：本文件规定的项目减排量属于林木所有权人","业主非所有权人时，除林木所有权证明外，须提供减排量转让协议","须取得所有权人出具的「项目寿命期内不皆伐」承诺证明","申请项目须符合产权清晰条件"]},{"code":"CCER—14—002","name":"红树林营造","ver":"V01（CCER—14—002—01）","date":"2025","status":"已被 V02 取代","srcs":["S10"],"changes":["初始版本，蓝碳三大件之一"]},{"code":"CCER—14—002","name":"红树林营造","ver":"V02","date":"2026-10-10（环办气候函〔2026〕384号）","status":"现行 · 印发后 30 日施行","srcs":["S17"],"changes":["同一省（区、市）内的多个红树林营造、滨海盐沼植被修复、海草床植被修复项目，可合并为一个项目提交登记申请","合并申请须取得全部项目所有者授权，并分别核算三类项目的减排量","任一被合并项目所有者不再拥有海域/土地所有权或不再享有使用权时，合并申请项目的计入期结束","立法目的：降低项目开发成本"]},{"code":"—","name":"可再生能源合成氨 / 矿山运输用车电动化 / 抽水蓄能电站 / 低值废塑料化学再生 / 厨余垃圾集中厌氧处理沼气工程","ver":"征求意见稿（5 项）","date":"2026-10-16（环办便函〔2026〕345号，截止 2026-10-23）","status":"未生效，不得计入可用清单","srcs":["S18"],"changes":["公开征求意见阶段；截至 2026-10-30 未见转为正式发布的公告","征求意见稿不具备项目申报效力，不得用于减排量签发"]}],"rules":["方法学有版本，项目归属版本而非类别——立项时须锁定版本号与生效日，V02 均为印发后 30 日施行","权属规则决定减排量归属：造林碳汇明确减排量属于林木所有权人，非所有权人须提供转让协议","计入期与权属绑定：红树林合并项目中任一项目权属丧失，整个合并申请项目的计入期即结束","合并申请不是简单加总：三类项目须分别核算减排量，且限于同一省域内","征求意见稿 ≠ 方法学：未生效文本不得用于项目减排量签发"]},"methods":[{"id":"MRIO","name":"隐含碳与消费端核算","en":"MRIO / EEIO","use":"解决「消费端排放归属」——城市消耗的商品在其上游哪里排放","formula":"Leontief 逆：  L = (I − A)⁻¹\n消费端隐含碳： E_c = e · L · y\n  A 直接消耗系数矩阵；y 最终需求向量；e 行业排放强度行向量\n净调出隐含碳： E_transfer = E_out − E_in（须同口径、同年份）","needs":["地区间投入产出表（非竞争型，含进口拆分）","分行业直接排放强度","城市最终需求结构（居民消费/投资/政府支出/出口）","调入调出的部门对应表"],"maps":["59 消费端隐含排放","122 产业链隐含碳","50 跨区域转移","9 外部产品","10 外部废弃物"],"limit":"表龄滞后（中国区域间表多为基准年编制）、部门归并误差大；不能由城市能源统计年鉴直接推出。","refs":["Miller & Blair, Input-Output Analysis: Foundations and Extensions, Cambridge UP","Mi et al. (2016) Consumption-based emission accounting for Chinese cities, Applied Energy 184"]},{"id":"LMDI","name":"驱动因素分解","en":"LMDI / SDA","use":"把总量变化拆成人口、富裕度、能源强度、碳强度四个可政策化的驱动项","formula":"Kaya 恒等式： C = P · (GDP/P) · (E/GDP) · (C/E)\nLMDI 加法分解： ΔC = ΔC_P + ΔC_g + ΔC_e + ΔC_i\n   ΔC_x = Σᵢ L(wᵢᵗ, wᵢ⁰) · ln(xᵢᵗ / xᵢ⁰)\n   L(a,b) = (a−b)/(ln a − ln b)，a=b 时取极限 a\n   wᵢ 为各分项碳排放；LMDI 无残差、可完全加和","needs":["连续年份、同口径的分项能源消费与排放","可比价 GDP（基年须固定）","分部门增加值或产出","人口序列"],"maps":["113–123 能源经济全部对象","57–65 城市清单","69 强度控制","75 控制效果评估"],"limit":"LMDI 是恒等分解，系数本身不含因果识别；说「某效应贡献 X%」须声明这是会计归因不是因果效应。","refs":["Ang, B.W. (2005) The LMDI approach to decomposition analysis: a practical guide, Energy Policy 33","Hoekstra & van den Bergh (2003) Comparing structural decomposition analysis and index number theory, Energy Economics 25"]},{"id":"CAUSAL","name":"政策因果效应评估","en":"DID / Event Study / Synthetic Control","use":"回答「这个政策到底减了多少排」——而不是「这个地区排得少所以政策有效」","formula":"双向固定效应 DID： Y_it = α_i + λ_t + β·D_it + ε_it\n事件研究： Y_it = α_i + λ_t + Σ_k β_k·1[t − E_i = k] + ε_it\n合成控制： w* = argmin_w ‖X₁ − X₀w‖，  τ_t = Y_1t − Σⱼ wⱼY_jt\n交错处理偏误：TWFE 权重可负 → 用 Callaway–Sant'Anna 或 Sun–Abraham 估计量","needs":["处理组/对照组的面板数据（城市×年）","处理时点（政策发文日 → 生效日须区分）","平行趋势检验所需的事前多期数据","对照组的可比性论证"],"maps":["123 政策因果效应","75 控制效果评估","106 税收与排放响应","109 碳价传导","110 市场覆盖与竞争"],"limit":"碳市场 2021 年起全国推开，处理组几乎覆盖全部重点排放单位，对照组难找；省级试点可作为处理组但存在溢出效应。","refs":["Callaway & Sant'Anna (2021) Difference-in-Differences with multiple time periods, Journal of Econometrics 225","Goodman-Bacon (2021) Difference-in-differences with variation in treatment timing, Journal of Econometrics 225","Abadie & Gardeazabal (2003) The economic costs of conflict, American Economic Review 93"]},{"id":"MACC","name":"减排成本与路径优化","en":"MACC / CGE / 动态优化","use":"给出「减一吨碳要多少钱」的排序，以及碳约束下的最优减排路径","formula":"单项技术： MAC_i = ΔCost_i / ΔAbate_i（元/tCO₂）\nMACC 曲线： 按 MAC 升序累加， 总成本 = ∫₀^Q MAC(q)dq\n最优条件： 碳约束影子价格 λ = MAC(Q*)\n注意： λ（影子价格） ≠ 碳市场成交价 ≠ 企业履约成本 ≠ SCC","needs":["分技术路线的投资/运维成本与寿命","技术渗透率与学习率","基准情景的能源价格路径","CGE 所需的替代弹性参数"],"maps":["116 减排成本","133 能源替代","134 工业技术改造","135 碳价与总量政策","137 综合政策组合"],"limit":"MACC 只覆盖有清单的技术项，遗漏行为改变与结构性调整；静态 MACC 忽略技术间相互依赖，会低估总成本。","refs":["Kesicki & Strachan (2011) A review of marginal abatement cost curves, Energy Policy 39","IPCC AR6 WGIII Ch.12 — Cross-sectoral perspectives"]},{"id":"UNCERT","name":"不确定性与贝叶斯推断","en":"Monte Carlo / Bayesian","use":"把「一个数」变成「一个区间」，使跨城市比较具备统计意义","formula":"误差传播（含相关）： Var(Y) ≈ Σᵢ(∂Y/∂xᵢ)²Var(xᵢ) + 2Σ_{i<j}(∂Y/∂xᵢ)(∂Y/∂xⱼ)Cov(xᵢ,xⱼ)\n相关抽样： Σ = D^{1/2} R D^{1/2}，D=diag(σ²)，R 为相关系数矩阵\n蒙特卡洛： xᵢ ~ Fᵢ → Y = f(x) → 取 5% / 50% / 95% 分位\n贝叶斯： p(θ|y) ∝ p(y|θ)p(θ)，用后验区间替代点估计","needs":["每个参数的分布假设（正态/对数正态/均匀/三角）","参数间相关系数矩阵","A 类（重复测量）与 B 类（假定区间）不确定度的分列","收敛判据与抽样次数"],"maps":["124–128 MRV 与质量","85 测量不确定性","77 碳价格","66 碳预算"],"limit":"参数分布的选择本身高度主观；若 R 矩阵缺失而默认独立，会系统性低估总不确定度。","refs":["IPCC 2006 Guidelines Vol.1 Ch.3 — Uncertainties","Morgan & Henrion (1990) Uncertainty: A Guide to Dealing with Uncertainty in Quantitative Risk and Policy Analysis, Cambridge UP"]},{"id":"SCEN","name":"情景与反事实推演","en":"LEAP / IAM / 反事实设计","use":"在一致性约束下推演「如果改这一个变量，2030 年会怎样」","formula":"净效应 = 项目情景 − 基线情景\n一致性约束： 能源平衡 Σ供给 = Σ消费 + Δ库存 + 损失\n排放由活动水平 × 因子逐部门累加，禁止总量外生给定后倒推分项","needs":["基线情景的社会经济假设（人口/GDP/产业结构）","技术成本与可用性路径","部门活动水平驱动关系","与碳预算的一致性校验"],"maps":["133 能源替代","134 工业技术改造","135 碳价与总量政策","136 碳移除规模化","137 综合政策组合"],"limit":"情景不是预测：结论的可信度上限由基线情景的合理性决定；单模型结果不应作为政策唯一依据。","refs":["IPCC AR6 WGIII Ch.3 — Mitigation pathways compatible with long-term goals","LEAP 用户指南（Stockholm Environment Institute）"]}],"identities":[["碳流平衡（一般控制体）","C_in − C_out + C_gen − C_cons − ΔS = 0"],["口径对账（需 MRIO）","属地 + 调入隐含碳 − 调出隐含碳 = 消费端"],["配额盈缺","缺口 = E − A   （A 为核发配额）"],["净排放","净排放 = 总排放 − 净移除量"]],"params":[{"layer":"01","mod":"空间边界","t":"边界依据 GB/T 2260 行政区划代码","src":"","year":"","unit":"","scope":"未绑定文号：属方法学陈述、跨来源综合判断或本框架自建规则，非单一文件可追溯","bound":false},{"layer":"01","mod":"空间边界","t":"第三次国土调查成果（界线与地类）","src":"","year":"","unit":"","scope":"未绑定文号：属方法学陈述、跨来源综合判断或本框架自建规则，非单一文件可追溯","bound":false},{"layer":"01","mod":"空间边界","t":"排污许可名录可作设施底表主键（含统一社会信用代码）","src":"","year":"","unit":"","scope":"未绑定文号：属方法学陈述、跨来源综合判断或本框架自建规则，非单一文件可追溯","bound":false},{"layer":"02","mod":"能源输入","t":"IPCC 2006 缺省因子已核实（原煤/原油/汽油/柴油/燃料油/天然气）","src":"S21","year":"2006","unit":"tC/TJ","scope":"分品种 NCV / 含碳量缺省值","bound":true},{"layer":"02","mod":"能源输入","t":"反算校验值：原煤 1.98、原油 3.10、汽油 3.07、柴油 3.19 tCO₂/t","src":"","year":"","unit":"","scope":"未绑定文号：属方法学陈述、跨来源综合判断或本框架自建规则，非单一文件可追溯","bound":false},{"layer":"02","mod":"能源输入","t":"官方电力因子三套口径已核实（见「电力与热力」）","src":"","year":"","unit":"","scope":"未绑定文号：属方法学陈述、跨来源综合判断或本框架自建规则，非单一文件可追溯","bound":false},{"layer":"03","mod":"能源转换","t":"2022 全国电力平均 CO₂ 因子 0.5366 kgCO₂/kWh","src":"S1","year":"2022","unit":"kgCO₂/kWh","scope":"全国电力消费，地理口径（清单法）","bound":true},{"layer":"03","mod":"能源转换","t":"2023 全国电力平均 CO₂ 因子 0.5306 kgCO₂/kWh（较 2022 年 −1.1%）","src":"S2","year":"2023","unit":"kgCO₂/kWh","scope":"全国电力消费，地理口径（清单法）","bound":true},{"layer":"03","mod":"能源转换","t":"2023 区域因子：华北 0.6361 / 东北 0.5122 / 华东 0.5500 / 华中 0.5271 / 西北 0.5543 / 南方 0.4042 / 西南 0.2472","src":"S2","year":"2023","unit":"kgCO₂/kWh","scope":"七大区域电网，地理口径","bound":true},{"layer":"03","mod":"能源转换","t":"2024 电力平均碳足迹因子 0.5777 kgCO₂e/kWh（2023 年 0.6205；注意：碳足迹因子 ≠ CO₂ 排放因子，不可拼接为同一时间序列）","src":"S4","year":"2024","unit":"kgCO₂e/kWh","scope":"电力产品生命周期碳足迹（≠清单因子）","bound":true},{"layer":"03","mod":"能源转换","t":"2023 全国化石能源电力 CO₂ 因子 0.8273 kgCO₂/kWh","src":"S2","year":"2023","unit":"kgCO₂/kWh","scope":"仅化石电源发电量","bound":true},{"layer":"03","mod":"能源转换","t":"【已改】v1 原句「发电排放 100% 由输入燃料的碳决定，与热效率无关」在电量需求驱动的前提下不成立，已拆为「总排放」与「排放强度」两式","src":"","year":"","unit":"","scope":"未绑定文号：属方法学陈述、跨来源综合判断或本框架自建规则，非单一文件可追溯","bound":false},{"layer":"04","mod":"工业排放","t":"碳市场已纳入钢铁/水泥/铝冶炼，管控气体为 CO₂ + CF₄ + C₂F₆","src":"S7","year":"2025","unit":"—","scope":"管控气体范围","bound":true},{"layer":"04","mod":"工业排放","t":"覆盖门槛：高炉-转炉长流程、熟料生产线、电解铝工序（占行业全流程排放 98% 以上）","src":"S7","year":"2025","unit":"%","scope":"占行业全流程排放 98% 以上","bound":true},{"layer":"04","mod":"工业排放","t":"独立电炉短流程与独立钢压延暂不纳入配额管理","src":"S7","year":"2025","unit":"—","scope":"纳入边界","bound":true},{"layer":"04","mod":"工业能源","t":"三套电力因子全部核实，可按核算目的选用","src":"S2","year":"2023","unit":"kgCO₂/kWh","scope":"口径选择","bound":true},{"layer":"04","mod":"工业能源","t":"碳市场核算明确不覆盖外购电力热力的间接排放","src":"","year":"","unit":"","scope":"未绑定文号：属方法学陈述、跨来源综合判断或本框架自建规则，非单一文件可追溯","bound":false},{"layer":"04","mod":"建筑能源","t":"2024 城镇化率 67.00%（+0.84 pp）","src":"S8","year":"2024","unit":"%","scope":"全国","bound":true},{"layer":"04","mod":"建筑能源","t":"居民人均消费支出 28,227 元（2024）","src":"S8","year":"2024","unit":"元","scope":"全国居民","bound":true},{"layer":"04","mod":"交通能源","t":"2024 新能源汽车保有量 3,140 万辆（+1,099 万辆）","src":"S8","year":"2024","unit":"万辆","scope":"全国保有量","bound":true},{"layer":"04","mod":"交通能源","t":"旅客运输总量 171 亿人次、货物运输 578 亿吨","src":"S8","year":"2024","unit":"亿人次 / 亿吨","scope":"全国营业性运输","bound":true},{"layer":"04","mod":"农业排放","t":"2024 稻谷播种面积 2,901 万公顷、产量 20,753 万吨","src":"S8","year":"2024","unit":"万公顷 / 万吨","scope":"全国","bound":true},{"layer":"04","mod":"农业排放","t":"生猪存栏 42,743 万头 / 出栏 70,256 万头","src":"S8","year":"2024","unit":"万头","scope":"全国存栏与出栏","bound":true},{"layer":"04","mod":"农业排放","t":"牛肉 779、羊肉 518、禽肉 2,660 万吨","src":"S8","year":"2024","unit":"万吨","scope":"全国肉类产量","bound":true},{"layer":"04","mod":"土地与生态","t":"2024 造林面积 445 万公顷（人工造林 118 万公顷，占 26.6%）","src":"S8","year":"2024","unit":"万公顷","scope":"全国，人工造林 118 万公顷","bound":true},{"layer":"04","mod":"土地与生态","t":"森林火灾 292 起、受害面积 0.7 万公顷（可作为扣减项）","src":"S8","year":"2024","unit":"起 / 万公顷","scope":"全国，可作扣减项","bound":true},{"layer":"04","mod":"土地与生态","t":"CCER 已认定蓝碳「三大件」：盐沼、海草床、红树林","src":"S10","year":"2025","unit":"—","scope":"蓝碳类别","bound":true},{"layer":"04","mod":"逸散排放","t":"AR6 GWP100：CH₄ 化石源 29.8 / 非化石源 27.0 / 未区分 27.9","src":"S22","year":"2021","unit":"无量纲","scope":"100 年全球增温潜势","bound":true},{"layer":"04","mod":"工业气体","t":"N₂O GWP100 = 273（AR6）","src":"S22","year":"2021","unit":"无量纲","scope":"100 年全球增温潜势","bound":true},{"layer":"04","mod":"工业气体","t":"碳市场已将 CF₄、C₂F₆ 纳入管控气体","src":"S7","year":"2025","unit":"—","scope":"铝冶炼管控气体","bound":true},{"layer":"04","mod":"废弃物","t":"清单与碳市场的方法学框架已明确","src":"","year":"","unit":"","scope":"未绑定文号：属方法学陈述、跨来源综合判断或本框架自建规则，非单一文件可追溯","bound":false},{"layer":"05","mod":"碳流","t":"CCER 已认定蓝碳「三大件」：盐沼、海草床、红树林营造","src":"S10","year":"2025","unit":"—","scope":"蓝碳类别认定","bound":true},{"layer":"05","mod":"碳流","t":"2025 年新增淤地坝碳汇方法学（全球首个水土保持工程碳汇核算规则）","src":"S10","year":"2025","unit":"—","scope":"方法学事实","bound":true},{"layer":"05","mod":"碳流","t":"【已改】v1 原式「碳输入 = 大气排放 + 产品固碳 + 废物 + Δ库存 + 封存」缺 C_out 项，边界不闭合时必然漏算跨区域调出，已改为一般控制体形式","src":"","year":"","unit":"","scope":"未绑定文号：属方法学陈述、跨来源综合判断或本框架自建规则，非单一文件可追溯","bound":false},{"layer":"06","mod":"城市清单","t":"【地理口径】2023 全国 0.5306；区域与省级平均因子同表发布","src":"S2","year":"2023","unit":"kgCO₂/kWh","scope":"范围二间接排放，地理口径","bound":true},{"layer":"06","mod":"城市清单","t":"【市场口径】2023 全国 0.6096 kgCO₂/kWh（不含市场化交易的非化石能源电量）；购绿电对应电量记 0，剩余电量用该因子","src":"S3","year":"2023","unit":"kgCO₂/kWh","scope":"范围二间接排放，市场口径（不含市场化交易非化石电量）","bound":true},{"layer":"06","mod":"城市清单","t":"【化石电源】2023 全国 0.8273 kgCO₂/kWh","src":"S2","year":"2023","unit":"kgCO₂/kWh","scope":"仅化石电源","bound":true},{"layer":"06","mod":"城市清单","t":"【口径限定】区域与省级因子未发布「扣除非化石市场化交易电量」版本，不可套用全国市场口径规则","src":"S3","year":"2023","unit":"—","scope":"口径适用边界声明","bound":true},{"layer":"06","mod":"城市清单","t":"2024 万元 GDP CO₂ 排放 −3.4%（按 2020 年价）","src":"S8","year":"2024","unit":"%","scope":"全国，按 2020 年不变价","bound":true},{"layer":"07","mod":"碳预算","t":"GCB 2025（2025-11-13 发布）：1.5℃ 剩余预算 170 GtCO₂，约合 2025 年排放水平的 4 年","src":"S12","year":"2025","unit":"GtCO₂","scope":"起算点约 2026 年初","bound":true},{"layer":"07","mod":"碳预算","t":"AR6 综合报告历史基准（自 2020 年初起算）：1.5℃/50% = 500 GtCO₂；2℃/67% = 1150 GtCO₂","src":"S13","year":"2023","unit":"GtCO₂","scope":"起算点 2020 年初；50% / 67% 概率条件","bound":true},{"layer":"07","mod":"碳预算","t":"关键：GCB 起算点约 2026 年初，AR6 起算点为 2020 年初，两者相差约 6 年排放量，不可直接对比","src":"","year":"","unit":"","scope":"未绑定文号：属方法学陈述、跨来源综合判断或本框架自建规则，非单一文件可追溯","bound":false},{"layer":"07","mod":"碳预算","t":"AR6 WGI 另列 2℃/50% = 1350 GtCO₂，概率条件不可省略","src":"","year":"","unit":"","scope":"未绑定文号：属方法学陈述、跨来源综合判断或本框架自建规则，非单一文件可追溯","bound":false},{"layer":"07","mod":"总量控制","t":"【2026 方案】国环规气候〔2026〕1号，2026-09-02 印发；适用范围＝2025+2026 年度发电行业、2026 年度钢铁/水泥/铝冶炼（三行业 2025 年度仍按《2024、2025年度…方案》执行）","src":"S16","year":"2026","unit":"—","scope":"2025+2026 发电、2026 三行业","bound":true},{"layer":"07","mod":"总量控制","t":"【方法分工·原文】「发电行业采用碳排放强度基准法分配配额，钢铁、水泥、铝冶炼行业 2026 年度采用碳排放强度系数法分配配额」","src":"S16","year":"2026","unit":"—","scope":"发电基准法 / 三行业系数法","bound":true},{"layer":"07","mod":"总量控制","t":"【三行业公式·原文】A = E ×（1 + α）；α「当企业优于行业基准水平时取值＞0；反之＜0」","src":"S16","year":"2026","unit":"tCO₂","scope":"钢铁/水泥/铝冶炼 2026 年度","bound":true},{"layer":"07","mod":"总量控制","t":"【α 取值表】X 偏离度：−20%<X<20% → 0.15X；X≥20% → 0.03；X≤−20% → −0.03（偏离度封顶 ±3%）","src":"S16","year":"2026","unit":"无量纲","scope":"X 分段：0.15X / ±0.03","bound":true},{"layer":"07","mod":"总量控制","t":"【2026 发电基准值】0.7894 / 0.7985 / 0.8080 / 0.3288 tCO₂/MWh；供热 0.1021 / 0.0533 tCO₂/GJ","src":"S16","year":"2026","unit":"tCO₂/MWh；tCO₂/GJ","scope":"四类机组与供热","bound":true},{"layer":"07","mod":"总量控制","t":"【预分配】原则上按上一年度核查排放量的 50% 预分配，多退少补","src":"S16","year":"2026","unit":"%","scope":"上一年度核查排放量的 50%","bound":true},{"layer":"07","mod":"总量控制","t":"【结转·重要】取消历史配额结转：2019—2024 年度配额不可用于 2025 年度及以后清缴","src":"S16","year":"2026","unit":"—","scope":"取消历史配额结转","bound":true},{"layer":"07","mod":"总量控制","t":"【CCER 抵销】仅限 2024-01-22 之后登记的减排量","src":"S16","year":"2026","unit":"—","scope":"限 2024-01-22 后登记","bound":true},{"layer":"07","mod":"总量控制","t":"【特殊情形等量分配】掺烧生物质≥20% 机组、富氢碳循环氧气高炉钢铁、白硅熟料线、电石渣替代率>30%、年排放<2.6 万吨等","src":"S16","year":"2026","unit":"—","scope":"五类特殊情形","bound":true},{"layer":"07","mod":"总量控制","t":"【纳管规模】2026 年 3,680 家、约 83 亿吨、占全国排放 65% 以上；累计成交 9.61 亿吨 / 656.99 亿元（截至 2026-08 底）","src":"S15","year":"2026","unit":"家 / 亿吨","scope":"截至 2026-08 底","bound":true},{"layer":"07","mod":"总量控制","t":"【路线图】2027 年基本覆盖工业主要行业；2030 年建成以总量控制为基础、免费与有偿相结合的市场；石化化工、造纸、民航前期准备已启动","src":"S15","year":"2026","unit":"—","scope":"2027 / 2030 目标","bound":true},{"layer":"07","mod":"碳市场","t":"2025 累计成交 8.65 亿吨 / 576.63 亿元","src":"","year":"","unit":"","scope":"未绑定文号：属方法学陈述、跨来源综合判断或本框架自建规则，非单一文件可追溯","bound":false},{"layer":"07","mod":"碳市场","t":"【截至 2026-08 底】累计成交 9.61 亿吨 / 656.99 亿元","src":"S15","year":"2026","unit":"亿吨 / 亿元","scope":"全国碳市场累计","bound":true},{"layer":"07","mod":"碳市场","t":"2025 年末收盘 74.63 元/吨，全年交易均价 62.36 元/吨","src":"S6","year":"2025","unit":"元/tCO₂","scope":"配额年度收盘价与均价","bound":true},{"layer":"07","mod":"碳市场","t":"2025 成交量 2.35 亿吨（同比 +24.36%），243 个交易日，146.30 亿元","src":"S15","year":"2025","unit":"亿吨","scope":"年度成交量","bound":true},{"layer":"07","mod":"碳市场","t":"《全国碳市场发展报告（2026）》2026-09-15 于中国碳市场大会（湖北武汉）发布，中英文版","src":"S15","year":"2026","unit":"—","scope":"发布事实与场合","bound":true},{"layer":"07","mod":"碳市场","t":"价格形成受配额供给、结转规则、履约周期、市场流动性、政策预期共同影响","src":"","year":"","unit":"","scope":"未绑定文号：属方法学陈述、跨来源综合判断或本框架自建规则，非单一文件可追溯","bound":false},{"layer":"07","mod":"碳信用","t":"CCER 抵消上限 5%（国环规气候〔2024〕1号；明确仅适用 2023、2024 履约年度，不可外推）","src":"S9","year":"2024","unit":"%","scope":"仅 2023、2024 履约年度","bound":true},{"layer":"07","mod":"碳信用","t":"【2025 年度】发布 12 项方法学；登记 33 个项目、1,776.37 万吨；累计成交 921.94 万吨，均价 70.76 元/吨","src":"S10","year":"2025","unit":"项 / 万吨 / 元每吨","scope":"2025 年度签发与成交","bound":true},{"layer":"07","mod":"碳信用","t":"【截至 2026-08 底·累计】登记 41 个项目 / 2,423.35 万吨；成交 2,170.68 万吨 / 17.37 亿元；累计发布 18 项方法学","src":"S15","year":"2026","unit":"个 / 万吨 / 亿元 / 项","scope":"累计口径","bound":true},{"layer":"07","mod":"碳信用","t":"【2026 抵销新规】CCER 抵销仅限 2024-01-22 之后登记的减排量（国环规气候〔2026〕1号）","src":"S16","year":"2026","unit":"—","scope":"登记时间门槛","bound":true},{"layer":"07","mod":"碳信用","t":"【V02 造林碳汇 CCER—14—001—V02，2026-10-10，环办气候函〔2026〕385号】减排量属于林木所有权人；业主非所有权人须提供所有权证明 + 减排量转让协议；须取得寿命期内不皆伐承诺证明；项目须产权清晰","src":"S11","year":"2026","unit":"—","scope":"环办气候函〔2026〕385号","bound":true},{"layer":"07","mod":"碳信用","t":"【V02 红树林营造 CCER—14—002—V02，2026-10-10，环办气候函〔2026〕384号】同一省域内红树林/盐沼/海草床可合并申请；须取得全部所有者授权并分别核算三类减排量；任一项目权属丧失则合并项目计入期结束","src":"S17","year":"2026","unit":"—","scope":"环办气候函〔2026〕384号","bound":true},{"layer":"07","mod":"碳信用","t":"【状态分离】2026-10-16 环办便函〔2026〕345号公开征求 5 项方法学意见（截止 10-23），为征求意见稿，未生效","src":"S18","year":"2026","unit":"—","scope":"环办便函〔2026〕345号，征求意见稿","bound":true},{"layer":"07","mod":"碳移除","t":"蓝碳三大件方法学已发布（盐沼、海草床、红树林营造）","src":"S10","year":"2025","unit":"—","scope":"盐沼 / 海草床 / 红树林","bound":true},{"layer":"07","mod":"碳移除","t":"淤地坝碳汇：全球首个水土保持工程碳汇核算规则","src":"S10","year":"2025","unit":"—","scope":"水土保持工程碳汇","bound":true},{"layer":"07","mod":"碳移除","t":"绿氢方法学明确：从电网取用的电量不计入减排量","src":"","year":"","unit":"","scope":"未绑定文号：属方法学陈述、跨来源综合判断或本框架自建规则，非单一文件可追溯","bound":false},{"layer":"07","mod":"碳移除","t":"SF₆ 回收方法学：适用于 66 kV 及以上电气设备","src":"","year":"","unit":"","scope":"未绑定文号：属方法学陈述、跨来源综合判断或本框架自建规则，非单一文件可追溯","bound":false},{"layer":"07","mod":"碳税","t":"中国目前未开征碳税（现行仅有环境保护税、消费税、资源税）","src":"","year":"","unit":"","scope":"未绑定文号：属方法学陈述、跨来源综合判断或本框架自建规则，非单一文件可追溯","bound":false},{"layer":"07","mod":"碳交易","t":"碳价序列已核实，可直接作为履约成本计算的输入","src":"S6","year":"2025","unit":"元/吨","scope":"履约成本计算输入","bound":true},{"layer":"07","mod":"自愿碳市场","t":"2025 CCER 均价 70.76 元/吨，同期配额均价 62.36 元/吨（存在正向溢价）","src":"S10","year":"2025","unit":"元/吨","scope":"同期配额均价 62.36","bound":true},{"layer":"07","mod":"自愿碳市场","t":"CCER 的抵消资格受 5% 上限约束，故其价格上限由履约需求而非自愿声誉需求决定","src":"","year":"","unit":"","scope":"未绑定文号：属方法学陈述、跨来源综合判断或本框架自建规则，非单一文件可追溯","bound":false},{"layer":"08","mod":"能源经济","t":"2024 GDP 1,349,084 亿元；能源消费 59.6 亿 tce；煤炭占比 53.2%","src":"S8","year":"2024","unit":"亿元 / 亿tce / %","scope":"全国宏观","bound":true},{"layer":"08","mod":"能源经济","t":"万元 GDP 能耗 −3.8%、万元 GDP CO₂ 排放 −3.4%","src":"S8","year":"2024","unit":"%","scope":"全国，可比价","bound":true},{"layer":"08","mod":"能源经济","t":"绿色贷款余额 36.6 万亿元（+6.5 万亿元）","src":"S8","year":"2024","unit":"万亿元","scope":"全国金融口径","bound":true},{"layer":"08","mod":"能源经济","t":"关键限制：仅凭城市能源统计年鉴无法计算消费端碳足迹，调入调出须为隐含碳排放而非实物量","src":"","year":"","unit":"","scope":"未绑定文号：属方法学陈述、跨来源综合判断或本框架自建规则，非单一文件可追溯","bound":false},{"layer":"08","mod":"MRV 与质量","t":"月度信息化存证（钢铁/水泥/铝冶炼强制）","src":"S7","year":"2025","unit":"—","scope":"钢铁/水泥/铝冶炼强制要求","bound":true},{"layer":"08","mod":"MRV 与质量","t":"年度数据质量控制方案 + 「三级联审」+ 飞行检查","src":"","year":"","unit":"","scope":"未绑定文号：属方法学陈述、跨来源综合判断或本框架自建规则，非单一文件可追溯","bound":false},{"layer":"08","mod":"MRV 与质量","t":"以核算方法为主、自动监测为辅的多源交叉核验","src":"","year":"","unit":"","scope":"未绑定文号：属方法学陈述、跨来源综合判断或本框架自建规则，非单一文件可追溯","bound":false},{"layer":"08","mod":"MRV 与质量","t":"注：城市核算中能源消费量与排放因子常同源，协方差项不可省略","src":"","year":"","unit":"","scope":"未绑定文号：属方法学陈述、跨来源综合判断或本框架自建规则，非单一文件可追溯","bound":false},{"layer":"08","mod":"MRV 与质量","t":"【A 类 / B 类】A 类＝对若干分量重复测量用统计方法求得；B 类＝依经验/厂家/文献假定的区间，按分布换算为标准不确定度（IPCC 2006 Vol.1 Ch.3）","src":"S19","year":"2006","unit":"—","scope":"不确定度分类","bound":true},{"layer":"08","mod":"MRV 与质量","t":"【相关性】共享统计来源的变量（如能源消费量与活动水平）须给出相关系数矩阵 R，用 Σ = D^{1/2} R D^{1/2} 合成，再抽样","src":"","year":"","unit":"","scope":"未绑定文号：属方法学陈述、跨来源综合判断或本框架自建规则，非单一文件可追溯","bound":false},{"layer":"08","mod":"数据体系","t":"排污许可管理信息平台（含统一社会信用代码）可作设施主表底稿","src":"","year":"","unit":"","scope":"未绑定文号：属方法学陈述、跨来源综合判断或本框架自建规则，非单一文件可追溯","bound":false},{"layer":"08","mod":"情景模拟","t":"碳价与配额参数可直接用于情景设定（2025 全序列已核实）","src":"","year":"","unit":"","scope":"未绑定文号：属方法学陈述、跨来源综合判断或本框架自建规则，非单一文件可追溯","bound":false}],"unboundNote":"未绑定文号：属方法学陈述、跨来源综合判断或本框架自建规则，非单一文件可追溯","totals":{"items":137,"mods":26,"layers":8,"gaps":63,"params":87,"paramsBound":63,"paramsUnbound":24,"byStatus":{"verified":1,"partial":11,"pending":14}}};
+const SM = DATA.statusMeta;
+
+/* ---------- 渲染主图 ---------- */
+const navEl = document.getElementById('nav');
+const mapEl = document.getElementById('map');
+
+function layerBtn(l){
+  return `<button class="lbtn" data-layer="${l.no}" style="color:${l.accent}">
+      <span class="no">${l.no}</span><span style="color:var(--txt)">${l.name}</span>
+    </button>`;
+}
+navEl.innerHTML = DATA.layers.map(layerBtn).join('');
+
+let modIndex = [];
+let html = '';
+DATA.layers.forEach(l=>{
+  html += `<section class="layer" data-layer="${l.no}" style="color:${l.accent}">
+    <div class="lhead">
+      <div class="lno" style="color:${l.accent}">${l.no}</div>
+      <div>
+        <div class="lname" style="color:var(--txt)">${l.name}
+          <span class="lsub">${l.sub}</span></div>
+      </div>
+    </div>
+    <div class="mods${l.mods.length===1?' one':''}">`;
+  l.mods.forEach(m=>{
+    const idx = modIndex.length;
+    modIndex.push({layer:l, mod:m, idx});
+    const st = SM[m.status];
+    html += `<div class="mod" role="button" tabindex="0" data-idx="${idx}" style="color:${l.accent}">
+      <div class="mod-h">
+        <span class="dot" style="background:${st[1]}"></span>
+        <h3>${m.name}</h3>
+        <span class="rng">${m.rows}</span>
+      </div>
+      <div class="chips">` +
+      m.chips.map(c=>`<span class="chip" role="button" tabindex="0" data-idx="${idx}" data-n="${c.n}"><b>${c.n}</b>${c.t}</span>`).join('') +
+      `</div></div>`;
+  });
+  html += `</div></section>`;
+});
+mapEl.innerHTML = html;
+
+/* ---------- 面板 ---------- */
+const panel = document.getElementById('panel');
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+function srcBlock(m){
+  if(!m.srcs || !m.srcs.length) return '';
+  const items = m.srcs.map(id=>{
+    const x = DATA.sources[id];
+    if(!x) return '';
+    const tail = `<span class="org">${esc(x.org)} · ${esc(x.date)}` +
+      (x.verify ? ` · <b style="color:#fbbf24">${esc(x.verify)}</b>` : '') + `</span>`;
+    return x.url
+      ? `<li><a href="${x.url}" target="_blank" rel="noopener">${esc(x.doc)}</a>${tail}</li>`
+      : `<li><span style="color:#c8d7ee">${esc(x.doc)}</span>${tail}</li>`;
+  }).join('');
+  return `<div class="sec" style="color:#38bdf8">
+      <div class="sec-t">证据链 · 模块级 ${m.srcs.length} 条来源</div>
+      <ul class="li src">${items}</ul>
+      <div class="hint" style="margin-top:8px">说明：此处为模块级绑定，用于定位该模块的整体依据；
+      逐参数级登记见「参数证据台账」视图（含来源编号 / 年份 / 单位 / 适用范围）。</div>
+    </div>`;
+}
+
+function overview(){
+  const t = DATA.totals;
+  let cnt = {verified:0, partial:0, pending:0};
+  DATA.layers.forEach(l=>l.mods.forEach(m=>cnt[m.status]++));
+  const rows = DATA.layers.map(l=>{
+    const v = l.mods.filter(m=>m.status==='verified').length;
+    return `<div class="ov-row"><span style="color:${l.accent}">${l.no} ${l.name}</span>
+      <span>${l.mods.length} 模块 · 已核实 ${v}</span></div>`;
+  }).join('');
+  panel.innerHTML = `
+    <div class="p-kicker">OVERVIEW</div>
+    <div class="p-title">总览</div>
+    <div class="p-meta">点击左侧任意层、模块或条目查看详情</div>
+
+    <div class="sec" style="color:#7dd3fc">
+      <div class="sec-t">数据进度</div>
+      <div class="bar">
+        <i style="width:${cnt.verified/t.mods*100}%;background:${SM.verified[1]}"></i>
+        <i style="width:${cnt.partial/t.mods*100}%;background:${SM.partial[1]}"></i>
+        <i style="width:${cnt.pending/t.mods*100}%;background:${SM.pending[1]}"></i>
+      </div>
+      <div class="legend">
+        <span><i style="background:${SM.verified[1]}"></i>已核实 ${cnt.verified}</span>
+        <span><i style="background:${SM.partial[1]}"></i>部分可用 ${cnt.partial}</span>
+        <span><i style="background:${SM.pending[1]}"></i>待补参数 ${cnt.pending}</span>
+      </div>
+    </div>
+
+    <div class="sec" style="color:#a78bfa">
+      <div class="sec-t">规模</div>
+      <div class="ov-row"><span>核算对象</span><span>${t.items} 条</span></div>
+      <div class="ov-row"><span>一级模块</span><span>${t.mods} 个</span></div>
+      <div class="ov-row"><span>结构层次</span><span>${t.layers} 层</span></div>
+      <div class="ov-row"><span>已核实参数</span><span>${t.params} 条</span></div>
+      <div class="ov-row"><span>待补缺口</span><span>${t.gaps} 项</span></div>
+      <div class="ov-row"><span>数据版本</span><span>${DATA.version} · ${DATA.built}</span></div>
+    </div>
+
+    <div class="sec" style="color:#34d399">
+      <div class="sec-t">各层完成度</div>
+      ${rows}
+    </div>
+
+    <div class="sec" style="color:#fbbf24">
+      <div class="sec-t">四条对账恒等式</div>
+      <ul class="li">
+        ${DATA.identities.map(x=>`<li><b>${esc(x[0])}</b>：<span class="spec" style="color:#a5e3ff">${esc(x[1])}</span></li>`).join('')}
+      </ul>
+    </div>
+
+    <div class="sec" style="color:#f472b6">
+      <div class="sec-t">状态口径已改：双轴替代单一标签</div>
+      <div class="hint" style="margin-top:0">
+        v2 的单一「已核实 / 部分可用 / 待补参数」出现 15/26 个模块与缺口清单自相矛盾
+        （如「已核实」仍列缺口、「待补」却无缺口清单）。v3 改为两轴独立标定：
+        <b>方法成熟度 M</b>（公式是否明确、是否有标准方法学）与
+        <b>数据完备度 D</b>（参数是否齐全可出数），三色状态由 (M, D, 缺口数) 派生，
+        并加硬断言：D&lt;4 必须有缺口清单，D=4 必须有来源。详见「双轴状态」页。
+      </div>
+    </div>
+
+    <div class="sec" style="color:#38bdf8">
+      <div class="sec-t">单位与量纲（审计要求）</div>
+      ${DATA.units.map(u=>`<div class="unit-row"><em>${esc(u.k)}</em><b>${esc(u.a)}</b><span>${esc(u.b)}</span></div>`).join('')}
+    </div>
+
+    <div class="sec" style="color:#fbbf24">
+      <div class="sec-t">已核实参数的定义边界</div>
+      <div class="hint" style="margin-top:0">
+        「已核实」= 该表述可追溯到政府公告/统计公报原文并已逐字比对；
+        <b>不等于</b>该参数适用于任意城市、任意年份。适用条件见各模块「口径限定」条目。
+      </div>
+    </div>
+
+    <div class="sec" style="color:#a78bfa">
+      <div class="sec-t">配套文件（可下载）</div>
+      <ul class="li src">
+        <li><a href="manual.md" target="_blank" rel="noopener">数据支撑手册</a>
+          <span class="org">参数、公式、来源与待核清单</span></li>
+        <li><a href="parameters.xlsx" target="_blank" rel="noopener">碳核算参数表</a>
+          <span class="org">8 个工作表，可载入模型</span></li>
+        <li><a href="missing_data_spec.py" target="_blank" rel="noopener">缺失数据任务单</a>
+          <span class="org">35 条 / 172 个数据点，含自检脚本</span></li>
+        <li><a href="audit-response-round2.md" target="_blank" rel="noopener">第二轮审计响应</a>
+          <span class="org">2026 政策核实、α 方向修正、状态体系重构</span></li>
+        <li><a href="audit-response-round1.md" target="_blank" rel="noopener">第一轮审计响应</a>
+          <span class="org">逐条核实记录与修正说明</span></li>
+        <li><a href="framework-map.svg" target="_blank" rel="noopener">静态矢量总图</a>
+          <span class="org">2000 × 3890 SVG，与页面同源生成</span></li>
+        <li><a href="framework_core.py" target="_blank" rel="noopener">单一事实源</a>
+          <span class="org">全部数据 + 双轴标定 + 生成期断言，可本地复现</span></li>
+      </ul>
+    </div>`;
+}
+
+function renderLayer(l){
+  const first = l.first;
+  const mods = l.mods.map(m=>{
+    const st = SM[m.status];
+    return `<div class="ov-row"><span>${esc(m.name)}</span>
+      <span style="color:${st[1]}">${st[0]} · ${m.chips.length} 条</span></div>`;
+  }).join('');
+  panel.innerHTML = `
+    <div class="p-kicker" style="color:${l.accent}">LAYER ${l.no}</div>
+    <div class="p-title">${esc(l.name)}</div>
+    <div class="p-meta"><span class="tag" style="color:${l.accent}">${l.mods.length} 个模块</span>
+      <span>${l.mods.reduce((a,m)=>a+m.chips.length,0)} 条核算对象</span></div>
+    <div class="sec" style="color:${l.accent}">
+      <div class="sec-t">第一性原理</div>
+      <div class="first">${esc(first)}</div>
+    </div>
+    <div class="sec" style="color:#7dd3fc">
+      <div class="sec-t">本层模块进度</div>${mods}
+    </div>`;
+}
+
+function renderModule(idx){
+  const {layer:l, mod:m} = modIndex[idx];
+  const st = SM[m.status];
+  const ver = m.verified.length ? `<ul class="li">` +
+      m.verified.map(v=>`<li>${esc(v)}</li>`).join('') + `</ul>`
+      : `<div class="empty">暂无已核实参数</div>`;
+  const gap = m.gaps.length ? `<ul class="li gap">` +
+      m.gaps.map(g=>`<li>${esc(g.t)} <span class="spec">[${g.id}]</span></li>`).join('') + `</ul>`
+      : `<div class="empty">本模块无待补缺口</div>`;
+  panel.innerHTML = `
+    <div class="p-kicker" style="color:${l.accent}">${l.no} ${l.name}</div>
+    <div class="p-title">${esc(m.name)}</div>
+    <div class="p-meta">
+      <span>对应总表第 ${m.rows} 行</span>
+      <span class="tag" style="color:${st[1]}">${st[0]}</span>
+      <span>${m.chips.length} 条</span>
+      <span class="md" style="color:#7dd3fc"><i>M${m.M}</i><i style="color:#a78bfa">D${m.D}</i></span>
+    </div>
+
+    <div class="sec" style="color:#7dd3fc">
+      <div class="sec-t">第一性原理</div>
+      <div class="first">${esc(m.first)}</div>
+    </div>
+
+    <div class="sec" style="color:#a78bfa">
+      <div class="sec-t">核心核算式</div>
+      <div class="formula">${esc(m.formula)}</div>
+    </div>
+
+    <div class="sec" style="color:#34d399">
+      <div class="sec-t">最新进展 · 已核实 ${m.verified.length} 条</div>
+      ${ver}
+    </div>
+
+    <div class="sec" style="color:#fbbf24">
+      <div class="sec-t">待补缺口 ${m.gaps.length} 项</div>
+      ${gap}
+    </div>
+
+    ${srcBlock(m)}
+
+    <div class="hint">状态说明：${st[2]}<br>
+      待补项编号对应 missing_data_spec.py 中的条目 key。</div>`;
+}
+
+function renderItem(idx, n){
+  const {layer:l, mod:m} = modIndex[idx];
+  const chip = m.chips.find(c=>c.n===n);
+  if(!chip) return;
+  const st = SM[m.status];
+  const gap = m.gaps.length
+    ? `<ul class="li gap">` + m.gaps.map(g=>`<li>${esc(g.t)} <span class="spec">[${g.id}]</span></li>`).join('') + `</ul>`
+    : `<div class="empty">本模块无待补缺口</div>`;
+  panel.innerHTML = `
+    <div class="p-kicker" style="color:${l.accent}">第 ${n} 项 · ${l.no} ${l.name}</div>
+    <div class="p-title">${esc(chip.t)}</div>
+    <div class="p-meta">
+      <span>所属模块：${esc(m.name)}（第 ${m.rows} 行）</span>
+      <span class="tag" style="color:${st[1]}">${st[0]}</span>
+    </div>
+
+    <div class="sec" style="color:#7dd3fc">
+      <div class="sec-t">第一性原理（模块级）</div>
+      <div class="first">${esc(m.first)}</div>
+    </div>
+
+    <div class="sec" style="color:#a78bfa">
+      <div class="sec-t">本条核算式</div>
+      <div class="formula">${esc(m.formula)}</div>
+    </div>
+
+    <div class="sec" style="color:#34d399">
+      <div class="sec-t">模块内已核实参数</div>
+      ${m.verified.length ? `<ul class="li">`+m.verified.map(v=>`<li>${esc(v)}</li>`).join('')+`</ul>`
+                          : `<div class="empty">暂无</div>`}
+    </div>
+
+    <div class="sec" style="color:#fbbf24">
+      <div class="sec-t">阻断本条的待补数据</div>
+      ${gap}
+    </div>
+
+    ${srcBlock(m)}`;
+}
+
+/* ---------- 交互 ---------- */
+let cur = {type:'overview', idx:null, n:null};
+
+function setOn(el, cls){
+  document.querySelectorAll('.'+cls).forEach(x=>x.classList.remove('on'));
+  if(el) el.classList.add('on');
+}
+
+mapEl.addEventListener('click', e=>{
+  const chip = e.target.closest('.chip');
+  if(chip){
+    e.stopPropagation();
+    const idx = +chip.dataset.idx, n = chip.dataset.n;
+    cur = {type:'item', idx, n};
+    setOn(chip.closest('.mod'), 'on');
+    renderItem(idx, n);
+    return;
+  }
+  const mod = e.target.closest('.mod');
+  if(mod){
+    const idx = +mod.dataset.idx;
+    cur = {type:'mod', idx};
+    setOn(mod, 'on');
+    renderModule(idx);
+  }
+});
+
+mapEl.addEventListener('keydown', e=>{
+  if(e.key!=='Enter' && e.key!==' ') return;
+  const el = e.target.closest('.chip') || e.target.closest('.mod');
+  if(!el) return;
+  e.preventDefault();
+  if(el.classList.contains('chip')){
+    cur = {type:'item', idx:+el.dataset.idx, n:el.dataset.n};
+    setOn(el.closest('.mod'), 'on');
+    renderItem(+el.dataset.idx, el.dataset.n);
+  } else {
+    cur = {type:'mod', idx:+el.dataset.idx};
+    setOn(el, 'on');
+    renderModule(+el.dataset.idx);
+  }
+});
+
+navEl.addEventListener('click', e=>{
+  const b = e.target.closest('.lbtn');
+  if(!b) return;
+  const no = b.dataset.layer;
+  const l = DATA.layers.find(x=>x.no===no);
+  setOn(b, 'on');
+  document.querySelectorAll('.mod').forEach(x=>x.classList.remove('on'));
+  cur = {type:'layer', no};
+  renderLayer(l);
+  const sec = document.querySelector(`.layer[data-layer="${no}"]`);
+  if(sec){
+    const top = sec.getBoundingClientRect().top + (window.pageYOffset || 0) - 76;
+    window.scrollTo(0, Math.max(0, top));
+  }
+});
+
+/* ---------- 搜索 / 过滤 ---------- */
+const q = document.getElementById('q');
+let filter = 'all';
+
+function applyFilter(){
+  const kw = q.value.trim().toLowerCase();
+  document.querySelectorAll('.mod').forEach(modEl=>{
+    const idx = +modEl.dataset.idx;
+    const m = modIndex[idx].mod;
+    const hitKw = !kw || m.name.toLowerCase().includes(kw) ||
+      m.chips.some(c=>c.t.toLowerCase().includes(kw) || c.n===kw);
+    const hitF = filter==='all' || m.status===filter;
+    modEl.classList.toggle('hidden', !(hitKw && hitF));
+    if(hitKw && kw){
+      modEl.querySelectorAll('.chip').forEach(ch=>{
+        const t = ch.textContent.toLowerCase();
+        ch.style.opacity = t.includes(kw) ? '1' : '.32';
+      });
+    } else {
+      modEl.querySelectorAll('.chip').forEach(ch=>ch.style.opacity='1');
+    }
+  });
+  document.querySelectorAll('.layer').forEach(sec=>{
+    const any = sec.querySelectorAll('.mod:not(.hidden)').length > 0;
+    sec.classList.toggle('hidden', !any);
+  });
+}
+q.addEventListener('input', applyFilter);
+document.querySelectorAll('.fbtn').forEach(b=>{
+  b.addEventListener('click', ()=>{
+    document.querySelectorAll('.fbtn').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on'); filter = b.dataset.f; applyFilter();
+  });
+});
+
+/* ============================================================
+   研究方法层
+   ============================================================ */
+const mMethod = document.getElementById('mMethod');
+function drawMethods(){
+  mMethod.innerHTML = `
+    <div class="card" style="border-left:3px solid #a78bfa">
+      <h2>研究方法层 · 6 类方法</h2>
+      <div class="lead">这 6 类方法<b>不新增核算对象</b>，而是叠加在既有 137 个对象之上——
+      把「统计」升级为「归因、因果与成本」。之所以不把它们塞进 8 层框架，
+      是因为它们不是第 9 层数据，而是作用在既有数据上的运算。</div>
+    </div>` +
+    DATA.methods.map(x=>`
+      <div class="card">
+        <h2>${esc(x.name)}
+          <span style="font-size:12px;color:#6d86ab;font-weight:400">${esc(x.en)}</span></h2>
+        <div class="lead">${esc(x.use)}</div>
+        <div class="formula">${esc(x.formula)}</div>
+        <div class="sec" style="color:#7dd3fc"><div class="sec-t">数据需求</div>
+          <ul class="li">${x.needs.map(s=>`<li>${esc(s)}</li>`).join('')}</ul></div>
+        <div class="sec" style="color:#34d399"><div class="sec-t">作用到的核算对象</div>
+          <div class="md" style="gap:6px">${x.maps.map(s=>`<i style="color:#a5e3ff">${esc(s)}</i>`).join('')}</div></div>
+        <div class="sec" style="color:#fbbf24"><div class="sec-t">适用限度</div>
+          <div class="warn">${esc(x.limit)}</div></div>
+        <div class="mt">代表文献：${x.refs.map(esc).join(' ｜ ')}<br>
+          <span style="color:#fbbf24">注：以上为方法学原始出处，本轮<b>未</b>逐条核验卷期与页码；正式引用前须补 DOI 与页码。</span></div>
+      </div>`).join('');
+}
+
+/* ============================================================
+   数据序列 · 电力排放因子
+   ============================================================ */
+const mData = document.getElementById('mData');
+function drawData(){
+  mData.innerHTML = `
+    <div class="card" style="border-left:3px solid #22d3ee">
+      <h2>电力排放因子：${DATA.elec.length} 条独立序列，禁止跨序列拼接</h2>
+      <div class="lead">v2 的实质问题不是数字错，而是把不同口径的因子并列在同一张表里，
+      读者会默认它们构成一条时间序列。下面按「序列」拆开，每条序列单独记录年份 / 区域 / 单位 / 适用场景。</div>
+      ${DATA.elec.map(s=>`
+        <div class="sec" style="color:#22d3ee">
+          <div class="sec-t">${esc(s.name)}
+            <span class="spec" style="color:#6d86ab">[${esc(s.id)}]</span></div>
+          <table class="tbl">
+            <tr><th style="width:24%">年份 / 区域</th><th style="width:18%">数值</th><th>单位</th></tr>
+            ${s.values.map(v=>`<tr><td>${esc(v[0])}</td><td class="num">${esc(v[1])}</td><td>${esc(s.unit)}</td></tr>`).join('')}
+          </table>
+          <div class="mt"><b style="color:#9fc3ee">适用场景</b>：${esc(s.scope)}<br>
+            <b style="color:#9fc3ee">使用规则</b>：${esc(s.rule)}<br>
+            <b style="color:#9fc3ee">说明</b>：${esc(s.note)}<br>
+            <b style="color:#9fc3ee">来源</b>：${s.srcs.map(id=>(DATA.sources[id]||{}).doc||id).map(esc).join('；')}</div>
+        </div>`).join('')}
+    </div>
+    <div class="card">
+      <h2>三种最常见的误用</h2>
+      <div class="warn" style="color:#fb7185;background:rgba(251,113,133,.08);border-color:rgba(251,113,133,.3)">
+        ① 用 0.5777（碳足迹 kgCO₂e/kWh）算清单范围二的 CO₂ 排放——
+        量纲与口径双错：碳足迹含生命周期非 CO₂ 温室气体，清单范围二只算 CO₂。<br>
+        ② 用 0.5306（清单 kgCO₂/kWh）算产品碳足迹——漏掉燃料开采、运输、输配环节。<br>
+        ③ 把 2022→2023→2024 三个不同口径的数排成一条序列算「年均降幅」——分母不同，降幅无意义。
+      </div>
+    </div>`;
+}
+
+/* ============================================================
+   参数证据台账（逐参数级）
+   ============================================================ */
+const mParams = document.getElementById('mParams');
+function drawParams(){
+  const t = DATA.totals;
+  const rows = DATA.params.map(p=>{
+    const s = p.bound ? (DATA.sources[p.src]||{}) : null;
+    return `<tr>
+      <td style="color:#6d86ab">${p.layer}</td>
+      <td>${esc(p.mod)}</td>
+      <td>${esc(p.t)}</td>
+      <td>${p.bound
+        ? `<span style="color:#34d399">${esc(p.src)}</span>`
+        : `<span style="color:#fb7185">—</span>`}</td>
+      <td>${p.bound ? esc(p.year) : '—'}</td>
+      <td>${p.bound ? esc(p.unit) : '—'}</td>
+      <td style="font-size:12px;color:#8ba0c2">${esc(p.scope)}</td>
+    </tr>`;
+  }).join('');
+  mParams.innerHTML = `
+    <div class="card" style="border-left:3px solid #34d399">
+      <h2>参数证据台账：把「模块级」拆到「参数级」</h2>
+      <div class="lead">
+        上一轮你指出：<b>「62 条是项目的核实状态统计，不能直接等同于 62 条都已经具备可复现的学术证据链」</b>——成立。
+        现在每条参数单独登记来源编号 / 数据年份 / 单位 / 适用范围四项字段，
+        并如实区分「已绑定文号」与「仅模块级」。
+      </div>
+      <table class="tbl">
+        <tr><th style="width:32%">指标</th><th style="width:18%">数量</th><th>说明</th></tr>
+        <tr><td>参数总条目</td><td class="num">${t.params}</td><td>所有模块「最新进展·已核实」列表的条目总数</td></tr>
+        <tr><td style="color:#34d399">已绑定文号级来源</td><td class="num" style="color:#34d399">${t.paramsBound}</td>
+            <td>可指向具体文件（含文号/公告号）且登记了年份、单位与适用范围</td></tr>
+        <tr><td style="color:#fb7185">仅模块级</td><td class="num" style="color:#fb7185">${t.paramsUnbound}</td>
+            <td>${esc(DATA.unboundNote)}</td></tr>
+        <tr><td>待补缺口</td><td class="num">${t.gaps}</td><td>数据缺口，编号对应 missing_data_spec.py</td></tr>
+      </table>
+      <div class="warn">
+        <b>口径说明</b>：本表的「已绑定文号」只保证该条<b>可追溯到文件</b>，不保证已核对页码。
+        页码级核验（page-level citation）仍需逐条打开原文比对，属下一步工作。
+        因此 ${t.paramsBound} 条也<b>不等于</b> ${t.paramsBound} 条已完成学术级引用审查。
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>逐条台账（${t.params} 条）</h2>
+      <table class="tbl">
+        <tr><th style="width:5%">层</th><th style="width:12%">模块</th><th style="width:34%">参数表述</th>
+            <th style="width:7%">来源</th><th style="width:7%">年份</th>
+            <th style="width:12%">单位</th><th>适用范围</th></tr>
+        ${rows}
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>来源编号索引（${Object.keys(DATA.sources).length} 条）</h2>
+      <table class="tbl">
+        <tr><th style="width:6%">编号</th><th style="width:14%">发布机构</th><th style="width:37%">文件</th>
+            <th style="width:11%">日期</th><th>链接</th></tr>
+        ${Object.keys(DATA.sources).map(id=>{const x=DATA.sources[id];
+          return `<tr><td class="num" style="text-align:left">${id}</td><td>${esc(x.org)}</td>
+            <td>${esc(x.doc)}</td><td>${esc(x.date)}</td>
+            <td>${x.url?`<a href="${x.url}" target="_blank" rel="noopener" style="color:#7dd3fc">原文</a>`
+                       :'<span style="color:#fbbf24">未取得</span>'}</td></tr>`;
+        }).join('')}
+      </table>
+    </div>`;
+}
+
+/* ============================================================
+   2026 政策台账 · 碳市场配额 + CCER 方法学
+   ============================================================ */
+const mPolicy = document.getElementById('mPolicy');
+function drawPolicy(){
+  const e = DATA.ets;
+  mPolicy.innerHTML = `
+    <div class="card" style="border-left:3px solid #34d399">
+      <h2>2026 年全国碳市场配额方法（四行业）</h2>
+      <div class="lead">方法截至 ${esc(e.asof)}。发电用<b>强度基准法</b>，钢铁/水泥/铝冶炼用<b>强度系数法</b>——
+      两者都叫「强度」，但不是同一个公式，不可互换代入。</div>
+      <table class="tbl">
+        <tr><th style="width:8%">行业</th><th style="width:18%">配额方法</th>
+            <th style="width:22%">公式</th><th>变量与说明</th></tr>
+        ${e.rows.map(r=>`<tr><td><b>${esc(r.ind)}</b></td><td>${esc(r.method)}</td>
+          <td class="num" style="text-align:left;white-space:pre-wrap">${esc(r.formula)}</td>
+          <td>${esc(r.vars)}<div class="mt">${esc(r.note)}</div></td></tr>`).join('')}
+      </table>
+      <div class="sec" style="color:#34d399"><div class="sec-t">α 取值表（偏离度 X 分段）</div>
+        <table class="tbl">
+          <tr><th style="width:26%">偏离度区间</th><th style="width:22%">α 取值</th><th>含义</th></tr>
+          ${(e.alpha||[]).map(r=>`<tr><td class="num" style="text-align:left">${esc(r[0])}</td>
+            <td class="num" style="text-align:left;color:#a5e3ff">${esc(r[1])}</td>
+            <td>${esc(r[2])}</td></tr>`).join('')}
+        </table>
+        <div class="mt">X = (BP − I) ÷ BP；BP 行业平衡值（使行业配额总量＝应清缴总量时的工序碳排放强度），I 企业主要工序吨产品碳排放量。</div>
+      </div>
+
+      <div class="sec" style="color:#34d399"><div class="sec-t">共同规则</div>
+        <ul class="li">${e.common.map(s=>`<li>${esc(s)}</li>`).join('')}</ul></div>
+      <div class="warn">${esc(e.caveat)}</div>
+    </div>
+
+    <div class="card">
+      <h2>配额计算器　A = E × (1 + α)</h2>
+      <div class="lead">输入经核查排放量 E、系数 α 与碳价，得到核发配额、盈缺与履约成本。
+      注意 α 的方向：<b style="color:#34d399">α > 0 是奖励先进（A > E，盈余）</b>，
+      <b style="color:#fb7185">α < 0 是收紧落后（A < E，缺口）</b>。</div>
+      <div class="calc">
+        <div class="row"><label>E 经核查排放（tCO₂）</label>
+          <input id="cE" type="number" value="1000000" step="10000"></div>
+        <div class="row"><label>α 碳排放强度系数</label>
+          <input id="cA" type="number" value="-0.02" step="0.01"></div>
+        <div class="row"><label>碳价（元/tCO₂）</label>
+          <input id="cP" type="number" value="62.36" step="0.01"></div>
+        <div class="out" id="cOut"></div>
+      </div>
+      <div class="mt">对照：发电属基准法 A = Q_e × B_e × F_f + Q_h × B_h，必须先有发电量/供热量与基准值，
+        不能套用本计算器。</div>
+    </div>
+
+    <div class="card">
+      <h2>CCER 方法学版本台账</h2>
+      <div class="lead">方法学不是「一个类别」，而是有版本、有权属规则、有计入期管理的法律文本。
+      造林碳汇与红树林营造均已于 2026-10-10 更新至 V02。</div>
+      <table class="tbl">
+        <tr><th style="width:13%">编号</th><th style="width:11%">名称</th><th style="width:7%">版本</th>
+            <th style="width:10%">日期</th><th style="width:15%">状态</th><th>关键变更</th></tr>
+        ${DATA.ccer.ledger.map(r=>`<tr>
+          <td class="num" style="text-align:left">${esc(r.code)}</td><td>${esc(r.name)}</td>
+          <td>${esc(r.ver)}</td><td>${esc(r.date)}</td>
+          <td style="color:${r.status==='现行'?'#34d399':(r.status.indexOf('未生效')>=0?'#fbbf24':'#8ba0c2')}">${esc(r.status)}</td>
+          <td><ul class="li">${r.changes.map(c=>`<li>${esc(c)}</li>`).join('')}</ul></td></tr>`).join('')}
+      </table>
+      <div class="sec" style="color:#fbbf24"><div class="sec-t">版本与权属管理规则</div>
+        <ul class="li gap">${DATA.ccer.rules.map(s=>`<li>${esc(s)}</li>`).join('')}</ul></div>
+      <div class="warn">本页政策条目已取得原文链接与文号（S15–S18 均可在「双轴状态」页证据链清单中点击原文），
+        其中配额方案的公式、基准值与 α 取值表已与国环规气候〔2026〕1号 PDF 正文逐字比对。
+        仍未取得的是各行业「行业平衡值 BP」全表与有偿分配的分年比例安排。</div>
+    </div>`;
+  const cE=document.getElementById('cE'), cA=document.getElementById('cA'),
+        cP=document.getElementById('cP'), cOut=document.getElementById('cOut');
+  function calc(){
+    const E=+cE.value, a=+cA.value, p=+cP.value;
+    const A=E*(1+a), g=E-A, cost=g*p;
+    const f=n=>Math.abs(n).toLocaleString('zh-CN',{maximumFractionDigits:1});
+    cOut.innerHTML = `核发配额 A = ${f(A)} tCO₂　（α = ${a}）<br>` +
+      (g>0 ? `缺口 E − A = ${f(g)} tCO₂ → 需购入，履约成本 ≈ ${f(cost)} 元`
+           : `盈余 E − A = −${f(g)} tCO₂ → 可出售，理论收益 ≈ ${f(-cost)} 元`);
+  }
+  [cE,cA,cP].forEach(x=>x.addEventListener('input', calc));
+  calc();
+}
+
+/* ============================================================
+   双轴状态 / 恒等式 / 单位 / 证据链
+   ============================================================ */
+const mAxes = document.getElementById('mAxes');
+function drawAxes(){
+  const M = DATA.axes.M, D = DATA.axes.D;
+  const rows = [];
+  DATA.layers.forEach(l=>l.mods.forEach(m=>rows.push({l,m})));
+  mAxes.innerHTML = `
+    <div class="card" style="border-left:3px solid #f472b6">
+      <h2>双轴状态体系：为什么弃用单一「已核实」标签</h2>
+      <div class="lead">v2 用单一 status 标注 26 个模块，结果 <b>15 个模块</b>与缺口清单自相矛盾：
+      「已核实」却仍列缺口 2 个；「待补参数」却没有任何缺口清单 1 个；「部分可用」却无缺口 1 个；
+      另有 11 个「待补」模块同时列着已核实参数。根因是把「方法是否成熟」与「数据是否齐备」压成了一个变量。</div>
+      <table class="tbl">
+        <tr><th style="width:50%">方法成熟度 M（公式是否明确、有无标准方法学）</th>
+            <th>数据完备度 D（参数是否齐全、能否出数）</th></tr>
+        <tr><td>${M.map(x=>`<div style="margin:3px 0"><b style="color:#7dd3fc">${esc(x.code)}</b> ${esc(x.t)}</div>`).join('')}</td>
+            <td>${D.map(x=>`<div style="margin:3px 0"><b style="color:#a78bfa">${esc(x.code)}</b> ${esc(x.t)}</div>`).join('')}</td></tr>
+      </table>
+      <div class="mt">派生规则：M≥3 且 D≥4 且缺口=0 → 已核实；D≤2 → 待补参数；其余 → 部分可用。<br>
+        生成时执行的硬断言：<b>D&lt;4 ⟹ 至少 1 项缺口</b>；<b>已核实 ⟹ 缺口数 = 0</b>；<b>模块必须双轴标定</b>。不满足即构建失败。</div>
+    </div>
+
+    <div class="card">
+      <h2>26 个模块的双轴标定</h2>
+      <table class="tbl">
+        <tr><th style="width:6%">层</th><th style="width:13%">模块</th><th style="width:8%">行</th>
+            <th style="width:6%">M</th><th style="width:6%">D</th><th style="width:10%">状态</th>
+            <th style="width:7%">参数</th><th style="width:7%">缺口</th><th>主要阻断项</th></tr>
+        ${rows.map(o=>{const l=o.l,m=o.m;const st=SM[m.status];
+          return `<tr><td style="color:${l.accent}">${l.no}</td><td>${esc(m.name)}</td>
+            <td class="num">${esc(m.rows)}</td><td class="num">M${m.M}</td><td class="num">D${m.D}</td>
+            <td style="color:${st[1]}">${st[0]}</td>
+            <td class="num">${m.verified.length}</td><td class="num">${m.gaps.length}</td>
+            <td style="font-size:12px;color:#8ba0c2">${m.gaps.map(g=>esc(g.t)).join('；')||'—'}</td></tr>`;
+        }).join('')}
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>四条对账恒等式</h2>
+      <table class="tbl"><tr><th style="width:26%">恒等式</th><th>表达式</th></tr>
+        ${DATA.identities.map(x=>`<tr><td>${esc(x[0])}</td>
+          <td class="num" style="text-align:left;white-space:pre-wrap">${esc(x[1])}</td></tr>`).join('')}
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>单位与量纲</h2>
+      <table class="tbl"><tr><th style="width:10%">类</th><th style="width:28%">易混量</th><th>换算与说明</th></tr>
+        ${DATA.units.map(u=>`<tr><td>${esc(u.k)}</td><td>${esc(u.a)}</td><td>${esc(u.b)}</td></tr>`).join('')}
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>证据链清单（${Object.keys(DATA.sources).length} 条）</h2>
+      <div class="lead">标注「未取得」的条目只有文件名与日期，没有原文链接——这些条目<b>不计入</b>已核实。</div>
+      <table class="tbl">
+        <tr><th style="width:6%">编号</th><th style="width:13%">发布机构</th><th style="width:34%">文件</th>
+            <th style="width:11%">日期</th><th>链接 / 状态</th></tr>
+        ${Object.keys(DATA.sources).map(id=>{const x=DATA.sources[id];
+          return `<tr><td class="num" style="text-align:left">${id}</td><td>${esc(x.org)}</td>
+            <td>${esc(x.doc)}</td><td>${esc(x.date)}</td>
+            <td>${x.url?`<a href="${x.url}" target="_blank" rel="noopener" style="color:#7dd3fc">原文</a>`
+                       :'<span style="color:#fbbf24">未取得</span>'}
+            ${x.verify?`<div class="mt" style="color:#fbbf24">${esc(x.verify)}</div>`:''}</td></tr>`;
+        }).join('')}
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>本轮仍未完成的事项</h2>
+      <ul class="li gap">
+        <li>页码级引用核验：87 条参数已登记 src / year / unit / scope 四项（63 条绑定文号、24 条仅模块级），仍缺 page 字段与逐条原文比对记录</li>
+        <li>城市级实证验证：未选定城市，未做一次完整核算并与成熟数据库交叉核对</li>
+        <li>误差传播：已有公式与分布要求，但未真正跑出蒙特卡洛区间</li>
+        <li>MRIO 消费端：只给出模型与数据需求，未接入实际投入产出表</li>
+        <li>2026 政策原件：S15–S18 已取得原文链接与文号；仍缺各行业「行业平衡值 BP」全表与有偿分配分年比例</li>
+      </ul>
+    </div>`;
+}
+
+/* ============================================================
+   Tab 切换
+   ============================================================ */
+const VIEWS = {map:'view-map', method:'view-method', data:'view-data',
+               params:'view-params', policy:'view-policy', axes:'view-axes'};
+document.getElementById('tabs').addEventListener('click', ev=>{
+  const b = ev.target.closest('.tab');
+  if(!b) return;
+  const v = b.dataset.v;
+  Object.keys(VIEWS).forEach(k=>{
+    const el = document.getElementById(VIEWS[k]);
+    if(el) el.hidden = (k!==v);
+  });
+  document.querySelectorAll('#tabs .tab').forEach(x=>x.classList.toggle('on', x.dataset.v===v));
+  document.getElementById('nav').style.display = (v==='map') ? '' : 'none';
+  try{ history.replaceState(null,'','#'+v); }catch(e){}
+  window.scrollTo(0,0);
+});
+
+/* 深链接：#method / #data / #policy / #axes 直接打开对应视图 */
+(function deepLink(){
+  const h = (location.hash||'').replace('#','');
+  if(h && VIEWS[h] && h!=='map'){
+    const btn = document.querySelector(`#tabs .tab[data-v="${h}"]`);
+    if(btn) btn.click();
+  }
+})();
+
+/* ---------- 启动 ---------- */
+document.getElementById('s-ver').textContent = DATA.totals.params;
+document.getElementById('s-gap').textContent = DATA.totals.gaps;
+document.getElementById('s-ver2').textContent = DATA.version;
+document.getElementById('s-built').textContent = ' · ' + DATA.built;
+drawMethods(); drawData(); drawParams(); drawPolicy(); drawAxes();
+overview();
+</script>
+</body>
+</html>
