@@ -1,0 +1,663 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 3730" width="2000" height="3730" role="img" aria-labelledby="ttl">
+<title id="ttl">城市碳核算与政策分析框架 · 137 项总图</title>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="0.25" y2="1" color-interpolation="linearRGB"><stop offset="0%" stop-color="#070d1a"/><stop offset="42%" stop-color="#0d1730"/><stop offset="100%" stop-color="#101c36"/></linearGradient>
+<radialGradient id="glow" cx="0.5" cy="0.5" r="0.5" color-interpolation="linearRGB"><stop offset="0%" stop-color="#1e40af" stop-opacity="0.42"/><stop offset="55%" stop-color="#1e3a8a" stop-opacity="0.14"/><stop offset="100%" stop-color="#0a1020" stop-opacity="0"/></radialGradient>
+<linearGradient id="card01" x1="0" y1="0" x2="0.18" y2="1" color-interpolation="linearRGB"><stop offset="0%" stop-color="#131f3a"/><stop offset="100%" stop-color="#0e1830"/></linearGradient>
+<linearGradient id="card02" x1="0" y1="0" x2="0.18" y2="1" color-interpolation="linearRGB"><stop offset="0%" stop-color="#131f3a"/><stop offset="100%" stop-color="#0e1830"/></linearGradient>
+<linearGradient id="card03" x1="0" y1="0" x2="0.18" y2="1" color-interpolation="linearRGB"><stop offset="0%" stop-color="#131f3a"/><stop offset="100%" stop-color="#0e1830"/></linearGradient>
+<linearGradient id="card04" x1="0" y1="0" x2="0.18" y2="1" color-interpolation="linearRGB"><stop offset="0%" stop-color="#131f3a"/><stop offset="100%" stop-color="#0e1830"/></linearGradient>
+<linearGradient id="card05" x1="0" y1="0" x2="0.18" y2="1" color-interpolation="linearRGB"><stop offset="0%" stop-color="#131f3a"/><stop offset="100%" stop-color="#0e1830"/></linearGradient>
+<linearGradient id="card06" x1="0" y1="0" x2="0.18" y2="1" color-interpolation="linearRGB"><stop offset="0%" stop-color="#131f3a"/><stop offset="100%" stop-color="#0e1830"/></linearGradient>
+<linearGradient id="card07" x1="0" y1="0" x2="0.18" y2="1" color-interpolation="linearRGB"><stop offset="0%" stop-color="#131f3a"/><stop offset="100%" stop-color="#0e1830"/></linearGradient>
+<linearGradient id="card08" x1="0" y1="0" x2="0.18" y2="1" color-interpolation="linearRGB"><stop offset="0%" stop-color="#131f3a"/><stop offset="100%" stop-color="#0e1830"/></linearGradient>
+<filter id="sh" x="-12%" y="-12%" width="130%" height="130%" color-interpolation-filters="linearRGB"><feGaussianBlur in="SourceAlpha" stdDeviation="7" result="b"/><feOffset in="b" dx="0" dy="6" result="o"/><feFlood flood-color="#050a16" flood-opacity="0.55" result="c"/><feComposite in="c" in2="o" operator="in" result="s"/><feMerge><feMergeNode in="s"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<filter id="grain" color-interpolation-filters="linearRGB"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/><feBlend in="SourceGraphic" mode="soft-light"/></filter>
+</defs>
+<g id="background">
+<rect width="2000" height="3730" fill="url(#bg)"/>
+<ellipse cx="1000" cy="120" rx="1040" ry="760" fill="url(#glow)"/>
+<g stroke="#2b3f63" stroke-width="1" opacity="0.20">
+<line x1="0" y1="0" x2="0" y2="3730"/>
+<line x1="50" y1="0" x2="50" y2="3730"/>
+<line x1="100" y1="0" x2="100" y2="3730"/>
+<line x1="150" y1="0" x2="150" y2="3730"/>
+<line x1="200" y1="0" x2="200" y2="3730"/>
+<line x1="250" y1="0" x2="250" y2="3730"/>
+<line x1="300" y1="0" x2="300" y2="3730"/>
+<line x1="350" y1="0" x2="350" y2="3730"/>
+<line x1="400" y1="0" x2="400" y2="3730"/>
+<line x1="450" y1="0" x2="450" y2="3730"/>
+<line x1="500" y1="0" x2="500" y2="3730"/>
+<line x1="550" y1="0" x2="550" y2="3730"/>
+<line x1="600" y1="0" x2="600" y2="3730"/>
+<line x1="650" y1="0" x2="650" y2="3730"/>
+<line x1="700" y1="0" x2="700" y2="3730"/>
+<line x1="750" y1="0" x2="750" y2="3730"/>
+<line x1="800" y1="0" x2="800" y2="3730"/>
+<line x1="850" y1="0" x2="850" y2="3730"/>
+<line x1="900" y1="0" x2="900" y2="3730"/>
+<line x1="950" y1="0" x2="950" y2="3730"/>
+<line x1="1000" y1="0" x2="1000" y2="3730"/>
+<line x1="1050" y1="0" x2="1050" y2="3730"/>
+<line x1="1100" y1="0" x2="1100" y2="3730"/>
+<line x1="1150" y1="0" x2="1150" y2="3730"/>
+<line x1="1200" y1="0" x2="1200" y2="3730"/>
+<line x1="1250" y1="0" x2="1250" y2="3730"/>
+<line x1="1300" y1="0" x2="1300" y2="3730"/>
+<line x1="1350" y1="0" x2="1350" y2="3730"/>
+<line x1="1400" y1="0" x2="1400" y2="3730"/>
+<line x1="1450" y1="0" x2="1450" y2="3730"/>
+<line x1="1500" y1="0" x2="1500" y2="3730"/>
+<line x1="1550" y1="0" x2="1550" y2="3730"/>
+<line x1="1600" y1="0" x2="1600" y2="3730"/>
+<line x1="1650" y1="0" x2="1650" y2="3730"/>
+<line x1="1700" y1="0" x2="1700" y2="3730"/>
+<line x1="1750" y1="0" x2="1750" y2="3730"/>
+<line x1="1800" y1="0" x2="1800" y2="3730"/>
+<line x1="1850" y1="0" x2="1850" y2="3730"/>
+<line x1="1900" y1="0" x2="1900" y2="3730"/>
+<line x1="1950" y1="0" x2="1950" y2="3730"/>
+<line x1="2000" y1="0" x2="2000" y2="3730"/>
+<line x1="0" y1="0" x2="2000" y2="0"/>
+<line x1="0" y1="100" x2="2000" y2="100"/>
+<line x1="0" y1="200" x2="2000" y2="200"/>
+<line x1="0" y1="300" x2="2000" y2="300"/>
+<line x1="0" y1="400" x2="2000" y2="400"/>
+<line x1="0" y1="500" x2="2000" y2="500"/>
+<line x1="0" y1="600" x2="2000" y2="600"/>
+<line x1="0" y1="700" x2="2000" y2="700"/>
+<line x1="0" y1="800" x2="2000" y2="800"/>
+<line x1="0" y1="900" x2="2000" y2="900"/>
+<line x1="0" y1="1000" x2="2000" y2="1000"/>
+<line x1="0" y1="1100" x2="2000" y2="1100"/>
+<line x1="0" y1="1200" x2="2000" y2="1200"/>
+<line x1="0" y1="1300" x2="2000" y2="1300"/>
+<line x1="0" y1="1400" x2="2000" y2="1400"/>
+<line x1="0" y1="1500" x2="2000" y2="1500"/>
+<line x1="0" y1="1600" x2="2000" y2="1600"/>
+<line x1="0" y1="1700" x2="2000" y2="1700"/>
+<line x1="0" y1="1800" x2="2000" y2="1800"/>
+<line x1="0" y1="1900" x2="2000" y2="1900"/>
+<line x1="0" y1="2000" x2="2000" y2="2000"/>
+<line x1="0" y1="2100" x2="2000" y2="2100"/>
+<line x1="0" y1="2200" x2="2000" y2="2200"/>
+<line x1="0" y1="2300" x2="2000" y2="2300"/>
+<line x1="0" y1="2400" x2="2000" y2="2400"/>
+<line x1="0" y1="2500" x2="2000" y2="2500"/>
+<line x1="0" y1="2600" x2="2000" y2="2600"/>
+<line x1="0" y1="2700" x2="2000" y2="2700"/>
+<line x1="0" y1="2800" x2="2000" y2="2800"/>
+<line x1="0" y1="2900" x2="2000" y2="2900"/>
+<line x1="0" y1="3000" x2="2000" y2="3000"/>
+<line x1="0" y1="3100" x2="2000" y2="3100"/>
+<line x1="0" y1="3200" x2="2000" y2="3200"/>
+<line x1="0" y1="3300" x2="2000" y2="3300"/>
+<line x1="0" y1="3400" x2="2000" y2="3400"/>
+<line x1="0" y1="3500" x2="2000" y2="3500"/>
+<line x1="0" y1="3600" x2="2000" y2="3600"/>
+<line x1="0" y1="3700" x2="2000" y2="3700"/>
+</g>
+<rect width="2000" height="3730" filter="url(#grain)" opacity="0.055"/>
+</g>
+<g id="title">
+<text x="70" y="118" font-family="Microsoft YaHei" font-size="58" font-weight="700" fill="#e8eefb" letter-spacing="2">城市碳核算与政策分析框架</text>
+<text x="70" y="168" font-family="Microsoft YaHei" font-size="21" fill="#8ba0c2" letter-spacing="1">ENERGY · CARBON · ECONOMY　全链条核算与政策分析总图</text>
+<rect x="70" y="196" width="150" height="5" rx="2.5" fill="#38bdf8"/>
+<rect x="70" y="196" width="420" height="5" rx="2.5" fill="#38bdf8" opacity="0.18"/>
+<rect x="70" y="224" width="206" height="46" rx="23" fill="#152441" stroke="#2f4570" stroke-width="1"/>
+<text x="100" y="258" font-family="Microsoft YaHei" font-size="30" font-weight="700" fill="#7dd3fc">137</text>
+<text x="162" y="256" font-family="Microsoft YaHei" font-size="16" fill="#8ba0c2">行核算对象</text>
+<rect x="292" y="224" width="173" height="46" rx="23" fill="#152441" stroke="#2f4570" stroke-width="1"/>
+<text x="322" y="258" font-family="Microsoft YaHei" font-size="30" font-weight="700" fill="#7dd3fc">26</text>
+<text x="368" y="256" font-family="Microsoft YaHei" font-size="16" fill="#8ba0c2">一级模块</text>
+<rect x="482" y="224" width="140" height="46" rx="23" fill="#152441" stroke="#2f4570" stroke-width="1"/>
+<text x="512" y="258" font-family="Microsoft YaHei" font-size="30" font-weight="700" fill="#7dd3fc">8</text>
+<text x="540" y="256" font-family="Microsoft YaHei" font-size="16" fill="#8ba0c2">层结构</text>
+<text x="1930" y="250" text-anchor="end" font-family="Microsoft YaHei" font-size="17" fill="#8ba0c2">输入 → 转换 → 排放 → 碳流 → 清单 → 政策 → 分析</text>
+</g>
+<g id="midground">
+<g filter="url(#sh)"><rect x="196" y="300" width="1734" height="202" rx="20" fill="url(#card01)" stroke="#94a3b8" stroke-opacity="0.28" stroke-width="1.2"/></g>
+<rect x="220" y="301" width="1686" height="1.5" rx="0.75" fill="#94a3b8" opacity="0.45"/>
+<rect x="196" y="318" width="6" height="166" rx="3" fill="#94a3b8" opacity="0.9"/>
+<rect x="89" y="330" width="62" height="62" rx="16" fill="#94a3b8" fill-opacity="0.14" stroke="#94a3b8" stroke-opacity="0.55" stroke-width="1.5"/>
+<text x="120" y="372" text-anchor="middle" font-family="Microsoft YaHei" font-size="26" font-weight="700" fill="#94a3b8">01</text>
+<text x="230" y="364" font-family="Microsoft YaHei" font-size="31" font-weight="700" fill="#e8eefb">边界</text>
+<text x="312" y="364" font-family="Microsoft YaHei" font-size="17" fill="#8ba0c2">确定统计什么、什么时候</text>
+<text x="1896" y="363" text-anchor="end" font-family="Microsoft YaHei" font-size="16" font-weight="500" fill="#94a3b8" fill-opacity="0.95">核算边界 = 行政区划 × 日历年</text>
+<circle cx="1641" cy="358" r="3.5" fill="#94a3b8" fill-opacity="0.9"/>
+<text x="230" y="425" font-family="Microsoft YaHei" font-size="17" font-weight="600" fill="#94a3b8" fill-opacity="0.92">空间边界</text>
+<rect x="230.0" y="432" width="108.3" height="36" rx="9" fill="#94a3b8" fill-opacity="0.10" stroke="#94a3b8" stroke-opacity="0.38" stroke-width="1"/>
+<text x="243.0" y="455" font-family="Microsoft YaHei" font-size="13" fill="#94a3b8" fill-opacity="0.85">1</text>
+<text x="257.3" y="456" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">行政区划</text>
+<rect x="347.3" y="432" width="108.3" height="36" rx="9" fill="#94a3b8" fill-opacity="0.10" stroke="#94a3b8" stroke-opacity="0.38" stroke-width="1"/>
+<text x="360.3" y="455" font-family="Microsoft YaHei" font-size="13" fill="#94a3b8" fill-opacity="0.85">2</text>
+<text x="374.6" y="456" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">时间边界</text>
+<g filter="url(#sh)"><rect x="196" y="542" width="1734" height="202" rx="20" fill="url(#card02)" stroke="#fbbf24" stroke-opacity="0.28" stroke-width="1.2"/></g>
+<rect x="220" y="543" width="1686" height="1.5" rx="0.75" fill="#fbbf24" opacity="0.45"/>
+<rect x="196" y="560" width="6" height="166" rx="3" fill="#fbbf24" opacity="0.9"/>
+<rect x="89" y="572" width="62" height="62" rx="16" fill="#fbbf24" fill-opacity="0.14" stroke="#fbbf24" stroke-opacity="0.55" stroke-width="1.5"/>
+<text x="120" y="614" text-anchor="middle" font-family="Microsoft YaHei" font-size="26" font-weight="700" fill="#fbbf24">02</text>
+<text x="230" y="606" font-family="Microsoft YaHei" font-size="31" font-weight="700" fill="#e8eefb">能源输入</text>
+<text x="374" y="606" font-family="Microsoft YaHei" font-size="17" fill="#8ba0c2">进入城市边界的能源与含碳物料</text>
+<text x="1896" y="605" text-anchor="end" font-family="Microsoft YaHei" font-size="16" font-weight="500" fill="#fbbf24" fill-opacity="0.95">排放 = 实物量 × 低位热值 × 含碳量 × 氧化率 × 44/12</text>
+<circle cx="1430" cy="600" r="3.5" fill="#fbbf24" fill-opacity="0.9"/>
+<text x="230" y="667" font-family="Microsoft YaHei" font-size="17" font-weight="600" fill="#fbbf24" fill-opacity="0.92">能源输入 3–10</text>
+<rect x="230.0" y="674" width="74.3" height="36" rx="9" fill="#fbbf24" fill-opacity="0.10" stroke="#fbbf24" stroke-opacity="0.38" stroke-width="1"/>
+<text x="243.0" y="697" font-family="Microsoft YaHei" font-size="13" fill="#fbbf24" fill-opacity="0.85">3</text>
+<text x="257.3" y="698" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">煤炭</text>
+<rect x="313.3" y="674" width="142.3" height="36" rx="9" fill="#fbbf24" fill-opacity="0.10" stroke="#fbbf24" stroke-opacity="0.38" stroke-width="1"/>
+<text x="326.3" y="697" font-family="Microsoft YaHei" font-size="13" fill="#fbbf24" fill-opacity="0.85">4</text>
+<text x="340.6" y="698" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">石油及成品油</text>
+<rect x="464.6" y="674" width="91.3" height="36" rx="9" fill="#fbbf24" fill-opacity="0.10" stroke="#fbbf24" stroke-opacity="0.38" stroke-width="1"/>
+<text x="477.6" y="697" font-family="Microsoft YaHei" font-size="13" fill="#fbbf24" fill-opacity="0.85">5</text>
+<text x="491.8" y="698" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">天然气</text>
+<rect x="564.8" y="674" width="125.3" height="36" rx="9" fill="#fbbf24" fill-opacity="0.10" stroke="#fbbf24" stroke-opacity="0.38" stroke-width="1"/>
+<text x="577.8" y="697" font-family="Microsoft YaHei" font-size="13" fill="#fbbf24" fill-opacity="0.85">6</text>
+<text x="592.1" y="698" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">电力与热力</text>
+<rect x="699.1" y="674" width="125.3" height="36" rx="9" fill="#fbbf24" fill-opacity="0.10" stroke="#fbbf24" stroke-opacity="0.38" stroke-width="1"/>
+<text x="712.1" y="697" font-family="Microsoft YaHei" font-size="13" fill="#fbbf24" fill-opacity="0.85">7</text>
+<text x="726.4" y="698" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">可再生能源</text>
+<rect x="833.4" y="674" width="159.3" height="36" rx="9" fill="#fbbf24" fill-opacity="0.10" stroke="#fbbf24" stroke-opacity="0.38" stroke-width="1"/>
+<text x="846.4" y="697" font-family="Microsoft YaHei" font-size="13" fill="#fbbf24" fill-opacity="0.85">8</text>
+<text x="860.7" y="698" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">非能源含碳原料</text>
+<rect x="1001.7" y="674" width="108.3" height="36" rx="9" fill="#fbbf24" fill-opacity="0.10" stroke="#fbbf24" stroke-opacity="0.38" stroke-width="1"/>
+<text x="1014.7" y="697" font-family="Microsoft YaHei" font-size="13" fill="#fbbf24" fill-opacity="0.85">9</text>
+<text x="1029.0" y="698" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">外部产品</text>
+<rect x="1119.0" y="674" width="132.6" height="36" rx="9" fill="#fbbf24" fill-opacity="0.10" stroke="#fbbf24" stroke-opacity="0.38" stroke-width="1"/>
+<text x="1132.0" y="697" font-family="Microsoft YaHei" font-size="13" fill="#fbbf24" fill-opacity="0.85">10</text>
+<text x="1153.5" y="698" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">外部废弃物</text>
+<g filter="url(#sh)"><rect x="196" y="784" width="1734" height="202" rx="20" fill="url(#card03)" stroke="#fb923c" stroke-opacity="0.28" stroke-width="1.2"/></g>
+<rect x="220" y="785" width="1686" height="1.5" rx="0.75" fill="#fb923c" opacity="0.45"/>
+<rect x="196" y="802" width="6" height="166" rx="3" fill="#fb923c" opacity="0.9"/>
+<rect x="89" y="814" width="62" height="62" rx="16" fill="#fb923c" fill-opacity="0.14" stroke="#fb923c" stroke-opacity="0.55" stroke-width="1.5"/>
+<text x="120" y="856" text-anchor="middle" font-family="Microsoft YaHei" font-size="26" font-weight="700" fill="#fb923c">03</text>
+<text x="230" y="848" font-family="Microsoft YaHei" font-size="31" font-weight="700" fill="#e8eefb">能源转换</text>
+<text x="374" y="848" font-family="Microsoft YaHei" font-size="17" fill="#8ba0c2">从一次能源到可用能，含开采与输配</text>
+<text x="1896" y="847" text-anchor="end" font-family="Microsoft YaHei" font-size="16" font-weight="500" fill="#fb923c" fill-opacity="0.95">禁止发电侧与用电侧重复计算</text>
+<circle cx="1670" cy="842" r="3.5" fill="#fb923c" fill-opacity="0.9"/>
+<text x="230" y="909" font-family="Microsoft YaHei" font-size="17" font-weight="600" fill="#fb923c" fill-opacity="0.92">能源转换 11–18</text>
+<rect x="230.0" y="916" width="115.6" height="36" rx="9" fill="#fb923c" fill-opacity="0.10" stroke="#fb923c" stroke-opacity="0.38" stroke-width="1"/>
+<text x="243.0" y="939" font-family="Microsoft YaHei" font-size="13" fill="#fb923c" fill-opacity="0.85">11</text>
+<text x="264.6" y="940" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">煤炭开采</text>
+<rect x="354.6" y="916" width="166.6" height="36" rx="9" fill="#fb923c" fill-opacity="0.10" stroke="#fb923c" stroke-opacity="0.38" stroke-width="1"/>
+<text x="367.6" y="939" font-family="Microsoft YaHei" font-size="13" fill="#fb923c" fill-opacity="0.85">12</text>
+<text x="389.1" y="940" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">油气开采与储运</text>
+<rect x="530.1" y="916" width="132.6" height="36" rx="9" fill="#fb923c" fill-opacity="0.10" stroke="#fb923c" stroke-opacity="0.38" stroke-width="1"/>
+<text x="543.1" y="939" font-family="Microsoft YaHei" font-size="13" fill="#fb923c" fill-opacity="0.85">13</text>
+<text x="564.7" y="940" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">炼油与焦化</text>
+<rect x="671.7" y="916" width="115.6" height="36" rx="9" fill="#fb923c" fill-opacity="0.10" stroke="#fb923c" stroke-opacity="0.38" stroke-width="1"/>
+<text x="684.7" y="939" font-family="Microsoft YaHei" font-size="13" fill="#fb923c" fill-opacity="0.85">14</text>
+<text x="706.2" y="940" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">燃煤电厂</text>
+<rect x="796.2" y="916" width="115.6" height="36" rx="9" fill="#fb923c" fill-opacity="0.10" stroke="#fb923c" stroke-opacity="0.38" stroke-width="1"/>
+<text x="809.2" y="939" font-family="Microsoft YaHei" font-size="13" fill="#fb923c" fill-opacity="0.85">15</text>
+<text x="830.8" y="940" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">燃气电厂</text>
+<rect x="920.8" y="916" width="115.6" height="36" rx="9" fill="#fb923c" fill-opacity="0.10" stroke="#fb923c" stroke-opacity="0.38" stroke-width="1"/>
+<text x="933.8" y="939" font-family="Microsoft YaHei" font-size="13" fill="#fb923c" fill-opacity="0.85">16</text>
+<text x="955.4" y="940" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">热电联产</text>
+<rect x="1045.4" y="916" width="166.6" height="36" rx="9" fill="#fb923c" fill-opacity="0.10" stroke="#fb923c" stroke-opacity="0.38" stroke-width="1"/>
+<text x="1058.4" y="939" font-family="Microsoft YaHei" font-size="13" fill="#fb923c" fill-opacity="0.85">17</text>
+<text x="1079.9" y="940" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">锅炉与工业供热</text>
+<rect x="1220.9" y="916" width="149.6" height="36" rx="9" fill="#fb923c" fill-opacity="0.10" stroke="#fb923c" stroke-opacity="0.38" stroke-width="1"/>
+<text x="1233.9" y="939" font-family="Microsoft YaHei" font-size="13" fill="#fb923c" fill-opacity="0.85">18</text>
+<text x="1255.5" y="940" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">输配电与储能</text>
+<g filter="url(#sh)"><rect x="196" y="1026" width="1734" height="506" rx="20" fill="url(#card04)" stroke="#fb7185" stroke-opacity="0.28" stroke-width="1.2"/></g>
+<rect x="220" y="1027" width="1686" height="1.5" rx="0.75" fill="#fb7185" opacity="0.45"/>
+<rect x="196" y="1044" width="6" height="470" rx="3" fill="#fb7185" opacity="0.9"/>
+<rect x="89" y="1056" width="62" height="62" rx="16" fill="#fb7185" fill-opacity="0.14" stroke="#fb7185" stroke-opacity="0.55" stroke-width="1.5"/>
+<text x="120" y="1098" text-anchor="middle" font-family="Microsoft YaHei" font-size="26" font-weight="700" fill="#fb7185">04</text>
+<text x="230" y="1090" font-family="Microsoft YaHei" font-size="31" font-weight="700" fill="#e8eefb">排放源</text>
+<text x="343" y="1090" font-family="Microsoft YaHei" font-size="17" fill="#8ba0c2">九类活动的直接排放与逸散</text>
+<text x="1896" y="1089" text-anchor="end" font-family="Microsoft YaHei" font-size="16" font-weight="500" fill="#fb7185" fill-opacity="0.95">燃烧排放与工业过程排放必须分列</text>
+<circle cx="1638" cy="1084" r="3.5" fill="#fb7185" fill-opacity="0.9"/>
+<text x="230" y="1151" font-family="Microsoft YaHei" font-size="17" font-weight="600" fill="#fb7185" fill-opacity="0.92">工业排放 19–24</text>
+<rect x="230.0" y="1158" width="81.6" height="36" rx="9" fill="#fb7185" fill-opacity="0.10" stroke="#fb7185" stroke-opacity="0.38" stroke-width="1"/>
+<text x="243.0" y="1181" font-family="Microsoft YaHei" font-size="13" fill="#fb7185" fill-opacity="0.85">19</text>
+<text x="264.6" y="1182" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">钢铁</text>
+<rect x="320.6" y="1158" width="81.6" height="36" rx="9" fill="#fb7185" fill-opacity="0.10" stroke="#fb7185" stroke-opacity="0.38" stroke-width="1"/>
+<text x="333.6" y="1181" font-family="Microsoft YaHei" font-size="13" fill="#fb7185" fill-opacity="0.85">20</text>
+<text x="355.1" y="1182" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">水泥</text>
+<rect x="411.1" y="1158" width="132.6" height="36" rx="9" fill="#fb7185" fill-opacity="0.10" stroke="#fb7185" stroke-opacity="0.38" stroke-width="1"/>
+<text x="424.1" y="1181" font-family="Microsoft YaHei" font-size="13" fill="#fb7185" fill-opacity="0.85">21</text>
+<text x="445.7" y="1182" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">石灰与玻璃</text>
+<rect x="552.7" y="1158" width="81.6" height="36" rx="9" fill="#fb7185" fill-opacity="0.10" stroke="#fb7185" stroke-opacity="0.38" stroke-width="1"/>
+<text x="565.7" y="1181" font-family="Microsoft YaHei" font-size="13" fill="#fb7185" fill-opacity="0.85">22</text>
+<text x="587.2" y="1182" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">化工</text>
+<rect x="643.2" y="1158" width="115.6" height="36" rx="9" fill="#fb7185" fill-opacity="0.10" stroke="#fb7185" stroke-opacity="0.38" stroke-width="1"/>
+<text x="656.2" y="1181" font-family="Microsoft YaHei" font-size="13" fill="#fb7185" fill-opacity="0.85">23</text>
+<text x="677.8" y="1182" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">有色金属</text>
+<rect x="767.8" y="1158" width="132.6" height="36" rx="9" fill="#fb7185" fill-opacity="0.10" stroke="#fb7185" stroke-opacity="0.38" stroke-width="1"/>
+<text x="780.8" y="1181" font-family="Microsoft YaHei" font-size="13" fill="#fb7185" fill-opacity="0.85">24</text>
+<text x="802.4" y="1182" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">其他制造业</text>
+<text x="1086" y="1151" font-family="Microsoft YaHei" font-size="17" font-weight="600" fill="#fb7185" fill-opacity="0.92">工业能源 25–26</text>
+<rect x="1086.0" y="1158" width="149.6" height="36" rx="9" fill="#fb7185" fill-opacity="0.10" stroke="#fb7185" stroke-opacity="0.38" stroke-width="1"/>
+<text x="1099.0" y="1181" font-family="Microsoft YaHei" font-size="13" fill="#fb7185" fill-opacity="0.85">25</text>
+<text x="1120.6" y="1182" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">工业电力消费</text>
+<rect x="1244.6" y="1158" width="149.6" height="36" rx="9" fill="#fb7185" fill-opacity="0.10" stroke="#fb7185" stroke-opacity="0.38" stroke-width="1"/>
+<text x="1257.6" y="1181" font-family="Microsoft YaHei" font-size="13" fill="#fb7185" fill-opacity="0.85">26</text>
+<text x="1279.1" y="1182" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">余热与副产气</text>
+<text x="230" y="1227" font-family="Microsoft YaHei" font-size="17" font-weight="600" fill="#fb7185" fill-opacity="0.92">建筑能源 27–28</text>
+<rect x="230.0" y="1234" width="115.6" height="36" rx="9" fill="#fb7185" fill-opacity="0.10" stroke="#fb7185" stroke-opacity="0.38" stroke-width="1"/>
+<text x="243.0" y="1257" font-family="Microsoft YaHei" font-size="13" fill="#fb7185" fill-opacity="0.85">27</text>
+<text x="264.6" y="1258" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">居民建筑</text>
+<rect x="354.6" y="1234" width="166.6" height="36" rx="9" fill="#fb7185" fill-opacity="0.10" stroke="#fb7185" stroke-opacity="0.38" stroke-width="1"/>
+<text x="367.6" y="1257" font-family="Microsoft YaHei" font-size="13" fill="#fb7185" fill-opacity="0.85">28</text>
+<text x="389.1" y="1258" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">商业与公共建筑</text>
+<text x="1086" y="1227" font-family="Microsoft YaHei" font-size="17" font-weight="600" fill="#fb7185" fill-opacity="0.92">交通能源 29–31</text>
+<rect x="1086.0" y="1234" width="115.6" height="36" rx="9" fill="#fb7185" fill-opacity="0.10" stroke="#fb7185" stroke-opacity="0.38" stroke-width="1"/>
+<text x="1099.0" y="1257" font-family="Microsoft YaHei" font-size="13" fill="#fb7185" fill-opacity="0.85">29</text>
+<text x="1120.6" y="1258" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">道路交通</text>
+<rect x="1210.6" y="1234" width="115.6" height="36" rx="9" fill="#fb7185" fill-opacity="0.10" stroke="#fb7185" stroke-opacity="0.38" stroke-width="1"/>
+<text x="1223.6" y="1257" font-family="Microsoft YaHei" font-size="13" fill="#fb7185" fill-opacity="0.85">30</text>
+<text x="1245.1" y="1258" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">铁路交通</text>
+<rect x="1335.1" y="1234" width="132.6" height="36" rx="9" fill="#fb7185" fill-opacity="0.10" stroke="#fb7185" stroke-opacity="0.38" stroke-width="1"/>
+<text x="1348.1" y="1257" font-family="Microsoft YaHei" font-size="13" fill="#fb7185" fill-opacity="0.85">31</text>
+<text x="1369.7" y="1258" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">航空与水运</text>
+<text x="230" y="1303" font-family="Microsoft YaHei" font-size="17" font-weight="600" fill="#fb7185" fill-opacity="0.92">农业排放 32–34</text>
+<rect x="230.0" y="1310" width="81.6" height="36" rx="9" fill="#fb7185" fill-opacity="0.10" stroke="#fb7185" stroke-opacity="0.38" stroke-width="1"/>
+<text x="243.0" y="1333" font-family="Microsoft YaHei" font-size="13" fill="#fb7185" fill-opacity="0.85">32</text>
+<text x="264.6" y="1334" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">稻田</text>
+<rect x="320.6" y="1310" width="166.6" height="36" rx="9" fill="#fb7185" fill-opacity="0.10" stroke="#fb7185" stroke-opacity="0.38" stroke-width="1"/>
+<text x="333.6" y="1333" font-family="Microsoft YaHei" font-size="13" fill="#fb7185" fill-opacity="0.85">33</text>
+<text x="355.1" y="1334" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">化肥与农田土壤</text>
+<rect x="496.1" y="1310" width="98.6" height="36" rx="9" fill="#fb7185" fill-opacity="0.10" stroke="#fb7185" stroke-opacity="0.38" stroke-width="1"/>
+<text x="509.1" y="1333" font-family="Microsoft YaHei" font-size="13" fill="#fb7185" fill-opacity="0.85">34</text>
+<text x="530.7" y="1334" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">畜牧业</text>
+<text x="1086" y="1303" font-family="Microsoft YaHei" font-size="17" font-weight="600" fill="#fb7185" fill-opacity="0.92">土地与生态 35–38</text>
+<rect x="1086.0" y="1310" width="81.6" height="36" rx="9" fill="#fb7185" fill-opacity="0.10" stroke="#fb7185" stroke-opacity="0.38" stroke-width="1"/>
+<text x="1099.0" y="1333" font-family="Microsoft YaHei" font-size="13" fill="#fb7185" fill-opacity="0.85">35</text>
+<text x="1120.6" y="1334" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">森林</text>
+<rect x="1176.6" y="1310" width="183.6" height="36" rx="9" fill="#fb7185" fill-opacity="0.10" stroke="#fb7185" stroke-opacity="0.38" stroke-width="1"/>
+<text x="1189.6" y="1333" font-family="Microsoft YaHei" font-size="13" fill="#fb7185" fill-opacity="0.85">36</text>
+<text x="1211.1" y="1334" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">草地、农田与湿地</text>
+<rect x="1369.1" y="1310" width="115.6" height="36" rx="9" fill="#fb7185" fill-opacity="0.10" stroke="#fb7185" stroke-opacity="0.38" stroke-width="1"/>
+<text x="1382.1" y="1333" font-family="Microsoft YaHei" font-size="13" fill="#fb7185" fill-opacity="0.85">37</text>
+<text x="1403.7" y="1334" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">城市绿地</text>
+<rect x="1493.7" y="1310" width="149.6" height="36" rx="9" fill="#fb7185" fill-opacity="0.10" stroke="#fb7185" stroke-opacity="0.38" stroke-width="1"/>
+<text x="1506.7" y="1333" font-family="Microsoft YaHei" font-size="13" fill="#fb7185" fill-opacity="0.85">38</text>
+<text x="1528.2" y="1334" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">土地利用变化</text>
+<text x="230" y="1379" font-family="Microsoft YaHei" font-size="17" font-weight="600" fill="#fb7185" fill-opacity="0.92">逸散排放 39–40</text>
+<rect x="230.0" y="1386" width="115.6" height="36" rx="9" fill="#fb7185" fill-opacity="0.10" stroke="#fb7185" stroke-opacity="0.38" stroke-width="1"/>
+<text x="243.0" y="1409" font-family="Microsoft YaHei" font-size="13" fill="#fb7185" fill-opacity="0.85">39</text>
+<text x="264.6" y="1410" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">煤矿甲烷</text>
+<rect x="354.6" y="1386" width="115.6" height="36" rx="9" fill="#fb7185" fill-opacity="0.10" stroke="#fb7185" stroke-opacity="0.38" stroke-width="1"/>
+<text x="367.6" y="1409" font-family="Microsoft YaHei" font-size="13" fill="#fb7185" fill-opacity="0.85">40</text>
+<text x="389.1" y="1410" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">油气系统</text>
+<text x="1086" y="1379" font-family="Microsoft YaHei" font-size="17" font-weight="600" fill="#fb7185" fill-opacity="0.92">工业气体 41</text>
+<rect x="1086.0" y="1386" width="183.6" height="36" rx="9" fill="#fb7185" fill-opacity="0.10" stroke="#fb7185" stroke-opacity="0.38" stroke-width="1"/>
+<text x="1099.0" y="1409" font-family="Microsoft YaHei" font-size="13" fill="#fb7185" fill-opacity="0.85">41</text>
+<text x="1120.6" y="1410" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">制冷剂与含氟气体</text>
+<text x="230" y="1455" font-family="Microsoft YaHei" font-size="17" font-weight="600" fill="#fb7185" fill-opacity="0.92">废弃物 42–44</text>
+<rect x="230.0" y="1462" width="115.6" height="36" rx="9" fill="#fb7185" fill-opacity="0.10" stroke="#fb7185" stroke-opacity="0.38" stroke-width="1"/>
+<text x="243.0" y="1485" font-family="Microsoft YaHei" font-size="13" fill="#fb7185" fill-opacity="0.85">42</text>
+<text x="264.6" y="1486" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">垃圾焚烧</text>
+<rect x="354.6" y="1462" width="115.6" height="36" rx="9" fill="#fb7185" fill-opacity="0.10" stroke="#fb7185" stroke-opacity="0.38" stroke-width="1"/>
+<text x="367.6" y="1485" font-family="Microsoft YaHei" font-size="13" fill="#fb7185" fill-opacity="0.85">43</text>
+<text x="389.1" y="1486" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">垃圾填埋</text>
+<rect x="479.1" y="1462" width="115.6" height="36" rx="9" fill="#fb7185" fill-opacity="0.10" stroke="#fb7185" stroke-opacity="0.38" stroke-width="1"/>
+<text x="492.1" y="1485" font-family="Microsoft YaHei" font-size="13" fill="#fb7185" fill-opacity="0.85">44</text>
+<text x="513.7" y="1486" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">污水处理</text>
+<g filter="url(#sh)"><rect x="196" y="1572" width="1734" height="202" rx="20" fill="url(#card05)" stroke="#c084fc" stroke-opacity="0.28" stroke-width="1.2"/></g>
+<rect x="220" y="1573" width="1686" height="1.5" rx="0.75" fill="#c084fc" opacity="0.45"/>
+<rect x="196" y="1590" width="6" height="166" rx="3" fill="#c084fc" opacity="0.9"/>
+<rect x="89" y="1602" width="62" height="62" rx="16" fill="#c084fc" fill-opacity="0.14" stroke="#c084fc" stroke-opacity="0.55" stroke-width="1.5"/>
+<text x="120" y="1644" text-anchor="middle" font-family="Microsoft YaHei" font-size="26" font-weight="700" fill="#c084fc">05</text>
+<text x="230" y="1636" font-family="Microsoft YaHei" font-size="31" font-weight="700" fill="#e8eefb">碳流</text>
+<text x="312" y="1636" font-family="Microsoft YaHei" font-size="17" fill="#8ba0c2">碳在城市系统内的去向与存留</text>
+<text x="1896" y="1635" text-anchor="end" font-family="Microsoft YaHei" font-size="16" font-weight="500" fill="#c084fc" fill-opacity="0.95">碳输入 = 碳输出 + 库存变化</text>
+<circle cx="1664" cy="1630" r="3.5" fill="#c084fc" fill-opacity="0.9"/>
+<text x="230" y="1697" font-family="Microsoft YaHei" font-size="17" font-weight="600" fill="#c084fc" fill-opacity="0.92">碳流 45–56</text>
+<rect x="230.0" y="1704" width="115.6" height="36" rx="9" fill="#c084fc" fill-opacity="0.10" stroke="#c084fc" stroke-opacity="0.38" stroke-width="1"/>
+<text x="243.0" y="1727" font-family="Microsoft YaHei" font-size="13" fill="#c084fc" fill-opacity="0.85">45</text>
+<text x="264.6" y="1728" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">大气排放</text>
+<rect x="354.6" y="1704" width="149.6" height="36" rx="9" fill="#c084fc" fill-opacity="0.10" stroke="#c084fc" stroke-opacity="0.38" stroke-width="1"/>
+<text x="367.6" y="1727" font-family="Microsoft YaHei" font-size="13" fill="#c084fc" fill-opacity="0.85">46</text>
+<text x="389.1" y="1728" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">生态系统吸收</text>
+<rect x="513.1" y="1704" width="132.6" height="36" rx="9" fill="#c084fc" fill-opacity="0.10" stroke="#c084fc" stroke-opacity="0.38" stroke-width="1"/>
+<text x="526.1" y="1727" font-family="Microsoft YaHei" font-size="13" fill="#c084fc" fill-opacity="0.85">47</text>
+<text x="547.7" y="1728" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">产品碳储存</text>
+<rect x="654.7" y="1704" width="166.6" height="36" rx="9" fill="#c084fc" fill-opacity="0.10" stroke="#c084fc" stroke-opacity="0.38" stroke-width="1"/>
+<text x="667.7" y="1727" font-family="Microsoft YaHei" font-size="13" fill="#c084fc" fill-opacity="0.85">48</text>
+<text x="689.2" y="1728" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">废弃物与废水碳</text>
+<rect x="830.2" y="1704" width="132.6" height="36" rx="9" fill="#c084fc" fill-opacity="0.10" stroke="#c084fc" stroke-opacity="0.38" stroke-width="1"/>
+<text x="843.2" y="1727" font-family="Microsoft YaHei" font-size="13" fill="#c084fc" fill-opacity="0.85">49</text>
+<text x="864.8" y="1728" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">跨设施转移</text>
+<rect x="971.8" y="1704" width="132.6" height="36" rx="9" fill="#c084fc" fill-opacity="0.10" stroke="#c084fc" stroke-opacity="0.38" stroke-width="1"/>
+<text x="984.8" y="1727" font-family="Microsoft YaHei" font-size="13" fill="#c084fc" fill-opacity="0.85">50</text>
+<text x="1006.4" y="1728" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">跨区域转移</text>
+<rect x="1113.4" y="1704" width="115.6" height="36" rx="9" fill="#c084fc" fill-opacity="0.10" stroke="#c084fc" stroke-opacity="0.38" stroke-width="1"/>
+<text x="1126.4" y="1727" font-family="Microsoft YaHei" font-size="13" fill="#c084fc" fill-opacity="0.85">51</text>
+<text x="1147.9" y="1728" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">地质封存</text>
+<rect x="1237.9" y="1704" width="98.6" height="36" rx="9" fill="#c084fc" fill-opacity="0.10" stroke="#c084fc" stroke-opacity="0.38" stroke-width="1"/>
+<text x="1250.9" y="1727" font-family="Microsoft YaHei" font-size="13" fill="#c084fc" fill-opacity="0.85">52</text>
+<text x="1272.5" y="1728" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">碳矿化</text>
+<rect x="1345.5" y="1704" width="98.6" height="36" rx="9" fill="#c084fc" fill-opacity="0.10" stroke="#c084fc" stroke-opacity="0.38" stroke-width="1"/>
+<text x="1358.5" y="1727" font-family="Microsoft YaHei" font-size="13" fill="#c084fc" fill-opacity="0.85">53</text>
+<text x="1380.0" y="1728" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">碳利用</text>
+<rect x="1453.0" y="1704" width="115.6" height="36" rx="9" fill="#c084fc" fill-opacity="0.10" stroke="#c084fc" stroke-opacity="0.38" stroke-width="1"/>
+<text x="1466.0" y="1727" font-family="Microsoft YaHei" font-size="13" fill="#c084fc" fill-opacity="0.85">54</text>
+<text x="1487.6" y="1728" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">水泥碳化</text>
+<rect x="1577.6" y="1704" width="115.6" height="36" rx="9" fill="#c084fc" fill-opacity="0.10" stroke="#c084fc" stroke-opacity="0.38" stroke-width="1"/>
+<text x="1590.6" y="1727" font-family="Microsoft YaHei" font-size="13" fill="#c084fc" fill-opacity="0.85">55</text>
+<text x="1612.2" y="1728" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">生物源碳</text>
+<rect x="1702.2" y="1704" width="132.6" height="36" rx="9" fill="#c084fc" fill-opacity="0.10" stroke="#c084fc" stroke-opacity="0.38" stroke-width="1"/>
+<text x="1715.2" y="1727" font-family="Microsoft YaHei" font-size="13" fill="#c084fc" fill-opacity="0.85">56</text>
+<text x="1736.7" y="1728" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">碳库存变化</text>
+<g filter="url(#sh)"><rect x="196" y="1814" width="1734" height="202" rx="20" fill="url(#card06)" stroke="#22d3ee" stroke-opacity="0.28" stroke-width="1.2"/></g>
+<rect x="220" y="1815" width="1686" height="1.5" rx="0.75" fill="#22d3ee" opacity="0.45"/>
+<rect x="196" y="1832" width="6" height="166" rx="3" fill="#22d3ee" opacity="0.9"/>
+<rect x="89" y="1844" width="62" height="62" rx="16" fill="#22d3ee" fill-opacity="0.14" stroke="#22d3ee" stroke-opacity="0.55" stroke-width="1.5"/>
+<text x="120" y="1886" text-anchor="middle" font-family="Microsoft YaHei" font-size="26" font-weight="700" fill="#22d3ee">06</text>
+<text x="230" y="1878" font-family="Microsoft YaHei" font-size="31" font-weight="700" fill="#e8eefb">城市清单</text>
+<text x="374" y="1878" font-family="Microsoft YaHei" font-size="17" fill="#8ba0c2">把碳流汇总成可考核的账</text>
+<text x="1896" y="1877" text-anchor="end" font-family="Microsoft YaHei" font-size="16" font-weight="500" fill="#22d3ee" fill-opacity="0.95">必须声明电力因子口径与年份</text>
+<circle cx="1670" cy="1872" r="3.5" fill="#22d3ee" fill-opacity="0.9"/>
+<text x="230" y="1939" font-family="Microsoft YaHei" font-size="17" font-weight="600" fill="#22d3ee" fill-opacity="0.92">城市清单 57–65</text>
+<rect x="230.0" y="1946" width="149.6" height="36" rx="9" fill="#22d3ee" fill-opacity="0.10" stroke="#22d3ee" stroke-opacity="0.38" stroke-width="1"/>
+<text x="243.0" y="1969" font-family="Microsoft YaHei" font-size="13" fill="#22d3ee" fill-opacity="0.85">57</text>
+<text x="264.6" y="1970" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">直接排放总量</text>
+<rect x="388.6" y="1946" width="115.6" height="36" rx="9" fill="#22d3ee" fill-opacity="0.10" stroke="#22d3ee" stroke-opacity="0.38" stroke-width="1"/>
+<text x="401.6" y="1969" font-family="Microsoft YaHei" font-size="13" fill="#22d3ee" fill-opacity="0.85">58</text>
+<text x="423.1" y="1970" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">间接排放</text>
+<rect x="513.1" y="1946" width="166.6" height="36" rx="9" fill="#22d3ee" fill-opacity="0.10" stroke="#22d3ee" stroke-opacity="0.38" stroke-width="1"/>
+<text x="526.1" y="1969" font-family="Microsoft YaHei" font-size="13" fill="#22d3ee" fill-opacity="0.85">59</text>
+<text x="547.7" y="1970" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">消费端隐含排放</text>
+<rect x="688.7" y="1946" width="132.6" height="36" rx="9" fill="#22d3ee" fill-opacity="0.10" stroke="#22d3ee" stroke-opacity="0.38" stroke-width="1"/>
+<text x="701.7" y="1969" font-family="Microsoft YaHei" font-size="13" fill="#22d3ee" fill-opacity="0.85">60</text>
+<text x="723.2" y="1970" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">生产端排放</text>
+<rect x="830.2" y="1946" width="98.6" height="36" rx="9" fill="#22d3ee" fill-opacity="0.10" stroke="#22d3ee" stroke-opacity="0.38" stroke-width="1"/>
+<text x="843.2" y="1969" font-family="Microsoft YaHei" font-size="13" fill="#22d3ee" fill-opacity="0.85">61</text>
+<text x="864.8" y="1970" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">净排放</text>
+<rect x="937.8" y="1946" width="149.6" height="36" rx="9" fill="#22d3ee" fill-opacity="0.10" stroke="#22d3ee" stroke-opacity="0.38" stroke-width="1"/>
+<text x="950.8" y="1969" font-family="Microsoft YaHei" font-size="13" fill="#22d3ee" fill-opacity="0.85">62</text>
+<text x="972.4" y="1970" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">设施排放占比</text>
+<rect x="1096.4" y="1946" width="149.6" height="36" rx="9" fill="#22d3ee" fill-opacity="0.10" stroke="#22d3ee" stroke-opacity="0.38" stroke-width="1"/>
+<text x="1109.4" y="1969" font-family="Microsoft YaHei" font-size="13" fill="#22d3ee" fill-opacity="0.85">63</text>
+<text x="1130.9" y="1970" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">行业排放占比</text>
+<rect x="1254.9" y="1946" width="183.6" height="36" rx="9" fill="#22d3ee" fill-opacity="0.10" stroke="#22d3ee" stroke-opacity="0.38" stroke-width="1"/>
+<text x="1267.9" y="1969" font-family="Microsoft YaHei" font-size="13" fill="#22d3ee" fill-opacity="0.85">64</text>
+<text x="1289.5" y="1970" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">能源关联排放占比</text>
+<rect x="1447.5" y="1946" width="166.6" height="36" rx="9" fill="#22d3ee" fill-opacity="0.10" stroke="#22d3ee" stroke-opacity="0.38" stroke-width="1"/>
+<text x="1460.5" y="1969" font-family="Microsoft YaHei" font-size="13" fill="#22d3ee" fill-opacity="0.85">65</text>
+<text x="1482.0" y="1970" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">减排与移除贡献</text>
+<g filter="url(#sh)"><rect x="196" y="2056" width="1734" height="824" rx="20" fill="url(#card07)" stroke="#34d399" stroke-opacity="0.28" stroke-width="1.2"/></g>
+<rect x="220" y="2057" width="1686" height="1.5" rx="0.75" fill="#34d399" opacity="0.45"/>
+<rect x="196" y="2074" width="6" height="788" rx="3" fill="#34d399" opacity="0.9"/>
+<rect x="89" y="2086" width="62" height="62" rx="16" fill="#34d399" fill-opacity="0.14" stroke="#34d399" stroke-opacity="0.55" stroke-width="1.5"/>
+<text x="120" y="2128" text-anchor="middle" font-family="Microsoft YaHei" font-size="26" font-weight="700" fill="#34d399">07</text>
+<text x="230" y="2120" font-family="Microsoft YaHei" font-size="31" font-weight="700" fill="#e8eefb">政策工具</text>
+<text x="374" y="2120" font-family="Microsoft YaHei" font-size="17" fill="#8ba0c2">总量、市场、信用与移除的完整链条</text>
+<text x="1896" y="2119" text-anchor="end" font-family="Microsoft YaHei" font-size="16" font-weight="500" fill="#34d399" fill-opacity="0.95">先减排、后移除；抵消设比例上限</text>
+<circle cx="1638" cy="2114" r="3.5" fill="#34d399" fill-opacity="0.9"/>
+<text x="230" y="2181" font-family="Microsoft YaHei" font-size="17" font-weight="600" fill="#34d399" fill-opacity="0.92">碳预算 66</text>
+<rect x="230.0" y="2188" width="183.6" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="243.0" y="2211" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">66</text>
+<text x="264.6" y="2212" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">国家与行业碳预算</text>
+<line x1="230" y1="2232.0" x2="1896" y2="2232.0" stroke="#34d399" stroke-opacity="0.13" stroke-width="1" stroke-dasharray="4 7"/>
+<text x="230" y="2257" font-family="Microsoft YaHei" font-size="17" font-weight="600" fill="#34d399" fill-opacity="0.92">总量控制 67–75</text>
+<rect x="230.0" y="2264" width="200.6" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="243.0" y="2287" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">67</text>
+<text x="264.6" y="2288" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">全国碳市场覆盖范围</text>
+<rect x="439.6" y="2264" width="149.6" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="452.6" y="2287" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">68</text>
+<text x="474.1" y="2288" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">市场配额总量</text>
+<rect x="598.1" y="2264" width="115.6" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="611.1" y="2287" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">69</text>
+<text x="632.7" y="2288" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">强度控制</text>
+<rect x="722.7" y="2264" width="115.6" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="735.7" y="2287" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">70</text>
+<text x="757.2" y="2288" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">总量控制</text>
+<rect x="847.2" y="2264" width="166.6" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="860.2" y="2287" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">71</text>
+<text x="881.8" y="2288" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">强度向总量转型</text>
+<rect x="1022.8" y="2264" width="115.6" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="1035.8" y="2287" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">72</text>
+<text x="1057.4" y="2288" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">配额分配</text>
+<rect x="1147.4" y="2264" width="115.6" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="1160.4" y="2287" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">73</text>
+<text x="1181.9" y="2288" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">配额收紧</text>
+<rect x="1271.9" y="2264" width="166.6" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="1284.9" y="2287" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">74</text>
+<text x="1306.5" y="2288" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">配额盈缺与清缴</text>
+<rect x="1447.5" y="2264" width="149.6" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="1460.5" y="2287" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">75</text>
+<text x="1482.0" y="2288" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">控制效果评估</text>
+<line x1="230" y1="2308.0" x2="1896" y2="2308.0" stroke="#34d399" stroke-opacity="0.13" stroke-width="1" stroke-dasharray="4 7"/>
+<text x="230" y="2333" font-family="Microsoft YaHei" font-size="17" font-weight="600" fill="#34d399" fill-opacity="0.92">碳市场 76–78</text>
+<rect x="230.0" y="2340" width="183.6" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="243.0" y="2363" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">76</text>
+<text x="264.6" y="2364" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">全国碳排放权交易</text>
+<rect x="422.6" y="2340" width="98.6" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="435.6" y="2363" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">77</text>
+<text x="457.1" y="2364" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">碳价格</text>
+<rect x="530.1" y="2340" width="166.6" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="543.1" y="2363" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">78</text>
+<text x="564.7" y="2364" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">配额市场稳定性</text>
+<line x1="230" y1="2384.0" x2="1896" y2="2384.0" stroke="#34d399" stroke-opacity="0.13" stroke-width="1" stroke-dasharray="4 7"/>
+<text x="230" y="2409" font-family="Microsoft YaHei" font-size="17" font-weight="600" fill="#34d399" fill-opacity="0.92">碳信用 79–90</text>
+<rect x="230.0" y="2416" width="153.6" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="243.0" y="2439" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">79</text>
+<text x="264.6" y="2440" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">CCER项目资格</text>
+<rect x="392.6" y="2416" width="98.6" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="405.6" y="2439" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">80</text>
+<text x="427.2" y="2440" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">额外性</text>
+<rect x="500.2" y="2416" width="98.6" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="513.2" y="2439" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">81</text>
+<text x="534.8" y="2440" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">基准线</text>
+<rect x="607.8" y="2416" width="132.6" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="620.8" y="2439" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">82</text>
+<text x="642.3" y="2440" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">项目减排量</text>
+<rect x="749.3" y="2416" width="81.6" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="762.3" y="2439" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">83</text>
+<text x="783.9" y="2440" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">泄漏</text>
+<rect x="839.9" y="2416" width="149.6" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="852.9" y="2439" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">84</text>
+<text x="874.4" y="2440" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">持久性与逆转</text>
+<rect x="998.4" y="2416" width="149.6" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="1011.4" y="2439" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">85</text>
+<text x="1033.0" y="2440" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">测量不确定性</text>
+<rect x="1157.0" y="2416" width="200.6" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="1170.0" y="2439" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">86</text>
+<text x="1191.6" y="2440" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">重复计算与重复签发</text>
+<rect x="1366.6" y="2416" width="132.6" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="1379.6" y="2439" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">87</text>
+<text x="1401.1" y="2440" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">核证与登记</text>
+<rect x="1508.1" y="2416" width="166.6" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="1521.1" y="2439" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">88</text>
+<text x="1542.7" y="2440" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">抵消资格与比例</text>
+<rect x="1683.7" y="2416" width="115.6" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="1696.7" y="2439" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">89</text>
+<text x="1718.2" y="2440" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">信用注销</text>
+<rect x="230.0" y="2461" width="149.6" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="243.0" y="2484" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">90</text>
+<text x="264.6" y="2485" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">信用质量评价</text>
+<line x1="230" y1="2505.0" x2="1896" y2="2505.0" stroke="#34d399" stroke-opacity="0.13" stroke-width="1" stroke-dasharray="4 7"/>
+<text x="230" y="2530" font-family="Microsoft YaHei" font-size="17" font-weight="600" fill="#34d399" fill-opacity="0.92">碳移除 91–104</text>
+<rect x="230.0" y="2537" width="149.6" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="243.0" y="2560" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">91</text>
+<text x="264.6" y="2561" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">移除路径分类</text>
+<rect x="388.6" y="2537" width="149.6" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="401.6" y="2560" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">92</text>
+<text x="423.1" y="2561" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">大气来源证明</text>
+<rect x="547.1" y="2537" width="115.6" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="560.1" y="2560" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">93</text>
+<text x="581.7" y="2561" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">总移除量</text>
+<rect x="671.7" y="2537" width="149.6" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="684.7" y="2560" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">94</text>
+<text x="706.2" y="2561" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">生命周期排放</text>
+<rect x="830.2" y="2537" width="115.6" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="843.2" y="2560" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">95</text>
+<text x="864.8" y="2561" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">净移除量</text>
+<rect x="954.8" y="2537" width="115.6" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="967.8" y="2560" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">96</text>
+<text x="989.4" y="2561" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">储存期限</text>
+<rect x="1079.4" y="2537" width="115.6" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="1092.4" y="2560" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">97</text>
+<text x="1113.9" y="2561" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">逆转监测</text>
+<rect x="1203.9" y="2537" width="115.6" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="1216.9" y="2560" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">98</text>
+<text x="1238.5" y="2561" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">项目确权</text>
+<rect x="1328.5" y="2537" width="149.6" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="1341.5" y="2560" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">99</text>
+<text x="1363.0" y="2561" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">方法学适用性</text>
+<rect x="1487.0" y="2537" width="139.8" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="1500.0" y="2560" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">100</text>
+<text x="1528.9" y="2561" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">第三方核查</text>
+<rect x="1635.9" y="2537" width="207.8" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="1648.9" y="2560" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">101</text>
+<text x="1677.7" y="2561" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">项目登记与信用签发</text>
+<rect x="230.0" y="2582" width="173.8" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="243.0" y="2605" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">102</text>
+<text x="271.8" y="2606" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">信用交易与注销</text>
+<rect x="412.8" y="2582" width="173.8" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="425.8" y="2605" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">103</text>
+<text x="454.7" y="2606" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">单位净移除成本</text>
+<rect x="595.7" y="2582" width="190.8" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="608.7" y="2605" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">104</text>
+<text x="637.5" y="2606" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">技术扩散与规模化</text>
+<line x1="230" y1="2626.0" x2="1896" y2="2626.0" stroke="#34d399" stroke-opacity="0.13" stroke-width="1" stroke-dasharray="4 7"/>
+<text x="230" y="2651" font-family="Microsoft YaHei" font-size="17" font-weight="600" fill="#34d399" fill-opacity="0.92">碳税 105–107</text>
+<rect x="230.0" y="2658" width="139.8" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="243.0" y="2681" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">105</text>
+<text x="271.8" y="2682" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">税基与税率</text>
+<rect x="378.8" y="2658" width="173.8" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="391.8" y="2681" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">106</text>
+<text x="420.7" y="2682" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">税收与排放响应</text>
+<rect x="561.7" y="2658" width="122.8" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="574.7" y="2681" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">107</text>
+<text x="603.5" y="2682" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">分配效应</text>
+<line x1="230" y1="2702.0" x2="1896" y2="2702.0" stroke="#34d399" stroke-opacity="0.13" stroke-width="1" stroke-dasharray="4 7"/>
+<text x="230" y="2727" font-family="Microsoft YaHei" font-size="17" font-weight="600" fill="#34d399" fill-opacity="0.92">碳交易 108–110</text>
+<rect x="230.0" y="2734" width="156.8" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="243.0" y="2757" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">108</text>
+<text x="271.8" y="2758" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">企业履约成本</text>
+<rect x="395.8" y="2734" width="122.8" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="408.8" y="2757" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">109</text>
+<text x="437.7" y="2758" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">碳价传导</text>
+<rect x="527.7" y="2734" width="173.8" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="540.7" y="2757" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">110</text>
+<text x="569.5" y="2758" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">市场覆盖与竞争</text>
+<line x1="230" y1="2778.0" x2="1896" y2="2778.0" stroke="#34d399" stroke-opacity="0.13" stroke-width="1" stroke-dasharray="4 7"/>
+<text x="230" y="2803" font-family="Microsoft YaHei" font-size="17" font-weight="600" fill="#34d399" fill-opacity="0.92">自愿碳市场 111–112</text>
+<rect x="230.0" y="2810" width="160.9" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="243.0" y="2833" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">111</text>
+<text x="271.8" y="2834" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">CCER项目收入</text>
+<rect x="399.9" y="2810" width="173.8" height="36" rx="9" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.38" stroke-width="1"/>
+<text x="412.9" y="2833" font-family="Microsoft YaHei" font-size="13" fill="#34d399" fill-opacity="0.85">112</text>
+<text x="441.8" y="2834" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">其他碳信用标准</text>
+<g filter="url(#sh)"><rect x="196" y="2920" width="1734" height="430" rx="20" fill="url(#card08)" stroke="#60a5fa" stroke-opacity="0.28" stroke-width="1.2"/></g>
+<rect x="220" y="2921" width="1686" height="1.5" rx="0.75" fill="#60a5fa" opacity="0.45"/>
+<rect x="196" y="2938" width="6" height="394" rx="3" fill="#60a5fa" opacity="0.9"/>
+<rect x="89" y="2950" width="62" height="62" rx="16" fill="#60a5fa" fill-opacity="0.14" stroke="#60a5fa" stroke-opacity="0.55" stroke-width="1.5"/>
+<text x="120" y="2992" text-anchor="middle" font-family="Microsoft YaHei" font-size="26" font-weight="700" fill="#60a5fa">08</text>
+<text x="230" y="2984" font-family="Microsoft YaHei" font-size="31" font-weight="700" fill="#e8eefb">分析与数据</text>
+<text x="405" y="2984" font-family="Microsoft YaHei" font-size="17" fill="#8ba0c2">驱动因素、核算质量与情景推演</text>
+<text x="1896" y="2983" text-anchor="end" font-family="Microsoft YaHei" font-size="16" font-weight="500" fill="#60a5fa" fill-opacity="0.95">驱动分解用 Kaya + LMDI；政策评估防交错处理偏误</text>
+<circle cx="1498" cy="2978" r="3.5" fill="#60a5fa" fill-opacity="0.9"/>
+<text x="230" y="3045" font-family="Microsoft YaHei" font-size="17" font-weight="600" fill="#60a5fa" fill-opacity="0.92">能源经济 113–123</text>
+<rect x="230.0" y="3052" width="122.8" height="36" rx="9" fill="#60a5fa" fill-opacity="0.10" stroke="#60a5fa" stroke-opacity="0.38" stroke-width="1"/>
+<text x="243.0" y="3075" font-family="Microsoft YaHei" font-size="13" fill="#60a5fa" fill-opacity="0.85">113</text>
+<text x="271.8" y="3076" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">能源价格</text>
+<rect x="361.8" y="3052" width="122.8" height="36" rx="9" fill="#60a5fa" fill-opacity="0.10" stroke="#60a5fa" stroke-opacity="0.38" stroke-width="1"/>
+<text x="374.8" y="3075" font-family="Microsoft YaHei" font-size="13" fill="#60a5fa" fill-opacity="0.85">114</text>
+<text x="403.7" y="3076" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">能源强度</text>
+<rect x="493.7" y="3052" width="105.8" height="36" rx="9" fill="#60a5fa" fill-opacity="0.10" stroke="#60a5fa" stroke-opacity="0.38" stroke-width="1"/>
+<text x="506.7" y="3075" font-family="Microsoft YaHei" font-size="13" fill="#60a5fa" fill-opacity="0.85">115</text>
+<text x="535.5" y="3076" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">碳强度</text>
+<rect x="608.5" y="3052" width="122.8" height="36" rx="9" fill="#60a5fa" fill-opacity="0.10" stroke="#60a5fa" stroke-opacity="0.38" stroke-width="1"/>
+<text x="621.5" y="3075" font-family="Microsoft YaHei" font-size="13" fill="#60a5fa" fill-opacity="0.85">116</text>
+<text x="650.4" y="3076" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">减排成本</text>
+<rect x="740.4" y="3052" width="122.8" height="36" rx="9" fill="#60a5fa" fill-opacity="0.10" stroke="#60a5fa" stroke-opacity="0.38" stroke-width="1"/>
+<text x="753.4" y="3075" font-family="Microsoft YaHei" font-size="13" fill="#60a5fa" fill-opacity="0.85">117</text>
+<text x="782.2" y="3076" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">产业结构</text>
+<rect x="872.2" y="3052" width="173.8" height="36" rx="9" fill="#60a5fa" fill-opacity="0.10" stroke="#60a5fa" stroke-opacity="0.38" stroke-width="1"/>
+<text x="885.2" y="3075" font-family="Microsoft YaHei" font-size="13" fill="#60a5fa" fill-opacity="0.85">118</text>
+<text x="914.0" y="3076" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">企业投资与融资</text>
+<rect x="1055.0" y="3052" width="139.8" height="36" rx="9" fill="#60a5fa" fill-opacity="0.10" stroke="#60a5fa" stroke-opacity="0.38" stroke-width="1"/>
+<text x="1068.0" y="3075" font-family="Microsoft YaHei" font-size="13" fill="#60a5fa" fill-opacity="0.85">119</text>
+<text x="1096.9" y="3076" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">财政与补贴</text>
+<rect x="1203.9" y="3052" width="122.8" height="36" rx="9" fill="#60a5fa" fill-opacity="0.10" stroke="#60a5fa" stroke-opacity="0.38" stroke-width="1"/>
+<text x="1216.9" y="3075" font-family="Microsoft YaHei" font-size="13" fill="#60a5fa" fill-opacity="0.85">120</text>
+<text x="1245.7" y="3076" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">绿色金融</text>
+<rect x="1335.7" y="3052" width="122.8" height="36" rx="9" fill="#60a5fa" fill-opacity="0.10" stroke="#60a5fa" stroke-opacity="0.38" stroke-width="1"/>
+<text x="1348.7" y="3075" font-family="Microsoft YaHei" font-size="13" fill="#60a5fa" fill-opacity="0.85">121</text>
+<text x="1377.6" y="3076" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">居民消费</text>
+<rect x="1467.6" y="3052" width="156.8" height="36" rx="9" fill="#60a5fa" fill-opacity="0.10" stroke="#60a5fa" stroke-opacity="0.38" stroke-width="1"/>
+<text x="1480.6" y="3075" font-family="Microsoft YaHei" font-size="13" fill="#60a5fa" fill-opacity="0.85">122</text>
+<text x="1509.4" y="3076" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">产业链隐含碳</text>
+<rect x="1633.4" y="3052" width="156.8" height="36" rx="9" fill="#60a5fa" fill-opacity="0.10" stroke="#60a5fa" stroke-opacity="0.38" stroke-width="1"/>
+<text x="1646.4" y="3075" font-family="Microsoft YaHei" font-size="13" fill="#60a5fa" fill-opacity="0.85">123</text>
+<text x="1675.2" y="3076" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">政策因果效应</text>
+<line x1="230" y1="3096.0" x2="1896" y2="3096.0" stroke="#60a5fa" stroke-opacity="0.13" stroke-width="1" stroke-dasharray="4 7"/>
+<text x="230" y="3121" font-family="Microsoft YaHei" font-size="17" font-weight="600" fill="#60a5fa" fill-opacity="0.92">MRV 与质量 124–128</text>
+<rect x="230.0" y="3128" width="122.8" height="36" rx="9" fill="#60a5fa" fill-opacity="0.10" stroke="#60a5fa" stroke-opacity="0.38" stroke-width="1"/>
+<text x="243.0" y="3151" font-family="Microsoft YaHei" font-size="13" fill="#60a5fa" fill-opacity="0.85">124</text>
+<text x="271.8" y="3152" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">活动数据</text>
+<rect x="361.8" y="3128" width="122.8" height="36" rx="9" fill="#60a5fa" fill-opacity="0.10" stroke="#60a5fa" stroke-opacity="0.38" stroke-width="1"/>
+<text x="374.8" y="3151" font-family="Microsoft YaHei" font-size="13" fill="#60a5fa" fill-opacity="0.85">125</text>
+<text x="403.7" y="3152" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">排放因子</text>
+<rect x="493.7" y="3128" width="139.8" height="36" rx="9" fill="#60a5fa" fill-opacity="0.10" stroke="#60a5fa" stroke-opacity="0.38" stroke-width="1"/>
+<text x="506.7" y="3151" font-family="Microsoft YaHei" font-size="13" fill="#60a5fa" fill-opacity="0.85">126</text>
+<text x="535.5" y="3152" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">实测与估算</text>
+<rect x="642.5" y="3128" width="173.8" height="36" rx="9" fill="#60a5fa" fill-opacity="0.10" stroke="#60a5fa" stroke-opacity="0.38" stroke-width="1"/>
+<text x="655.5" y="3151" font-family="Microsoft YaHei" font-size="13" fill="#60a5fa" fill-opacity="0.85">127</text>
+<text x="684.4" y="3152" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">误差与不确定性</text>
+<rect x="825.4" y="3128" width="156.8" height="36" rx="9" fill="#60a5fa" fill-opacity="0.10" stroke="#60a5fa" stroke-opacity="0.38" stroke-width="1"/>
+<text x="838.4" y="3151" font-family="Microsoft YaHei" font-size="13" fill="#60a5fa" fill-opacity="0.85">128</text>
+<text x="867.2" y="3152" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">重复计算检查</text>
+<line x1="230" y1="3172.0" x2="1896" y2="3172.0" stroke="#60a5fa" stroke-opacity="0.13" stroke-width="1" stroke-dasharray="4 7"/>
+<text x="230" y="3197" font-family="Microsoft YaHei" font-size="17" font-weight="600" fill="#60a5fa" fill-opacity="0.92">数据体系 129–132</text>
+<rect x="230.0" y="3204" width="139.8" height="36" rx="9" fill="#60a5fa" fill-opacity="0.10" stroke="#60a5fa" stroke-opacity="0.38" stroke-width="1"/>
+<text x="243.0" y="3227" font-family="Microsoft YaHei" font-size="13" fill="#60a5fa" fill-opacity="0.85">129</text>
+<text x="271.8" y="3228" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">设施数据库</text>
+<rect x="378.8" y="3204" width="139.8" height="36" rx="9" fill="#60a5fa" fill-opacity="0.10" stroke="#60a5fa" stroke-opacity="0.38" stroke-width="1"/>
+<text x="391.8" y="3227" font-family="Microsoft YaHei" font-size="13" fill="#60a5fa" fill-opacity="0.85">130</text>
+<text x="420.7" y="3228" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">能源数据库</text>
+<rect x="527.7" y="3204" width="139.8" height="36" rx="9" fill="#60a5fa" fill-opacity="0.10" stroke="#60a5fa" stroke-opacity="0.38" stroke-width="1"/>
+<text x="540.7" y="3227" font-family="Microsoft YaHei" font-size="13" fill="#60a5fa" fill-opacity="0.85">131</text>
+<text x="569.5" y="3228" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">碳流数据库</text>
+<rect x="676.5" y="3204" width="173.8" height="36" rx="9" fill="#60a5fa" fill-opacity="0.10" stroke="#60a5fa" stroke-opacity="0.38" stroke-width="1"/>
+<text x="689.5" y="3227" font-family="Microsoft YaHei" font-size="13" fill="#60a5fa" fill-opacity="0.85">132</text>
+<text x="718.4" y="3228" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">经济政策数据库</text>
+<line x1="230" y1="3248.0" x2="1896" y2="3248.0" stroke="#60a5fa" stroke-opacity="0.13" stroke-width="1" stroke-dasharray="4 7"/>
+<text x="230" y="3273" font-family="Microsoft YaHei" font-size="17" font-weight="600" fill="#60a5fa" fill-opacity="0.92">情景模拟 133–137</text>
+<rect x="230.0" y="3280" width="122.8" height="36" rx="9" fill="#60a5fa" fill-opacity="0.10" stroke="#60a5fa" stroke-opacity="0.38" stroke-width="1"/>
+<text x="243.0" y="3303" font-family="Microsoft YaHei" font-size="13" fill="#60a5fa" fill-opacity="0.85">133</text>
+<text x="271.8" y="3304" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">能源替代</text>
+<rect x="361.8" y="3280" width="156.8" height="36" rx="9" fill="#60a5fa" fill-opacity="0.10" stroke="#60a5fa" stroke-opacity="0.38" stroke-width="1"/>
+<text x="374.8" y="3303" font-family="Microsoft YaHei" font-size="13" fill="#60a5fa" fill-opacity="0.85">134</text>
+<text x="403.7" y="3304" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">工业技术改造</text>
+<rect x="527.7" y="3280" width="173.8" height="36" rx="9" fill="#60a5fa" fill-opacity="0.10" stroke="#60a5fa" stroke-opacity="0.38" stroke-width="1"/>
+<text x="540.7" y="3303" font-family="Microsoft YaHei" font-size="13" fill="#60a5fa" fill-opacity="0.85">135</text>
+<text x="569.5" y="3304" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">碳价与总量政策</text>
+<rect x="710.5" y="3280" width="156.8" height="36" rx="9" fill="#60a5fa" fill-opacity="0.10" stroke="#60a5fa" stroke-opacity="0.38" stroke-width="1"/>
+<text x="723.5" y="3303" font-family="Microsoft YaHei" font-size="13" fill="#60a5fa" fill-opacity="0.85">136</text>
+<text x="752.4" y="3304" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">碳移除规模化</text>
+<rect x="876.4" y="3280" width="156.8" height="36" rx="9" fill="#60a5fa" fill-opacity="0.10" stroke="#60a5fa" stroke-opacity="0.38" stroke-width="1"/>
+<text x="889.4" y="3303" font-family="Microsoft YaHei" font-size="13" fill="#60a5fa" fill-opacity="0.85">137</text>
+<text x="918.2" y="3304" font-family="Microsoft YaHei" font-size="17" fill="#d7e3f8">综合政策组合</text>
+</g>
+<g id="rail"><g stroke="#2c4064" stroke-width="3" stroke-linecap="round">
+<line x1="120" y1="392" x2="120" y2="572"/>
+<line x1="120" y1="634" x2="120" y2="814"/>
+<line x1="120" y1="876" x2="120" y2="1056"/>
+<line x1="120" y1="1118" x2="120" y2="1602"/>
+<line x1="120" y1="1664" x2="120" y2="1844"/>
+<line x1="120" y1="1906" x2="120" y2="2086"/>
+<line x1="120" y1="2148" x2="120" y2="2950"/>
+</g></g>
+<g id="footer">
+<rect x="70" y="3404" width="1860" height="2" rx="1" fill="#2c4064"/>
+<text x="70" y="3450" font-family="Microsoft YaHei" font-size="19" font-weight="600" fill="#9db4d6">三条核心恒等式（框架内所有数字的对账依据）</text>
+<circle cx="75" cy="3488" r="5" fill="#c084fc"/>
+<text x="92" y="3494" font-family="Microsoft YaHei" font-size="17" font-weight="600" fill="#c084fc">碳流平衡</text>
+<text x="182" y="3494" font-family="Microsoft YaHei" font-size="17" fill="#8ba0c2">碳输入 = 大气排放 + 产品固碳 + 废物残渣 + 库存变化 + 地质封存</text>
+<circle cx="75" cy="3528" r="5" fill="#22d3ee"/>
+<text x="92" y="3534" font-family="Microsoft YaHei" font-size="17" font-weight="600" fill="#22d3ee">口径对账</text>
+<text x="182" y="3534" font-family="Microsoft YaHei" font-size="17" fill="#8ba0c2">属地口径排放 + 调入隐含碳 − 调出隐含碳 = 消费端口径排放</text>
+<circle cx="75" cy="3568" r="5" fill="#34d399"/>
+<text x="92" y="3574" font-family="Microsoft YaHei" font-size="17" font-weight="600" fill="#34d399">净排放</text>
+<text x="165" y="3574" font-family="Microsoft YaHei" font-size="17" fill="#8ba0c2">净排放 = 总排放 − 净移除量（含生态吸收与工程移除）</text>
+<text x="70" y="3626" font-family="Microsoft YaHei" font-size="15" fill="#5d7398">数据支撑见《碳核算框架_数据支撑手册.md》与《碳核算参数表.xlsx》｜待补数据见 missing_data_spec.py｜编号与 137 行总表一一对应</text>
+</g>
+</svg>

@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>城市碳核算与政策分析框架 · 交互地图</title>
+<style>
+  :root{
+    --bg:#080e1c; --bg2:#0d1730; --card:#121f3a; --card2:#0e1830;
+    --line:#26375a; --txt:#e8eefb; --dim:#8ba0c2; --dim2:#5e7ba0;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:radial-gradient(900px 500px at 50% -100px,rgba(30,64,175,.35),transparent 70%),
+               linear-gradient(160deg,var(--bg),var(--bg2) 60%,#101c36);
+    color:var(--txt);
+    font-family:"Microsoft YaHei","PingFang SC","Hiragino Sans GB",system-ui,sans-serif;
+    min-height:100vh; padding-bottom:60px;
+  }
+  /* ---------- 顶栏 ---------- */
+  header{padding:26px 22px 0;max-width:1720px;margin:0 auto}
+  h1{font-size:30px;letter-spacing:1px;font-weight:700}
+  .sub{color:var(--dim);font-size:14px;margin-top:6px;letter-spacing:.5px}
+  .stats{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0 0}
+  .pill{background:#152441;border:1px solid var(--line);border-radius:20px;
+        padding:6px 15px;font-size:13px;color:var(--dim);display:flex;gap:7px;align-items:center}
+  .pill b{color:#7dd3fc;font-size:16px;font-weight:700}
+  /* ---------- 层按钮 ---------- */
+  nav{max-width:1720px;margin:16px auto 0;padding:0 22px;
+      display:flex;gap:9px;flex-wrap:wrap;position:sticky;top:0;z-index:30;
+      background:linear-gradient(#080e1c 72%,rgba(8,14,28,0));padding-top:12px;padding-bottom:14px}
+  .lbtn{cursor:pointer;border:1px solid var(--line);background:#101c34;color:var(--txt);
+        border-radius:11px;padding:9px 15px;font-size:14px;font-family:inherit;
+        display:flex;gap:9px;align-items:center;transition:.15s;white-space:nowrap}
+  .lbtn:hover{border-color:#3f5c8f;transform:translateY(-1px)}
+  .lbtn .no{font-size:12px;font-weight:700;opacity:.9}
+  .lbtn.on{background:#1a2c4e;border-color:currentColor;box-shadow:0 0 0 1px currentColor inset}
+  /* ---------- 布局 ---------- */
+  .wrap{max-width:1720px;margin:0 auto;padding:0 22px;
+        display:grid;grid-template-columns:minmax(0,1fr) 452px;gap:20px;align-items:start}
+  @media(max-width:1180px){.wrap{grid-template-columns:1fr}}
+  /* ---------- 图 ---------- */
+  .layer{margin-bottom:16px}
+  .lhead{display:flex;align-items:center;gap:12px;padding:10px 4px 10px}
+  .lno{width:44px;height:44px;flex:0 0 44px;border-radius:13px;display:grid;place-items:center;
+       font-weight:700;font-size:19px;border:1.5px solid currentColor;background:rgba(255,255,255,.045)}
+  .lname{font-size:20px;font-weight:700}
+  .lsub{font-size:13px;color:var(--dim);margin-left:2px}
+  .mods{display:grid;gap:10px;
+        grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+  .mods.one{grid-template-columns:1fr}
+  .layer{scroll-margin-top:88px}
+  .mod{background:linear-gradient(150deg,var(--card),var(--card2));
+       border:1px solid var(--line);border-left:3px solid currentColor;
+       border-radius:14px;padding:13px 14px;cursor:pointer;transition:.15s;text-align:left;
+       font-family:inherit;color:var(--txt);width:100%}
+  .mod:hover{border-color:#3f5c8f;border-left-color:currentColor;transform:translateY(-2px);
+             box-shadow:0 10px 24px -12px #000}
+  .mod.on{background:#17305a;box-shadow:0 0 0 1.5px currentColor inset}
+  .mod-h{display:flex;align-items:center;gap:8px;margin-bottom:3px}
+  .mod-h h3{font-size:16px;font-weight:700;flex:1}
+  .rng{font-size:11.5px;color:var(--dim);font-variant-numeric:tabular-nums}
+  .dot{width:8px;height:8px;border-radius:50%;flex:0 0 8px}
+  .chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+  .chip{font-size:12px;padding:3px 7px;border-radius:7px;cursor:pointer;
+        background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);
+        color:#c9d8ef;font-family:inherit;transition:.12s}
+  .chip:hover,.chip:focus-visible{background:rgba(125,211,252,.18);border-color:#7dd3fc;color:#fff;outline:none}
+  .mod:focus-visible,.lbtn:focus-visible{outline:2px solid #7dd3fc;outline-offset:2px}
+  .chip b{opacity:.55;font-weight:400;margin-right:3px;font-variant-numeric:tabular-nums}
+  /* ---------- 右栏 ---------- */
+  aside{position:sticky;top:82px;max-height:calc(100vh - 100px);overflow:auto;
+        background:linear-gradient(165deg,#13203c,#0d172c);border:1px solid var(--line);
+        border-radius:18px;padding:18px}
+  aside::-webkit-scrollbar{width:8px}
+  aside::-webkit-scrollbar-thumb{background:#2b4067;border-radius:4px}
+  .p-kicker{font-size:11.5px;letter-spacing:1.4px;color:var(--dim);text-transform:uppercase}
+  .p-title{font-size:22px;font-weight:700;margin:5px 0 3px}
+  .p-meta{font-size:12.5px;color:var(--dim);display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .tag{font-size:11.5px;padding:2.5px 9px;border-radius:20px;border:1px solid currentColor}
+  .sec{margin-top:16px;border-top:1px solid var(--line);padding-top:13px}
+  .sec-t{font-size:12px;letter-spacing:1px;color:var(--dim);margin-bottom:8px;
+         display:flex;align-items:center;gap:7px}
+  .sec-t::before{content:"";width:3px;height:12px;border-radius:2px;background:currentColor}
+  .first{font-size:14.5px;line-height:1.78;color:#dfe9fa;
+         background:rgba(125,211,252,.07);border:1px solid rgba(125,211,252,.22);
+         border-radius:11px;padding:12px 13px}
+  .formula{font-family:Consolas,"Courier New",monospace;font-size:13.5px;line-height:1.7;
+           background:#0a1424;border:1px solid var(--line);border-radius:10px;
+           padding:11px 13px;color:#a5e3ff;white-space:pre-wrap;word-break:break-word}
+  ul.li{list-style:none;display:grid;gap:7px}
+  ul.li li{font-size:13px;line-height:1.62;color:#c8d7ee;padding-left:18px;position:relative}
+  ul.li li::before{content:"▸";position:absolute;left:2px;opacity:.65}
+  ul.li.gap li::before{content:"○";color:#fbbf24}
+  .spec{font-family:Consolas,monospace;font-size:11.5px;color:#fbbf24;opacity:.95}
+  .empty{font-size:13px;color:#5f7599;font-style:italic}
+  .ov-row{display:flex;justify-content:space-between;font-size:13px;padding:6px 0;
+          border-bottom:1px dashed rgba(255,255,255,.07)}
+  .ov-row span:last-child{font-variant-numeric:tabular-nums;color:#9fc3ee}
+  .bar{height:7px;border-radius:4px;background:#1b2b49;overflow:hidden;margin-top:8px;display:flex}
+  .bar i{display:block;height:100%}
+  .legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px;font-size:12px;color:var(--dim)}
+  .legend i{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:5px}
+  .hint{font-size:12px;color:#5f7599;line-height:1.7;margin-top:14px}
+  /* ---------- 搜索 ---------- */
+  .tools{display:flex;gap:9px;align-items:center;margin:0 0 14px;flex-wrap:wrap}
+  .search{flex:1;min-width:200px;background:#101c34;border:1px solid var(--line);
+          border-radius:10px;padding:9px 13px;color:var(--txt);font-size:13.5px;
+          font-family:inherit;outline:none}
+  .search:focus{border-color:#3f5c8f}
+  .fbtn{cursor:pointer;background:#101c34;border:1px solid var(--line);color:var(--dim);
+        border-radius:9px;padding:8px 12px;font-size:12.5px;font-family:inherit}
+  .fbtn.on{color:#7dd3fc;border-color:#3f5c8f;background:#16274a}
+  .hidden{display:none !important}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>城市碳核算与政策分析框架</h1>
+  <div class="sub">ENERGY · CARBON · ECONOMY　点击任意层 / 模块 / 条目，查看第一性原理与最新进展</div>
+  <div class="stats">
+    <div class="pill"><b>137</b>核算对象</div>
+    <div class="pill"><b>26</b>一级模块</div>
+    <div class="pill"><b>8</b>层结构</div>
+    <div class="pill"><b id="s-ver">0</b>条已核实参数</div>
+    <div class="pill"><b id="s-gap">0</b>项待补缺口</div>
+  </div>
+</header>
+
+<nav id="nav"></nav>
+
+<div class="wrap">
+  <main>
+    <div class="tools">
+      <input class="search" id="q" placeholder="搜索条目 / 模块名，例如：电力、CCER、稻田…">
+      <button class="fbtn on" data-f="all">全部</button>
+      <button class="fbtn" data-f="verified">已核实</button>
+      <button class="fbtn" data-f="partial">部分可用</button>
+      <button class="fbtn" data-f="pending">待补参数</button>
+    </div>
+    <div id="map"></div>
+  </main>
+  <aside id="panel"></aside>
+</div>
+
+<script>
+const DATA = {"layers":[{"no":"01","name":"边界","sub":"确定统计什么、什么时候","accent":"#94a3b8","first":"会计主体假设。核算前必须固定主体与时点——边界决定了所有强度指标的分母，边界一变，任何跨期跨区比较都失去意义。","mods":[{"name":"空间边界","rows":"1–2","chips":[{"n":"1","t":"行政区划"},{"n":"2","t":"时间边界"}],"status":"partial","first":"边界的本质是定义分母。行政边界、建成区、园区三种口径会给出完全不同的强度指标，必须先固定再算。","formula":"强度 = 排放量 ÷ 同一系统边界内的产出","verified":["边界依据 GB/T 2260 行政区划代码","第三次国土调查成果（界线与地类）","排污许可名录可作设施底表主键（含统一社会信用代码）"],"gaps":[{"t":"城市级能源平衡表（多数城市并不存在，需自行编制）","id":"CITY_ENERGY_BALANCE"}]}]},{"no":"02","name":"能源输入","sub":"进入城市边界的能源与含碳物料","accent":"#fbbf24","first":"碳守恒。进入边界的碳量 = Σ(实物量 × 单位热值含碳量)，排放上限由此锁定；氧化率只决定碳何时释放，不决定释放多少。","mods":[{"name":"能源输入","rows":"3–10","chips":[{"n":"3","t":"煤炭"},{"n":"4","t":"石油及成品油"},{"n":"5","t":"天然气"},{"n":"6","t":"电力与热力"},{"n":"7","t":"可再生能源"},{"n":"8","t":"非能源含碳原料"},{"n":"9","t":"外部产品"},{"n":"10","t":"外部废弃物"}],"status":"partial","first":"碳守恒：输入碳 = Σ(实物量 × 单位热值含碳量)。排放上限被碳输入锁定，无法通过「烧得更干净」降低。","formula":"CO₂ = Q × NCV × CC × OX × 44/12","verified":["IPCC 2006 缺省因子已核实（原煤/原油/汽油/柴油/燃料油/天然气）","反算校验值：原煤 1.98、原油 3.10、汽油 3.07、柴油 3.19 tCO₂/t","官方电力因子三套口径已核实（见「电力与热力」）"],"gaps":[{"t":"省级清单指南分品种本地化因子 NCV / CC / OX","id":"EF_FUEL_PROVINCIAL"}]}]},{"no":"03","name":"能源转换","sub":"从一次能源到可用能，含开采与输配","accent":"#fb923c","first":"热力学第一定律 + 第二定律。转换不消灭碳，只改变化学形态；第二定律给出效率上限，所以「发多少电」与「排多少碳」是两个解耦的量。","mods":[{"name":"能源转换","rows":"11–18","chips":[{"n":"11","t":"煤炭开采"},{"n":"12","t":"油气开采与储运"},{"n":"13","t":"炼油与焦化"},{"n":"14","t":"燃煤电厂"},{"n":"15","t":"燃气电厂"},{"n":"16","t":"热电联产"},{"n":"17","t":"锅炉与工业供热"},{"n":"18","t":"输配电与储能"}],"status":"partial","first":"能量守恒 + 效率上限。转换环节不产生碳也不消灭碳，只改形态；因此发电排放 100% 由输入燃料的碳决定，与热效率无关（效率只决定发多少电）。","formula":"发电排放 = Σ(燃料碳 × OX × 44/12) − 捕集量","verified":["2022 全国电力 CO₂ 因子 0.5366 kgCO₂/kWh","2022 省级因子全表（河北 0.7252 ↔ 云南 0.1073，相差 6.8 倍）","2024 电力碳足迹因子 0.5777 kgCO₂e/kWh（2023 为 0.6205，−6.9%）","2024 输配电碳足迹因子（不含线损）0.0046 kgCO₂e/kWh"],"gaps":[{"t":"热力排放因子","id":"EF_HEAT"},{"t":"各行业配额分配强度基准值","id":"ETS_BENCHMARKS"}]}]},{"no":"04","name":"排放源","sub":"九类活动的直接排放与逸散","accent":"#fb7185","first":"化学计量必然性。燃烧是 C + O₂ → CO₂（定比 44/12），煅烧是 CaCO₃ → CaO + CO₂。排放是反应的必然产物，人能改变的只有「投入多少」。","mods":[{"name":"工业排放","rows":"19–24","chips":[{"n":"19","t":"钢铁"},{"n":"20","t":"水泥"},{"n":"21","t":"石灰与玻璃"},{"n":"22","t":"化工"},{"n":"23","t":"有色金属"},{"n":"24","t":"其他制造业"}],"status":"pending","first":"化学计量必然性。工艺排放不是浪费，是化学反应的产物：CaCO₃ → CaO + CO₂ 的 0.44 tCO₂/t 是固定的，能改变的只有「用多少熟料」。","formula":"工艺排放 = 原料量 × 排放因子；燃烧排放另行单列","verified":["碳市场已纳入钢铁/水泥/铝冶炼，管控气体为 CO₂ + CF₄ + C₂F₆","覆盖门槛：高炉-转炉长流程、熟料生产线、电解铝工序（占行业全流程排放 98% 以上）","独立电炉短流程与独立钢压延暂不纳入配额管理"],"gaps":[{"t":"水泥熟料工艺排放因子","id":"EF_CEMENT_CLINKER"},{"t":"钢铁各工序排放因子","id":"EF_STEEL"},{"t":"电解铝 + 阳极效应含氟气体","id":"EF_ALUMINIUM"},{"t":"石灰/玻璃/纯碱/电石/硝酸/己二酸等缺失品种","id":"EF_OTHER_PROCESS"},{"t":"城市级工业产品产量","id":"ACTIVITY_INDUSTRY_CITY"}]},{"name":"工业能源","rows":"25–26","chips":[{"n":"25","t":"工业电力消费"},{"n":"26","t":"余热与副产气"}],"status":"partial","first":"二次能源的归属问题。电量本身不含碳，碳在发电端；若发电侧与用电侧同时计入，就是重复计算。","formula":"间接排放 = 外购电量 × 电力因子（必须声明口径与年份）","verified":["三套电力因子全部核实，可按核算目的选用","碳市场核算明确不覆盖外购电力热力的间接排放"],"gaps":[{"t":"自备电厂识别与发电/用电拆分规则","id":"ACTIVITY_MISSING_SECTORS"}]},{"name":"建筑能源","rows":"27–28","chips":[{"n":"27","t":"居民建筑"},{"n":"28","t":"商业与公共建筑"}],"status":"pending","first":"能源服务需求驱动：排放 = 面积 × 单位面积强度 × 碳密度。三个乘数各对应一类政策（总量控制 / 能效标准 / 能源结构）。","formula":"建筑排放 = Σ(面积 × EUI × 因子) + 制冷剂泄漏 × GWP","verified":["2024 城镇化率 67.00%（+0.84 pp）","居民人均消费支出 28,227 元（2024）"],"gaps":[{"t":"分气候区建筑能耗强度 EUI","id":"ACTIVITY_MISSING_SECTORS"},{"t":"制冷剂充注量与年泄漏率","id":"EF_REFRIGERANT"}]},{"name":"交通能源","rows":"29–31","chips":[{"n":"29","t":"道路交通"},{"n":"30","t":"铁路交通"},{"n":"31","t":"航空与水运"}],"status":"pending","first":"移动源的活动量是「车·公里」而非「车」。排放 = 里程 × 单位油耗 × 碳密度；电动化只是把排放从尾气搬到电网，并未消除。","formula":"道路排放 = Σ(保有量 × 年里程 × 单位油耗) × 因子","verified":["2024 新能源汽车保有量 3,140 万辆（+1,099 万辆）","旅客运输总量 171 亿人次、货物运输 578 亿吨"],"gaps":[{"t":"分车型年均行驶里程 VKT","id":"ACTIVITY_TRANSPORT"},{"t":"非道路移动机械活动水平","id":"ACTIVITY_TRANSPORT"},{"t":"港口船舶与航空 LTO 的边界归属规则","id":"ACTIVITY_TRANSPORT"}]},{"name":"农业排放","rows":"32–34","chips":[{"n":"32","t":"稻田"},{"n":"33","t":"化肥与农田土壤"},{"n":"34","t":"畜牧业"}],"status":"pending","first":"生物过程的非 CO₂ 路径。稻田是厌氧产甲烷，化肥是氮循环产 N₂O；两者都不能按碳量算，只能按面积/头数 × 排放因子。","formula":"CH₄ = 面积 × EF × 修正系数；N₂O = N投入 × EF1 × 44/28","verified":["2024 稻谷播种面积 2,901 万公顷、产量 20,753 万吨","生猪存栏 42,743 万头 / 出栏 70,256 万头","牛肉 779、羊肉 518、禽肉 2,660 万吨"],"gaps":[{"t":"中国分区稻田 CH₄ 排放因子","id":"EF_AGRICULTURE"},{"t":"分畜种肠道发酵与粪污管理因子","id":"EF_AGRICULTURE"},{"t":"农田 N₂O 直接/间接排放系数","id":"EF_AGRICULTURE"},{"t":"秸秆露天焚烧排放","id":"EF_CROP_RESIDUE_BURNING"}]},{"name":"土地与生态","rows":"35–38","chips":[{"n":"35","t":"森林"},{"n":"36","t":"草地、农田与湿地"},{"n":"37","t":"城市绿地"},{"n":"38","t":"土地利用变化"}],"status":"pending","first":"存量 vs 通量。碳汇是「碳库的年变化」，不是「总碳储量」。森林碳储量再大，若年际不变，年汇即为零。","formula":"净碳汇 = 期末碳库 − 期初碳库（植被 + 土壤）","verified":["2024 造林面积 445 万公顷（人工造林 118 万公顷，占 26.6%）","森林火灾 292 起、受害面积 0.7 万公顷（可作为扣减项）","CCER 已认定蓝碳「三大件」：盐沼、海草床、红树林"],"gaps":[{"t":"分树种生物量扩展因子与植被/土壤碳密度","id":"CARBON_DENSITY_LULUCF"},{"t":"蓝碳三大件碳密度与埋藏速率","id":"BLUE_CARBON"}]},{"name":"逸散排放","rows":"39–40","chips":[{"n":"39","t":"煤矿甲烷"},{"n":"40","t":"油气系统"}],"status":"pending","first":"逃逸 ≠ 燃烧。CH₄ 未经氧化直接进入大气，其 GWP 是 CO₂ 的 27.9–29.8 倍，所以少量泄漏在 CO₂e 口径下被急剧放大。","formula":"逸散量 = 抽采/泄漏气体量 × CH₄ 浓度 × GWP100","verified":["AR6 GWP100：CH₄ 化石源 29.8 / 非化石源 27.0 / 未区分 27.9"],"gaps":[{"t":"分瓦斯等级煤矿 CH₄ 排放因子","id":"EF_FUGITIVE"},{"t":"油气系统设备级逸散因子","id":"EF_FUGITIVE"}]},{"name":"工业气体","rows":"41","chips":[{"n":"41","t":"制冷剂与含氟气体"}],"status":"pending","first":"GWP 跨度达四个数量级。1 kg SF₆ ≈ 2.4 万 kg CO₂e，微量泄漏在当量口径下被急剧放大——这是唯一「质量极小但影响极大」的类别。","formula":"CO₂e = Σ(气体质量 × GWP100)","verified":["N₂O GWP100 = 273（AR6）","碳市场已将 CF₄、C₂F₆ 纳入管控气体"],"gaps":[{"t":"AR6 各含氟气体 GWP 精确值（SF₆ / NF₃ / HFCs）","id":"GWP_AR6_FGAS"},{"t":"AR6 GWP20（短期气候效益评估用）","id":"GWP_AR6_GWP20"},{"t":"AR5 历史口径（重算历史序列用）","id":"GWP_AR5_FGAS"}]},{"name":"废弃物","rows":"42–44","chips":[{"n":"42","t":"垃圾焚烧"},{"n":"43","t":"垃圾填埋"},{"n":"44","t":"污水处理"}],"status":"pending","first":"厌氧降解的时间尺度。填埋场在几十年内持续产甲烷，当年排放只是历史投放的「回声」，因此必须用一阶衰减模型而非当年投放量。","formula":"CH₄ = 废物量 × DOC × DOCf × F × 16/12 × (1 − 收集率) × (1 − 氧化率)","verified":["清单与碳市场的方法学框架已明确"],"gaps":[{"t":"DOC / DOCf / F / 氧化因子 / 收集率","id":"EF_WASTE"},{"t":"生活垃圾焚烧的化石碳比例","id":"EF_WASTE"},{"t":"污水 CH₄ / N₂O 排放因子","id":"EF_WASTE"}]}]},{"no":"05","name":"碳流","sub":"碳在城市系统内的去向与存留","accent":"#c084fc","first":"碳质量守恒。这是全表唯一的对账依据：任何「消失的碳」都指向口径错误，而不是碳蒸发了。","mods":[{"name":"碳流","rows":"45–56","chips":[{"n":"45","t":"大气排放"},{"n":"46","t":"生态系统吸收"},{"n":"47","t":"产品碳储存"},{"n":"48","t":"废弃物与废水碳"},{"n":"49","t":"跨设施转移"},{"n":"50","t":"跨区域转移"},{"n":"51","t":"地质封存"},{"n":"52","t":"碳矿化"},{"n":"53","t":"碳利用"},{"n":"54","t":"水泥碳化"},{"n":"55","t":"生物源碳"},{"n":"56","t":"碳库存变化"}],"status":"partial","first":"碳质量守恒。这是全表唯一的对账依据：任何「消失的碳」都意味着口径错误，而不是碳蒸发了。","formula":"碳输入 = 大气排放 + 产品固碳 + 废物残渣 + Δ库存 + 地质封存","verified":["CCER 已认定蓝碳「三大件」：盐沼、海草床、红树林营造","2025 年新增淤地坝碳汇方法学（全球首个水土保持工程碳汇核算规则）"],"gaps":[{"t":"产品碳储存半衰期与释放比例","id":"PRODUCT_CARBON_STORAGE"},{"t":"AR6 GWP20（用于短期效益）","id":"GWP_AR6_GWP20"}]}]},{"no":"06","name":"城市清单","sub":"把碳流汇总成可考核的账","accent":"#22d3ee","first":"可加性与互斥性（MECE）。总量要有意义，各分项必须不重不漏；属地、生产、消费三种口径必然给出不同结果，混用即口径错误。","mods":[{"name":"城市清单","rows":"57–65","chips":[{"n":"57","t":"直接排放总量"},{"n":"58","t":"间接排放"},{"n":"59","t":"消费端隐含排放"},{"n":"60","t":"生产端排放"},{"n":"61","t":"净排放"},{"n":"62","t":"设施排放占比"},{"n":"63","t":"行业排放占比"},{"n":"64","t":"能源关联排放占比"},{"n":"65","t":"减排与移除贡献"}],"status":"verified","first":"可加性与互斥性（MECE）。总量要有意义，各分项必须不重不漏；属地、生产、消费三种口径必然给出不同结果，混用即口径错误。","formula":"属地 + 调入 − 调出 = 消费端；   直接 + 间接 = 总排放","verified":["三套电力因子全部核实（清单 / 碳足迹 / 化石能源）","区域因子：华北 0.6776、东北 0.5564、华东 0.5617、华中 0.5395、西北 0.5857、南方 0.3869、西南 0.2268 kgCO₂/kWh","2024 万元 GDP CO₂ 排放 −3.4%（按 2020 年价）"],"gaps":[{"t":"口径矩阵与跨口径对账表（框架缺项，需自建）","id":"GREEN_CERTIFICATE_RULES"}]}]},{"no":"07","name":"政策工具","sub":"总量、市场、信用与移除的完整链条","accent":"#34d399","first":"稀缺性定价 + 边际均等化。政策要么制造稀缺（总量），要么直接定价（税），目的都是让各主体的边际减排成本相等。Weitzman 指出：在不确定性下价格工具与数量工具并不等价。","mods":[{"name":"碳预算","rows":"66","chips":[{"n":"66","t":"国家与行业碳预算"}],"status":"partial","first":"存量约束，不是流量约束。剩余碳预算管的是「累计总量」，所以允许年度排放波动，但累计不许突破。","formula":"剩余碳预算 = 目标对应累计上限 − 已累计排放","verified":["1.5℃（50% 可能性）剩余 500 GtCO₂（自 2020 年起算）","2℃（67% 可能性）剩余 1150 GtCO₂","注意：WGI 技术摘要另列 2℃/50% 为 1350 GtCO₂，概率条件不可混用"],"gaps":[{"t":"中国累计排放上限估计","id":"CARBON_BUDGET"}]},{"name":"总量控制","rows":"67–75","chips":[{"n":"67","t":"全国碳市场覆盖范围"},{"n":"68","t":"市场配额总量"},{"n":"69","t":"强度控制"},{"n":"70","t":"总量控制"},{"n":"71","t":"强度向总量转型"},{"n":"72","t":"配额分配"},{"n":"73","t":"配额收紧"},{"n":"74","t":"配额盈缺与清缴"},{"n":"75","t":"控制效果评估"}],"status":"partial","first":"总量控制制造稀缺，强度控制制造效率激励。前者管结果（排放总量封顶），后者管过程（单位产出排放下降）；在经济增长下两者含义完全不同。","formula":"总量 = 单位产出排放 × 产出；   缺口 = 实际排放 − 可用配额","verified":["2025 纳管 3,378 家（发电 2,087 / 钢铁 232 / 水泥 962 / 铝冶炼 97）","2024 年度应清缴 81.94 亿吨，清缴完成率 99.99%","配额封顶 / 封底机制：偏离行业基准 20% 以上则盈余或亏缺率限于 ±3%","当前为强度控制，不设绝对总量上限；官方已明确将转向总量控制"],"gaps":[{"t":"各行业排放强度基准值","id":"ETS_BENCHMARKS"},{"t":"有偿分配比例与配额结转规则","id":"ETS_ALLOCATION_RULES"}]},{"name":"碳市场","rows":"76–78","chips":[{"n":"76","t":"全国碳排放权交易"},{"n":"77","t":"碳价格"},{"n":"78","t":"配额市场稳定性"}],"status":"verified","first":"价格由稀缺的边际决定，不由平均成本决定。碳价反映「最后一吨配额」的稀缺度，所以配额总量收紧一小步，价格可能跳一大步。","formula":"成交价 = 边际履约需求出清价格","verified":["2025 累计成交 8.65 亿吨 / 576.63 亿元","2025 年末收盘 74.63 元/吨，全年交易均价 62.36 元/吨","2025 成交量 2.35 亿吨（同比 +24%），243 个交易日，8 场单向竞价"],"gaps":[]},{"name":"碳信用","rows":"79–90","chips":[{"n":"79","t":"CCER项目资格"},{"n":"80","t":"额外性"},{"n":"81","t":"基准线"},{"n":"82","t":"项目减排量"},{"n":"83","t":"泄漏"},{"n":"84","t":"持久性与逆转"},{"n":"85","t":"测量不确定性"},{"n":"86","t":"重复计算与重复签发"},{"n":"87","t":"核证与登记"},{"n":"88","t":"抵消资格与比例"},{"n":"89","t":"信用注销"},{"n":"90","t":"信用质量评价"}],"status":"partial","first":"额外性是信用的全部价值来源。如果「没有这个项目，减排照样会发生」，那信用就是凭空印出来的钱——这是碳信用市场唯一的根本检验。","formula":"减排量 = 基准线排放 − 项目排放 − 泄漏 − 适用扣减","verified":["CCER 抵消上限 5%（国环规气候〔2024〕1号，仅适用 2023/2024 履约年度）","2025 年新发 12 项方法学：油气回收 / 蓝碳 / 农业废弃物 / 绿氢 / 地热 / 建筑能效 / SF₆回收","已登记 33 个项目、1,776.37 万吨；累计成交 921.94 万吨，均价 70.76 元/吨"],"gaps":[{"t":"各方法学的基准线与默认参数、正式发布文号","id":"CCER_PARAMS"}]},{"name":"碳移除","rows":"91–104","chips":[{"n":"91","t":"移除路径分类"},{"n":"92","t":"大气来源证明"},{"n":"93","t":"总移除量"},{"n":"94","t":"生命周期排放"},{"n":"95","t":"净移除量"},{"n":"96","t":"储存期限"},{"n":"97","t":"逆转监测"},{"n":"98","t":"项目确权"},{"n":"99","t":"方法学适用性"},{"n":"100","t":"第三方核查"},{"n":"101","t":"项目登记与信用签发"},{"n":"102","t":"信用交易与注销"},{"n":"103","t":"单位净移除成本"},{"n":"104","t":"技术扩散与规模化"}],"status":"partial","first":"移除 ≠ 避免排放。只有从大气中取走的碳才算移除；化石点源捕集只是把碳换个地方放，属「避免排放」。且储存期限决定其价值的折现。","formula":"净移除 = 总移除 − 生命周期排放 − 适用扣减","verified":["蓝碳三大件方法学已发布（盐沼、海草床、红树林营造）","淤地坝碳汇：全球首个水土保持工程碳汇核算规则","绿氢方法学明确：从电网取用的电量不计入减排量","SF₆ 回收方法学：适用于 66 kV 及以上电气设备"],"gaps":[{"t":"单位净移除成本","id":"TECH_COST_PARAMS"},{"t":"DACCS 方法学（中国目前尚无）","id":"TECH_COST_PARAMS"}]},{"name":"碳税","rows":"105–107","chips":[{"n":"105","t":"税基与税率"},{"n":"106","t":"税收与排放响应"},{"n":"107","t":"分配效应"}],"status":"pending","first":"庇古税：把外部成本内部化，使私人成本等于社会成本。合意税率应等于边际外部损害，即碳的社会成本（SCC）。","formula":"应纳税额 = 税基 × 税率，且税率 ≈ SCC","verified":["中国目前未开征碳税（现行仅有环境保护税、消费税、资源税）"],"gaps":[{"t":"现行相关税种税率","id":"TAX_PARAMS"},{"t":"中国 SCC 估计","id":"SCC_CHINA"}]},{"name":"碳交易","rows":"108–110","chips":[{"n":"108","t":"企业履约成本"},{"n":"109","t":"碳价传导"},{"n":"110","t":"市场覆盖与竞争"}],"status":"pending","first":"覆盖范围决定碳泄漏。只管一半企业，减排就会搬到不管的那一半去——所以「覆盖范围」本身就是政策强度的一部分。","formula":"净履约成本 = 缺口 × 碳价 − 盈余 × 碳价","verified":["碳价序列已核实，可直接作为履约成本计算的输入"],"gaps":[{"t":"CBAM 默认排放值与免费配额递减系数","id":"CBAM_PARAMS"},{"t":"碳价传导率","id":"CARBON_PASS_THROUGH"}]},{"name":"自愿碳市场","rows":"111–112","chips":[{"n":"111","t":"CCER项目收入"},{"n":"112","t":"其他碳信用标准"}],"status":"partial","first":"自愿价格不反映履约稀缺，而反映企业的声誉支付意愿。所以它与强制市场价格脱钩，不能互相套利定价。","formula":"项目收入 = 签发量 × 成交价 − 开发成本","verified":["2025 CCER 均价 70.76 元/吨，同期配额均价 62.36 元/吨（存在正向溢价）"],"gaps":[]}]},{"no":"08","name":"分析与数据","sub":"驱动因素、核算质量与情景推演","accent":"#60a5fa","first":"可测量性与误差传播。不能测的不能管；任何核算都是估计，其不确定性必须可追溯，否则决策只是伪精确。","mods":[{"name":"能源经济","rows":"113–123","chips":[{"n":"113","t":"能源价格"},{"n":"114","t":"能源强度"},{"n":"115","t":"碳强度"},{"n":"116","t":"减排成本"},{"n":"117","t":"产业结构"},{"n":"118","t":"企业投资与融资"},{"n":"119","t":"财政与补贴"},{"n":"120","t":"绿色金融"},{"n":"121","t":"居民消费"},{"n":"122","t":"产业链隐含碳"},{"n":"123","t":"政策因果效应"}],"status":"partial","first":"驱动因素分解（Kaya）：排放 = 人口 × 人均GDP × 能源强度 × 碳强度。四个乘数各有独立政策工具，混为一谈就无法归因。","formula":"CO₂ = P × (GDP/P) × (E/GDP) × (CO₂/E)","verified":["2024 GDP 1,349,084 亿元；能源消费 59.6 亿 tce；煤炭占比 53.2%","万元 GDP 能耗 −3.8%、万元 GDP CO₂ 排放 −3.4%","绿色贷款余额 36.6 万亿元（+6.5 万亿元）"],"gaps":[{"t":"能源需求弹性与回弹效应","id":"ELASTICITIES"},{"t":"减污降碳协同效益与 VSL","id":"COBENEFIT"},{"t":"中国 SCC 估计","id":"SCC_CHINA"},{"t":"技术成本与学习率","id":"TECH_COST_PARAMS"}]},{"name":"MRV 与质量","rows":"124–128","chips":[{"n":"124","t":"活动数据"},{"n":"125","t":"排放因子"},{"n":"126","t":"实测与估算"},{"n":"127","t":"误差与不确定性"},{"n":"128","t":"重复计算检查"}],"status":"verified","first":"可测量性：不能测的不能管。MRV 的价值在于把「申报」变成「可核查」，并把误差显式量化传播，而不是假装精确。","formula":"排放 = 活动数据 × 排放因子；   不确定性 = √Σ(各项相对误差²)","verified":["月度信息化存证（钢铁/水泥/铝冶炼强制）","年度数据质量控制方案 + 「三级联审」+ 飞行检查","以核算方法为主、自动监测为辅的多源交叉核验"],"gaps":[]},{"name":"数据体系","rows":"129–132","chips":[{"n":"129","t":"设施数据库"},{"n":"130","t":"能源数据库"},{"n":"131","t":"碳流数据库"},{"n":"132","t":"经济政策数据库"}],"status":"pending","first":"主键唯一性。所有数据库设计的第一性原理是「一个实体一个 ID」；碳流网络能否对账，取决于设施是否有唯一编号。","formula":"能源平衡：输入 + 产出转换 − 消费 − Δ库存 = 0；   碳平衡：输入 = 输出 + Δ库存","verified":["排污许可管理信息平台（含统一社会信用代码）可作设施主表底稿"],"gaps":[]},{"name":"情景模拟","rows":"133–137","chips":[{"n":"133","t":"能源替代"},{"n":"134","t":"工业技术改造"},{"n":"135","t":"碳价与总量政策"},{"n":"136","t":"碳移除规模化"},{"n":"137","t":"综合政策组合"}],"status":"pending","first":"反事实。情景不是预测，而是「其他条件不变时只改一个变量」的差异；基线情景的可信度决定全部结论的可信度。","formula":"净效应 = 项目情景 − 基线情景","verified":["碳价与配额参数可直接用于情景设定（2025 全序列已核实）"],"gaps":[{"t":"模型平台与关键参数（LEAP / CGE）","id":"TECH_COST_PARAMS"}]}]}],"statusMeta":{"verified":["已核实","#34d399","核心参数已取得官方一手来源，可直接计算"],"partial":["部分可用","#fbbf24","方法已明确，部分参数待补"],"pending":["待补参数","#fb7185","缺关键参数，暂不能出可靠数值"]},"totals":{"items":137,"mods":26,"layers":8,"gaps":47,"verified":62}};
+const SM = DATA.statusMeta;
+
+/* ---------- 渲染主图 ---------- */
+const navEl = document.getElementById('nav');
+const mapEl = document.getElementById('map');
+
+function layerBtn(l){
+  return `<button class="lbtn" data-layer="${l.no}" style="color:${l.accent}">
+      <span class="no">${l.no}</span><span style="color:var(--txt)">${l.name}</span>
+    </button>`;
+}
+navEl.innerHTML = DATA.layers.map(layerBtn).join('');
+
+let modIndex = [];
+let html = '';
+DATA.layers.forEach(l=>{
+  html += `<section class="layer" data-layer="${l.no}" style="color:${l.accent}">
+    <div class="lhead">
+      <div class="lno" style="color:${l.accent}">${l.no}</div>
+      <div>
+        <div class="lname" style="color:var(--txt)">${l.name}
+          <span class="lsub">${l.sub}</span></div>
+      </div>
+    </div>
+    <div class="mods${l.mods.length===1?' one':''}">`;
+  l.mods.forEach(m=>{
+    const idx = modIndex.length;
+    modIndex.push({layer:l, mod:m, idx});
+    const st = SM[m.status];
+    html += `<div class="mod" role="button" tabindex="0" data-idx="${idx}" style="color:${l.accent}">
+      <div class="mod-h">
+        <span class="dot" style="background:${st[1]}"></span>
+        <h3>${m.name}</h3>
+        <span class="rng">${m.rows}</span>
+      </div>
+      <div class="chips">` +
+      m.chips.map(c=>`<span class="chip" role="button" tabindex="0" data-idx="${idx}" data-n="${c.n}"><b>${c.n}</b>${c.t}</span>`).join('') +
+      `</div></div>`;
+  });
+  html += `</div></section>`;
+});
+mapEl.innerHTML = html;
+
+/* ---------- 面板 ---------- */
+const panel = document.getElementById('panel');
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+function overview(){
+  const t = DATA.totals;
+  let cnt = {verified:0, partial:0, pending:0};
+  DATA.layers.forEach(l=>l.mods.forEach(m=>cnt[m.status]++));
+  const rows = DATA.layers.map(l=>{
+    const v = l.mods.filter(m=>m.status==='verified').length;
+    return `<div class="ov-row"><span style="color:${l.accent}">${l.no} ${l.name}</span>
+      <span>${l.mods.length} 模块 · 已核实 ${v}</span></div>`;
+  }).join('');
+  panel.innerHTML = `
+    <div class="p-kicker">OVERVIEW</div>
+    <div class="p-title">总览</div>
+    <div class="p-meta">点击左侧任意层、模块或条目查看详情</div>
+
+    <div class="sec" style="color:#7dd3fc">
+      <div class="sec-t">数据进度</div>
+      <div class="bar">
+        <i style="width:${cnt.verified/t.mods*100}%;background:${SM.verified[1]}"></i>
+        <i style="width:${cnt.partial/t.mods*100}%;background:${SM.partial[1]}"></i>
+        <i style="width:${cnt.pending/t.mods*100}%;background:${SM.pending[1]}"></i>
+      </div>
+      <div class="legend">
+        <span><i style="background:${SM.verified[1]}"></i>已核实 ${cnt.verified}</span>
+        <span><i style="background:${SM.partial[1]}"></i>部分可用 ${cnt.partial}</span>
+        <span><i style="background:${SM.pending[1]}"></i>待补参数 ${cnt.pending}</span>
+      </div>
+    </div>
+
+    <div class="sec" style="color:#a78bfa">
+      <div class="sec-t">规模</div>
+      <div class="ov-row"><span>核算对象</span><span>${t.items} 条</span></div>
+      <div class="ov-row"><span>一级模块</span><span>${t.mods} 个</span></div>
+      <div class="ov-row"><span>结构层次</span><span>${t.layers} 层</span></div>
+      <div class="ov-row"><span>已核实参数</span><span>${t.verified} 条</span></div>
+      <div class="ov-row"><span>待补缺口</span><span>${t.gaps} 项</span></div>
+    </div>
+
+    <div class="sec" style="color:#34d399">
+      <div class="sec-t">各层完成度</div>
+      ${rows}
+    </div>
+
+    <div class="sec" style="color:#fbbf24">
+      <div class="sec-t">三条对账恒等式</div>
+      <ul class="li">
+        <li>碳流平衡：碳输入 = 大气排放 + 产品固碳 + 废物残渣 + Δ库存 + 地质封存</li>
+        <li>口径对账：属地 + 调入 − 调出 = 消费端</li>
+        <li>净排放：净排放 = 总排放 − 净移除量</li>
+      </ul>
+    </div>
+
+    <div class="hint">配套文件：碳核算框架_数据支撑手册.md · 碳核算参数表.xlsx · missing_data_spec.py</div>`;
+}
+
+function renderLayer(l){
+  const first = l.first;
+  const mods = l.mods.map(m=>{
+    const st = SM[m.status];
+    return `<div class="ov-row"><span>${esc(m.name)}</span>
+      <span style="color:${st[1]}">${st[0]} · ${m.chips.length} 条</span></div>`;
+  }).join('');
+  panel.innerHTML = `
+    <div class="p-kicker" style="color:${l.accent}">LAYER ${l.no}</div>
+    <div class="p-title">${esc(l.name)}</div>
+    <div class="p-meta"><span class="tag" style="color:${l.accent}">${l.mods.length} 个模块</span>
+      <span>${l.mods.reduce((a,m)=>a+m.chips.length,0)} 条核算对象</span></div>
+    <div class="sec" style="color:${l.accent}">
+      <div class="sec-t">第一性原理</div>
+      <div class="first">${esc(first)}</div>
+    </div>
+    <div class="sec" style="color:#7dd3fc">
+      <div class="sec-t">本层模块进度</div>${mods}
+    </div>`;
+}
+
+function renderModule(idx){
+  const {layer:l, mod:m} = modIndex[idx];
+  const st = SM[m.status];
+  const ver = m.verified.length ? `<ul class="li">` +
+      m.verified.map(v=>`<li>${esc(v)}</li>`).join('') + `</ul>`
+      : `<div class="empty">暂无已核实参数</div>`;
+  const gap = m.gaps.length ? `<ul class="li gap">` +
+      m.gaps.map(g=>`<li>${esc(g.t)} <span class="spec">[${g.id}]</span></li>`).join('') + `</ul>`
+      : `<div class="empty">本模块无待补缺口</div>`;
+  panel.innerHTML = `
+    <div class="p-kicker" style="color:${l.accent}">${l.no} ${l.name}</div>
+    <div class="p-title">${esc(m.name)}</div>
+    <div class="p-meta">
+      <span>对应总表第 ${m.rows} 行</span>
+      <span class="tag" style="color:${st[1]}">${st[0]}</span>
+      <span>${m.chips.length} 条</span>
+    </div>
+
+    <div class="sec" style="color:#7dd3fc">
+      <div class="sec-t">第一性原理</div>
+      <div class="first">${esc(m.first)}</div>
+    </div>
+
+    <div class="sec" style="color:#a78bfa">
+      <div class="sec-t">核心核算式</div>
+      <div class="formula">${esc(m.formula)}</div>
+    </div>
+
+    <div class="sec" style="color:#34d399">
+      <div class="sec-t">最新进展 · 已核实 ${m.verified.length} 条</div>
+      ${ver}
+    </div>
+
+    <div class="sec" style="color:#fbbf24">
+      <div class="sec-t">待补缺口 ${m.gaps.length} 项</div>
+      ${gap}
+    </div>
+
+    <div class="hint">状态说明：${st[2]}<br>
+      待补项编号对应 missing_data_spec.py 中的条目 key。</div>`;
+}
+
+function renderItem(idx, n){
+  const {layer:l, mod:m} = modIndex[idx];
+  const chip = m.chips.find(c=>c.n===n);
+  if(!chip) return;
+  const st = SM[m.status];
+  const gap = m.gaps.length
+    ? `<ul class="li gap">` + m.gaps.map(g=>`<li>${esc(g.t)} <span class="spec">[${g.id}]</span></li>`).join('') + `</ul>`
+    : `<div class="empty">本模块无待补缺口</div>`;
+  panel.innerHTML = `
+    <div class="p-kicker" style="color:${l.accent}">第 ${n} 项 · ${l.no} ${l.name}</div>
+    <div class="p-title">${esc(chip.t)}</div>
+    <div class="p-meta">
+      <span>所属模块：${esc(m.name)}（第 ${m.rows} 行）</span>
+      <span class="tag" style="color:${st[1]}">${st[0]}</span>
+    </div>
+
+    <div class="sec" style="color:#7dd3fc">
+      <div class="sec-t">第一性原理（模块级）</div>
+      <div class="first">${esc(m.first)}</div>
+    </div>
+
+    <div class="sec" style="color:#a78bfa">
+      <div class="sec-t">本条核算式</div>
+      <div class="formula">${esc(m.formula)}</div>
+    </div>
+
+    <div class="sec" style="color:#34d399">
+      <div class="sec-t">模块内已核实参数</div>
+      ${m.verified.length ? `<ul class="li">`+m.verified.map(v=>`<li>${esc(v)}</li>`).join('')+`</ul>`
+                          : `<div class="empty">暂无</div>`}
+    </div>
+
+    <div class="sec" style="color:#fbbf24">
+      <div class="sec-t">阻断本条的待补数据</div>
+      ${gap}
+    </div>`;
+}
+
+/* ---------- 交互 ---------- */
+let cur = {type:'overview', idx:null, n:null};
+
+function setOn(el, cls){
+  document.querySelectorAll('.'+cls).forEach(x=>x.classList.remove('on'));
+  if(el) el.classList.add('on');
+}
+
+mapEl.addEventListener('click', e=>{
+  const chip = e.target.closest('.chip');
+  if(chip){
+    e.stopPropagation();
+    const idx = +chip.dataset.idx, n = chip.dataset.n;
+    cur = {type:'item', idx, n};
+    setOn(chip.closest('.mod'), 'on');
+    renderItem(idx, n);
+    return;
+  }
+  const mod = e.target.closest('.mod');
+  if(mod){
+    const idx = +mod.dataset.idx;
+    cur = {type:'mod', idx};
+    setOn(mod, 'on');
+    renderModule(idx);
+  }
+});
+
+mapEl.addEventListener('keydown', e=>{
+  if(e.key!=='Enter' && e.key!==' ') return;
+  const el = e.target.closest('.chip') || e.target.closest('.mod');
+  if(!el) return;
+  e.preventDefault();
+  if(el.classList.contains('chip')){
+    cur = {type:'item', idx:+el.dataset.idx, n:el.dataset.n};
+    setOn(el.closest('.mod'), 'on');
+    renderItem(+el.dataset.idx, el.dataset.n);
+  } else {
+    cur = {type:'mod', idx:+el.dataset.idx};
+    setOn(el, 'on');
+    renderModule(+el.dataset.idx);
+  }
+});
+
+navEl.addEventListener('click', e=>{
+  const b = e.target.closest('.lbtn');
+  if(!b) return;
+  const no = b.dataset.layer;
+  const l = DATA.layers.find(x=>x.no===no);
+  setOn(b, 'on');
+  document.querySelectorAll('.mod').forEach(x=>x.classList.remove('on'));
+  cur = {type:'layer', no};
+  renderLayer(l);
+  const sec = document.querySelector(`.layer[data-layer="${no}"]`);
+  if(sec){
+    const top = sec.getBoundingClientRect().top + (window.pageYOffset || 0) - 76;
+    window.scrollTo(0, Math.max(0, top));
+  }
+});
+
+/* ---------- 搜索 / 过滤 ---------- */
+const q = document.getElementById('q');
+let filter = 'all';
+
+function applyFilter(){
+  const kw = q.value.trim().toLowerCase();
+  document.querySelectorAll('.mod').forEach(modEl=>{
+    const idx = +modEl.dataset.idx;
+    const m = modIndex[idx].mod;
+    const hitKw = !kw || m.name.toLowerCase().includes(kw) ||
+      m.chips.some(c=>c.t.toLowerCase().includes(kw) || c.n===kw);
+    const hitF = filter==='all' || m.status===filter;
+    modEl.classList.toggle('hidden', !(hitKw && hitF));
+    if(hitKw && kw){
+      modEl.querySelectorAll('.chip').forEach(ch=>{
+        const t = ch.textContent.toLowerCase();
+        ch.style.opacity = t.includes(kw) ? '1' : '.32';
+      });
+    } else {
+      modEl.querySelectorAll('.chip').forEach(ch=>ch.style.opacity='1');
+    }
+  });
+  document.querySelectorAll('.layer').forEach(sec=>{
+    const any = sec.querySelectorAll('.mod:not(.hidden)').length > 0;
+    sec.classList.toggle('hidden', !any);
+  });
+}
+q.addEventListener('input', applyFilter);
+document.querySelectorAll('.fbtn').forEach(b=>{
+  b.addEventListener('click', ()=>{
+    document.querySelectorAll('.fbtn').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on'); filter = b.dataset.f; applyFilter();
+  });
+});
+
+/* ---------- 启动 ---------- */
+document.getElementById('s-ver').textContent = DATA.totals.verified;
+document.getElementById('s-gap').textContent = DATA.totals.gaps;
+overview();
+</script>
+</body>
+</html>
