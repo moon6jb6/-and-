@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>全国第10个！福建电力现货市场将于9月30日转为正式运行</title>
+    <script src="../../../images/rem_wap.js"></script>
+    <link rel="stylesheet" href="../../../images/reset_wap.css">
+    <link rel="stylesheet" href="../../../images/swiper.min.css">
+    <link rel="stylesheet" href="../../../images/detail_wap.css">
+    <script src="../../../images/jquery.min.js"></script>
+    <script src="../../../images/swiper.min.js"></script>
+    <script src="../../../images/jweixin-1.6.0.js" type="text/javascript"></script>
+    
+
+
+
+
+
+
+
+    <script>
+        var str1 = '全国第10个！福建电力现货市场将于9月30日转为正式运行';
+        var imgUrl = 'https://www.cpnn.com.cn/images/weixin_share2023_1.png'
+        var str = '中国能源新闻网  https://www.cpnn.com.cn/';
+        str = str.replace(/&nbsp;/g, " ")
+        str = str.replace(/&quot;/g, '"')
+        str = str.replace(/<br>/g, "")
+        str1 = str1.replace("&nbsp;", " ")
+        str1 = str1.replace(/&quot;/g, '"')
+        str1 = str1.replace(/<br>/g, "")
+        var reg = new RegExp('<br />', 'g')
+        str1 = str1.replace(reg, "")
+
+        var wxData = {
+            "imgUrl": imgUrl  , // 200x200
+            "link": window.location.href,
+            "desc": "" + str + "",
+            "title": "" + str1 + ""
+        };
+        if (!wxData.imgUrl) {
+            wxData.imgUrl = 'https://www.cpnn.com.cn/images/weixin_share2023_1.png';
+        }
+        var peopleWXConfig = {
+            debug: false,
+            appId: '', //'wx6a46ba0f04b54684',
+            timestamp: '',//'1497863815',
+            nonceStr: '',//'people',
+            signature: '',//'a8b644e40ec50e169a806f79703dbef19d45550c',
+            jsApiList: []
+        };
+
+        function shareWXData() {
+            if (!wxData.imgUrl) { wxData.imgUrl = wxData.defaultImgUrl; } else {
+                if (wxData.imgUrl.match(/(.*)\.(jpg|gif|jpeg|png)$/)) { } else {
+                    wxData.imgUrl = wxData.defaultImgUrl;
+                }
+            }
+            peopleWXConfig.debug = false;
+            peopleWXConfig.jsApiList = [
+                'checkJsApi',
+                'onMenuShareTimeline',
+                'onMenuShareAppMessage',
+                'onMenuShareQQ',
+                'onMenuShareWeibo'
+            ];
+
+            wx.config(peopleWXConfig);
+
+            wx.ready(function () {
+                wx.onMenuShareTimeline({
+                    title: wxData.title, // 分享标题
+                    link: wxData.link, // 分享链接
+                    imgUrl: wxData.imgUrl, // 分享图标
+                    success: function () {
+                    },
+                    cancel: function () {
+                        // 用户取消分享后执行的回调函数
+                    }
+                });
+
+                wx.onMenuShareAppMessage({
+                    title: wxData.title, // 分享标题
+                    link: wxData.link, // 分享链接
+                    imgUrl: wxData.imgUrl, // 分享图标
+                    desc: wxData.desc, // 分享描述
+                    type: '', // 分享类型,music、video或link，不填默认为link
+                    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+                    success: function () {
+
+                        // 用户确认分享后执行的回调函数
+                        // alert(wxData.link + "|" + wxData.imgUrl);
+                    },
+                    cancel: function () {
+                        // 用户取消分享后执行的回调函数
+
+                    }
+                });
+
+                wx.onMenuShareQQ({
+                    title: wxData.title, // 分享标题
+                    link: wxData.link, // 分享链接
+                    imgUrl: wxData.imgUrl, // 分享图标
+                    desc: wxData.desc, // 分享描述
+                    success: function () {
+
+                        // 用户确认分享后执行的回调函数
+                    },
+                    cancel: function () {
+                        // 用户取消分享后执行的回调函数
+                    }
+                });
+
+                wx.onMenuShareWeibo({
+                    title: wxData.title, // 分享标题
+                    link: wxData.link, // 分享链接
+                    imgUrl: wxData.imgUrl, // 分享图标
+                    desc: wxData.desc, // 分享描述
+                    success: function () {
+
+                        // 用户确认分享后执行的回调函数
+                    },
+                    cancel: function () {
+                        // 用户取消分享后执行的回调函数
+                    }
+                });
+            });
+
+        }
+        (function () {
+            var myurl = encodeURIComponent(this.location);
+            var myajax = $.ajax({
+                type: "get",
+                url: "https://www.cpnn.com.cn/mpwechat/getsignature?url=" + myurl,
+                timeout: 80000,
+                data: '',
+                dataType: "jsonp",
+                "contentType": "application/json; charset=utf-8",
+                success: function (data) {
+                    peopleWXConfig.appId = data.appid
+                    peopleWXConfig.timestamp = data.timestamp;
+                    peopleWXConfig.nonceStr = data.nonceStr;
+                    peopleWXConfig.signature = data.signature;
+                    console.log(wxData);
+                    shareWXData();
+                },
+                complete: function (XMLHttpRequest, Status) {
+                    if (Status != 'success') {//超时,status还有success,error等值的情况
+                        myajax.abort(); //取消请求
+                        console.log(Status);
+                    } else {
+                    }
+                }
+            });
+        })()
+    </script>
+
+    <style>
+.check-more span a {color: #ed2d38;}
+.cont{font-size: 0.32rem}
+.cont p{line-height: 0.56rem}
+.detail-container .top .search-input {border-radius: 0.46rem;}
+.detail-container .top .home {float: right;}
+.detail-container .bottom {background: #ed2d38}
+.detail-container .block .item-bottom {float: none;overflow: hidden;}
+.detail-container .block .item-time{float: left;}
+.detail-container .block .item-resource{float: right;}
+.detail-container .bottom-right {color: #fff;}
+.detail-container .bottom .link-list{ border-bottom: 0.01rem solid #fff;}
+.bottom-right a {color: #fff;}
+.detail-container .nav{margin-bottom: 0}
+.cont img {
+    height: auto!important;
+    max-width: 100%;
+}      
+      
+    </style>
+  <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?af0ba9102f4756b321e0d08dac06fdb2";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+<body>
+    <div class="detail-container">
+        <style>
+    .list-container .nav-swiper .swiper-slide a {display: inline-block;
+        width: 100%;
+        height: 100%;
+    }
+    .sub-nav {display: none;}
+    .sub-nav.show {display: block;}
+    .sub-nav{
+        width: 100%;
+        height: 0.77rem;
+        position: relative;
+        overflow: hidden;
+        background-color: #f9f4f4;
+        margin-bottom: 0.23rem;
+    }
+    .list-container .nav {margin-bottom: 0;}
+     .nav {margin-bottom: 0;}
+    .sub-nav .sub-nav-swiper {
+        width: 100%;
+        height: 0.77rem;
+    }
+    .sub-nav-swiper .swiper-slide {
+     padding-left: 0.28rem; 
+        padding-right: 0.28rem;
+        line-height: 0.77rem;
+        position: relative;
+        box-sizing: border-box;
+        text-align: center;
+    }
+    .sub-nav-swiper .swiper-slide a {
+    color: #5c5c5c;
+        font-size: 0.3rem;
+    }
+    .sub-nav-swiper .swiper-slide.active a {
+      color: #ed2d38;
+    }
+    .sub-nav-swiper .swiper-slide{width: 90px;}
+    </style>
+    <div class="top">
+                <div class="wrap">
+                    <span class="logo">
+                      <a href="https://www.cpnn.com.cn/wap_276.html">  <img style="margin-right: 10px;width：2.7rem;" src="https://www.cpnn.com.cn/images/cpnn0302.jpg" alt="" /><a/>  
+                      
+                    </span>
+                  		<p style="margin-top: 1px;font-weight: bold; white-space:pre-wrap;"> 国家能源局主管 </p>
+                  		<p style="margin-top: 5px;font-weight: bold; white-space:pre-wrap;"> 中国能源传媒集团有限公司主办     </p>
+                    <!--<span class="search-box">
+                        <input type="text" class="search-input" placeholder="请输入搜索关键词" />
+                        <i class="search-icon"></i>
+                    </span>
+                    <span class="home"></span>-->
+                </div>
+            </div>
+            <div class="nav yxf">
+                <div class="swiper-container nav-swiper">
+                    <div class="swiper-wrapper" id="navList" style="transition-duration: 0ms; transform: translate3d(-263.2px, 0px, 0px);">
+                                          
+                                            <div class="swiper-slide swiper-slide-prev" style="width: 263.2px;">
+                                               <a href="">首页</a>
+                                            </div>
+                                         		
+                                         	
+                                         
+                                            <div  class="swiper-slide swiper-slide-active active" >
+                                                <a href="../../gdxw/">时政</a>
+                                            </div>
+                                         
+                                            <div class="swiper-slide swiper-slide-next" style="width: 102px;">
+                                                <a href="../../xwtt/">头条</a>
+                                            </div>
+                      										
+                      										<div style="width: 84px !important ;" class="swiper-slide">
+                                               <a href="../../nytt/">要闻</a>
+                                            </div>
+                      
+                      									<div style="width: 84px !important;" class="swiper-slide" >
+                                               <a href="../../hy/">热点</a>
+                                            </div>
+                      										<div style="width: 84px !important;" class="swiper-slide" >
+                                               <a href="../../hg/">参考</a>
+                                            </div>
+                      										<div style="width:84px !important;" class="swiper-slide" >
+                                               <a href="../../nyjg/">监管</a>
+                                            </div>
+                      <div class="swiper-slide" style="width: 263.2px;">
+											    <a href="../../baogao2023/">观点</a>
+											    
+											</div>
+                      <div class="swiper-slide" style="width: 263.2px;">
+											    <a href="../../renshi2023/">人事</a>
+											</div>
+                      <div class="swiper-slide" style="width: 263.2px;">
+                                                <a href="../../gj/">国际</a>
+                                            </div>
+											
+  																	<div class="swiper-slide" style="width: 263.2px;">
+                                               <a href="../../dianli2023/">电力</a>
+                                            </div>
+                                         		<div class="swiper-slide" style="width: 263.2px;">
+                                               <a href="../../xny/">新能源</a>
+                                            </div>
+                                            <div class="swiper-slide" style="width: 263.2px;">
+                                               <a href="../../yq/">油气</a>
+                                            </div>
+                                         
+                                            <div class="swiper-slide" style="width: 263.2px;">
+                                                <a href="../../mt/">煤炭</a>
+                                            </div>
+                                         
+                                            <div class="swiper-slide" style="width: 263.2px;">
+                                                <a href="../../nyqy/">企业</a>
+                                            </div>
+                                         
+                                            <div class="swiper-slide" style="width: 263.2px;">
+                                                <a href="../">地方</a>
+                                            </div>
+                                         
+                                            <div class="swiper-slide" style="width: 263.2px;">
+                                                <a href="../../kj/">科技</a>
+                                            </div>
+                                         
+                                            <div class="swiper-slide" style="width: 263.2px;">
+                                                <a href="../../gj/">国际</a>
+                                            </div>
+											
+											
+											<div class="swiper-slide" style="width: 263.2px;">
+											    <a href="../../zngc/">观察</a>
+											</div>
+                      <div class="swiper-slide" style="width: 263.2px;">
+											    <a href="../../../shouye/zdzt/">专题</a>
+											</div>
+                      
+                                        </div>
+                </div>
+            </div>
+            
+    <script>
+    
+    $('#navList').find('.swiper-slide').on('click', function(){
+        var clickIndex = $(this).index();
+        console.log( clickIndex );
+        $(this).addClass('active').siblings('.swiper-slide').removeClass('active');
+        $('.app-container').find('.sub-nav').eq(clickIndex-1).css('display','block').siblings('.sub-nav').css('display','none');
+        $('.list-container').find('.sub-nav').eq(clickIndex-1).css('display','block').siblings('.sub-nav').css('display','none');
+        $('.nav').css('margin-bottom', '0px');
+        var newSubnavSwiper   = new Swiper ('.sub-nav-swiper', {
+            slidesPerView: 4, 
+            slideToClickedSlide: true,
+            slidesPerGroup: 1
+        })
+    })
+    
+    var navSwiper = new Swiper ('.nav-swiper', {
+        slidesPerView: 5, 
+       slideToClickedSlide: true,
+    slidesPerGroup: 1
+    }) 
+    
+    var curChannel = '地方';
+    var objArr = [{parent: '首页',childs: ','},{parent: '新闻', childs: '时政置顶一,时政置顶二,能源头条,能源要闻,能源热点,能源参考,能源监管,电力,新能源,油气,煤炭,企业,地方,科技,国际,观点,人事,看见能源,招聘信息,中能观察,能源革命,碳达峰碳中和,新型电力系统,新闻TOP榜,绿色发展,'},{parent: '电力', childs: '专题,电网,发电,党建强企,文化,电力建设,电气设备,节能环保,'},{parent: '能源', childs: '煤炭,石油,天然气,'},{parent: '新能源', childs: '新能源频道,核电,风电,光伏,储能,新基建,'},{parent: '监管', childs: '政策,法规,'},{parent: '大数据', childs: '电力大数据,大数据,中能舆情,研究报告,科普,慕课,'},{parent: '企业', childs: '电网频道,发电频道,党建实践,安全生产,社会责任,科技装备,管理,人物,荣誉,基建,数据,社会用电,节能减排,智慧电力,'},{parent: '媒体', childs: '中国电业,'}];
+    
+    if(!curChannel) {
+      curChannel = '首页'
+    }
+     var subnavSwiper
+    for (let i = 0; len = objArr.length, i < len; i++) { // 编程式
+       if(objArr[i].parent == curChannel) {
+              $('.nav-swiper .swiper-slide').eq(i).addClass('active').siblings().removeClass('active');
+             navSwiper.slideTo(i, 1000, false);
+            if (i != 0) {
+               $('.sub-nav').eq(i-1).addClass('show');
+            subnavSwiper   = new Swiper ('.sub-nav-swiper', {
+        slidesPerView: 4, 
+       slideToClickedSlide: true,
+        slidesPerGroup: 1
+    })
+            }
+         }
+         if(i != 0) {
+              var subChannels = objArr[i].childs.split(',');
+              subChannels.forEach(function(item, index) {
+                 if(item == curChannel) {
+                     $('.sub-nav').eq(i-1).addClass('show');
+                     subnavSwiper   = new Swiper ('.sub-nav.show .sub-nav-swiper', {
+        slidesPerView: 4, 
+       slideToClickedSlide: true,
+        slidesPerGroup: 1
+    })
+                   $('.sub-nav.show .sub-nav-swiper .swiper-slide').eq(index).addClass('active').siblings().removeClass('active');
+                  subnavSwiper.slideTo(index, 1000, false);
+                    $('.nav-swiper .swiper-slide').eq(i).addClass('active').siblings().removeClass('active');
+                   navSwiper.slideTo(i, 1000, false);
+                 }
+             });  
+         }
+        
+     }
+    
+    
+    </script>
+        <div class="wrap" style="margin-top: 0.66rem">
+            <div class="content">
+                <h1>全国第10个！福建电力现货市场将于9月30日转为正式运行</h1>
+                <div class="cont-info">
+                    <span class="info-resource">来源：中国能源新闻网</span>
+                    <span class="info-time">2026-09-22</span>
+                </div>
+                <div class="cont">
+                    <meta name="ContentStart">
+                       
+                        
+                    
+                       <p style="text-align: justify; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; font-size: 16px; margin-bottom: 10px; line-height: 2em;"><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; font-size: 16px; margin-bottom: 10px; line-height: 2em;">　　中国能源新闻网</span>讯（记者 冯聪聪）9月21日，福建省发展改革委、国家能源局福建监管办公室发布关于福建电力现货市场转正式运行的通知，明确2026年9月30日起，福建省电力现货市场转入正式运行。至此，福建成为继山西、广东、山东、甘肃、蒙西、湖北、浙江、河北南部电网、安徽之后，全国第10个转入正式运行的省级电力现货市场。</p><p style="text-align: justify; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; font-size: 16px; margin-bottom: 10px; line-height: 2em;"><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; font-size: 16px; margin-bottom: 10px; line-height: 2em;">　　从2019年6月启动模拟试运行算起，福建电力现货市场已走过7年多探索历程。通知显示，2025年3月1日，该市场启动连续的全月结算试运行，并于当年9月开展连续结算试运行。目前，省内电力现货市场已连续运行超过18个月，历经迎峰度夏、迎峰度冬、汛期和极端天气、重要节假日和重大活动保电等各类场景检验，整体运行平稳有序，有效发挥了优化电力资源配置、保障电力供应、促进可再生能源消纳等作用，有力支撑全省经济社会发展。</span></p><p style="text-align: justify; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; font-size: 16px; margin-bottom: 10px; line-height: 2em;"><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; font-size: 16px; margin-bottom: 10px; line-height: 2em;">　　今年6月，福建能源监管办提出“稳妥有序推动现货市场转正式运行”，3个多月后，这一目标落地。“转正”的底气，来自福建的能源结构。据福建省发展改革委消息，今年4月，福建全省电力装机容量突破1亿千瓦。据福建省统计局数据，截至今年6月末，全省清洁能源发电装机容量达6757.67万千瓦，占全省发电装机容量比重达67.0%，同比提高1.2个百分点，清洁能源装机和发电量占比持续保持华东第一。福建核电在建规模居全国首位，也是全国为数不多可再生能源保持全额消纳的省份。</span></p><p style="text-align: justify; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; font-size: 16px; margin-bottom: 10px; line-height: 2em;"><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; font-size: 16px; margin-bottom: 10px; line-height: 2em;">　　市场主体的队伍也在扩容。2024年10月，福建3家虚拟电厂运营商聚合1219户用户，首次以独立市场主体身份参与现货交易；2025年12月，华能福建虚拟电厂完成交易结算，成为福建首个参与电力现货市场交易的发电聚合类虚拟电厂。今年1月1日起，福建所有风电、太阳能发电项目上网电量原则上全部进入电力市场，上网电价通过市场交易形成。</span></p><p style="text-align: justify; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; font-size: 16px; margin-bottom: 10px; line-height: 2em;"><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; font-size: 16px; margin-bottom: 10px; line-height: 2em;">　　随着福建电力现货市场转为正式运行，全国正式运行的省级电力现货市场已增至10个，覆盖华北、华东、华中、西北、南方各大区域，“中长期+现货”的市场体系持续走向成熟。</span></p><p style="text-align: right; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; font-size: 16px; margin-bottom: 10px; line-height: 2em;"><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; font-size: 16px; margin-bottom: 10px; line-height: 2em;"><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; font-size: 16px; margin-bottom: 10px; line-height: 2em;">　　责任编辑：江蓬新</span></span></p>
+                    <meta name="ContentEnd">
+                    <!--附件-->
+		    <script>
+			var var_appendix = '';
+			if(var_appendix!=""){
+				document.write("<p>下载附件：</BR>"+var_appendix+"</p>");
+			}
+		    </script>
+                </div>
+                <div class="tuijian">
+                    <div class="tit">相关推荐</div>
+                    <ul class="tuijian-list">
+                         
+                        <li class="list-item" data-url="http://www.cpnn.com.cn/news/dfny/202609/t20260922_1916754.html">
+                            <a href="./t20260922_1916754.html" data-srcurl="" target="_blank" >浙江前8个月用电量首超5000亿千瓦时</a>
+                        </li>
+                             
+                        <li class="list-item" data-url="http://www.cpnn.com.cn/news/dfny/202609/t20260922_1916730.html">
+                            <a href="./t20260922_1916730.html" data-srcurl="" target="_blank" >浙江柯城抽水蓄能电站主体工程开工</a>
+                        </li>
+                             
+                        <li class="list-item" data-url="http://www.cpnn.com.cn/news/dfny/202609/t20260921_1916560.html">
+                            <a href="./t20260921_1916560.html" data-srcurl="" target="_blank" >甘肃完成国内最高电压等级线路绝缘子带电更换</a>
+                        </li>
+                             
+                        <li class="list-item" data-url="http://www.cpnn.com.cn/news/dfny/202609/t20260921_1916555.html">
+                            <a href="./t20260921_1916555.html" data-srcurl="" target="_blank" >隆基20MWh储能落地山西最大重卡充电站</a>
+                        </li>
+                             
+                        <li class="list-item" data-url="http://www.cpnn.com.cn/news/dfny/202609/t20260921_1916552.html">
+                            <a href="./t20260921_1916552.html" data-srcurl="" target="_blank" >浙江宁波口岸前8月新能源汽车出口逾30万辆</a>
+                        </li>
+                             
+                    </ul>
+                    <div class="check-more">
+                        点击进入&nbsp;<span><a href="../">地方</a></span>&nbsp;频道查看更多新闻
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom">
+            <div class="wrap">
+                <div class="bottom-right">
+                    <p>Copyright :copyright: 2001-2023 中国能源新闻网 版权所有 <script src="http://s17.cnzz.com/stat.php?id=4960477&web_id=4960477&show=pic1" language="JavaScript"></script></p>
+					<p>本网站所刊登的《中国电力报》、《中国能源观察》上的新闻，版权归中国能源传媒集团有限公司所有。未经授权，禁止下载使用。</p>
+					<p>国务院新闻办公室批准中国能源新闻网登载新闻业务的函：国新办发函[2000]232号。京ICP备15017366号</p>
+					<p>《中华人民共和国电信与信息服务业务经营许可证》 编号：京ICP证090268号 京公网安备：110102003567</p>
+					<p>违法和不良信息举报电话：010-63414947  中华人民共和国互联网新闻信息服务许可证 编号：10120170021 <a href="#">互联网举报中心</a></p>
+					<p>广告直拨：赵飞 13511058150</p>
+                </div>
+            </div>
+        </div>
+<style>
+.link-list a {color: #fff;}
+</style>
+<script id="_trs_ta_js" src="//ta.trs.cn/c/js/ta.js?mpid=4180" async="async" defer="defer"></script>
+    </div>
+<script>
+       $('.list-item').click(function() {
+         var url = $(this).attr('data-url');
+          window.open(url); 
+      })
+       //srcurl链接稿href取srcurl其余不变取_relurl
+          $.each($(".wrap .list-item a"), function() {
+          	if($(this).attr("data-srcurl").length>0){
+          		$(this).attr("href",$(this).attr("data-srcurl"));
+          	}
+          });
+    </script>
+</body>
+</html>

@@ -1,0 +1,2920 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <meta name="SiteName" content="中华人民共和国生态环境部" />
+<meta name="SiteDomain" content="www.mee.gov.cn" />
+<meta name="SiteIDCode" content="bm17000009" />
+    <title>中华人民共和国生态环境部</title>
+    <script type="text/javascript" src="/images/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript" src="/images/jquery-migrate-3.4.0.min.js"></script>
+    <script type="text/javascript" src="/images/MEPC_mobile_v2020.js"></script>
+
+    <link class="stylefile" rel="stylesheet" type="text/css" href="/images/MEPC_base_pc_v2019.css" />
+    <link class="stylefile" rel="stylesheet" type="text/css" href="/images/MEPC_index_pc_v20260104.css" />
+    <link class="stylefile" rel="stylesheet" type="text/css" href="/images/notice4.css" />
+    <link class="stylefile" rel="stylesheet" type="text/css" href="./images/hsdata_styleDbs.css">
+
+    <link class="mobileStyle" rel="stylesheet" type="text/css" href="/images/swiper.min_v2019.css" />
+    <link class="mobileStyle" rel="stylesheet" type="text/css" href="/images/MEPC_base_mobile_v2019.css" />
+    <link class="mobileStyle" rel="stylesheet" type="text/css" href="/images/MEPC_index_mobile_v20240409.css" />
+    <link class="mobileStyle" rel="stylesheet" type="text/css" href="/images/notice4_mobile.css" />
+    <link class="mobileStyle" rel="stylesheet" type="text/css" href="./images/hsdata_yd_styleDbs.css">
+
+    <script class="stylefile" type="text/javascript" src="/images/respond.src_v2019.js"></script>
+    <script class="stylefile" type="text/javascript" src="/images/lunbo.js"></script>
+    <script type="text/javascript" src="/images/swiper.min_v2019.js"></script>
+    <script class="stylefile" type="text/javascript" src="/images/jquery.easie.js"></script>
+    <script type="text/javascript" src="/images/jquery.SuperSlide.2.1.1.js"></script>
+    <script class="stylefile" type="text/javascript" src="/images/MEPC_piao.js"></script>
+    <script>
+        var localName = 'waterData'
+        var localData = JSON.parse( localStorage.getItem(localName) ) || []
+        var limitTime = 10
+        // var limitTime = 1000 * 60 * 60 * 24 * 30 //  调用外部jason数据时用
+        // console.log(localData)
+        // console.log(new Date().getTime() - localData.time) 
+        // console.log(limitTime)
+        var myData
+        var isPC = IsPC();//获取是否为PC端
+        if (isPC) {//如果是PC端加载PC的js和css
+            $(function(){
+                dataPC();
+            })
+            $(".mobileStyle").remove();
+            dynamicLoadJs('/images/MEPC_base_pc_v2019.js')
+            dynamicLoadJs('/images/MEPC_index_pc_v2019.js')
+        } else {//如果是移动端加载移动端的js和css
+            if(window.sessionStorage.getItem("isPc")=="true"){
+                var oMeta = document.createElement('meta');
+                oMeta.content = '';
+                oMeta.name = 'viewport';
+                document.getElementsByTagName('head')[0].appendChild(oMeta);
+                $(function(){
+                    dataPC();
+                })
+                $(".mobileStyle").remove();
+                dynamicLoadJs('/images/MEPC_base_pc_v2019.js')
+                dynamicLoadJs('/images/MEPC_index_pc_v2019.js')
+                $(function(){
+                    $(".AppBtn").css('display','block');
+                    $(".style_App").css('display','block');
+                })
+            }else{
+                $(function(){
+                    setTimeout(function(){
+                        $(function(){
+                            dataWAp();
+                        })
+                    },500)})
+                $(".stylefile").remove();
+                dynamicLoadJs('/images/MEPC_base_mobile_v2019.js')
+                dynamicLoadJs('/images/MEPC_index_mobile_v2019.js')
+            }
+            $(function(){
+                //切换pc移动
+                $(".style_pc").click(function(){
+                    window.sessionStorage.setItem("isPc","true")
+                    window.location.reload()
+                })
+
+                $(".PcBtn").click(function(){
+                    window.sessionStorage.setItem("isPc","true")
+                    window.location.reload()
+                })
+
+                $(".style_App").click(function(){
+                    window.sessionStorage.setItem("isPc","false")
+                    window.location.reload()
+                })
+
+                $(".AppBtn").click(function(){
+                    window.sessionStorage.setItem("isPc","false")
+                    window.location.reload()
+                })
+            })
+        }
+
+        function dynamicLoadCss(url) {//加载css方法
+            var head = document.getElementsByTagName('head')[0];
+            var link = document.createElement('link');
+            link.type = 'text/css';
+            link.rel = 'stylesheet';
+            link.href = url;
+            head.appendChild(link);
+        }
+
+        function dynamicLoadJs(url, callback) {//加载js方法
+            var head = document.getElementsByTagName('head')[0];
+            var script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = url;
+            if (typeof(callback) == 'function') {
+                script.onload = script.onreadystatechange = function () {
+                    if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete") {
+                        callback();
+                        script.onload = script.onreadystatechange = null;
+                    }
+                };
+            }
+            head.appendChild(script);
+        }
+
+
+        //pc加载数据的方法
+
+
+//pc加载数据的方法
+    function dataPC(){
+        // if (JSON.stringify(localData) != '[]') { // localData 有值
+        //     // console.log('有数据')
+        //     if (new Date().getTime() - localData.time >= limitTime) {
+        //         // console.log('过期')
+        //         // 没数据， 读取ajax
+        //         // console.log('重新获取数据ajax')
+        //         limitTime = new Date().getTime() + limitTime
+        //         pcAjax()
+        //     } else {
+        //         // console.log('没过期')
+        //         myData = localData.data
+        //         limitTime = localData.time
+        //         addPcData(myData)
+        //     }
+        //     // 有数据
+        // } else {
+        //     // 没数据， 读取ajax
+        //     // console.log('没有数据')
+        //     limitTime = new Date().getTime()
+        //     pcAjax()
+        // }
+        pcAjax()
+    }
+
+
+
+
+        function pcAjax() {
+            // console.log('请求数据')
+            $.ajax({
+                url: "/water.json",
+                type: "get",
+                dataType: 'json',
+                success: function (data) {
+                    addPcData(data)
+                },
+                error: function () {
+
+                }
+            });
+        }
+
+        function addPcData(data) {
+            //data.sort(function(a,b){
+            //    return a.city < b.city ? -1 : 1;
+            //})
+            var cityArr = [];
+            var dataArr = [];
+            $.each(data,function(i,obj){
+                if (cityArr.indexOf(obj.city) > -1) {
+                    var obj2 = dataArr[dataArr.length - 1];
+                    if(obj2.minitor_month < obj.minitor_month){
+                        dataArr.pop();
+                        dataArr.push(obj);
+                    }
+                }else{
+                    cityArr.push(obj.city);
+                    dataArr.push(obj);
+                }
+            })
+
+            var data_length = dataArr.length;//数据的总长度
+            var html='';
+
+            var colorLade=0;
+            for (var i = 1; i < data_length; i++){
+                if(dataArr[i].szlb=="一类"){
+                    colorLade=1;
+                }else if(dataArr[i].szlb=="二类"){
+                    colorLade=2;
+                }else if(dataArr[i].szlb=="三类"){
+                    colorLade=3;
+                }else if(dataArr[i].szlb=="四类"){
+                    colorLade=4;
+                }else {
+                    colorLade=5;
+                }
+                //if (dataArr[i].szlb != '劣四类') {
+                if (dataArr[i].city!= '') {
+                    html+='<li class="grade'+colorLade+' clone">'
+                        +'<span class="infoListSpan1">'+dataArr[i].city+'</span>'
+                        +'<span>'+dataArr[i].site+'</span>'
+                        +'<span>'+dataArr[i].minitor_month+'</span>'
+                        +'<span class="infoListSpan3"><i>'+dataArr[i].szlb+'</i></span>'
+                    '</li>';
+                }
+            }
+            $(".infoList").append(html);
+            jQuery(".txtMarquee-top").slide({mainCell:".bd ul",autoPlay:true,effect:"topMarquee",vis:12,interTime:50,trigger:"click"});
+
+            // console.log('存localStorage', localStorage)
+            localStorage.setItem(localName, JSON.stringify({
+                data: dataArr,
+                time: limitTime
+            }))
+            // console.log('取localStorage',JSON.parse( localStorage.getItem(localName) ))
+        }
+
+        //wap加载数据的方法
+        function dataWAp(){
+            //if (JSON.stringify(localData) != '[]') { // localData 有值
+                // console.log('有数据')
+            //    if (new Date().getTime() - localData.time >= limitTime) {
+                    // console.log('过期')
+                    // 没数据， 读取ajax
+                   // console.log('重新获取数据ajax')
+           //         limitTime = new Date().getTime() + limitTime
+           //         wapAjax()
+           //     } else {
+                    // console.log('没过期')
+           //         myData = localData.data
+           //         limitTime = localData.time
+           //         addPcData(myData)
+           //     }
+                // 有数据
+           // } else {
+                // 没数据， 读取ajax
+                // console.log('没有数据')
+           //     limitTime = new Date().getTime()
+
+           // }
+
+                wapAjax()
+        }
+
+        function wapAjax() {
+            $.ajax({
+                url: "/water.json",
+                type: "get",
+                dataType: 'json',
+                success: function (data) {
+                    addWap(data)
+                },
+                error: function () {
+
+                }
+            });
+        }
+
+        function addWap(data) {
+            //data.sort(function(a,b){
+            //    return a.city < b.city ? -1 : 1;
+            //})
+            var cityArr = [];
+            var dataArr = [];
+            $.each(data,function(i,obj){
+                if (cityArr.indexOf(obj.city) > -1) {
+                    var obj2 = dataArr[dataArr.length - 1];
+                    if(obj2.minitor_month < obj.minitor_month){
+                        dataArr.pop();
+                        dataArr.push(obj);
+                    }
+                }else{
+                    cityArr.push(obj.city);
+                    dataArr.push(obj);
+                }
+
+            })
+            var data_length = dataArr.length;//数据的总长度
+            var html='';
+            var colorLade=0;
+            for (var i = 1; i < data_length; i++){
+                if(dataArr[i].szlb=="一类"){
+                    colorLade=1;
+                }else if(dataArr[i].szlb=="二类"){
+                    colorLade=2;
+                }else if(dataArr[i].szlb=="三类"){
+                    colorLade=3;
+                }else if(dataArr[i].szlb=="四类"){
+                    colorLade=4;
+                }else {
+                    colorLade=5;
+                }
+                //if (dataArr[i].szlb != '劣四类') {
+                if (dataArr[i].city!= '') {
+
+                    html+='<li class="grade'+colorLade+' clone">'
+                        +'<span class="infoListSpan1">'+dataArr[i].city+'</span>'
+                        +'<span>'+dataArr[i].site+'</span>'
+                        +'<span>'+dataArr[i].minitor_month+'</span>'
+                        +'<span class="infoListSpan3"><i>'+dataArr[i].szlb+'</i></span>'
+                    '</li>';
+                }
+            }
+            $(".infoList").append(html);
+            jQuery(".txtMarquee-top").slide({mainCell:".bd ul",autoPlay:true,effect:"topMarquee",vis:16,interTime:50,trigger:"click"});
+            $(".txtMarquee-top ul li").height(".83rem")
+            localStorage.setItem(localName, JSON.stringify({
+                data: dataArr,
+                time: limitTime
+            }))
+            // console.log(JSON.parse( localStorage.getItem(localName) ))
+        }
+    </script>
+    <style>
+        #ad2{position:relative; width:280px; height:347px; background: url(/images/piao0115_1_bg.png) no-repeat;background-size:100% 100%;}
+        #ad2 .box { padding:36px 20px 0 20px;}
+        #ad2 a {display:block; color:#105097; font-size:15px; line-height:23px; background: url(/images/MEPC_index_TLb_v2019_06.png) 4px 12px no-repeat; padding-left: 20px; margin-top: 36px;}
+        #ad2 .close{position:absolute;top:18px;right:24px;z-index:3;font-size:7px;color:#000;cursor:pointer;}
+        #ad2 .title {text-align: center; font-size: 22px; color: #fff; margin-top: 33px;}
+        #ad2 .more {width: 160px; height: 39px; text-align: center; margin: 0 auto; background: url(/images/piao0115_1_more.jpg) no-repeat;background-size:100% 100%;}
+        #ad2 .more a {color: #fff; font-size: 16px; background: none; line-height:30px; padding: 0;}
+    </style>
+</head>
+<body>
+<div class="header">
+	<div class="headerC center">
+		<!--<a class="backHome" href="">返回首页</a>-->
+		<a class="AppBtn" target="_parent">手机版</a>
+		<ul>
+<!--
+			<li class="languageBtn">
+				<a class="languageBtnA">中文<img class="languageBtnImg" src="/images/MEPC_base_v2019_03.png" /></a>
+				<div class="languageUl">
+					<a href="/" target="_parent">中文</a>
+					<a href="http://english.mee.gov.cn/" target="_blank">英文</a>
+				</div>
+			</li>
+-->
+<!--
+			<li class="header_mailbox_li"><a href="/weihu/" target="_blank"><img src="/images/MEPC_base_topImg_v2019_08.png" />邮箱</a></li>
+-->
+			<li class="header_mailbox_li"><a href="https://mail.mee.gov.cn/" target="_blank"><img src="/images/MEPC_base_topImg_v2019_08.png" />邮箱</a></li>
+
+<li>
+<script type="text/javascript">
+    var ftzw = "tps://big5.mee.gov.cn/gate/big5/www.mee.gov.cn/";
+    var jtzw = "tps://www.mee.gov.cn";
+    var currUrl = document.URL;
+    var flag = currUrl.indexOf("big5");
+    if(flag<0)
+        document.write('<a href="ht'+ftzw+'" target="_parent" title="繁体版">繁</a>');
+    else
+        document.write('<a href="ht'+jtzw+'" target="_parent" title="简体版">简</a>');
+</script>
+</li>
+			<li><a href="http://english.mee.gov.cn/" target="_blank">EN</a></li>
+			<li class="headerWx headerEwmBox">
+				<a href="http://www.mee.gov.cn/home/wbwx/" target="_blank"><img src="/images/MEPC_base_topImg_v2019_03.png" /></a>
+				<img class="header_ewmImg" src="/images/MEPC_base_top2_v2019_13.png" />
+			</li>
+			<li class="headerWb headerEwmBox">
+				<a href="http://www.mee.gov.cn/home/wbwx/" target="_blank"><img src="/images/MEPC_base_topImg_v2019_05.png" /></a>
+				<img class="header_ewmImg" src="/images/MEPC_base_toutiao_v2019_03.png" />
+			</li>
+			<li class="headerCLILast"><a href="javascript:;" onclick="aria.start()" title="无障碍"><img src="/images/MEPC_base_topImg_v2019_06.png" /></a></li>
+		</ul>
+	</div>
+</div>
+<div class="header_logo">
+	<div class="logoSearchBox center">
+		<a class="logo" href="/" target="_parent"><img src="/images/MEPC_base_v2019_07.png" /></a>
+		<div class="logoSearchR">
+<script>
+function checkForm(){
+$("#searchword").val($.trim($("#searchword").val()));
+	$("#searchword").val($("#searchword").val().replace(/请输入关键词/g, ''));
+	
+		$("#searchword").val($("#searchword").val().replace(/script/ig,''));
+		$("#searchword").val($("#searchword").val().replace(/iframe/ig,''));
+		$("#searchword").val($("#searchword").val().replace(/update/ig,''));
+		$("#searchword").val($("#searchword").val().replace(/alert/ig,''));	
+
+	if($("#searchword").val()==""){
+		alert("请输入关键词");
+		return false;
+	}
+}
+</script>
+
+			<div class="fl logoSearch">
+<form action="/searchnew/" method="get" target="_blank" onsubmit="return checkForm();">
+				<div class="logoSearchL">
+					<div class="logoSearchLNei">
+						<input type="submit" class="searchSubmit1" value="" />
+						<input id="searchword" name="searchword" class="searchText1" type="text" placeholder="请输入您要搜索的内容" autocomplete="off" />
+						<span class="clear" id="delete">×</span>
+					</div>
+					<input type="submit" class="searchSubmit2" value="搜索" />
+					<a class="PcBtn">手机版</a>
+				</div>
+</form>
+<script>
+document.getElementById("searchword").addEventListener("keyup", function (){
+	if (this.value.length > 0) {
+		document.getElementById("delete").style.visibility = "visible";
+		document.getElementById("delete").onclick = function () {
+			document.getElementById("searchword").value = "";
+			document.getElementById("delete").style.visibility = "hidden";
+		}
+	} else {
+		document.getElementById("delete").style.visibility = "hidden";
+	}
+});
+</script>
+				<div class="searchWord">热门搜索：
+
+<script>
+    var searchword = encodeURIComponent("环境影响评价");  
+    var currUrl = document.URL;
+    var flag = currUrl.indexOf("big5");
+    if(flag<0)
+        document.write("<a href='/searchnew/?searchword="+searchword+"' target='_blank'>环境影响评价</a>")
+    else
+        document.write("<a href='/searchnew/@UTF-8?searchword="+searchword+"' target='_blank'>环境影响评价</a>")
+</script>
+
+
+
+<script>
+    var searchword = encodeURIComponent("空气质量");  
+    var currUrl = document.URL;
+    var flag = currUrl.indexOf("big5");
+    if(flag<0)
+        document.write("<a href='/searchnew/?searchword="+searchword+"' target='_blank'>空气质量</a>")
+    else
+        document.write("<a href='/searchnew/@UTF-8?searchword="+searchword+"' target='_blank'>空气质量</a>")
+</script>
+
+				</div>
+				<div class="fan_en">
+<!--
+<a href="/weihu/" target="_blank" class="fan_mail"><img src="/images/MEPC_base_topImg_v2019_08.png" />邮箱</a>
+-->
+<a href="https://mail.mee.gov.cn/" target="_blank" class="fan_mail"><img src="/images/MEPC_base_topImg_v2019_08.png" />邮箱</a>
+
+<script type="text/javascript">
+    var ftzw = "tp://big5.mee.gov.cn/gate/big5/www.mee.gov.cn/";
+    var jtzw = "tps://www.mee.gov.cn";
+    var currUrl = document.URL;
+    var flag = currUrl.indexOf("big5");
+    if(flag<0)
+        document.write('<a href="ht'+ftzw+'" target="_parent" title="繁体版">繁</a>');
+    else
+        document.write('<a href="ht'+jtzw+'" target="_parent" title="简体版">简</a>');
+</script>
+<a href="http://english.mee.gov.cn/" target="_blank">EN</a>
+<a href="javascript:void(0)" class="wza_m" onclick="aria.oldFixedStart()" title="适老版"><img src="/images/MEPC_base_topImg_v2019_06.png" /></a>
+				</div>
+
+			</div>
+			<a class="fl aqjBtn" href="http://nnsa.mee.gov.cn" target="_blank">
+				<img class="aqjBtnPc" src="/images/MEPC_base_v2019_17.jpg" />
+				<img class="aqjBtnYd" src="/images/MEPC_base_ydGjhaqj_v2019_03.png" />
+				<span>点击进入</span>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="indexTopBox">
+    <img class="indexTopBgImg" src="/images/MEPC_index_bg2_v2019_02.jpg" />
+    <div class="center indexTopLb">
+        <!-- 轮播图开始 -->
+        <div class="yaowenlunbo">
+
+            <div class="scroll_all">
+                <div class="renheSPolicyLB">
+
+                    <div class="carousel">
+                        <ul class="imageslist">
+
+                            <!-- 要闻动态 -->
+                            <li class="imageslistLi_wap imageslistLi_wap1" type="0"><!--移动端切换li-->
+                                <span>要闻动态</span>
+                                <i></i>
+                            </li>
+                            <li class="imageslistLi">
+                                <div class="index_ywdt imageslistLiChil">
+                                    <ul class="index_ywNav">
+                                        <li class="active">
+                                            <span class="mobile_none"><a href="./ywdt/xwfb/" target="_blank">新闻发布</a></span>
+                                            <span class="pc_none">新闻发布</span></li>
+                                        <li>
+                                            <span class="mobile_none"><a href="./ywdt/zbft/" target="_blank">直播访谈</a></span>
+                                            <span class="pc_none">直播访谈</span></li>
+                                        <li>
+                                            <span class="mobile_none"><a href="./ywdt/gsgg/" target="_blank">公示公告</a></span>
+                                            <span class="pc_none">公示公告</span></li>
+                                    </ul>
+                                    <ul class="index_ywMore">
+                                        <li class="active"><a href="./ywdt/xwfb/" target="_blank">更多</a></li>
+                                        <li><a href="./ywdt/zbft/" target="_blank">更多</a></li>
+                                        <li><a href="./ywdt/gsgg/" target="_blank">更多</a></li>
+                                    </ul>
+                                    <ul class="index_ywTab active">
+                                        
+                                            <li>
+                                                <a href="./ywdt/xwfb/202610/t20261031_1184937.shtml" target="_blank">生态环境部发布11月上半月全国空气质量预报会商结果</a>
+                                                <span>2026-10-31</span>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="./ywdt/xwfb/202610/t20261029_1184815.shtml" target="_blank">生态环境部公布2026年第三季度和1—9月全国地表水环境质量状况</a>
+                                                <span>2026-10-29</span>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="./ywdt/xwfb/202610/t20261026_1184641.shtml" target="_blank">生态环境部公布2026年9月和1—9月全国环境空气质量状况</a>
+                                                <span>2026-10-26</span>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="./ywdt/xwfb/202610/t20261021_1184298.shtml" target="_blank">全文实录丨国新办举行新闻发布会 介绍中国积极应对气候变化、参与引领全球气候治理有关情况</a>
+                                                <span>2026-10-21</span>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="./ywdt/xwfb/202610/t20261016_1183141.shtml" target="_blank">生态环境部发布10月下半月全国空气质量预报会商结果</a>
+                                                <span>2026-10-16</span>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="./ywdt/xwfb/202609/t20260930_1175612.shtml" target="_blank">生态环境部发布10月上半月全国空气质量预报会商结果</a>
+                                                <span>2026-09-30</span>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="./ywdt/xwfb/202609/t20260923_1174551.shtml" target="_blank">9月例行新闻发布会全文实录</a>
+                                                <span>2026-09-23</span>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="./ywdt/xwfb/202609/t20260922_1170500.shtml" target="_blank">9月例行新闻发布会最新情况通报</a>
+                                                <span>2026-09-22</span>
+                                            </li>
+                                        
+                                        <a href="./ywdt/xwfb/" class="indexMore">查看更多</a>
+                                    </ul>
+                                    <ul class="index_ywTab">
+                                        
+                                            <li>
+                                                <a href="./ywdt/zbft/202610/t20261031_1184935.shtml" target="_blank">生态环境部固体废物与化学品司有关负责人就《难测试化学物质水生毒性测试技术指南》答记者问</a>
+                                                <span>2026-10-31</span>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="./ywdt/zbft/202609/t20260903_1165073.shtml" target="_blank">生态环境部环评司有关负责人就《排污许可证申请与核发技术规范 火电》等六项国家生态环境标准修订答记者问</a>
+                                                <span>2026-09-03</span>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="./ywdt/zbft/202608/t20260827_1164597.shtml" target="_blank">生态环境部科技与财务司有关负责人就《关于推动生态环境领域科技创新多元化投入的指导意见》答记者问</a>
+                                                <span>2026-08-27</span>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="./ywdt/zbft/202608/t20260823_1164368.shtml" target="_blank">生态环境部辐射源安全监管司有关负责人就《生态环境影响评价技术导则 核技术利用项目退役》（HJ 1479-2026）相关问题答记者问</a>
+                                                <span>2026-08-18</span>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="./ywdt/zbft/202608/t20260817_1164116.shtml" target="_blank">生态环境部水生态环境司有关负责同志就《关于进一步加强工业等污水污染风险防范 保障农业灌溉用水安全的通知》答记者问</a>
+                                                <span>2026-08-17</span>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="./ywdt/zbft/202608/t20260814_1164046.shtml" target="_blank">生态环境部法规与标准司、最高人民法院环境资源审判庭、最高人民检察院公益诉讼检察厅负责同志就发布“推动生态环境损害赔偿制度改革进程的十大案例”答记者问</a>
+                                                <span>2026-08-15</span>
+                                            </li>
+                                        
+                                        <a href="./ywdt/zbft/" class="indexMore">查看更多</a>
+                                    </ul>
+                                    <ul class="index_ywTab">
+                                        
+                                            <li>
+                                                <a href="./ywgz/hjyxpj/jsxmhjyxpj/nscxmgs/202610/t20261030_1184929.shtml" target="_blank">生态环境部关于新建黔江至吉首铁路等2个项目生态环境影响评价文件的拟审查公示</a>
+                                                <span>2026-10-30</span>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="./ywdt/gsgg/tz/202610/t20261029_1184817.shtml" target="_blank">生态环境部关于2026年10月24日作出的建设项目生态环境影响评价文件审批决定的公告（核与辐射）</a>
+                                                <span>2026-10-29</span>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="./ywdt/gsgg/tz/202610/t20261029_1184790.shtml" target="_blank">关于颁发2026年第十一批民用核安全设备焊接人员资格证书的通知</a>
+                                                <span>2026-10-29</span>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="./ywdt/gsgg/tz/202610/t20261029_1184789.shtml" target="_blank">关于颁发2026年第十一批民用核安全设备无损检验人员资格证书的通知</a>
+                                                <span>2026-10-29</span>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="./ywgz/hjyxpj/jsxmhjyxpj/xmslqk/202610/t20261026_1184639.shtml" target="_blank">生态环境部关于2026年10月13日-2026年10月21日建设项目生态环境影响评价文件受理情况的公示</a>
+                                                <span>2026-10-28</span>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="./ywdt/gsgg/gongshi/gsq/202610/t20261027_1184683.shtml" target="_blank">生态环境部关于2026年10月23日建设项目生态环境影响评价文件受理情况的公示（核与辐射）</a>
+                                                <span>2026-10-28</span>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="./ywdt/gsgg/gongshi/gsq/202610/t20261023_1184402.shtml" target="_blank">生态环境部关于2026年10月19日—2026年10月23日海洋工程建设项目生态环境影响评价文件受理情况的公示</a>
+                                                <span>2026-10-23</span>
+                                            </li>
+                                        
+                                        <a href="./ywdt/gsgg/" class="indexMore">查看更多</a>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <!-- 组织机构 -->
+                            <li class="imageslistLi_wap imageslistLi_wap2" type="1"><!--移动端切换li-->
+                                <span>组织机构</span>
+                                <i></i>
+                            </li>
+                            <li class="imageslistLi">
+                                <div class="index_zzjg imageslistLiChil">
+                                    <div class="index_zzjgZBox index_zzjgZBoxYd">
+                                        <div class="index_zzjg_title">
+                                            <a href="./zjhb/ldzc/">部领导</a>
+                                        </div>
+                                        <ul class="index_zzjg_bld">
+                                            
+                                                
+                                                    <li><a href="./zjhb/ldzc/sjl/">孙金龙</a></li>
+                                                
+                                                    <li><a href="./zjhb/ldzc/hrq/">黄润秋</a></li>
+                                                
+                                                
+                                                    <li class="jcz"><a href="./zjhb/ldzc/gf/">郭　芳</a></li>
+                                                
+                                                
+                                                    <li><a href="./zjhb/ldzc/lxy/">廖西元</a></li>
+                                                
+                                                    <li><a href="./zjhb/ldzc/dbt/">董保同</a></li>
+                                                
+                                                    <li><a href="./zjhb/ldzc/lg/">李　高</a></li>
+                                                
+                                                    <li><a href="./zjhb/ldzc/xbj/">徐必久</a></li>
+                                                
+                                            
+                                        </ul>
+                                    </div>
+<!--
+                                    <div class="index_zzjgZBox index_zzjgZBoxYd">
+                                        <div class="index_zzjg_title">
+                                            <a href="/zjhb/ldzc/#zgcs">总工程师</a>
+                                        </div>
+                                        <ul class="index_zzjg_bld">
+                                            
+                                        </ul>
+                                    </div>
+-->
+                                    <div class="index_zzjgLBox">
+                                        <div class="index_zzjg_title">
+                                            <a href="./zjhb/zyzz/">主要职责</a>
+                                        </div>
+                                        
+                                            <p>　　（一）负责建立健全生态环境基本制度。会同有关部门拟订国家生态环境政策、规划并组织实施，起草法律法规草案，制定部门规章。会同有关部门编制并监督实施重点区域、流域、海域、饮用水水源地生态环境规划和水功能区划，组织拟订生态环境标准，制定生态环境基准和技术规...<a href="./zjhb/zyzz/201810/t20181011_660310.shtml" target="_blank">[查看详细]</a></p>
+                                        
+                                    </div>
+                                    <div class="index_zzjgZBox index_zzjgZBoxPc">
+                                        <div class="index_zzjg_title">
+                                            <a href="./zjhb/ldzc/" target="_blank">部领导</a>
+                                        </div>
+                                        <ul class="index_zzjg_bld">
+                                            
+                                                
+                                                    <li><a href="./zjhb/ldzc/sjl/" target="_blank">孙金龙</a></li>
+                                                
+                                                    <li><a href="./zjhb/ldzc/hrq/" target="_blank">黄润秋</a></li>
+                                                
+                                                
+                                                    <li class="jcz"><a href="./zjhb/ldzc/gf/" target="_blank">郭　芳</a></li>
+                                                
+                                                
+                                                    <li><a href="./zjhb/ldzc/lxy/" target="_blank">廖西元</a></li>
+                                                
+                                                    <li><a href="./zjhb/ldzc/dbt/" target="_blank">董保同</a></li>
+                                                
+                                                    <li><a href="./zjhb/ldzc/lg/" target="_blank">李　高</a></li>
+                                                
+                                                    <li><a href="./zjhb/ldzc/xbj/" target="_blank">徐必久</a></li>
+                                                
+                                            
+                                        </ul>
+                                    </div>
+<!--
+                                    <div class="index_zzjgZBox index_zzjgZBoxPc">
+                                        <div class="index_zzjg_title index_zzjg_title_gcs">
+                                            <a href="/zjhb/ldzc/#zgcs" target="_blank">总工程师</a>
+                                        </div>
+                                        <ul class="index_zzjg_bld">
+                                            
+                                        </ul>
+                                    </div>
+-->
+                                    <div class="index_zzjgRBox">
+                                        <div class="index_zzjg_title index_zzjgRBoxLione"><a href="http://jjjcz.mee.gov.cn/" target="_blank">中央纪委国家监委驻生态环境部纪检监察组</a></div>
+                                        <div class="index_zzjg_title index_zzjgRBoxLi"><a href="/zjhb?name=0" target="_blank">机关司局</a></div>
+                                        <div class="index_zzjg_title index_zzjgRBoxLi"><a href="/zjhb?name=1" target="_blank">派出机构</a></div>
+                                        <div class="index_zzjg_title index_zzjgRBoxLi"><a href="/zjhb?name=2" target="_blank">直属单位</a></div>
+                                        <div class="index_zzjg_title index_zzjgRBoxLi"><a href="/zjhb?name=3" target="_blank">社会团体</a></div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <!-- 政策文件 -->
+                            <li class="imageslistLi_wap imageslistLi_wap3" type="2"><!--移动端切换li-->
+                                <span>政策文件</span>
+                                <i></i>
+                            </li>
+                            <li class="imageslistLi">
+                                <div class="index_zcwj imageslistLiChil">
+                                    <ul class="index_zcwjNav mobile_none">
+                                        <li class="active"><span><a href="./zcwj/zyygwj/" target="_blank">中央有关文件</a></span></li>
+                                        <li><span><a href="./zcwj/gwywj/" target="_blank">国务院有关文件</a></span></li>
+                                        <li><span><a href="./zcwj/bwj/" target="_blank">部文件</a></span></li>
+                                        <li><span><a href="./zcwj/bgtwj/" target="_blank">办公厅文件</a></span></li>
+                                        <li><span><a href="./zcwj/xzspwj/" target="_blank">行政审批文件</a></span></li>
+                                        <li><span><a href="./zcwj/haqjwj/" target="_blank">核安全局文件</a></span></li>
+                                        <li><span><a href="./zcwj/qt/" target="_blank">其他</a></span></li>
+                                        <li><span><a href="./zcwj/zcjd/" target="_blank">解读</a></span></li>
+                                    </ul>
+                                    <!-- wap首页导航 -->
+                                    <div class="wapZcwjNav swiper-container2 pc_none">
+                                        <ul class="swiper-wrapper">
+                                            <li class="swiper-slide active"><span>中央有关文件</span></li>
+                                            <li class="swiper-slide"><span>国务院有关文件</span></li>
+                                            <li class="swiper-slide"><span>部文件</span></li>
+                                            <li class="swiper-slide"><span>办公厅文件</span></li>
+                                            <li class="swiper-slide"><span>行政审批文件</span></li>
+                                            <li class="swiper-slide"><span>核安全局文件</span></li>
+                                            <li class="swiper-slide"><span>其他</span></li>
+                                            <li class="swiper-slide"><span>解读</span></li>
+                                        </ul>
+                                    </div>
+                                    <!--<ul class="index_zcwjMore">
+                                        <li class="active"><a href="#" target="_blank">更多</a></li>
+                                        <li><a href="#" target="_blank">更多</a></li>
+                                        <li><a href="#" target="_blank">更多</a></li>
+                                        <li><a href="#" target="_blank">更多</a></li>
+                                        <li><a href="#" target="_blank">更多</a></li>
+                                    </ul>-->
+                                    <script>
+                                        function checkForm2(){
+
+                                        }
+                                    </script>
+                                    <form action="/wjk/" method="get" target="_blank" onsubmit="return checkForm2();">
+                                        <div class="zzwjSearchBox">
+                                            <span>文件标题：</span>
+                                            <div class="index_zcwj_searchText_div">
+                                                <input autocomplete="off" name="keyword" id="keyword" type="text" class="index_zcwj_searchText" placeholder="请输入您要搜索的内容" />
+                                                <span class="clear" id="delete2">×</span>
+                                            </div>
+                                            <input class="index_zcwj_searchBtn1" value="搜索" type="submit" />
+                                            <a class="index_zcwj_searchBtn2" href="/wjk/" target="_blank">文件库</a>
+                                            <a class="index_zcwj_searchBtn3" href="/gzk/" target="_blank">规章库</a>
+                                        </div>
+                                    </form>
+                                    <!--中央有关-->
+                                    <div class="index_zcwjTab active">
+                                        <ul class="index_zcwjNTab active">
+                                            
+                                                <li><a href="./zcwj/zyygwj/202610/t20261022_1184320.shtml" target="_blank">中共中央办公厅 国务院办公厅关于推动科技创新和产业创新深度融合的意见</a><span class="date">2026-10-22</span></li>
+                                            
+                                                <li><a href="./zcwj/zyygwj/202610/t20261014_1182955.shtml" target="_blank">中共中央 国务院关于发展新质生产力的意见</a><span class="date">2026-10-14</span></li>
+                                            
+                                                <li><a href="./zcwj/zyygwj/202610/t20261014_1182964.shtml" target="_blank">中共中央办公厅 国务院办公厅印发《文化遗产保护传承“十五五”规划》</a><span class="date">2026-09-30</span></li>
+                                            
+                                                <li><a href="./zcwj/zyygwj/202609/t20260918_1166753.shtml" target="_blank">中共中央办公厅 国务院办公厅 中央军委办公厅印发《退役军人服务和保障“十五五”规划》</a><span class="date">2026-09-18</span></li>
+                                            
+                                                <li><a href="./zcwj/zyygwj/202608/t20260825_1164514.shtml" target="_blank">中共中央办公厅 国务院办公厅印发《党政领导干部生态环境损害责任追究办法》</a><span class="date">2026-08-25</span></li>
+                                            
+                                                <li><a href="./zcwj/zyygwj/202607/t20260730_1163132.shtml" target="_blank">中共中央 国务院转发《中央宣传部、司法部关于开展法治宣传教育的第九个五年规划（2026－2030年）》</a><span class="date">2026-07-30</span></li>
+                                            
+                                            <a href="./zcwj/zyygwj/" class="indexMore">查看更多</a>
+                                        </ul>
+                                    </div>
+
+                                    <!--国务院有关-->
+                                    <div class="index_zcwjTab">
+                                        <ul class="index_zcwjNTab active">
+                                            
+                                                <li><a href="./zcwj/gwywj/202610/t20261026_1184656.shtml" target="_blank">事业单位登记管理条例（中华人民共和国国务院令 第849号）</a><span class="date">2026-10-26</span></li>
+                                            
+                                                <li><a href="./zcwj/gwywj/202610/t20261024_1184583.shtml" target="_blank">国务院办公厅关于适应人工智能技术发展助力构建就业友好型发展方式的意见</a><span class="date">2026-10-24</span></li>
+                                            
+                                                <li><a href="./zcwj/gwywj/202610/t20261010_1175970.shtml" target="_blank">消耗臭氧层物质管理条例</a><span class="date">2026-10-10</span></li>
+                                            
+                                                <li><a href="./zcwj/gwywj/202610/t20261010_1175967.shtml" target="_blank">碳排放权交易管理暂行条例</a><span class="date">2026-10-10</span></li>
+                                            
+                                                <li><a href="./zcwj/gwywj/202610/t20261009_1175944.shtml" target="_blank">城镇排水与污水处理条例</a><span class="date">2026-10-09</span></li>
+                                            
+                                                <li><a href="./zcwj/gwywj/202610/t20261009_1175940.shtml" target="_blank">生态环境监测条例</a><span class="date">2026-10-09</span></li>
+                                            
+                                            <a href="./zcwj/gwywj/" class="indexMore">查看更多</a>
+                                        </ul>
+                                    </div>
+
+                                    <!--部文件-->
+                                    <div class="index_zcwjTab">
+                                        <ul class="index_zcwjTabNav">
+                                            <li class="active">
+                                                <span class="mobile_none"><a href="./zcwj/bwj/ling/" target="_blank">令</a></span>
+                                                <span class="pc_none">令</span>
+                                            </li>
+                                            <li>
+                                                <span class="mobile_none"><a href="./zcwj/bwj/gg/" target="_blank">公告</a></span>
+                                                <span class="pc_none">公告</span>
+                                            </li>
+                                            <li>
+                                                <span class="mobile_none"><a href="./zcwj/bwj/wj/" target="_blank">文件</a></span>
+                                                <span class="pc_none">文件</span>
+                                            </li>
+                                            <li>
+                                                <span class="mobile_none"><a href="./zcwj/bwj/han/" target="_blank">函</a></span>
+                                                <span class="pc_none">函</span>
+                                            </li>
+                                        </ul>
+                                        <ul class="index_zcwjNTab active">
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk02/202610/t20261027_1184708.html" target="_blank">新化学物质环境管理登记办法</a><span class="date">2026-10-26</span></li>
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk02/202609/t20260922_1170492.html" target="_blank">关于修改和废止部分规章的决定</a><span class="date">2026-09-22</span></li>
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk02/202503/t20250327_1104815.html" target="_blank">消耗臭氧层物质进出口管理办法</a><span class="date">2025-03-27</span></li>
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk02/202412/t20241230_1099586.html" target="_blank">关于废止《环境信访办法》的决定</a><span class="date">2024-12-30</span></li>
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk02/202411/t20241129_1097685.html" target="_blank">国家危险废物名录（2025年版）</a><span class="date">2024-11-29</span></li>
+                                            
+                                            <a href="./zcwj/bwj/ling/" class="indexMore">查看更多</a>
+                                        </ul>
+                                        <ul class="index_zcwjNTab">
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk01/202610/t20261023_1184566.html" target="_blank">关于发布国家生态环境标准《难测试化学物质水生毒性测试技术指南》的公告</a><span class="date">2026-10-21</span></li>
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk01/202610/t20261016_1183155.html" target="_blank">关于发布《射线装置分类办法》的公告</a><span class="date">2026-10-15</span></li>
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk01/202610/t20261009_1175819.html" target="_blank">关于发布国家噪声排放标准《城市轨道交通噪声排放标准（第一阶段）》的公告</a><span class="date">2026-09-28</span></li>
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk01/202609/t20260904_1165084.html" target="_blank">关于禁止生产以一氯二氟甲烷（HCFC-22）为制冷剂的多联式空调（热泵）机组产品的公告</a><span class="date">2026-09-02</span></li>
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk01/202608/t20260831_1164716.html" target="_blank">关于发布《环境空气和废气挥发性有机物便携式气相色谱仪技术要求》等10项国家生态环境标准的公告</a><span class="date">2026-08-12</span></li>
+                                            
+                                            <a href="./zcwj/bwj/gg/" class="indexMore">查看更多</a>
+                                        </ul>
+                                        <ul class="index_zcwjNTab">
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk03/202609/t20260918_1166789.html" target="_blank">关于推进机动车排放检验机构监管改革提升排放检验质量的意见</a><span class="date">2026-09-18</span></li>
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk03/202609/t20260903_1165029.html" target="_blank">关于印发《全国碳排放权交易市场2025、2026年度发电行业以及2026年度钢铁、水泥、铝冶炼行业配额总量和分配方案》的通知</a><span class="date">2026-09-02</span></li>
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk03/202608/t20260827_1164595.html" target="_blank">关于推动生态环境领域科技创新多元化投入的指导意见</a><span class="date">2026-08-20</span></li>
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk03/202608/t20260810_1163837.html" target="_blank">关于印发《生态保护“十五五”规划》的通知</a><span class="date">2026-08-07</span></li>
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk03/202607/t20260729_1163021.html" target="_blank">关于印发《国家应对气候变化“十五五”规划》的通知</a><span class="date">2026-07-27</span></li>
+                                            
+                                            <a href="./zcwj/bwj/wj/" class="indexMore">查看更多</a>
+                                        </ul>
+                                        <ul class="index_zcwjNTab">
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk04/202604/t20260410_1148612.html" target="_blank">关于发布生态环境部重点实验室2025年度评估结果的函</a><span class="date">2026-04-10</span></li>
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk04/202604/t20260403_1148296.html" target="_blank">关于公布生态环境部工程技术中心名单的通知</a><span class="date">2026-04-03</span></li>
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk04/202512/t20251231_1139519.html" target="_blank">关于同意生态环境部放射性污染防治工程技术中心等3家工程技术中心通过验收的通知</a><span class="date">2025-12-31</span></li>
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk04/202512/t20251209_1137425.html" target="_blank">关于同意建设生态环境部滨海城市水土环境演化重点实验室的函</a><span class="date">2025-12-09</span></li>
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk04/202510/t20251013_1129249.html" target="_blank">关于同意建设生态环境部高速铁路与城轨交通噪声振动重点实验室的函</a><span class="date">2025-10-13</span></li>
+                                            
+                                            <a href="./zcwj/bwj/han/" class="indexMore">查看更多</a>
+                                        </ul>
+                                    </div>
+
+                                    <!--办公厅-->
+                                    <div class="index_zcwjTab">
+                                        <ul class="index_zcwjTabNav">
+                                            <li class="active">
+                                                <span class="mobile_none"><a href="./zcwj/bgtwj/wj/" target="_blank">文件</a></span>
+                                                <span class="pc_none">文件</span>
+                                            </li>
+                                            <li>
+                                                <span class="mobile_none"><a href="./zcwj/bgtwj/han/" target="_blank">函</a></span>
+                                                <span class="pc_none">函</span>
+                                            </li>
+                                        </ul>
+                                        <ul class="index_zcwjNTab active">
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk05/202610/t20261019_1183257.html" target="_blank">关于印发2027年度消耗臭氧层物质和氢氟碳化物配额总量设定与分配方案的通知</a><span class="date">2026-10-16</span></li>
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk05/202610/t20261009_1175758.html" target="_blank">关于印发《生态环境基准工作方案（2026—2030年）》的通知</a><span class="date">2026-09-29</span></li>
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk05/202608/t20260805_1163609.html" target="_blank">关于进一步加强工业等污水污染风险防范 保障农业灌溉用水安全的通知</a><span class="date">2026-07-28</span></li>
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk05/202601/t20260119_1140965.html" target="_blank">关于加强重点行业大气环境绩效分级管理的指导意见</a><span class="date">2026-01-14</span></li>
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk05/202601/t20260104_1139798.html" target="_blank">关于印发《省级温室气体清单编制指南（2025年版）》的通知</a><span class="date">2026-01-04</span></li>
+                                            
+                                            <a href="./zcwj/bgtwj/wj/" class="indexMore">查看更多</a>
+                                        </ul>
+                                        <ul class="index_zcwjNTab">
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk06/202610/t20261026_1184603.html" target="_blank">关于开展“2026生态文明建设年度人物”宣传选树活动的通知</a><span class="date">2026-10-26</span></li>
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk06/202610/t20261010_1175958.html" target="_blank">关于发布《温室气体自愿减排项目方法学 红树林营造（CCER—14—002—V02）》的通知</a><span class="date">2026-10-10</span></li>
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk06/202610/t20261010_1175960.html" target="_blank">关于发布《温室气体自愿减排项目方法学 造林碳汇（CCER—14—001—V02）》的通知</a><span class="date">2026-10-10</span></li>
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk06/202609/t20260907_1165269.html" target="_blank">关于2026年上半年环评信用管理对象列入“黑名单”情况的通报</a><span class="date">2026-09-07</span></li>
+                                            
+                                            <a href="./zcwj/bgtwj/han/" class="indexMore">查看更多</a>
+                                        </ul>
+                                    </div>
+
+                                    <!--行政审批-->
+                                    <div class="index_zcwjTab">
+                                        <ul class="index_zcwjNTab active">
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk11/202610/t20261026_1184646.html" target="_blank">关于陕西~河南±800千伏特高压直流输电工程生态环境影响报告书的批复</a><span class="date">2026-10-26</span></li>
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk11/202610/t20261026_1184648.html" target="_blank">关于林海~平安第二回500千伏交流线路工程生态环境影响报告书的批复</a><span class="date">2026-10-26</span></li>
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk11/202610/t20261026_1184650.html" target="_blank">关于甘肃巴丹吉林沙漠基地送电四川特高压直流工程生态环境影响报告书的批复</a><span class="date">2026-10-26</span></li>
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk11/202610/t20261026_1184651.html" target="_blank">关于鲁苏背靠背联网工程生态环境影响报告书的批复</a><span class="date">2026-10-26</span></li>
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk11/202610/t20261019_1183256.html" target="_blank">关于垦利9—1油田及垦利9—5/6油田开发工程环境影响报告书的批复</a><span class="date">2026-10-16</span></li>
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk11/202610/t20261015_1183024.html" target="_blank">关于内蒙古额尔古纳地区铀矿资源调查评价生态环境影响报告表的批复</a><span class="date">2026-10-14</span></li>
+                                            
+                                            <a href="./zcwj/xzspwj/" class="indexMore">查看更多</a>
+                                        </ul>
+                                    </div>
+
+
+                                    <!--核安全局-->
+                                    <div class="index_zcwjTab">
+                                        <ul class="index_zcwjTabNav">
+                                            <li class="active">
+                                                <span class="mobile_none"><a href="./zcwj/haqjwj/wj/" target="_blank">文件</a></span>
+                                                <span class="pc_none">文件</span>
+                                            </li>
+                                            <li>
+                                                <span class="mobile_none"><a href="./zcwj/haqjwj/han/" target="_blank">函</a></span>
+                                                <span class="pc_none">函</span>
+                                            </li>
+                                        </ul>
+                                        <ul class="index_zcwjNTab active">
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk09/202610/t20261030_1184888.html" target="_blank">关于颁发山东海阳核电项目5、6号机组建造许可证的通知</a><span class="date">2026-10-30</span></li>
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk09/202610/t20261030_1184887.html" target="_blank">关于颁发卢森堡SISTO Armaturen S.A.等3家单位民用核安全设备活动境外单位注册登记确认书的通知</a><span class="date">2026-10-29</span></li>
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk09/202610/t20261021_1184100.html" target="_blank">关于批准《广西防城港核电厂5、6号机组建造阶段质量保证大纲》（0版）的通知</a><span class="date">2026-10-19</span></li>
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk09/202610/t20261016_1183182.html" target="_blank">关于释放田湾核电站7号机组离开25%额定功率（热）控制点的通知</a><span class="date">2026-10-16</span></li>
+                                            
+                                            <a href="./zcwj/haqjwj/wj/" class="indexMore">查看更多</a>
+                                        </ul>
+                                        <ul class="index_zcwjNTab">
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk07/202610/t20261026_1184652.html" target="_blank">关于印发《三门核电厂3号机组运行许可证颁发前综合检查报告》的函</a><span class="date">2026-10-26</span></li>
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk07/202610/t20261023_1184564.html" target="_blank">关于印发《广东台山核电厂3号机组核岛基础浇筑第一罐混凝土前准备情况核安全检查报告》的函</a><span class="date">2026-10-23</span></li>
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk07/202610/t20261023_1184565.html" target="_blank">关于确认广西白龙核电厂1、2号机组建造许可证持证单位名称变更的函</a><span class="date">2026-10-23</span></li>
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk07/202610/t20261021_1184099.html" target="_blank">关于印发《辽宁徐大堡核电厂3号机组运行许可证颁发前综合检查暨环境保护“三同时”检查报告》的函</a><span class="date">2026-10-21</span></li>
+                                            
+                                            <a href="./zcwj/haqjwj/han/" class="indexMore">查看更多</a>
+                                        </ul>
+                                    </div>
+
+
+                                    <!--其他-->
+                                    <div class="index_zcwjTab">
+                                        <ul class="index_zcwjNTab active">
+                                            
+                                                <li><a href="./xxgk2018/xxgk/sthjbsh/202610/t20261012_1182620.html" target="_blank">关于同意内蒙古永和氟化工有限公司等19家企业2026年度氢氟碳化物生产配额调整的复函</a><span class="date">2026-10-12</span></li>
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk10/202607/t20260724_1162734.html" target="_blank">财政部 税务总局 生态环境部关于印发《征收挥发性有机物环境保护税试点实施办法》的通知</a><span class="date">2026-07-24</span></li>
+                                            
+                                                <li><a href="./xxgk2018/xxgk/sthjbsh/202607/t20260703_1160904.html" target="_blank">关于同意山东澳帆新材料有限公司等20家企业2026年度含氢氯氟烃和氢氟碳化物生产配额调整的复函</a><span class="date">2026-07-02</span></li>
+                                            
+                                                <li><a href="./xxgk2018/xxgk/sthjbsh/202603/t20260323_1147505.html" target="_blank">关于开展2026年度环境保护科学技术奖提名工作的通知</a><span class="date">2026-03-23</span></li>
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk10/202512/t20251223_1138494.html" target="_blank">市场监管总局 生态环境部关于印发《检验检测机构资质认定生态环境监测机构评审补充要求（2025年）》的通知</a><span class="date">2025-12-23</span></li>
+                                            
+                                                <li><a href="./xxgk2018/xxgk/xxgk10/202512/t20251222_1138294.html" target="_blank">市场监管总局办公厅 生态环境部办公厅关于印发《机动车检验机构排放检验设备和人员能力现场评审指导书》的通知</a><span class="date">2025-12-19</span></li>
+                                            
+                                            <a href="./zcwj/qt/" class="indexMore">查看更多</a>
+                                        </ul>
+                                    </div>
+
+
+                                    <!--解读-->
+                                    <div class="index_zcwjTab">
+                                        <ul class="index_zcwjNTab active">
+                                            
+                                                <li><a href="./zcwj/zcjd/202610/t20261030_1184879.shtml" target="_blank">健全全域覆盖高效协同立体遥感监测体系 | 《生态环境监测“十五五”规划》系列解读③</a><span class="date">2026-10-30</span></li>
+                                            
+                                                <li><a href="./zcwj/zcjd/202610/t20261029_1184802.shtml" target="_blank">保障污染源自行监测数据真实准确全面 | 《生态环境监测“十五五”规划》系列解读②</a><span class="date">2026-10-29</span></li>
+                                            
+                                                <li><a href="./zcwj/zcjd/202610/t20261028_1184765.shtml" target="_blank">加快推动“十五五”生态环境监测迈向高质量发展 | 《生态环境监测“十五五”规划》系列解读①</a><span class="date">2026-10-28</span></li>
+                                            
+                                                <li><a href="./zcwj/zcjd/202610/t20261016_1183184.shtml" target="_blank">一图读懂 | 《生态环境基准工作方案（2026—2030年）》</a><span class="date">2026-10-16</span></li>
+                                            
+                                                <li><a href="./zcwj/zcjd/202610/t20261014_1182972.shtml" target="_blank">红树林碳汇开发效率更高效益更优</a><span class="date">2026-10-14</span></li>
+                                            
+                                                <li><a href="./zcwj/zcjd/202610/t20261010_1177229.shtml" target="_blank">一图读懂 | 《温室气体自愿减排项目方法学 造林碳汇（CCER—14—001—V02）》</a><span class="date">2026-10-10</span></li>
+                                            
+                                            <a href="./zcwj/zcjd/" class="indexMore">查看更多</a>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <!-- 环境质量 -->
+                            <li class="imageslistLi_wap imageslistLi_wap4" type="3"><!--移动端切换li-->
+                                <span>环境质量</span>
+                                <i></i>
+                            </li>
+                            <li class="imageslistLi">
+                                <div class="index_ywgz imageslistLiChil">
+                                    <div class="index_zzjg_title index_ywgz_title">
+                                        <a href="./hjzl/sthjzk/" target="_blank" title="生态环境状况公报">生态环境状况公报</a>
+                                    </div>
+                                    <ul class="index_ywgzBUl">
+                                        <li class="index_ywgzBli39"><a href="./hjzl/sthjzk/zghjzkgb/" target="_blank" title="中国生态环境状况公报">中国生态环境状况公报</a></li>
+                                        <li class="index_ywgzBli35"><a href="./hjzl/sthjzk/sthjtjnb/" target="_blank" title="生态环境统计年报">生态环境统计年报</a></li>
+                                        <li class="index_ywgzBli26"><a href="./hjzl/sthjzk/hjzywr/" target="_blank" title="中国噪声污染防治报告">中国噪声污染防治报告</a></li>
+                                        <li class="index_ywgzBli39"><a href="./hjzl/sthjzk/gtfwwrfz/" target="_blank" title="大中城市固体废物污染环境防治年报">大中城市固体废物污染环境防治年报</a></li>
+                                        <li class="index_ywgzBli35"><a href="./hjzl/sthjzk/jagb/" target="_blank" title="中国海洋生态环境状况公报">中国海洋生态环境状况公报</a></li>
+                                        <li class="index_ywgzBli26"><a href="./hjzl/sthjzk/ydyhjgl/" target="_blank" title="中国移动源环境管理年报">中国移动源环境管理年报</a></li>
+                                    </ul>
+                                    <div class="index_zzjg_title index_ywgz_title">
+                                        <a href="./hjzl/shj/" target="_blank" title="水环境质量">水环境质量</a>
+                                        <div class="hjzz_BtnBox">
+                                            <!--<a class="hjzz_Btn_jhs" href="./hjzl/shj/jahysz/" target="_blank">近岸海域水质</a>-->
+                                            <!--<a class="hjzz_Btn_hsyc" href="./hjzl/shj/qghsycxx/" target="_blank">全国海水浴场信息</a>-->
+                                           <a class="hjzz_Btn_dbs" href="https://szzdjc.cnemc.cn:8070/GJZ/Business/Publish/Main.html" target="_blank">国家地表水水质自动监测实时数据发布系统</a>
+                                           <!--<a class="hjzz_Btn_kqzlss" href="https://waterpub.cnemc.cn:10001/" target="_blank">国家地表水融合数据发布</a>-->
+                                           <a class="hjzz_Btn_kqzlyb" href="https://ep.nmemc.org.cn:8888/Water/" target="_blank">国家海水水质监测数据发布</a>
+                                        </div>
+                                    </div>
+                                    <ul class="index_ywgzBUl">
+                                        <li class="index_ywgzBli42"><a href="./hjzl/shj/qgdbszlzk/" target="_blank">全国地表水质量状况</a></li>
+                                        <li class="index_ywgzBli32"><a href="./hjzl/shj/hsycszzb/" target="_blank">海水浴场水质周报</a></li>
+                                        <li class="index_ywgzBli32"><a href="./hjzl/shj/dbsszyb/" target="_blank">地表水水质月报</a></li>
+                                    </ul>
+                                    <div class="index_zzjg_title index_ywgz_title">
+                                        <a href="./hjzl/dqhj/" target="_blank" title="大气环境质量">大气环境质量</a>
+                                        <div class="hjzz_BtnBox">
+                                          <!--<a class="hjzz_Btn_kqzlss" href="./hjzl/dqhj/qgkqzlssfb/" target="_blank">全国城市空气质量实时数据</a>-->
+                                           <a class="hjzz_Btn_kqzlyb" href="https://air.cnemc.cn:18014/" target="_blank">全国空气质量预报信息</a>
+                                        </div>
+                                    </div>
+                                    <ul class="index_ywgzBUl index_ywgzBUl64">
+                                        <li class="index_ywgzBli32"><a href="./hjzl/dqhj/qgkqzlzk/" target="_blank">全国空气质量状况</a></li>
+                                        <li class="index_ywgzBli32"><a href="./hjzl/dqhj/kqzlyb/" target="_blank">空气质量预报</a></li>
+                                        <li class="index_ywgzBli42"><a href="./hjzl/dqhj/cskqzlzkyb/" target="_blank">城市空气质量状况月报</a></li>
+                                        <!--<li class="index_ywgzBli26"><a href="">74城市空气质量状况月报</a></li>-->
+                                    </ul>
+                                    <div class="index_zzjg_title index_ywgz_title">
+                                        <a href="./hjzl/hjzlqt/" target="_blank" title="其他">其他</a>
+                                        <div class="hjzz_BtnBox">
+                                            <a class="hjzz_Btn_kqzlss" href="http://data.rmtc.org.cn:8080/gis/PubAgree.html" target="_blank">全国空气吸收剂量率发布系统</a>
+                                        </div>
+                                    </div>
+                                    <ul class="index_ywgzBUl index_ywgzBUl33">
+                                        <li class="index_ywgzBli32"><a href="./hjzl/hjzlqt/trhj/" target="_blank">土壤环境</a></li>
+                                        <li class="index_ywgzBli42"><a href="./hjzl/hjzlqt/sthj/" target="_blank">自然生态环境</a></li>
+                                        <li class="index_ywgzBli26"><a href="./hjzl/hjzlqt/hyfshj/" target="_blank">辐射环境</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <!-- 业务工作 -->
+                            <li class="imageslistLi_wap imageslistLi_wap5" type="4"><!--移动端切换li-->
+                                <span>业务工作</span>
+                                <i></i>
+                            </li>
+                            <li class="imageslistLi">
+                                <div class="index_ywgz index_ywgz1 imageslistLiChil">
+                                    <ul class="index_ywgzTUl">
+                                        <li class="index_ywgzTLi47"><a href="./ywgz/zysthjbhdc/" target="_blank" title="中央生态环境保护督察">中央生态环境保护督察</a></li>
+                                        <li class="index_ywgzTLi32"><a href="./ywgz/fgbz/" target="_blank" title="法规标准">法规标准</a></li>
+                                        <li class="index_ywgzTLi21"><a href="./ywgz/zcghtjdd/" target="_blank" title="政策规划与业务综合">政策规划与业务综合</a></li>
+                                        <li class="index_ywgzTLi47"><a href="./ywgz/xztzyrs/" target="_blank" title="行政体制与人事">行政体制与人事</a></li>
+                                        <li class="index_ywgzTLi32"><a href="./ywgz/kjycw/" target="_blank" title="科技与财务">科技与财务</a></li>
+                                    </ul>
+                                    <ul class="index_ywgzTUl">
+                                        <li class="index_ywgzTLi22"><a href="./ywgz/zrstbh/" target="_blank" title="自然生态保护">自然生态保护</a></li>
+                                        <li class="index_ywgzTLi25"><a href="./ywgz/ssthjbh/" target="_blank" title="水生态环境保护">水生态环境保护</a></li>
+                                        <li class="index_ywgzTLi32"><a href="./ywgz/hysthjbh/" target="_blank" title="海洋生态环境保护">海洋生态环境保护</a></li>
+                                        <li class="index_ywgzTLi21"><a href="./ywgz/dqhjbh/" target="_blank" title="大气环境保护">大气环境保护</a></li>
+                                        <li class="index_ywgzTLi22"><a href="./ywgz/ydqhbh/" target="_blank" title="应对气候变化">应对气候变化</a></li>
+                                        <li class="index_ywgzTLi25"><a href="./ywgz/trsthjbh/" target="_blank" title="土壤生态环境保护">土壤生态环境保护</a></li>
+                                        <li class="index_ywgzTLi32"><a href="./ywgz/gtfwyhxpgl/" target="_blank" title="固体废物与化学品管理">固体废物与化学品管理</a></li>
+                                        <li class="index_ywgzTLi21"><a href="./ywgz/hyfsaqjg/" target="_blank" title="核与辐射安全监管">核与辐射安全监管</a></li>
+                                    </ul>
+                                    <ul class="index_ywgzTUl">
+                                        <li class="index_ywgzTLi29"><a href="./ywgz/hjyxpj/" target="_blank" title="环境影响评价">环境影响评价</a></li>
+                                        <li class="index_ywgzTLi24"><a href="./ywgz/pwxkgl/" target="_blank" title="排污许可">排污许可</a></li>
+                                        <li class="index_ywgzTLi26"><a href="./ywgz/sthjjcgl/" target="_blank" title="生态环境监测">生态环境监测</a></li>
+                                        <li class="index_ywgzTLi21"><a href="./ywgz/sthjzf/" target="_blank" title="生态环境执法">生态环境执法</a></li>
+                                        <li class="index_ywgzTLi29"><a href="./ywgz/gjjlhz/" target="_blank" title="国际交流合作">国际交流合作</a></li>
+                                        <li class="index_ywgzTLi24"><a href="./ywgz/xcjy/" target="_blank" title="宣传教育">宣传教育</a></li>
+                                        <li class="index_ywgzTLi26"><a href="./ywgz/hjyj/" target="_blank" title="环境应急">环境应急</a></li>
+                                        <li class="index_ywgzTLi21"><a href="./ywgz/hjwrjb/" target="_blank" title="生态环境投诉举报">生态环境投诉举报</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <!-- 机关党建 -->
+                            <li class="imageslistLi_wap imageslistLi_wap6" type="5"><!--移动端切换li-->
+                                <span>机关党建</span>
+                                <i></i>
+                            </li>
+                            <li class="imageslistLi">
+                                <div class="index_jgdj imageslistLiChil">
+                                    <ul class="index_jgdjNav">
+                                        <li class="active"><span>党建信息</span></li>
+                                    </ul>
+                                    <ul class="index_jgdjMore">
+                                        <li class="active"><a href="./djgz/jgdj/" target="_blank">更多</a></li>
+                                    </ul>
+                                    <ul class="index_jgdjTab active">
+                                        
+                                            <li>
+                                                <a href="./ywdt/hjywnews/202610/t20261024_1184582.shtml" target="_blank">生态环境部党组召开会议</a>
+                                                <span>2026-10-23</span>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="./ywdt/hjywnews/202610/t20261015_1183031.shtml" target="_blank">生态环境部党校举行2026年秋季学期开学典礼</a>
+                                                <span>2026-10-15</span>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="./ywdt/hjywnews/202609/t20260930_1175608.shtml" target="_blank">生态环境部党组召开会议</a>
+                                                <span>2026-09-30</span>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="./ywdt/hjywnews/202609/t20260925_1174919.shtml" target="_blank">生态环境部党组召开会议</a>
+                                                <span>2026-09-25</span>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="./ywdt/hjywnews/202609/t20260911_1165985.shtml" target="_blank">生态环境部党组召开会议</a>
+                                                <span>2026-09-11</span>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="./ywdt/hjywnews/202609/t20260905_1165219.shtml" target="_blank">生态环境部党组召开会议</a>
+                                                <span>2026-09-05</span>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="./ywdt/hjywnews/202608/t20260829_1164677.shtml" target="_blank">生态环境部党组召开会议</a>
+                                                <span>2026-08-29</span>
+                                            </li>
+                                        
+                                        <a href="./djgz/jgdj/" target="_blank" class="indexMore">查看更多</a>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- 轮播右侧小图 -->
+                <ul class="yaowenlunboUl">
+                    <li>
+                        <a href="./ywdt/" target="_blank"><div class="lunboUlWen lunboUlWen1">要闻动态<i></i></div></a>
+                    </li>
+                    <li >
+                        <a href="./zjhb/" target="_blank"><div class="lunboUlWen lunboUlWen2">组织机构<i></i></div></a>
+                    </li>
+                    <li>
+                        <a href="./zcwj/" target="_blank"><div class="lunboUlWen lunboUlWen3">政策文件<i></i></div></a>
+                    </li>
+                    <li>
+                        <a href="./hjzl/" target="_blank"><div class="lunboUlWen lunboUlWen4">环境质量<i></i></div></a>
+                    </li>
+                    <li>
+                        <a href="./ywgz/" target="_blank"><div class="lunboUlWen lunboUlWen5">业务工作<i></i></div></a>
+                    </li>
+                    <li>
+                        <a href="./djgz/" target="_blank"><div class="lunboUlWen lunboUlWen6">机关党建<i></i></div></a>
+                    </li>
+                </ul>
+            </div>
+            <div id="slideBox_ywdt" class="slideBox_ywdt">
+                <div class="hd">
+                    <ul>
+                        <li>1</li>
+                        <li>2</li>
+                        <li>3</li>
+                        <li>4</li>
+                        <li>5</li>
+                        <li>6</li>
+                        <li>7</li>
+                        <li>8</li>
+                        <li>9</li>
+                        <li>10</li>
+                    </ul>
+                </div>
+                <div class="bd">
+                    <ul>
+                        
+                            <li>
+                                <a href="./ywdt/szyw/202507/t20250731_1124681.shtml" target="_blank"><img src="./ywdt/szyw/202507/W020250731615292874762.jpg" />
+                                    <script language="JavaScript">
+                                        var content='习近平：在全国生态环境保护大会上的讲话';
+                                        if (content=="")
+                                        {
+                                            document.write('<span style="display: none;"></span>');
+                                        }
+                                        else
+                                        {
+                                            document.write('<span><i>习近平：在全国生态环境保护大会上的讲话</i></span>');
+                                        }
+                                    </script>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="./ywdt/szyw/202610/t20261031_1184934.shtml" target="_blank"><img src="./ywdt/szyw/202610/W020261031417181312506.jpg" />
+                                    <script language="JavaScript">
+                                        var content='习近平同德国总统施泰因迈尔会谈';
+                                        if (content=="")
+                                        {
+                                            document.write('<span style="display: none;"></span>');
+                                        }
+                                        else
+                                        {
+                                            document.write('<span><i>习近平同德国总统施泰因迈尔会谈</i></span>');
+                                        }
+                                    </script>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="http://www.gov.cn/hudong/index.htm" target="_blank"><img src="./ywdt/tpxw/202304/W020230414388889703086.png" />
+                                    <script language="JavaScript">
+                                        var content='';
+                                        if (content=="")
+                                        {
+                                            document.write('<span style="display: none;"></span>');
+                                        }
+                                        else
+                                        {
+                                            document.write('<span><i></i></span>');
+                                        }
+                                    </script>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="./ywdt/hjywnews/202610/t20261031_1184933.shtml" target="_blank"><img src="./ywdt/hjywnews/202610/W020261031378574947504.jpg" />
+                                    <script language="JavaScript">
+                                        var content='';
+                                        if (content=="")
+                                        {
+                                            document.write('<span style="display: none;"></span>');
+                                        }
+                                        else
+                                        {
+                                            document.write('<span><i></i></span>');
+                                        }
+                                    </script>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="./ywdt/hjywnews/202610/t20261031_1184932.shtml" target="_blank"><img src="./ywdt/hjywnews/202610/W020261031387335594875.jpg" />
+                                    <script language="JavaScript">
+                                        var content='';
+                                        if (content=="")
+                                        {
+                                            document.write('<span style="display: none;"></span>');
+                                        }
+                                        else
+                                        {
+                                            document.write('<span><i></i></span>');
+                                        }
+                                    </script>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="./ywdt/hjywnews/202610/t20261029_1184837.shtml" target="_blank"><img src="./ywdt/hjywnews/202610/W020261029738783171186.jpg" />
+                                    <script language="JavaScript">
+                                        var content='';
+                                        if (content=="")
+                                        {
+                                            document.write('<span style="display: none;"></span>');
+                                        }
+                                        else
+                                        {
+                                            document.write('<span><i></i></span>');
+                                        }
+                                    </script>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="./ywdt/hjywnews/202610/t20261029_1184809.shtml" target="_blank"><img src="./ywdt/hjywnews/202610/W020261029541007452232.jpg" />
+                                    <script language="JavaScript">
+                                        var content='';
+                                        if (content=="")
+                                        {
+                                            document.write('<span style="display: none;"></span>');
+                                        }
+                                        else
+                                        {
+                                            document.write('<span><i></i></span>');
+                                        }
+                                    </script>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="./ywdt/hjywnews/202610/t20261027_1184671.shtml" target="_blank"><img src="./ywdt/hjywnews/202610/W020261027347618201970.jpg" />
+                                    <script language="JavaScript">
+                                        var content='';
+                                        if (content=="")
+                                        {
+                                            document.write('<span style="display: none;"></span>');
+                                        }
+                                        else
+                                        {
+                                            document.write('<span><i></i></span>');
+                                        }
+                                    </script>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="./ywdt/hjywnews/202610/t20261022_1184314.shtml" target="_blank"><img src="./ywdt/hjywnews/202610/W020261022371106214055.jpg" />
+                                    <script language="JavaScript">
+                                        var content='生态环境部部长黄润秋出席《生物多样性公约》第十七次缔约方大会期间会见欧盟委员会执行副主席里贝拉等外方高级别代表';
+                                        if (content=="")
+                                        {
+                                            document.write('<span style="display: none;"></span>');
+                                        }
+                                        else
+                                        {
+                                            document.write('<span><i>生态环境部部长黄润秋出席《生物多样性公约》第十七次缔约方大会期间会见欧盟委员会执行副主席里贝拉等外方高级别代表</i></span>');
+                                        }
+                                    </script>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="./ywdt/hjywnews/202610/t20261011_1178605.shtml" target="_blank"><img src="./ywdt/hjywnews/202610/W020261014332988335507.png" />
+                                    <script language="JavaScript">
+                                        var content='生态环境部党组书记孙金龙赴辽宁省调研生态环境保护工作';
+                                        if (content=="")
+                                        {
+                                            document.write('<span style="display: none;"></span>');
+                                        }
+                                        else
+                                        {
+                                            document.write('<span><i>生态环境部党组书记孙金龙赴辽宁省调研生态环境保护工作</i></span>');
+                                        }
+                                    </script>
+                                </a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- 轮播结束 -->
+    </div>
+</div>
+<div class="swiper-container"><!--移动端轮播-->
+    <div class="swiper-wrapper">
+        
+            <div class="swiper-slide">
+                <a href="./ywdt/szyw/202507/t20250731_1124681.shtml" target="_blank"><img src="./ywdt/szyw/202507/W020250731615292874762.jpg" class="zishiying-img" /></a>
+                <script language="JavaScript">
+                    var content='习近平：在全国生态环境保护大会上的讲话';
+                    if (content=="")
+                    {
+                        document.write('<div style="display: none;"></div>');
+                    }
+                    else
+                    {
+                        document.write('<div class="heitou">习近平：在全国生态环境保护大会上的讲话</div>');
+                    }
+                </script>
+            </div>
+        
+            <div class="swiper-slide">
+                <a href="./ywdt/szyw/202610/t20261031_1184934.shtml" target="_blank"><img src="./ywdt/szyw/202610/W020261031417181312506.jpg" class="zishiying-img" /></a>
+                <script language="JavaScript">
+                    var content='习近平同德国总统施泰因迈尔会谈';
+                    if (content=="")
+                    {
+                        document.write('<div style="display: none;"></div>');
+                    }
+                    else
+                    {
+                        document.write('<div class="heitou">习近平同德国总统施泰因迈尔会谈</div>');
+                    }
+                </script>
+            </div>
+        
+            <div class="swiper-slide">
+                <a href="http://www.gov.cn/hudong/index.htm" target="_blank"><img src="./ywdt/tpxw/202304/W020230414388889703086.png" class="zishiying-img" /></a>
+                <script language="JavaScript">
+                    var content='';
+                    if (content=="")
+                    {
+                        document.write('<div style="display: none;"></div>');
+                    }
+                    else
+                    {
+                        document.write('<div class="heitou"></div>');
+                    }
+                </script>
+            </div>
+        
+            <div class="swiper-slide">
+                <a href="./ywdt/hjywnews/202610/t20261031_1184933.shtml" target="_blank"><img src="./ywdt/hjywnews/202610/W020261031378574947504.jpg" class="zishiying-img" /></a>
+                <script language="JavaScript">
+                    var content='';
+                    if (content=="")
+                    {
+                        document.write('<div style="display: none;"></div>');
+                    }
+                    else
+                    {
+                        document.write('<div class="heitou"></div>');
+                    }
+                </script>
+            </div>
+        
+            <div class="swiper-slide">
+                <a href="./ywdt/hjywnews/202610/t20261031_1184932.shtml" target="_blank"><img src="./ywdt/hjywnews/202610/W020261031387335594875.jpg" class="zishiying-img" /></a>
+                <script language="JavaScript">
+                    var content='';
+                    if (content=="")
+                    {
+                        document.write('<div style="display: none;"></div>');
+                    }
+                    else
+                    {
+                        document.write('<div class="heitou"></div>');
+                    }
+                </script>
+            </div>
+        
+            <div class="swiper-slide">
+                <a href="./ywdt/hjywnews/202610/t20261029_1184837.shtml" target="_blank"><img src="./ywdt/hjywnews/202610/W020261029738783171186.jpg" class="zishiying-img" /></a>
+                <script language="JavaScript">
+                    var content='';
+                    if (content=="")
+                    {
+                        document.write('<div style="display: none;"></div>');
+                    }
+                    else
+                    {
+                        document.write('<div class="heitou"></div>');
+                    }
+                </script>
+            </div>
+        
+            <div class="swiper-slide">
+                <a href="./ywdt/hjywnews/202610/t20261029_1184809.shtml" target="_blank"><img src="./ywdt/hjywnews/202610/W020261029541007452232.jpg" class="zishiying-img" /></a>
+                <script language="JavaScript">
+                    var content='';
+                    if (content=="")
+                    {
+                        document.write('<div style="display: none;"></div>');
+                    }
+                    else
+                    {
+                        document.write('<div class="heitou"></div>');
+                    }
+                </script>
+            </div>
+        
+            <div class="swiper-slide">
+                <a href="./ywdt/hjywnews/202610/t20261027_1184671.shtml" target="_blank"><img src="./ywdt/hjywnews/202610/W020261027347618201970.jpg" class="zishiying-img" /></a>
+                <script language="JavaScript">
+                    var content='';
+                    if (content=="")
+                    {
+                        document.write('<div style="display: none;"></div>');
+                    }
+                    else
+                    {
+                        document.write('<div class="heitou"></div>');
+                    }
+                </script>
+            </div>
+        
+            <div class="swiper-slide">
+                <a href="./ywdt/hjywnews/202610/t20261022_1184314.shtml" target="_blank"><img src="./ywdt/hjywnews/202610/W020261022371106214055.jpg" class="zishiying-img" /></a>
+                <script language="JavaScript">
+                    var content='生态环境部部长黄润秋出席《生物多样性公约》第十七次缔约方大会期间会见欧盟委员会执行副主席里贝拉等外方高级别代表';
+                    if (content=="")
+                    {
+                        document.write('<div style="display: none;"></div>');
+                    }
+                    else
+                    {
+                        document.write('<div class="heitou">生态环境部部长黄润秋出席《生物多样性公约》第十七次缔约方大会期间会见欧盟委员会执行副主席里贝拉等外方高级别代表</div>');
+                    }
+                </script>
+            </div>
+        
+            <div class="swiper-slide">
+                <a href="./ywdt/hjywnews/202610/t20261011_1178605.shtml" target="_blank"><img src="./ywdt/hjywnews/202610/W020261014332988335507.png" class="zishiying-img" /></a>
+                <script language="JavaScript">
+                    var content='生态环境部党组书记孙金龙赴辽宁省调研生态环境保护工作';
+                    if (content=="")
+                    {
+                        document.write('<div style="display: none;"></div>');
+                    }
+                    else
+                    {
+                        document.write('<div class="heitou">生态环境部党组书记孙金龙赴辽宁省调研生态环境保护工作</div>');
+                    }
+                </script>
+            </div>
+        
+    </div>
+    <div class="swiper-pagination swiper-pagination1"></div>
+</div>
+<div class="indexMainBox">
+    <div class="center">
+        <div class="indexBInner indexBXxgk indexBInnerPc">
+            <div class="indexBI_BBox">
+                <div class="indexBXxgkANavBox">
+                    <ul class="indexBXxgkANav">
+                        <li class="active"><a href="./ywdt/szyw/" target="_blank">时政要闻</a></li>
+                        <li><a href="./ywdt/hjywnews/" target="_blank">环境要闻</a></li>
+                        <li><a href="./ywdt/dfnews/" target="_blank">地方快讯</a></li>
+                        <li><a href="./ywdt/spxw/" target="_blank">视频新闻</a></li>
+                    </ul>
+                    <ul class="indexBXxgkABList active">
+                        
+                            <li><a href="./ywdt/szyw/202610/t20261031_1184938.shtml" target="_blank" title="推进新时代党的建设新的伟大工程的纲领性文件”——党的二十届五中全会侧记"><span>2026-10-31</span>推进新时代党的建设新的伟大工程的纲领性文件”——党的二十届五中全会侧记</a></li>
+                        
+                            <li><a href="./ywdt/szyw/202610/t20261031_1184934.shtml" target="_blank" title="习近平同德国总统施泰因迈尔会谈"><span>2026-10-31</span>习近平同德国总统施泰因迈尔会谈</a></li>
+                        
+                            <li><a href="./ywdt/szyw/202610/t20261030_1184926.shtml" target="_blank" title="征求对中共中央关于持之以恒推进全面从严治党若干重大问题的决定的意见 中共中央召开党外人士座谈会 习近平主持并发表重要讲话"><span>2026-10-30</span>征求对中共中央关于持之以恒推进全面从严治党若干重大问题的决定的意见 中...</a></li>
+                        
+                            <li><a href="./ywdt/szyw/202610/t20261029_1184835.shtml" target="_blank" title="中国共产党第二十届中央委员会第五次全体会议公报"><span>2026-10-29</span>中国共产党第二十届中央委员会第五次全体会议公报</a></li>
+                        
+                            <li><a href="./ywdt/szyw/202610/t20261029_1184812.shtml" target="_blank" title="总书记的人民情怀 | “更加清醒坚定地推进反腐败斗争”"><span>2026-10-29</span>总书记的人民情怀 | “更加清醒坚定地推进反腐败斗争”</a></li>
+                        
+                            <li><a href="./ywdt/szyw/202610/t20261028_1184718.shtml" target="_blank" title="“我将无我，不负人民”的时代答卷"><span>2026-10-28</span>“我将无我，不负人民”的时代答卷</a></li>
+                        
+                            <li><a href="./ywdt/szyw/202610/t20261026_1184634.shtml" target="_blank" title="中国共产党第二十届中央委员会第五次全体会议在北京开始举行"><span>2026-10-26</span>中国共产党第二十届中央委员会第五次全体会议在北京开始举行</a></li>
+                        
+                            <li><a href="./ywdt/szyw/202610/t20261025_1184592.shtml" target="_blank" title="永葆赶考清醒 赢得历史主动——以习近平同志为核心的党中央引领新时代全面从严治党纪实"><span>2026-10-25</span>永葆赶考清醒 赢得历史主动——以习近平同志为核心的党中央引领新时代全面...</a></li>
+                        
+                            <li><a href="./ywdt/szyw/202610/t20261023_1184580.shtml" target="_blank" title="习近平向2026全球治理论坛（雄安）致信"><span>2026-10-23</span>习近平向2026全球治理论坛（雄安）致信</a></li>
+                        
+                            <li><a href="./ywdt/szyw/202610/t20261023_1184558.shtml" target="_blank" title="中共中央政治局召开会议 审议《关于二十届中央第七轮巡视情况的综合报告》 中共中央总书记习近平主持会议"><span>2026-10-23</span>中共中央政治局召开会议 审议《关于二十届中央第七轮巡视情况的综合报告》...</a></li>
+                        
+                    </ul>
+                    <ul class="indexBXxgkABList">
+                        
+                            <li><a href="./ywdt/hjywnews/202610/t20261031_1184933.shtml" target="_blank" title="生态环境部召开部常务会议"><span>2026-10-31</span>生态环境部召开部常务会议</a></li>
+                        
+                            <li><a href="./ywdt/hjywnews/202610/t20261031_1184932.shtml" target="_blank" title="生态环境部党组召开会议 传达学习贯彻党的二十届五中全会精神"><span>2026-10-31</span>生态环境部党组召开会议 传达学习贯彻党的二十届五中全会精神</a></li>
+                        
+                            <li><a href="./ywdt/hjywnews/202610/t20261031_1184945.shtml" target="_blank" title="生态环境部出席《生物多样性公约》第十七次缔约方大会高级别会议等活动"><span>2026-10-31</span>生态环境部出席《生物多样性公约》第十七次缔约方大会高级别会议等活动</a></li>
+                        
+                            <li><a href="./ywdt/hjywnews/202610/t20261029_1184837.shtml" target="_blank" title="生态环境部部长黄润秋出席2026年联合国中国青少年环境大会"><span>2026-10-29</span>生态环境部部长黄润秋出席2026年联合国中国青少年环境大会</a></li>
+                        
+                            <li><a href="./ywdt/hjywnews/202610/t20261029_1184809.shtml" target="_blank" title="生态环境部部长黄润秋出席香港第二十一届国际环保博览会"><span>2026-10-29</span>生态环境部部长黄润秋出席香港第二十一届国际环保博览会</a></li>
+                        
+                            <li><a href="./ywdt/hjywnews/202610/t20261027_1184671.shtml" target="_blank" title="生态环境部部长黄润秋出席“一带一路”绿色创新大会2026"><span>2026-10-27</span>生态环境部部长黄润秋出席“一带一路”绿色创新大会2026</a></li>
+                        
+                            <li><a href="./ywdt/hjywnews/202610/t20261025_1184593.shtml" target="_blank" title="生态环境部一周要闻（10.18—10.24）"><span>2026-10-25</span>生态环境部一周要闻（10.18—10.24）</a></li>
+                        
+                            <li><a href="./ywdt/hjywnews/202610/t20261024_1184582.shtml" target="_blank" title="生态环境部党组召开会议"><span>2026-10-23</span>生态环境部党组召开会议</a></li>
+                        
+                            <li><a href="./ywdt/hjywnews/202610/t20261022_1184314.shtml" target="_blank" title="生态环境部部长黄润秋出席《生物多样性公约》第十七次缔约方大会期间会见欧盟委员会执行副主席里贝拉等外方高级别代表"><span>2026-10-21</span>生态环境部部长黄润秋出席《生物多样性公约》第十七次缔约方大会期间会见...</a></li>
+                        
+                            <li><a href="./ywdt/hjywnews/202610/t20261020_1183416.shtml" target="_blank" title="《生物多样性公约》第十五次缔约方大会主席、生态环境部部长黄润秋出席第十七次缔约方大会开幕活动"><span>2026-10-20</span>《生物多样性公约》第十五次缔约方大会主席、生态环境部部长黄润秋出席第...</a></li>
+                        
+                    </ul>
+                    <ul class="indexBXxgkABList">
+                        
+                            <li><a href="./ywdt/dfnews/202610/t20261027_1184672.shtml" target="_blank" title="安徽省代省长王东伟要求抓紧抓实巢湖流域综合治理 构建全过程污染防控体系"><span>2026-10-27</span>安徽省代省长王东伟要求抓紧抓实巢湖流域综合治理 构建全过程污染防控体系</a></li>
+                        
+                            <li><a href="./ywdt/dfnews/202610/t20261026_1184616.shtml" target="_blank" title="内蒙古自治区主席包钢主持召开自治区政府常务会议 抓好重点流域重点区域生态环境治理"><span>2026-10-26</span>内蒙古自治区主席包钢主持召开自治区政府常务会议 抓好重点流域重点区域生...</a></li>
+                        
+                            <li><a href="./ywdt/dfnews/202610/t20261023_1184553.shtml" target="_blank" title="云南党政“一把手”调研农村城市污水处理"><span>2026-10-23</span>云南党政“一把手”调研农村城市污水处理</a></li>
+                        
+                            <li><a href="./ywdt/dfnews/202610/t20261021_1183668.shtml" target="_blank" title="内蒙古自治区主席要求坚决守好内蒙古这片碧绿这方蔚蓝这份纯净 把保护草原森林作为生态系统保护首要任务"><span>2026-10-21</span>内蒙古自治区主席要求坚决守好内蒙古这片碧绿这方蔚蓝这份纯净 把保护草原...</a></li>
+                        
+                            <li><a href="./ywdt/dfnews/202610/t20261021_1183662.shtml" target="_blank" title="湖北省省长要求纵深推进长江大保护 确保一江清水东流一库净水北送"><span>2026-10-21</span>湖北省省长要求纵深推进长江大保护 确保一江清水东流一库净水北送</a></li>
+                        
+                            <li><a href="./ywdt/dfnews/202610/t20261019_1183261.shtml" target="_blank" title="浙江省委书记要求统筹做好“富民”三篇文章 守好千岛湖生态品牌增强发展内生动力"><span>2026-10-19</span>浙江省委书记要求统筹做好“富民”三篇文章 守好千岛湖生态品牌增强发展内...</a></li>
+                        
+                            <li><a href="./ywdt/dfnews/202610/t20261019_1183259.shtml" target="_blank" title="甘肃省省长在武威调研时要求协同推进防沙治沙 以锁边增绿为重点坚持绿富同兴"><span>2026-10-19</span>甘肃省省长在武威调研时要求协同推进防沙治沙 以锁边增绿为重点坚持绿富同兴</a></li>
+                        
+                            <li><a href="./ywdt/dfnews/202610/t20261015_1183021.shtml" target="_blank" title="湖南省委书记、省长专题研究溶洞污染问题排查整治 “一洞一档”“一洞一策”，推动溶洞保护利用“小快灵”立法"><span>2026-10-15</span>湖南省委书记、省长专题研究溶洞污染问题排查整治 “一洞一档”“一洞一策...</a></li>
+                        
+                            <li><a href="./ywdt/dfnews/202610/t20261015_1183020.shtml" target="_blank" title="安徽省代省长王东伟到长江岸线码头现场调研时要求 系统推进长江生态保护修复"><span>2026-10-15</span>安徽省代省长王东伟到长江岸线码头现场调研时要求 系统推进长江生态保护修复</a></li>
+                        
+                            <li><a href="./ywdt/dfnews/202610/t20261014_1182966.shtml" target="_blank" title="甘肃省委书记、省长调研祁连山生态环境保护 要对核心区采取最严格保护措施"><span>2026-10-14</span>甘肃省委书记、省长调研祁连山生态环境保护 要对核心区采取最严格保护措施</a></li>
+                        
+                    </ul>
+                    <ul class="indexBXxgkABList">
+                        
+                            <li><a href="./ywdt/spxw/202610/t20261030_1184927.shtml" target="_blank" title="视频 | 联合国中国青少年环境大会在香港举行（央视新闻）"><span>2026-10-30</span>视频 | 联合国中国青少年环境大会在香港举行（央视新闻）</a></li>
+                        
+                            <li><a href="./ywdt/spxw/202610/t20261030_1184896.shtml" target="_blank" title="视频 | 前三季度全国地表水水质持续向好（央视《新闻联播》）"><span>2026-10-30</span>视频 | 前三季度全国地表水水质持续向好（央视《新闻联播》）</a></li>
+                        
+                            <li><a href="./ywdt/spxw/202610/t20261028_1184768.shtml" target="_blank" title="视频 | 前三季度全国环境空气质量总体向好（央视《新闻联播》）"><span>2026-10-28</span>视频 | 前三季度全国环境空气质量总体向好（央视《新闻联播》）</a></li>
+                        
+                            <li><a href="./ywdt/spxw/202610/t20261021_1184299.shtml" target="_blank" title="视频 | 我国应对气候变化工作取得显著成效（央视《新闻联播》）"><span>2026-10-21</span>视频 | 我国应对气候变化工作取得显著成效（央视《新闻联播》）</a></li>
+                        
+                            <li><a href="./ywdt/spxw/202610/t20261016_1183178.shtml" target="_blank" title="视频 | 第三轮第七批中央生态环境保护督察全部实现督察进驻（央视《新闻联播》）"><span>2026-10-16</span>视频 | 第三轮第七批中央生态环境保护督察全部实现督察进驻（央视《新闻联...</a></li>
+                        
+                            <li><a href="./ywdt/spxw/202610/t20261012_1182835.shtml" target="_blank" title="视频 | 第三轮第七批中央生态环境保护督察全面启动（央视《新闻联播》）"><span>2026-10-12</span>视频 | 第三轮第七批中央生态环境保护督察全面启动（央视《新闻联播》）</a></li>
+                        
+                            <li><a href="./ywdt/spxw/202610/t20261011_1182595.shtml" target="_blank" title="视频 | 守护绿水青山 共绘美丽中国新画卷（央视《新闻联播》）"><span>2026-10-11</span>视频 | 守护绿水青山 共绘美丽中国新画卷（央视《新闻联播》）</a></li>
+                        
+                            <li><a href="./ywdt/spxw/202610/t20261004_1175626.shtml" target="_blank" title="视频 | 生态为民 绘就美丽中国新图景（央视《新闻联播》）"><span>2026-10-04</span>视频 | 生态为民 绘就美丽中国新图景（央视《新闻联播》）</a></li>
+                        
+                            <li><a href="./ywdt/spxw/202610/t20261002_1175621.shtml" target="_blank" title="视频 | 全国重点区域生态保护红线生态环境保护成效显著（央视《新闻联播》）"><span>2026-10-02</span>视频 | 全国重点区域生态保护红线生态环境保护成效显著（央视《新闻联播》）</a></li>
+                        
+                            <li><a href="./ywdt/spxw/202609/t20260929_1175474.shtml" target="_blank" title="视频 | 李强主持召开国务院常务会议（央视《新闻联播》）"><span>2026-09-29</span>视频 | 李强主持召开国务院常务会议（央视《新闻联播》）</a></li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="indexBInner indexBXxgk indexBInnerYd">
+            <div class="indexBI_BBox">
+                <div class="indexBXxgkANavBox">
+                    <ul class="indexBXxgkANav">
+                        <li class="active"><a>时政要闻</a></li>
+                        <li><a>环境要闻</a></li>
+                        <li><a>地方快讯</a></li>
+                        <li><a>视频新闻</a></li>
+                    </ul>
+                    <ul class="indexBXxgkABList active">
+                        
+                            <li><a href="./ywdt/szyw/202610/t20261031_1184938.shtml" target="_blank" title="推进新时代党的建设新的伟大工程的纲领性文件”——党的二十届五中全会侧记">推进新时代党的建设新的伟大工程的纲领性文件”——党的二十届...</a><span>2026-10-31</span></li>
+                        
+                            <li><a href="./ywdt/szyw/202610/t20261031_1184934.shtml" target="_blank" title="习近平同德国总统施泰因迈尔会谈">习近平同德国总统施泰因迈尔会谈</a><span>2026-10-31</span></li>
+                        
+                            <li><a href="./ywdt/szyw/202610/t20261030_1184926.shtml" target="_blank" title="征求对中共中央关于持之以恒推进全面从严治党若干重大问题的决定的意见 中共中央召开党外人士座谈会 习近平主持并发表重要讲话">征求对中共中央关于持之以恒推进全面从严治党若干重大问题的决...</a><span>2026-10-30</span></li>
+                        
+                            <li><a href="./ywdt/szyw/202610/t20261029_1184835.shtml" target="_blank" title="中国共产党第二十届中央委员会第五次全体会议公报">中国共产党第二十届中央委员会第五次全体会议公报</a><span>2026-10-29</span></li>
+                        
+                            <li><a href="./ywdt/szyw/202610/t20261029_1184812.shtml" target="_blank" title="总书记的人民情怀 | “更加清醒坚定地推进反腐败斗争”">总书记的人民情怀 | “更加清醒坚定地推进反腐败斗争”</a><span>2026-10-29</span></li>
+                        
+                            <li><a href="./ywdt/szyw/202610/t20261028_1184718.shtml" target="_blank" title="“我将无我，不负人民”的时代答卷">“我将无我，不负人民”的时代答卷</a><span>2026-10-28</span></li>
+                        
+                            <li><a href="./ywdt/szyw/202610/t20261026_1184634.shtml" target="_blank" title="中国共产党第二十届中央委员会第五次全体会议在北京开始举行">中国共产党第二十届中央委员会第五次全体会议在北京开始举行</a><span>2026-10-26</span></li>
+                        
+                            <li><a href="./ywdt/szyw/202610/t20261025_1184592.shtml" target="_blank" title="永葆赶考清醒 赢得历史主动——以习近平同志为核心的党中央引领新时代全面从严治党纪实">永葆赶考清醒 赢得历史主动——以习近平同志为核心的党中央引领...</a><span>2026-10-25</span></li>
+                        
+                            <li><a href="./ywdt/szyw/202610/t20261023_1184580.shtml" target="_blank" title="习近平向2026全球治理论坛（雄安）致信">习近平向2026全球治理论坛（雄安）致信</a><span>2026-10-23</span></li>
+                        
+                            <li><a href="./ywdt/szyw/202610/t20261023_1184558.shtml" target="_blank" title="中共中央政治局召开会议 审议《关于二十届中央第七轮巡视情况的综合报告》 中共中央总书记习近平主持会议">中共中央政治局召开会议 审议《关于二十届中央第七轮巡视情况的...</a><span>2026-10-23</span></li>
+                        
+                        <a href="./ywdt/szyw/" target="_blank" class="indexMore">查看更多</a>
+                    </ul>
+                    <ul class="indexBXxgkABList">
+                        
+                            <li><a href="./ywdt/hjywnews/202610/t20261031_1184933.shtml" target="_blank" title="生态环境部召开部常务会议">生态环境部召开部常务会议</a><span>2026-10-31</span></li>
+                        
+                            <li><a href="./ywdt/hjywnews/202610/t20261031_1184932.shtml" target="_blank" title="生态环境部党组召开会议 传达学习贯彻党的二十届五中全会精神">生态环境部党组召开会议 传达学习贯彻党的二十届五中全会精神</a><span>2026-10-31</span></li>
+                        
+                            <li><a href="./ywdt/hjywnews/202610/t20261031_1184945.shtml" target="_blank" title="生态环境部出席《生物多样性公约》第十七次缔约方大会高级别会议等活动">生态环境部出席《生物多样性公约》第十七次缔约方大会高级别会...</a><span>2026-10-31</span></li>
+                        
+                            <li><a href="./ywdt/hjywnews/202610/t20261029_1184837.shtml" target="_blank" title="生态环境部部长黄润秋出席2026年联合国中国青少年环境大会">生态环境部部长黄润秋出席2026年联合国中国青少年环境大会</a><span>2026-10-29</span></li>
+                        
+                            <li><a href="./ywdt/hjywnews/202610/t20261029_1184809.shtml" target="_blank" title="生态环境部部长黄润秋出席香港第二十一届国际环保博览会">生态环境部部长黄润秋出席香港第二十一届国际环保博览会</a><span>2026-10-29</span></li>
+                        
+                            <li><a href="./ywdt/hjywnews/202610/t20261027_1184671.shtml" target="_blank" title="生态环境部部长黄润秋出席“一带一路”绿色创新大会2026">生态环境部部长黄润秋出席“一带一路”绿色创新大会2026</a><span>2026-10-27</span></li>
+                        
+                            <li><a href="./ywdt/hjywnews/202610/t20261025_1184593.shtml" target="_blank" title="生态环境部一周要闻（10.18—10.24）">生态环境部一周要闻（10.18—10.24）</a><span>2026-10-25</span></li>
+                        
+                            <li><a href="./ywdt/hjywnews/202610/t20261024_1184582.shtml" target="_blank" title="生态环境部党组召开会议">生态环境部党组召开会议</a><span>2026-10-23</span></li>
+                        
+                            <li><a href="./ywdt/hjywnews/202610/t20261022_1184314.shtml" target="_blank" title="生态环境部部长黄润秋出席《生物多样性公约》第十七次缔约方大会期间会见欧盟委员会执行副主席里贝拉等外方高级别代表">生态环境部部长黄润秋出席《生物多样性公约》第十七次缔约方大...</a><span>2026-10-21</span></li>
+                        
+                            <li><a href="./ywdt/hjywnews/202610/t20261020_1183416.shtml" target="_blank" title="《生物多样性公约》第十五次缔约方大会主席、生态环境部部长黄润秋出席第十七次缔约方大会开幕活动">《生物多样性公约》第十五次缔约方大会主席、生态环境部部长黄...</a><span>2026-10-20</span></li>
+                        
+                        <a href="./ywdt/hjywnews/" target="_blank" class="indexMore">查看更多</a>
+                    </ul>
+                    <ul class="indexBXxgkABList">
+                        
+                            <li><a href="./ywdt/dfnews/202610/t20261027_1184672.shtml" target="_blank" title="安徽省代省长王东伟要求抓紧抓实巢湖流域综合治理 <br>构建全过程污染防控体系">安徽省代省长王东伟要求抓紧抓实巢湖流域综合治理 构建全过程污...</a><span>2026-10-27</span></li>
+                        
+                            <li><a href="./ywdt/dfnews/202610/t20261026_1184616.shtml" target="_blank" title="内蒙古自治区主席包钢主持召开自治区政府常务会议 抓好重点流域重点区域生态环境治理">内蒙古自治区主席包钢主持召开自治区政府常务会议 抓好重点流域...</a><span>2026-10-26</span></li>
+                        
+                            <li><a href="./ywdt/dfnews/202610/t20261023_1184553.shtml" target="_blank" title="云南党政“一把手”调研农村城市污水处理">云南党政“一把手”调研农村城市污水处理</a><span>2026-10-23</span></li>
+                        
+                            <li><a href="./ywdt/dfnews/202610/t20261021_1183668.shtml" target="_blank" title="内蒙古自治区主席要求坚决守好内蒙古这片碧绿这方蔚蓝这份纯净 把保护草原森林作为生态系统保护首要任务">内蒙古自治区主席要求坚决守好内蒙古这片碧绿这方蔚蓝这份纯净 ...</a><span>2026-10-21</span></li>
+                        
+                            <li><a href="./ywdt/dfnews/202610/t20261021_1183662.shtml" target="_blank" title="湖北省省长要求纵深推进长江大保护 确保一江清水东流一库净水北送">湖北省省长要求纵深推进长江大保护 确保一江清水东流一库净水北送</a><span>2026-10-21</span></li>
+                        
+                            <li><a href="./ywdt/dfnews/202610/t20261019_1183261.shtml" target="_blank" title="浙江省委书记要求统筹做好“富民”三篇文章 守好千岛湖生态品牌增强发展内生动力">浙江省委书记要求统筹做好“富民”三篇文章 守好千岛湖生态品牌...</a><span>2026-10-19</span></li>
+                        
+                            <li><a href="./ywdt/dfnews/202610/t20261019_1183259.shtml" target="_blank" title="甘肃省省长在武威调研时要求协同推进防沙治沙 以锁边增绿为重点坚持绿富同兴">甘肃省省长在武威调研时要求协同推进防沙治沙 以锁边增绿为重点...</a><span>2026-10-19</span></li>
+                        
+                            <li><a href="./ywdt/dfnews/202610/t20261015_1183021.shtml" target="_blank" title="湖南省委书记、省长专题研究溶洞污染问题排查整治 “一洞一档”“一洞一策”，推动溶洞保护利用“小快灵”立法">湖南省委书记、省长专题研究溶洞污染问题排查整治 “一洞一档”...</a><span>2026-10-15</span></li>
+                        
+                            <li><a href="./ywdt/dfnews/202610/t20261015_1183020.shtml" target="_blank" title="安徽省代省长王东伟到长江岸线码头现场调研时要求 系统推进长江生态保护修复">安徽省代省长王东伟到长江岸线码头现场调研时要求 系统推进长江...</a><span>2026-10-15</span></li>
+                        
+                            <li><a href="./ywdt/dfnews/202610/t20261014_1182966.shtml" target="_blank" title="甘肃省委书记、省长调研祁连山生态环境保护 要对核心区采取最严格保护措施">甘肃省委书记、省长调研祁连山生态环境保护 要对核心区采取最严...</a><span>2026-10-14</span></li>
+                        
+                        <a href="./ywdt/dfnews/" target="_blank" class="indexMore">查看更多</a>
+                    </ul>
+                    <ul class="indexBXxgkABList">
+                        
+                            <li><a href="./ywdt/spxw/202610/t20261030_1184927.shtml" target="_blank" title="视频 | 联合国中国青少年环境大会在香港举行（央视新闻）">视频 | 联合国中国青少年环境大会在香港举行（央视新闻）</a><span>2026-10-30</span></li>
+                        
+                            <li><a href="./ywdt/spxw/202610/t20261030_1184896.shtml" target="_blank" title="视频 | 前三季度全国地表水水质持续向好（央视《新闻联播》）">视频 | 前三季度全国地表水水质持续向好（央视《新闻联播》）</a><span>2026-10-30</span></li>
+                        
+                            <li><a href="./ywdt/spxw/202610/t20261028_1184768.shtml" target="_blank" title="视频 | 前三季度全国环境空气质量总体向好（央视《新闻联播》）">视频 | 前三季度全国环境空气质量总体向好（央视《新闻联播》）</a><span>2026-10-28</span></li>
+                        
+                            <li><a href="./ywdt/spxw/202610/t20261021_1184299.shtml" target="_blank" title="视频 | 我国应对气候变化工作取得显著成效（央视《新闻联播》）">视频 | 我国应对气候变化工作取得显著成效（央视《新闻联播》）</a><span>2026-10-21</span></li>
+                        
+                            <li><a href="./ywdt/spxw/202610/t20261016_1183178.shtml" target="_blank" title="视频 | 第三轮第七批中央生态环境保护督察全部实现督察进驻<br>（央视《新闻联播》）">视频 | 第三轮第七批中央生态环境保护督察全部实现督察进驻（央...</a><span>2026-10-16</span></li>
+                        
+                            <li><a href="./ywdt/spxw/202610/t20261012_1182835.shtml" target="_blank" title="视频 | 第三轮第七批中央生态环境保护督察全面启动（央视《新闻联播》）">视频 | 第三轮第七批中央生态环境保护督察全面启动（央视《新闻...</a><span>2026-10-12</span></li>
+                        
+                            <li><a href="./ywdt/spxw/202610/t20261011_1182595.shtml" target="_blank" title="视频 | 守护绿水青山 共绘美丽中国新画卷（央视《新闻联播》）">视频 | 守护绿水青山 共绘美丽中国新画卷（央视《新闻联播》）</a><span>2026-10-11</span></li>
+                        
+                            <li><a href="./ywdt/spxw/202610/t20261004_1175626.shtml" target="_blank" title="视频 | 生态为民 绘就美丽中国新图景（央视《新闻联播》）">视频 | 生态为民 绘就美丽中国新图景（央视《新闻联播》）</a><span>2026-10-04</span></li>
+                        
+                            <li><a href="./ywdt/spxw/202610/t20261002_1175621.shtml" target="_blank" title="视频 | 全国重点区域生态保护红线生态环境保护成效显著<br>（央视《新闻联播》）">视频 | 全国重点区域生态保护红线生态环境保护成效显著（央视《...</a><span>2026-10-02</span></li>
+                        
+                            <li><a href="./ywdt/spxw/202609/t20260929_1175474.shtml" target="_blank" title="视频 | 李强主持召开国务院常务会议（央视《新闻联播》）">视频 | 李强主持召开国务院常务会议（央视《新闻联播》）</a><span>2026-09-29</span></li>
+                        
+                        <a href="./ywdt/spxw/" target="_blank" class="indexMore">查看更多</a>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <a href="http://www.gov.cn/zhuanti/zggcddescqgdbdh/index.htm" target="_blank" class="indexHdImg"><img src="./images/ad20221111.jpg" /></a>
+        <div class="indexBgt indexBgtPc">
+            <div class="indexBgtBox">
+                <div class="indexBgtTitle">
+                    <h3>曝光台</h3>
+                    <ul class="indexBgtNav">
+                        <li class="active"><a href="./ywdt/bgt/xzcf/" target="_blank">行政处理</a></li>
+                        <li><a href="./ywdt/bgt/zfxx/" target="_blank">执法信息</a></li>
+                        <li><a href="./ywdt/bgt/tb/" target="_blank">通报</a></li>
+                    </ul>
+                </div>
+                <ul class="indexBgtList active adheight">
+                    
+                        <li><a href="./xxgk2018/xxgk/xxgk03/202512/t20251222_1138289.html" target="_blank" title="核安全行政处罚决定书（西安核设备有限公司未实施质量保证体系案）">核安全行政处罚决定书（西安核设备有限公司未实施质量保证体系案）</a></li>
+                    
+                        <li><a href="./xxgk2018/xxgk/xxgk03/202509/t20250911_1127266.html" target="_blank" title="核安全行政处罚决定书（中核核电运行管理有限公司未实施质量保证体系案）">核安全行政处罚决定书（中核核电运行管理有限公司未实施质量保证体系案）</a></li>
+                    
+                        <li><a href="./xxgk2018/xxgk/xxgk03/202507/t20250728_1124425.html" target="_blank" title="核安全行政处罚决定书（中国核工业二三建设有限公司未实施质量保证体系案）">核安全行政处罚决定书（中国核工业二三建设有限公司未实施质量保证体系案）</a></li>
+                    
+                        <li><a href="./xxgk2018/xxgk/xxgk03/202507/t20250728_1124424.html" target="_blank" title="核安全行政处罚决定书（山东核电设备制造有限公司未实施质量保证体系案）">核安全行政处罚决定书（山东核电设备制造有限公司未实施质量保证体系案）</a></li>
+                    
+                        <li><a href="./xxgk2018/xxgk/xxgk03/202507/t20250722_1123955.html" target="_blank" title="核安全行政处罚决定书（大亚湾核电运营管理有限责任公司未实施质量保证体系案）">核安全行政处罚决定书（大亚湾核电运营管理有限责任公司未实施质量保证体系案）</a></li>
+                    
+                        <li><a href="./xxgk2018/xxgk/xxgk03/202507/t20250715_1123455.html" target="_blank" title="核安全行政处罚决定书（吴建如）">核安全行政处罚决定书（吴建如）</a></li>
+                    
+                </ul>
+                <ul class="indexBgtList">
+                    
+                        <li><a href="./ywgz/hjyj/yjxy/202603/t20260319_1147303.shtml" target="_blank" title="江西省寻乌县鑫鼎汇矿业有限公司违法排污致寻乌水江西广东交界断面镉浓度超标重大突发环境事件调查结果">江西省寻乌县鑫鼎汇矿业有限公司违法排污致寻乌水江西广东交界断面镉浓度超标重大突发环境...</a></li>
+                    
+                        <li><a href="./ywgz/sthjzf/zfzdyxzcf/202509/t20250926_1128350.shtml" target="_blank" title="生态环境部公布第二十四批生态环境执法典型案例（举报奖励领域）">生态环境部公布第二十四批生态环境执法典型案例（举报奖励领域）</a></li>
+                    
+                        <li><a href="./ywgz/sthjzf/zfzdyxzcf/202412/t20241231_1099705.shtml" target="_blank" title="机动车排放检验领域第三方机构专项整治作弊产业链典型问题通报">机动车排放检验领域第三方机构专项整治作弊产业链典型问题通报</a></li>
+                    
+                        <li><a href="./ywgz/sthjzf/zfzdyxzcf/202411/t20241125_1096570.shtml" target="_blank" title="生态环境部公布第二十三批生态环境执法典型案例（打击危险废物环境违法领域）">生态环境部公布第二十三批生态环境执法典型案例（打击危险废物环境违法领域）</a></li>
+                    
+                        <li><a href="./ywgz/sthjzf/zfzdyxzcf/202411/t20241124_1096492.shtml" target="_blank" title="生态环境部公布第二十二批生态环境执法典型案例（大气监督帮扶领域）">生态环境部公布第二十二批生态环境执法典型案例（大气监督帮扶领域）</a></li>
+                    
+                        <li><a href="./ywgz/sthjzf/zfzdyxzcf/202411/t20241122_1095972.shtml" target="_blank" title="机动车排放检验领域第三方机构专项整治涉刑典型问题通报">机动车排放检验领域第三方机构专项整治涉刑典型问题通报</a></li>
+                    
+                </ul>
+                <ul class="indexBgtList">
+                    
+                        <li><a href="./xxgk2018/xxgk/xxgk06/202609/t20260907_1165269.html" target="_blank" title="关于2026年上半年环评信用管理对象列入“黑名单”情况的通报">关于2026年上半年环评信用管理对象列入“黑名单”情况的通报</a></li>
+                    
+                        <li><a href="./ywgz/zysthjbhdc/dcjl/202606/t20260602_1157667.shtml" target="_blank" title="中央生态环境保护督察集中通报典型案例">中央生态环境保护督察集中通报典型案例</a></li>
+                    
+                        <li><a href="./ywgz/zysthjbhdc/dcjl/202605/t20260526_1156110.shtml" target="_blank" title="中央生态环境保护督察集中通报典型案例">中央生态环境保护督察集中通报典型案例</a></li>
+                    
+                        <li><a href="./ywgz/zysthjbhdc/dcjl/202605/t20260519_1154770.shtml" target="_blank" title="中央生态环境保护督察集中通报典型案例">中央生态环境保护督察集中通报典型案例</a></li>
+                    
+                        <li><a href="./xxgk2018/xxgk/xxgk06/202601/t20260115_1140795.html" target="_blank" title="关于2025年下半年环评信用管理对象列入“黑名单”情况的通报">关于2025年下半年环评信用管理对象列入“黑名单”情况的通报</a></li>
+                    
+                        <li><a href="./ywgz/zysthjbhdc/dcjl/202512/t20251217_1138001.shtml" target="_blank" title="中央生态环境保护督察通报典型案例">中央生态环境保护督察通报典型案例</a></li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="indexBgt indexBgtYd">
+            <div class="indexBgtBox">
+                <h3>曝光台</h3>
+                <ul class="indexBgtNav">
+                    <li class="active"><a>行政处理</a></li>
+                    <li><a>执法信息</a></li>
+                    <li><a>通报</a></li>
+                </ul>
+                <ul class="indexBgtList active">
+                    
+                        <li><a href="./xxgk2018/xxgk/xxgk03/202512/t20251222_1138289.html" target="_blank">核安全行政处罚决定书（西安核设备有限公司未实施质量保证体系案）</a></li>
+                    
+                        <li><a href="./xxgk2018/xxgk/xxgk03/202509/t20250911_1127266.html" target="_blank">核安全行政处罚决定书（中核核电运行管理有限公司未实施质量保证体系案）</a></li>
+                    
+                        <li><a href="./xxgk2018/xxgk/xxgk03/202507/t20250728_1124425.html" target="_blank">核安全行政处罚决定书（中国核工业二三建设有限公司未实施质量保证体系案）</a></li>
+                    
+                        <li><a href="./xxgk2018/xxgk/xxgk03/202507/t20250728_1124424.html" target="_blank">核安全行政处罚决定书（山东核电设备制造有限公司未实施质量保证体系案）</a></li>
+                    
+                        <li><a href="./xxgk2018/xxgk/xxgk03/202507/t20250722_1123955.html" target="_blank">核安全行政处罚决定书（大亚湾核电运营管理有限责任公司未实施质量保证体系案）</a></li>
+                    
+                    <a href="./ywdt/bgt/xzcf/" target="_blank" class="indexMore">查看更多</a>
+                </ul>
+                <ul class="indexBgtList">
+                    
+                        <li><a href="./ywgz/hjyj/yjxy/202603/t20260319_1147303.shtml" target="_blank">江西省寻乌县鑫鼎汇矿业有限公司违法排污致寻乌水江西广东交界断面镉浓度超标重大突发环境事件调查结果</a></li>
+                    
+                        <li><a href="./ywgz/sthjzf/zfzdyxzcf/202509/t20250926_1128350.shtml" target="_blank">生态环境部公布第二十四批生态环境执法典型案例（举报奖励领域）</a></li>
+                    
+                        <li><a href="./ywgz/sthjzf/zfzdyxzcf/202412/t20241231_1099705.shtml" target="_blank">机动车排放检验领域第三方机构专项整治作弊产业链典型问题通报</a></li>
+                    
+                        <li><a href="./ywgz/sthjzf/zfzdyxzcf/202411/t20241125_1096570.shtml" target="_blank">生态环境部公布第二十三批生态环境执法典型案例（打击危险废物环境违法领域）</a></li>
+                    
+                        <li><a href="./ywgz/sthjzf/zfzdyxzcf/202411/t20241124_1096492.shtml" target="_blank">生态环境部公布第二十二批生态环境执法典型案例（大气监督帮扶领域）</a></li>
+                    
+                    <a href="./ywdt/bgt/zfxx/" target="_blank" class="indexMore">查看更多</a>
+                </ul>
+                <ul class="indexBgtList">
+                    
+                        <li><a href="./xxgk2018/xxgk/xxgk06/202609/t20260907_1165269.html" target="_blank">关于2026年上半年环评信用管理对象列入“黑名单”情况的通报</a></li>
+                    
+                        <li><a href="./ywgz/zysthjbhdc/dcjl/202606/t20260602_1157667.shtml" target="_blank">中央生态环境保护督察集中通报典型案例</a></li>
+                    
+                        <li><a href="./ywgz/zysthjbhdc/dcjl/202605/t20260526_1156110.shtml" target="_blank">中央生态环境保护督察集中通报典型案例</a></li>
+                    
+                        <li><a href="./ywgz/zysthjbhdc/dcjl/202605/t20260519_1154770.shtml" target="_blank">中央生态环境保护督察集中通报典型案例</a></li>
+                    
+                        <li><a href="./xxgk2018/xxgk/xxgk06/202601/t20260115_1140795.html" target="_blank">关于2025年下半年环评信用管理对象列入“黑名单”情况的通报</a></li>
+                    
+                    <a href="./ywdt/bgt/tb/" target="_blank" class="indexMore">查看更多</a>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="indexMainBox">
+<a name="airdata"></a>
+    <div class="center">
+        <div class="indexBtRt">
+            <div class="indexBtRtInner indexTab">
+                <div class="indexBtRt_title xxgk">
+                    <a href="./xxgk/" target="_blank"><span>政府信息公开</span></a>
+                </div>
+                <div class="indexBtRt_BBox">
+                    <ul class="indexBI_BUl indexBI_BUl1 indexBI_gk">
+                        <li class="indexBI_BLi1">
+                            <a href="/xxgk/list/index.shtml?id=1" target="_blank"><span>信息公开指南</span></a>
+                        </li>
+                        <li class="indexBI_BLi2">
+                            <a href="/xxgk/list/index.shtml?id=2" target="_blank"><span>信息公开制度</span></a>
+                        </li>
+                        <li class="indexBI_BLi3">
+                            <a href="/xxgk/list/index.shtml?id=3" target="_blank"><span>主动公开</span></a>
+                        </li>
+                        <li class="indexBI_BLi4">
+                            <a href="/xxgk/list/index.shtml?id=4" target="_blank"><span>依申请公开</span></a>
+                        </li>
+                        <li class="indexBI_BLi5">
+                            <a href="/xxgk/list/index.shtml?id=5" target="_blank"><span>解读回应</span></a>
+                        </li>
+                        <li class="indexBI_BLi6">
+                            <a href="/xxgk/list/index.shtml?id=6" target="_blank"><span>机制建设</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="indexBtRtInner indexTab marginTop12">
+                <div class="indexBtRt_title">
+                    <a href="./zwfw/" target="_blank"><span>政务服务</span></a>
+                </div>
+                <div class="indexBtRt_BBox">
+                    <ul class="indexBI_BUl indexBI_BUl2">
+                        <li class="indexBI_BLi1a">
+                            <a href="http://zwfw.mee.gov.cn/ecdomain/#/commonPage_1" target="_blank"><span>政务服务事项</span></a>
+                        </li>
+                        <li class="indexBI_BLi2a">
+                            <a href="http://zwfw.mee.gov.cn/ecdomain/#/commonPage_2" target="_blank"><span>办事指南</span></a>
+                        </li>
+                        <li class="indexBI_BLi3a">
+                            <a href="http://zwfw.mee.gov.cn/ecdomain/#/commonPage_11" target="_blank"><span>常见问题</span></a>
+                        </li>
+                        <li class="indexBI_BLi4a">
+                            <a href="http://zwfw.mee.gov.cn/casServer/login?service=http://zwfw.mee.gov.cn/ecdomain/#/commonPage_1" target="_blank"><span>用户登录</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="indexBtRtInner indexTab marginTop12">
+                <div class="indexBtRt_title">
+                    <a href="./hdjl/" target="_blank"><span>互动交流</span></a>
+                </div>
+                <div class="indexBtRt_BBox">
+                    <ul class="indexBI_BUl indexBI_BUl3">
+                        <li class="indexBI_BLi3b">
+                            <a href="./hdjl/yjzj/" target="_blank"><span>意见征集</span></a>
+                        </li>
+                        <li class="indexBI_BLi1b">
+                            <a href="/hdjl/bzxx/" target="_blank"><span>部长信箱</span></a>
+                        </li>
+                        <li class="indexBI_BLi4b">
+                            <a href="https://jubao.mee.gov.cn/netreport" target="_blank"><span class="hang">生态环境<br>网络投诉举报</span></a>
+                        </li>
+                        <li class="indexBI_BLi7b">
+                            <a href="./home/12369/" target="_blank"><span class="hang">生态环境<br>微信投诉举报</span></a>
+                            <img src="./images/MEPC_jubao_v2019_03.png" alt="" />
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <div class="indexKq">
+            <div class="indexKqL indexKqBox">
+                <div class="indexKqLBox">
+                    <div class="indexKqLTitle mobile_none">
+                        <a href="https://air.cnemc.cn:18007/" class="cskqzl" target="_blank">城市空气质量</a><img class="indexKqLTitleImg" src="./images/MEPC_index_kq1_v2019_03.png" />
+                        <a href="https://air.cnemc.cn:18014/" class="qgkqzl" target="_blank">全国空气质量预报<img src="./images/MEPC_index_kq1_v2019_06.png" alt="" /></a>
+                    </div>
+                    <div class="indexKqLTitle pc_none">
+                        城市空气质量<img class="indexKqLTitleImg" src="./images/MEPC_index_kq1_v2019_03.png" />
+                     <a href="https://air.cnemc.cn:18014/" target="_blank">全国空气质量预报<img src="./images/MEPC_index_kq1_v2019_06.png" alt="" /></a>
+                    </div>
+                    <div class="indexKqBtnBox pc_none">
+                      <!--<a href="https://air.cnemc.cn:18014/" target="_blank" style="width:100%">全国空气质量预报</a>--><a style="width:100%;cursor: auto;">全国空气质量预报</a>
+                    </div>
+<!--
+                    <img src="/images/air-20261029.jpg" style="width:100%" /> 
+-->
+                    <iframe id="indexKqZlIframe" scrolling="no" src="/websjzx/homepages/airDatas.vm" frameborder="0" width="100%"></iframe>
+
+                </div>
+            </div>
+            <div class="indexKqR indexKqBox">
+                <div class="indexKqRBox">
+                    <div class="indexKqRTitle">
+                        <a href="https://szzdjc.cnemc.cn:8070/GJZ/Business/Publish/Main.html" target="_blank">地表水水质</a><img class="indexKqLTitleImg" src="./images/MEPC_index_kq1_v2019_03.png" alt="" />
+                    </div>
+<!--
+                    <img src="/images/water-20261029.jpg" style="width:100%" />
+-->
+                    <iframe id="indexDbsIframe" scrolling="no" src="/websjzx/homepages/waterDatas.vm" frameborder="0" width="100%"></iframe>
+
+                    <div class="iframe_line"   style=""><div></div></div>
+                    <div class="indexKqRTitle hstitle">
+                        <a href="https://ep.nmemc.org.cn:8888/Water/" target="_blank">海水水质</a>
+                    </div>
+                    <div class="dbsBox">
+                        <div class="dbs">
+                            <div class="dbsTitleUlBox">
+                                <ul class="dbsTitleUl">
+                                    <li class="dbsTitleli1"><span>地市</span></li>
+                                    <li class="dbsTitleli2"><span>点位编码</span></li>
+                                    <li class="dbsTitleli2a"><span>测量时间</span></li>
+                                    <li class="dbsTitleli3"><span>海水水质</span></li>
+                                </ul>
+                            </div>
+                            <div class="txtMarquee-top">
+                                <!--<div class="hd">
+                                              <a class="next"></a>
+                                              <a class="prev"></a>
+                                          </div>-->
+                                <div class="bd">
+                                    <div class="tempWrap">
+                                        <ul class="infoList">
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="iframe_line2"><div></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="indexMainBox">
+    <div class="center">
+        <div class="indexZt">
+            <div class="cjcs_reeian  mobile_oneTitle"><a href="./ztzl/" target="_blank">专题专栏</a></div>
+            <div class="multipleColumn mobile_none">
+                <div class="bd">
+                    <div class="ulWrap">
+                        <ul><!-- 把每次滚动的n个li放到1个ul里面 -->
+                            
+                                <li>
+                                    <div class="pic"><a href="/home/ztbd/2026/65hjr2026/" target="_blank"><img src="./ztzl/rdzt/202607/W020260707610329126425.jpg" /></a></div>
+                                </li>
+                            
+                                <li>
+                                    <div class="pic"><a href="/home/ztbd/2025/swwlysst/" target="_blank"><img src="./ztzl/rdzt/202512/W020251204513201248895.png" /></a></div>
+                                </li>
+                            
+                                <li>
+                                    <div class="pic"><a href="http://www.mee.gov.cn/home/ztbd/2025/mlzgtyjst/" target="_blank"><img src="./ztzl/rdzt/202507/W020250715501675102171.png" /></a></div>
+                                </li>
+                            
+                                <li>
+                                    <div class="pic"><a href="/home/ztbd/2025/ffqdczgtfwwtxszj/" target="_blank"><img src="./ztzl/rdzt/202506/W020250625343034689048.png" /></a></div>
+                                </li>
+                            
+                        </ul>
+                        <ul><!-- 把每次滚动的n个li放到1个ul里面 -->
+                            
+                                <li>
+                                    <div class="pic"><a href="/home/ztbd/2025/sthjbhdcgztlxx/" target="_blank"><img src="./ztzl/rdzt/202506/W020250617528102759556.png" /></a></div>
+                                </li>
+                            
+                                <li>
+                                    <div class="pic"><a href="/home/ztbd/2023/mlhh2/" target="_blank"><img src="./ztzl/rdzt/202108/W020240301608215486396.jpg" /></a></div>
+                                </li>
+                            
+                                <li>
+                                    <div class="pic"><a href="/home/ztbd/2025/sqxzjcgs/" target="_blank"><img src="./ztzl/rdzt/202504/W020250416413191196488.png" /></a></div>
+                                </li>
+                            
+                                <li>
+                                    <div class="pic"><a href="http://www.mee.gov.cn/home/ztbd/2022/sthjpf/" target="_blank"><img src="./ztzl/rdzt/202207/W020220701312299878246.png" /></a></div>
+                                </li>
+                            
+                        </ul>
+                        <ul><!-- 把每次滚动的n个li放到1个ul里面 -->
+                            
+                                <li>
+                                    <div class="pic"><a href="http://www.mee.gov.cn/home/ztbd/2022/rhrhpwkjdgl/" target="_blank"><img src="./ztzl/rdzt/202203/W020220331608137769084.png" /></a></div>
+                                </li>
+                            
+                                <li>
+                                    <div class="pic"><a href="http://www.mee.gov.cn/home/ztbd/rdzl/sskf/" target="_blank"><img src="./ztzl/rdzt/201912/W020200408613001664374.png" /></a></div>
+                                </li>
+                            
+                                <li>
+                                    <div class="pic"><a href="https://www.mee.gov.cn/home/ztbd/2022/cshcsthbxd/" target="_blank"><img src="./ztzl/rdzt/202210/W020221026516921040331.jpg" /></a></div>
+                                </li>
+                            
+                                <li>
+                                    <div class="pic"><a href="https://www.gov.cn/zhengce/zczhjd/" target="_blank"><img src="./ztzl/rdzt/202307/W020230731710021250380.png" /></a></div>
+                                </li>
+                            
+                        </ul>
+                    </div><!-- ulWrap End -->
+                </div><!-- bd End -->
+                <div class="hd">
+                    <ul></ul>
+                </div>
+            </div><!-- multipleColumn End -->
+            <div class="swiper_container5Box pc_none">
+                <div class="swiper-container5"><!--专题移动端轮播-->
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            
+                                <li>
+                                    <a href="/home/ztbd/2026/65hjr2026/" target="_blank"><img src="./ztzl/rdzt/202607/W020260707610329126425.jpg" /></a>
+                                </li>
+                            
+                                <li>
+                                    <a href="/home/ztbd/2025/swwlysst/" target="_blank"><img src="./ztzl/rdzt/202512/W020251204513201248895.png" /></a>
+                                </li>
+                            
+                                <li>
+                                    <a href="http://www.mee.gov.cn/home/ztbd/2025/mlzgtyjst/" target="_blank"><img src="./ztzl/rdzt/202507/W020250715501675102171.png" /></a>
+                                </li>
+                            
+                                <li>
+                                    <a href="/home/ztbd/2025/ffqdczgtfwwtxszj/" target="_blank"><img src="./ztzl/rdzt/202506/W020250625343034689048.png" /></a>
+                                </li>
+                            
+                        </div>
+                        <div class="swiper-slide">
+                            
+                                <li>
+                                    <a href="/home/ztbd/2025/sthjbhdcgztlxx/" target="_blank"><img src="./ztzl/rdzt/202506/W020250617528102759556.png" /></a>
+                                </li>
+                            
+                                <li>
+                                    <a href="/home/ztbd/2023/mlhh2/" target="_blank"><img src="./ztzl/rdzt/202108/W020240301608215486396.jpg" /></a>
+                                </li>
+                            
+                                <li>
+                                    <a href="/home/ztbd/2025/sqxzjcgs/" target="_blank"><img src="./ztzl/rdzt/202504/W020250416413191196488.png" /></a>
+                                </li>
+                            
+                                <li>
+                                    <a href="http://www.mee.gov.cn/home/ztbd/2022/sthjpf/" target="_blank"><img src="./ztzl/rdzt/202207/W020220701312299878246.png" /></a>
+                                </li>
+                            
+                        </div>
+                        <div class="swiper-slide">
+                            
+                                <li>
+                                    <a href="http://www.mee.gov.cn/home/ztbd/2022/rhrhpwkjdgl/" target="_blank"><img src="./ztzl/rdzt/202203/W020220331608137769084.png" /></a>
+                                </li>
+                            
+                                <li>
+                                    <a href="http://www.mee.gov.cn/home/ztbd/rdzl/sskf/" target="_blank"><img src="./ztzl/rdzt/201912/W020200408613001664374.png" /></a>
+                                </li>
+                            
+                                <li>
+                                    <a href="https://www.mee.gov.cn/home/ztbd/2022/cshcsthbxd/" target="_blank"><img src="./ztzl/rdzt/202210/W020221026516921040331.jpg" /></a>
+                                </li>
+                            
+                                <li>
+                                    <a href="https://www.gov.cn/zhengce/zczhjd/" target="_blank"><img src="./ztzl/rdzt/202307/W020230731710021250380.png" /></a>
+                                </li>
+                            
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <div class="footerTopUl">
+        <div class="center">
+            <ul class="active">
+                
+                    <li><a href="http://www.fmprc.gov.cn/web/" target="_blank">外交部</a></li>
+                
+                    <li><a href="http://www.mod.gov.cn/" target="_blank">国防部</a></li>
+                
+                    <li><a href="http://www.ndrc.gov.cn" target="_blank">国家发展和改革委员会</a></li>
+                
+                    <li><a href="http://www.moe.gov.cn" target="_blank">教育部</a></li>
+                
+                    <li><a href="https://www.most.gov.cn/index.html" target="_blank">科学技术部</a></li>
+                
+                    <li><a href="http://www.miit.gov.cn/" target="_blank">工业和信息化部</a></li>
+                
+                    <li><a href="https://www.neac.gov.cn/" target="_blank">国家民族事务委员会</a></li>
+                
+                    <li><a href="http://www.mps.gov.cn/" target="_blank">公安部</a></li>
+                
+                    <li><a href="http://www.mca.gov.cn/" target="_blank">民政部</a></li>
+                
+                    <li><a href="http://www.moj.gov.cn/" target="_blank">司法部</a></li>
+                
+                    <li><a href="http://www.mof.gov.cn/index.htm" target="_blank">财政部</a></li>
+                
+                    <li><a href="http://www.mohrss.gov.cn/" target="_blank">人力资源和社会保障部</a></li>
+                
+                    <li><a href="http://www.mnr.gov.cn/" target="_blank">自然资源部</a></li>
+                
+                    <li><a href="http://www.mee.gov.cn/" target="_blank">生态环境部</a></li>
+                
+                    <li><a href="http://www.mohurd.gov.cn/" target="_blank">住房和城乡建设部</a></li>
+                
+                    <li><a href="http://www.mot.gov.cn/" target="_blank">交通运输部</a></li>
+                
+                    <li><a href="http://www.mwr.gov.cn/" target="_blank">水利部</a></li>
+                
+                    <li><a href="http://www.moa.gov.cn/" target="_blank">农业农村部</a></li>
+                
+                    <li><a href="http://www.mofcom.gov.cn/" target="_blank">商务部</a></li>
+                
+                    <li><a href="https://www.mct.gov.cn/" target="_blank">文化和旅游部</a></li>
+                
+                    <li><a href="http://www.nhc.gov.cn/" target="_blank">国家卫生健康委员会</a></li>
+                
+                    <li><a href="http://www.mva.gov.cn/" target="_blank">退役军人事务部</a></li>
+                
+                    <li><a href="https://www.mem.gov.cn/index.shtml" target="_blank">应急管理部</a></li>
+                
+                    <li><a href="http://www.pbc.gov.cn/" target="_blank">中国人民银行</a></li>
+                
+                    <li><a href="http://www.audit.gov.cn/" target="_blank">审计署</a></li>
+                
+                    <li><a href="http://www.moe.gov.cn/jyb_sy/China_Language/" target="_blank">国家语言文字工作委员会</a></li>
+                
+                    <li><a href="http://www.cnsa.gov.cn" target="_blank">国家航天局</a></li>
+                
+                    <li><a href="http://www.caea.gov.cn" target="_blank">国家原子能机构</a></li>
+                
+                    <li><a href="http://nnsa.mee.gov.cn/" target="_blank">国家核安全局</a></li>
+                
+                    <li><a href="http://www.sasac.gov.cn/" target="_blank">国务院国有资产监督管理委员会</a></li>
+                
+                    <li><a href="http://www.customs.gov.cn/" target="_blank">海关总署</a></li>
+                
+                    <li><a href="http://www.chinatax.gov.cn/" target="_blank">国家税务总局</a></li>
+                
+                    <li><a href="http://www.samr.gov.cn/" target="_blank">国家市场监督管理总局</a></li>
+                
+                    <li><a href="https://www.nfra.gov.cn/" target="_blank">国家金融监督管理总局</a></li>
+                
+                    <li><a href="http://www.csrc.gov.cn/" target="_blank">中国证券监督管理委员会</a></li>
+                
+                    <li><a href="http://www.nrta.gov.cn/" target="_blank">国家广播电视总局</a></li>
+                
+                    <li><a href="http://www.sport.gov.cn/" target="_blank">国家体育总局</a></li>
+                
+                    <li><a href="https://www.gjxfj.gov.cn/" target="_blank">国家信访局</a></li>
+                
+                    <li><a href="http://www.stats.gov.cn/" target="_blank">国家统计局</a></li>
+                
+                    <li><a href="http://www.cnipa.gov.cn/" target="_blank">国家知识产权局</a></li>
+                
+                    <li><a href="http://www.cidca.gov.cn/" target="_blank">国家国际发展合作署</a></li>
+                
+                    <li><a href="http://www.nhsa.gov.cn/" target="_blank">国家医疗保障局</a></li>
+                
+                    <li><a href="http://www.counsellor.gov.cn/" target="_blank">国务院参事室</a></li>
+                
+                    <li><a href="http://www.ggj.gov.cn/" target="_blank">国家机关事务管理局</a></li>
+                
+                    <li><a href="http://www.cnca.gov.cn/" target="_blank">国家认证认可监督管理委员会</a></li>
+                
+                    <li><a href="http://www.sac.gov.cn/" target="_blank">国家标准化管理委员会</a></li>
+                
+                    <li><a href="http://www.ncac.gov.cn/" target="_blank">国家新闻出版署（国家版权局）</a></li>
+                
+                    <li><a href="http://www.sara.gov.cn/" target="_blank">国家宗教事务局</a></li>
+                
+                    <li><a href="https://www.gov.cn/guoqing/2018-06/22/content_5300522.htm" target="_blank">国务院研究室</a></li>
+                
+                    <li><a href="http://www.gqb.gov.cn/" target="_blank">国务院侨务办公室</a></li>
+                
+                    <li><a href="https://www.hmo.gov.cn/" target="_blank">国务院港澳事务办公室</a></li>
+                
+                    <li><a href="http://www.gwytb.gov.cn/" target="_blank">国务院台湾事务办公室</a></li>
+                
+                    <li><a href="http://www.cac.gov.cn/" target="_blank">国家互联网信息办公室</a></li>
+                
+                    <li><a href="http://www.scio.gov.cn/index.htm" target="_blank">国务院新闻办公室</a></li>
+                
+                    <li><a href="http://www.news.cn/xinhuashe/" target="_blank">新华通讯社</a></li>
+                
+                    <li><a href="http://www.cas.cn/" target="_blank">中国科学院</a></li>
+                
+                    <li><a href="http://www.cass.cn/" target="_blank">中国社会科学院</a></li>
+                
+                    <li><a href="http://www.cae.cn/" target="_blank">中国工程院</a></li>
+                
+                    <li><a href="http://www.drc.gov.cn/" target="_blank">国务院发展研究中心</a></li>
+                
+                    <li><a href="http://www.cnr.cn/" target="_blank">中央广播电视总台</a></li>
+                
+                    <li><a href="http://www.cma.gov.cn/" target="_blank">中国气象局</a></li>
+                
+                    <li><a href="http://www.ccps.gov.cn/" target="_blank">国家行政学院</a></li>
+                
+                    <li><a href="http://www.lswz.gov.cn/" target="_blank">国家粮食和物资储备局</a></li>
+                
+                    <li><a href="http://www.nea.gov.cn/" target="_blank">国家能源局</a></li>
+                
+                    <li><a href="http://www.sastind.gov.cn/" target="_blank">国家国防科技工业局</a></li>
+                
+                    <li><a href="http://www.tobacco.gov.cn/" target="_blank">国家烟草专卖局</a></li>
+                
+                    <li><a href="https://www.nia.gov.cn/" target="_blank">国家移民管理局</a></li>
+                
+                    <li><a href="http://www.forestry.gov.cn/" target="_blank">国家林业和草原局</a></li>
+                
+                    <li><a href="http://www.nra.gov.cn/" target="_blank">国家铁路局</a></li>
+                
+                    <li><a href="http://www.caac.gov.cn/" target="_blank">中国民用航空局</a></li>
+                
+                    <li><a href="http://www.spb.gov.cn/" target="_blank">国家邮政局</a></li>
+                
+                    <li><a href="http://www.ncha.gov.cn/" target="_blank">国家文物局</a></li>
+                
+                    <li><a href="http://www.natcm.gov.cn/" target="_blank">国家中医药管理局</a></li>
+                
+                    <li><a href="https://www.ndcpa.gov.cn/" target="_blank">国家疾病预防控制局</a></li>
+                
+                    <li><a href="http://www.chinamine-safety.gov.cn/" target="_blank">国家矿山安全监察局</a></li>
+                
+                    <li><a href="https://www.119.gov.cn/" target="_blank">国家消防救援局</a></li>
+                
+                    <li><a href="http://www.safe.gov.cn/" target="_blank">国家外汇管理局</a></li>
+                
+                    <li><a href="https://www.nmpa.gov.cn/" target="_blank">国家药品监督管理局</a></li>
+                
+            </ul>
+            <ul>
+                
+                    <li><a href="http://hbdc.mee.gov.cn/" target="_blank">华北督察局</a></li>
+                
+                    <li><a href="http://hddc.mee.gov.cn/" target="_blank">华东督察局</a></li>
+                
+                    <li><a href="http://hndc.mee.gov.cn/" target="_blank">华南督察局</a></li>
+                
+                    <li><a href="http://xbdc.mee.gov.cn/" target="_blank">西北督察局</a></li>
+                
+                    <li><a href="http://xndc.mee.gov.cn/" target="_blank">西南督察局</a></li>
+                
+                    <li><a href="http://dbdc.mee.gov.cn" target="_blank">东北督察局</a></li>
+                
+                    <li><a href="http://nro.mee.gov.cn/" target="_blank">华北核与辐射安全监督站</a></li>
+                
+                    <li><a href="http://ecro.mee.gov.cn/" target="_blank">华东核与辐射安全监督站</a></li>
+                
+                    <li><a href="http://scro.mee.gov.cn/" target="_blank">华南核与辐射安全监督站</a></li>
+                
+                    <li><a href="http://swnro.mee.gov.cn" target="_blank">西南核与辐射安全监督站</a></li>
+                
+                    <li><a href="http://nero.mee.gov.cn/" target="_blank">东北核与辐射安全监督站</a></li>
+                
+                    <li><a href="http://nwro.mee.gov.cn/" target="_blank">西北核与辐射安全监督站</a></li>
+                
+                    <li><a href="http://cjjg.mee.gov.cn/" target="_blank">长江流域生态环境监督管理局</a></li>
+                
+                    <li><a href="http://huanghejg.mee.gov.cn/" target="_blank">黄河流域生态环境监督管理局</a></li>
+                
+                    <li><a href="http://huaihejg.mee.gov.cn/" target="_blank">淮河流域生态环境监督管理局</a></li>
+                
+                    <li><a href="http://hhbhjg.mee.gov.cn/" target="_blank">海河流域北海海域生态环境监督管理局</a></li>
+                
+                    <li><a href="http://zjnhjg.mee.gov.cn/" target="_blank">珠江流域南海海域生态环境监督管理局</a></li>
+                
+                    <li><a href="http://sljg.mee.gov.cn/" target="_blank">松辽流域生态环境监督管理局</a></li>
+                
+                    <li><a href="http://thdhjg.mee.gov.cn/" target="_blank">太湖流域东海海域生态环境监督管理局</a></li>
+                
+                    <li><a href="http://www.craes.cn/" target="_blank">中国环境科学研究院</a></li>
+                
+                    <li><a href="https://www.cnemc.cn/" target="_blank">中国环境监测总站</a></li>
+                
+                    <li><a href="http://www.edcmep.org.cn/" target="_blank">中日友好环境保护中心（环境发展中心）</a></li>
+                
+                    <li><a href="http://www.prcee.org" target="_blank">环境与经济政策研究中心</a></li>
+                
+                    <li><a href="http://www.cenews.com.cn/" target="_blank">中国环境报社</a></li>
+                
+                    <li><a href="http://www.cesp.com.cn/" target="_blank">中国环境出版集团有限公司</a></li>
+                
+                    <li><a href="http://www.chinansc.cn/" target="_blank">核与辐射安全中心</a></li>
+                
+                    <li><a href="https://www.fecomee.org.cn/" target="_blank">对外合作与交流中心</a></li>
+                
+                    <li><a href="http://www.nies.org/" target="_blank">南京环境科学研究所</a></li>
+                
+                    <li><a href="http://www.scies.org/" target="_blank">华南环境科学研究所</a></li>
+                
+                    <li><a href="http://www.caep.org.cn/" target="_blank">环境规划院</a></li>
+                
+                    <li><a href="http://www.china-eia.com/" target="_blank">环境工程评估中心</a></li>
+                
+                    <li><a href="http://www.secmep.cn/" target="_blank">卫星环境应用中心</a></li>
+                
+                    <li><a href="http://www.meescc.cn/" target="_blank">固体废物与化学品管理技术中心</a></li>
+                
+                    <li><a href="http://www.eicmee.cn/" target="_blank">信息中心</a></li>
+                
+                    <li><a href="http://www.ncsc.org.cn/" target="_blank">国家应对气候变化战略研究和国际合作中心</a></li>
+                
+                    <li><a href="https://www.nmemc.org.cn/" target="_blank">国家海洋环境监测中心</a></li>
+                
+                    <li><a href="http://www.tcare-mee.cn/" target="_blank">土壤与农业农村生态环境监管技术中心</a></li>
+                
+                    <li><a href="http://www.chinaeol.net/" target="_blank">宣传教育中心</a></li>
+                
+                    <li><a href="http://www.chinacses.org/" target="_blank">中国环境科学学会</a></li>
+                
+                    <li><a href="http://www.cepf.org.cn/" target="_blank">中华环境保护基金会</a></li>
+                
+                    <li><a href="http://www.cecrpa.org.cn/" target="_blank">中国生态文明研究与促进会</a></li>
+                
+                    <li><a href="http://www.chinansecpa.cn/" target="_blank">中国核安全与环境文化促进会</a></li>
+                
+            </ul>
+            <ul>
+                
+                    <li><a href="http://sthjj.beijing.gov.cn/" target="_blank">北京市生态环境局</a></li>
+                
+                    <li><a href="http://sthj.tj.gov.cn/" target="_blank">天津市生态环境局</a></li>
+                
+                    <li><a href="http://hbepb.hebei.gov.cn/" target="_blank">河北省生态环境厅</a></li>
+                
+                    <li><a href="http://sthjt.shanxi.gov.cn" target="_blank">山西省生态环境厅</a></li>
+                
+                    <li><a href="http://sthjt.nmg.gov.cn/" target="_blank">内蒙古自治区生态环境厅</a></li>
+                
+                    <li><a href="http://sthj.ln.gov.cn/" target="_blank">辽宁省生态环境厅</a></li>
+                
+                    <li><a href="http://sthjt.jl.gov.cn/" target="_blank">吉林省生态环境厅</a></li>
+                
+                    <li><a href="http://sthj.hlj.gov.cn/" target="_blank">黑龙江省生态环境厅</a></li>
+                
+                    <li><a href="http://sthj.sh.gov.cn/" target="_blank">上海市生态环境局</a></li>
+                
+                    <li><a href="http://sthjt.jiangsu.gov.cn/" target="_blank">江苏省生态环境厅</a></li>
+                
+                    <li><a href="http://sthjt.zj.gov.cn/" target="_blank">浙江省生态环境厅</a></li>
+                
+                    <li><a href="http://sthjt.ah.gov.cn" target="_blank">安徽省生态环境厅</a></li>
+                
+                    <li><a href="http://sthjt.fujian.gov.cn/" target="_blank">福建省生态环境厅</a></li>
+                
+                    <li><a href="http://sthjt.jiangxi.gov.cn/" target="_blank">江西省生态环境厅</a></li>
+                
+                    <li><a href="http://www.sdein.gov.cn/" target="_blank">山东省生态环境厅</a></li>
+                
+                    <li><a href="http://sthjt.henan.gov.cn/" target="_blank">河南省生态环境厅</a></li>
+                
+                    <li><a href="http://sthjt.hubei.gov.cn" target="_blank">湖北省生态环境厅</a></li>
+                
+                    <li><a href="http://sthjt.hunan.gov.cn/" target="_blank">湖南省生态环境厅</a></li>
+                
+                    <li><a href="http://gdee.gd.gov.cn/" target="_blank">广东省生态环境厅</a></li>
+                
+                    <li><a href="http://sthjt.gxzf.gov.cn" target="_blank">广西壮族自治区生态环境厅</a></li>
+                
+                    <li><a href="http://hnsthb.hainan.gov.cn/" target="_blank">海南省生态环境厅</a></li>
+                
+                    <li><a href="http://sthjj.cq.gov.cn" target="_blank">重庆市生态环境局</a></li>
+                
+                    <li><a href="http://sthjt.sc.gov.cn" target="_blank">四川省生态环境厅</a></li>
+                
+                    <li><a href="http://sthj.guizhou.gov.cn/" target="_blank">贵州省生态环境厅</a></li>
+                
+                    <li><a href="http://sthjt.yn.gov.cn/index.html" target="_blank">云南省生态环境厅</a></li>
+                
+                    <li><a href="http://ee.xizang.gov.cn/" target="_blank">西藏自治区生态环境厅</a></li>
+                
+                    <li><a href="http://sthjt.shaanxi.gov.cn" target="_blank">陕西省生态环境厅</a></li>
+                
+                    <li><a href="http://sthj.gansu.gov.cn" target="_blank">甘肃省生态环境厅</a></li>
+                
+                    <li><a href="http://sthjt.qinghai.gov.cn" target="_blank">青海省生态环境厅</a></li>
+                
+                    <li><a href="https://sthjt.nx.gov.cn" target="_blank">宁夏回族自治区生态环境厅</a></li>
+                
+                    <li><a href="http://sthjt.xinjiang.gov.cn/" target="_blank">新疆维吾尔自治区生态环境厅</a></li>
+                
+                    <li><a href="http://sthjj.xjbt.gov.cn/" target="_blank">新疆生产建设兵团生态环境局</a></li>
+                
+            </ul>
+            <ul>
+                
+                    <li><a href="http://permit.mee.gov.cn/permitExt/defaults/default-index!getInformation.action" target="_blank">全国排污许可证管理信息平台</a></li>
+                
+                    <li><a href="https://www.ceett.org.cn/" target="_blank">国家生态环境科技成果转化综合服务平台</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="center">
+        <div class="footer_web_linkBox">
+            <!--<a class="footer_web_linkLA" href="http://www.gov.cn/" target="_blank">中国政府网</a>-->
+            <ul class="footer_web_linkUl">
+                <li class="footer_web_linkLi"><a class="footer_web_linkLiA" href="http://www.gov.cn/"  target="_blank">中国政府网</a></li>
+                <li class="footer_web_linkLi footer_web_linkLi2">国务院部门<img src="/images/MEPC_base_footer_v2019_03.png" /></li>
+                <li class="footer_web_linkLi footer_web_linkLi2">部系统门户网站群<img src="/images/MEPC_base_footer_v2019_03.png" /></li>
+                <li class="footer_web_linkLi footer_web_linkLi2">地方生态环境部门<img src="/images/MEPC_base_footer_v2019_03.png" /></li>
+                <li class="footer_web_linkLi footer_web_linkLi2">其他<img src="/images/MEPC_base_footer_v2019_03.png" /></li>
+            </ul>
+        </div>
+        <div class="footer_web_linkBBox">
+            <span>链接 ：</span>
+            <ul>
+                <li><a href="http://www.npc.gov.cn/"  target="_blank">全国人大</a></li>
+                <li><a href="http://www.cppcc.gov.cn/"  target="_blank">全国政协</a></li>
+                <li><a href="http://www.ccdi.gov.cn/"  target="_blank">国家监察委员会</a></li>
+                <li><a href="http://www.court.gov.cn/"  target="_blank">最高人民法院</a></li>
+                <li><a href="http://www.spp.gov.cn/"  target="_blank">最高人民检察院</a></li>
+            </ul>
+        </div>
+        <div class="footer_BBox">
+            <a href="http://bszs.conac.cn/sitename?method=show&id=1ACC49F8764D14F7E053012819ACEFF4" target="_blank"><img class="footer_BLImg" src="/images/MEPC_base_footer_v2019_14.png" /></a>
+            <div class="footer_BZBox">
+                <ul>
+                    <li><a href="/home/wzsm/" target="_blank">网站声明</a></li>
+                    <li><a href="/home/wzdt/" target="_blank">网站地图</a></li>
+                    <li><a href="/home/lxwm/" target="_blank">联系我们</a></li>
+                </ul>
+                <p>
+                    版权所有：中华人民共和国生态环境部<span>|</span>ICP备案编号: <a href="https://beian.miit.gov.cn " target="_blank" style="color:#000">京ICP备05009132号</a>
+                </p>
+                <p>
+                    网站标识码：bm17000009<span>|</span><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11040102700072" target="_blank" style="color:#000"><img src="/images/babs.png" /> 京公网安备 11040102700072号</a>
+                </p>
+            </div>
+            <div class="footer_BRBox">
+                <a><img src="/images/icon_13.png" width="60" height="60" />手机版</a>
+<a style="cursor: auto;"><img src="/images/2022slh.png" width="121" height="55" /></a>
+                <script id="_jiucuo_" sitecode='bm17000009' src='/images/jiucuo.js'></script>
+                <!--
+                <script id="_jiucuo_" sitecode='bm17000009' src='https://zfwzgl.www.gov.cn/exposure/jiucuo.js'></script>
+                -->
+            </div>
+            <!--<a class="style_App" target="_parent">手机版</a>-->
+        </div>
+    </div>
+</div>
+<div class="footerMoble">
+    <p>版权所有：中华人民共和国生态环境部 </p>
+    <p>ICP备案编号: <a href="https://beian.miit.gov.cn " target="_blank" style="color:#000">京ICP备05009132号</a></p>
+    <p>网站标识码：bm17000009</p>
+    <p><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11040102700072" target="_blank" style="color:#000"><img src="/images/babs.png" /> 京公网安备 11040102700072号</a></p>
+    <div class="style_pc">电脑版</div>
+    <p class="footerMobleP">
+        <a href="http://bszs.conac.cn/sitename?method=show&id=1ACC49F8764D14F7E053012819ACEFF4" target="_blank"><img class="footerMobleImg" src="/images/MEPC_base_footer_v2019_14.png" /></a>
+        <a href="https://zfwzgl.www.gov.cn/exposure/jiucuo.html?site_code=bm17000009" target="_blank">
+            <img class="footerMobleImg2" src="/images/MEPC_base_footer_v2019_11.png" />
+        </a>
+    </p>
+    <a class="goTopBtn"></a>
+</div>
+
+
+
+
+
+<!-- 底部广告 -->
+<div id="notice" class="visible">
+    <a class="btn-close"></a>
+    <div class="content">
+        
+            <div class="notice-item app" style="display: block;">
+                <div class="notice-img-app"><a href="https://www.gov.cn/zhengce/zczhjd/" target="_blank"><img src="./ztzl/rdzt/202307/W020230731710021250380.png" alt="4d69c87422913f3c518562ff9bfa187.png"/></a></div>
+                <div class="notice-title"><h3><a target="_blank" href="https://www.gov.cn/zhengce/zczhjd/" title="重要政策举措及实施效果">重要政策举措及实施效果</a></h3></div>
+                <script language="JavaScript">
+                    var content='./ztzl/rdzt/202307/W020230731710021250380.png';
+                    if (content=="")
+                    {
+                        document.write('<div class="notice-content">');
+                    }
+                    else
+                    {
+                        document.write('<div class="notice-content" style="display:none;">');
+                    }
+                </script>
+                </div>
+            <div class="notice-link-app"><a class="notice-link-detail" target="_blank" href="https://www.gov.cn/zhengce/zczhjd/">查看详情</a></div>
+    </div>
+    
+            <div class="notice-item app" style="display: block;">
+                <div class="notice-img-app"><a href="https://tousu.www.gov.cn/dc/index.htm" target="_blank"><img src="./ywdt/tpxw/202402/W020240201478551171982.jpg" alt="191cc069e84fb3a26e51c572731dc0e.jpg"/></a></div>
+                <div class="notice-title"><h3><a target="_blank" href="https://tousu.www.gov.cn/dc/index.htm" title="国务院“互联网+督查”">国务院“互联网+督查”</a></h3></div>
+                <script language="JavaScript">
+                    var content='./ywdt/tpxw/202402/W020240201478551171982.jpg';
+                    if (content=="")
+                    {
+                        document.write('<div class="notice-content">');
+                    }
+                    else
+                    {
+                        document.write('<div class="notice-content" style="display:none;">');
+                    }
+                </script>
+                </div>
+            <div class="notice-link-app"><a class="notice-link-detail" target="_blank" href="https://tousu.www.gov.cn/dc/index.htm">查看详情</a></div>
+    </div>
+    
+            <div class="notice-item app" style="display: block;">
+                <div class="notice-img-app"></div>
+                <div class="notice-title"><h3><a target="_blank" href="./ywgz/hjyxpj/jsxmhjyxpj/nscxmgs/202610/t20261030_1184929.shtml" title="生态环境部关于新建黔江至吉首铁路等2个项目生态环境影响评价文件的拟审查公示">生态环境部关于新建黔江至吉首铁路等2个项目生态环境影响评价文件的拟审查公示</a></h3></div>
+                <script language="JavaScript">
+                    var content='';
+                    if (content=="")
+                    {
+                        document.write('<div class="notice-content">');
+                    }
+                    else
+                    {
+                        document.write('<div class="notice-content" style="display:none;">');
+                    }
+                </script>
+                <br/>　　根据建设项目生态环境影响评价审批程序的有关规定，我部拟对新建黔江至吉首铁路等2个项目生态环境影响评价文件进行审查。现将拟审查的生态环境影响评价文件相关情况予以...</div>
+            <div class="notice-link-app"><a class="notice-link-detail" target="_blank" href="./ywgz/hjyxpj/jsxmhjyxpj/nscxmgs/202610/t20261030_1184929.shtml">查看详情</a></div>
+    </div>
+    
+            <div class="notice-item app" style="display: block;">
+                <div class="notice-img-app"></div>
+                <div class="notice-title"><h3><a target="_blank" href="./xxgk2018/xxgk/xxgk06/202610/t20261027_1184706.html" title="关于公开征求《废弃电器电子产品回收处理管理条例（修订草案征求意见稿）》《危险废物经营许可证管理办法（修订草案征求意见稿）》意见的函">关于公开征求《废弃电器电子产品回收处理管理条例（修订草案征求意见稿）》《危险废物经营许...</a></h3></div>
+                <script language="JavaScript">
+                    var content='';
+                    if (content=="")
+                    {
+                        document.write('<div class="notice-content">');
+                    }
+                    else
+                    {
+                        document.write('<div class="notice-content" style="display:none;">');
+                    }
+                </script>
+                <br/>　　为贯彻落实《中华人民共和国生态环境法典》有关要求，适应行业发展需要，进一步规范废弃电器电子产品回收处理和危险废物经营许可管理，我部组织起草了《废弃电器电子产...</div>
+            <div class="notice-link-app"><a class="notice-link-detail" target="_blank" href="./xxgk2018/xxgk/xxgk06/202610/t20261027_1184706.html">查看详情</a></div>
+    </div>
+    
+            <div class="notice-item app" style="display: block;">
+                <div class="notice-img-app"></div>
+                <div class="notice-title"><h3><a target="_blank" href="./ywdt/gsgg/gongshi/gsq/202610/t20261027_1184683.shtml" title="生态环境部关于2026年10月23日建设项目生态环境影响评价文件受理情况的公示（核与辐射）">生态环境部关于2026年10月23日建设项目生态环境影响评价文件受理情况的公示（核与辐射）</a></h3></div>
+                <script language="JavaScript">
+                    var content='';
+                    if (content=="")
+                    {
+                        document.write('<div class="notice-content">');
+                    }
+                    else
+                    {
+                        document.write('<div class="notice-content" style="display:none;">');
+                    }
+                </script>
+                <br/>　　根据建设项目生态环境影响评价审批程序的有关规定，2026年10月23日我部受理1个核与辐射建设项目生态环境影响评价文件。现将受理情况予以公示，公示期为2026年10月28日—...</div>
+            <div class="notice-link-app"><a class="notice-link-detail" target="_blank" href="./ywdt/gsgg/gongshi/gsq/202610/t20261027_1184683.shtml">查看详情</a></div>
+    </div>
+    
+            <div class="notice-item app" style="display: block;">
+                <div class="notice-img-app"></div>
+                <div class="notice-title"><h3><a target="_blank" href="./xxgk2018/xxgk/xxgk06/202610/t20261026_1184643.html" title="关于公开征求《放射性废物安全管理条例（修订征求意见稿）》意见的函">关于公开征求《放射性废物安全管理条例（修订征求意见稿）》意见的函</a></h3></div>
+                <script language="JavaScript">
+                    var content='';
+                    if (content=="")
+                    {
+                        document.write('<div class="notice-content">');
+                    }
+                    else
+                    {
+                        document.write('<div class="notice-content" style="display:none;">');
+                    }
+                </script>
+                <br/>　　为进一步完善放射性废物管理的法规制度框架，确保放射性废物的最终安全处置，切实保障核能和核技术的健康、有序发展，根据《中华人民共和国生态环境法典》，我部组织修...</div>
+            <div class="notice-link-app"><a class="notice-link-detail" target="_blank" href="./xxgk2018/xxgk/xxgk06/202610/t20261026_1184643.html">查看详情</a></div>
+    </div>
+    
+</div>
+<div class="btn-wrapper">
+    <a class="btn-prev">上一条</a>
+    <a class="btn-next">下一条</a>
+</div>
+</div>
+
+<script>
+    $(function () {
+        var isPC = IsPC();//获取是否为PC端
+        if (isPC) {//如果是PC端加载PC的js和css
+            var thisTopH = $(".adheight").offset().top+273;
+            if($(window).height()<thisTopH){
+                $("#notice").css({"bottom":"0"})
+            }else{
+                $("#notice").css({"top":$(".adheight").offset().top,"bottom":"auto"})
+            }
+            $(window).resize(function () {          //当浏览器大小变化时
+                var thisTopH = $(".adheight").offset().top + 273;
+                if($(window).height()<thisTopH){
+                    $("#notice").css({"bottom":"0","top":"auto"})
+                }else{
+                    $("#notice").css({"top":$(".adheight").offset().top,"bottom":"auto"})
+                }
+            });
+
+        }else{
+            $("#notice").css({"bottom":"0"})
+        }
+
+        //$(".visible").animate({bottom: "0"}, 300);
+        $(".btn-close").click(function () {
+            $(this).parents(".visible").hide();
+        });
+
+        var nowpage = 1;
+        var pagecount = $(".content .notice-item").length;
+        showarea(1);
+        $(".btn-wrapper .btn-prev,.btn-wrapper .btn-next").click(function() {
+            if($(this).hasClass('btn-prev')) {
+                if(nowpage == 1) {
+                    nowpage == pagecount + 1
+                }
+                var page = --nowpage;
+            }
+            else {
+                if(nowpage == pagecount) {
+                    nowpage = 0
+                }
+                var page = ++nowpage;
+            }
+            $('.btn-wrapper .btn-prev').removeClass('btn-disabled');
+            $('.btn-wrapper .btn-next').removeClass('btn-disabled');
+            /*if(page <= 1) {
+                $(".btn-wrapper .btn-prev").addClass('btn-disabled');
+            }
+            else if(page >= pagecount) {
+                $(".btn-wrapper .btn-next").addClass('btn-disabled');
+            }*/
+            showarea(page);
+        });
+        function showarea(page) {
+            var setindex = page - 1;
+            $(".content .notice-item").eq(setindex).show().siblings('.content .notice-item').hide();
+        }
+
+        function nextWrapper(){
+
+            if(nowpage == pagecount) {
+                nowpage=0
+            }
+            var page = ++nowpage;
+
+            $('.btn-wrapper .btn-prev').removeClass('btn-disabled');
+            $('.btn-wrapper .btn-next').removeClass('btn-disabled');
+            /*if(page <= 1) {
+                $(".btn-wrapper .btn-prev").addClass('btn-disabled');
+            }
+            else if(page >= pagecount) {
+                $(".btn-wrapper .btn-next").addClass('btn-disabled');
+            }*/
+            showarea(page);
+        }
+
+        var wrapperSet = setInterval(nextWrapper, 5000);
+
+        $("#notice").hover(function(){
+            clearInterval(wrapperSet)
+        },function(){
+            wrapperSet = setInterval(nextWrapper, 5000);
+        })
+
+    });
+</script>
+
+<script>
+    $(".notice-item div").each(function(){
+        var thisText = $(this).html();
+        thisText = thisText.replace(/<br>/ig, "");
+        thisText = thisText.replace(/　　/ig, "");
+        $(this).html(thisText)
+    })
+</script>
+
+
+
+
+
+<!--
+<script type="text/javascript">document.write(unescape("%3Cspan id='_ideConac' %3E%3C/span%3E%3Cscript   src='https://dcs.conac.cn/js/33/000/0000/40672392/CA330000000406723920001.js' type='text/javascript'%3E%3C/script%3E"));</script>
+-->
+<script defer async type="text/javascript" src="//gov.govwza.cn/dist/aria.js?appid=ca7cdadfe5c5be7aa82dd83cdf2639b6" charset="utf-8"></script>
+<!--统计20200825-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?0f50400dd25408cef4f1afb556ccb34f";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+<script>
+    $(function () {
+        $("[href='####']").removeAttr("href");
+    });
+</script>
+
+
+
+
+<style>
+    .share {position: fixed; bottom: 5px;z-index:1000;}
+    #ad1{width:280px; height:347px; background: url(/images/piao0115_1_bg.png) no-repeat;background-size:100% 100%;}
+    #ad1 .box { padding:36px 20px 0 20px;}
+    #ad1 a {display:block; color:#105097; font-size:14px; line-height:23px; background: url(/images/MEPC_index_TLb_v2019_06.png) 4px 12px no-repeat; padding-left: 20px; margin-top: 12px;}
+    #ad1 .close1{position:absolute;top:18px;right:24px;z-index:3;font-size:7px;color:#000;cursor:pointer;}
+    #ad1 .title {text-align: center; font-size: 22px; color: #fff; margin-top: 33px;}
+    #ad1 .more {width: 160px; height: 39px; text-align: center; margin: 0 auto; background: url(/images/piao0115_1_more.jpg) no-repeat;background-size:100% 100%;}
+    #ad1 .more a {color: #fff; font-size: 16px; background: none; line-height:30px; padding: 0;}
+</style>
+
+<script src="./images/hbshare.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    //右侧浮窗
+    function rigScroll() {
+        var winWidth = $(window).width();
+        if (winWidth < 1800) {
+            $(".share").css({
+                "right": 0
+            })
+        } else {
+            var winRig = (winWidth - 1005) / 2 - 385;
+            $(".share").css({
+                "right": winRig
+            })
+        }
+        $(".close1").click(function() {
+            $(".share").hide()
+        })
+
+    }
+    rigScroll()
+    $(window).scroll(function() {
+        rigScroll()
+    });
+
+    $(window).resize(function() {
+        rigScroll()
+    });
+
+
+
+    //删除框
+    document.getElementById("searchword").addEventListener("keyup", function() {
+        if (this.value.length > 0) {
+            document.getElementById("delete").style.visibility = "visible";
+            document.getElementById("delete").onclick = function() {
+                document.getElementById("searchword").value = "";
+                document.getElementById("delete").style.visibility = "hidden";
+            }
+        } else {
+            document.getElementById("delete").style.visibility = "hidden";
+        }
+    });
+
+    document.getElementById("keyword").addEventListener("keyup", function() {
+        if (this.value.length > 0) {
+            document.getElementById("delete2").style.visibility = "visible";
+            document.getElementById("delete2").onclick = function() {
+                document.getElementById("keyword").value = "";
+                document.getElementById("delete2").style.visibility = "hidden";
+            }
+        } else {
+            document.getElementById("delete2").style.visibility = "hidden";
+        }
+    });
+
+$("#keyword").mouseleave(function(e) {
+	e.stopPropagation();
+	e.preventDefault()
+})
+
+</script>
+
+<link class="stylefile" rel="stylesheet" type="text/css" href="./images/MEPC_link_pc_v2023.css">
+<link class="mobileStyle" rel="stylesheet" type="text/css" href="./images/MEPC_link_mobile_v2023.css">
+<script type="text/javascript" src="./images/hrefclickdate.js"></script>
+<script>
+var isPC = IsPC();//获取是否为PC端
+    if (isPC) {//如果是PC端加载PC的js和css
+        $(".mobileStyle").remove();
+    } else {//如果是移动端加载移动端的js和css
+        if(window.sessionStorage.getItem("isPc")=="true"){
+            var oMeta = document.createElement('meta');
+            oMeta.content = '';
+            oMeta.name = 'viewport';
+            document.getElementsByTagName('head')[0].appendChild(oMeta);
+            $(".mobileStyle").remove();
+        }else{
+            $(".stylefile").remove();
+        }
+    }
+</script>
+<div class="link-url-wrapper">
+	<div class="link-url-mask"></div>
+	<div class="link-url-inner">
+		<div class="link-p">温馨提示</div>
+		<div class="content">
+			<h1>您访问的链接即将离开生态环境部门户网站，是否继续？</h1>
+			<p class="link-preview" style="display: none"></p>
+			<!--<p id="ShowDiv">3秒后自动关闭...</p>-->
+			<div class="content-footer">
+				<span id="continue" class="link continue">继续访问</span>
+				<span class="link default cancel">取消</span>
+			</div>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
+<!--触发发布-->
+
+
+

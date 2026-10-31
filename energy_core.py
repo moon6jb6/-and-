@@ -133,7 +133,11 @@ def build_energy_data(with_carbon=True):
                       "ask": e[3], "rules": e[4], "usedBy": ev_use.get(e[0], 0)}
                      for e in EVIDENCE_TIERS],
         "datasets": [{"id": d[0], "name": d[1], "org": d[2], "freq": d[3],
-                      "cover": d[4], "caveat": d[5], "usedBy": ds_use.get(d[0], 0)}
+                      "cover": d[4], "caveat": d[5],
+                      "url": d[6] if len(d) > 6 else "",
+                      "urlKind": d[7] if len(d) > 7 else "none",
+                      "urlNote": d[8] if len(d) > 8 else "",
+                      "usedBy": ds_use.get(d[0], 0)}
                      for d in DATASETS],
         "models": [{"id": m[0], "name": m[1], "kind": m[2], "use": m[3],
                     "formula": m[4], "limit": m[5], "usedBy": md_use.get(m[0], 0)}

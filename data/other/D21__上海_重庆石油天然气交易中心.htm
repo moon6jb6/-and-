@@ -1,0 +1,596 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="360-site-verification" content="4381464464865a149d7f53429e28e6bf" />
+<meta http-equiv="Cache-Control" content="private, max-age=600, must-revalidate">
+
+<title>上海石油天然气交易中心</title>
+	<link rel="stylesheet" href="/css/style.css" type="text/css" />
+	<link href="/css/index.css" rel="stylesheet" type="text/css" />
+	<link href="/static/css/market_3001_11_index.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="/js/My97DatePicker/WdatePicker.js" charset="utf-8"></script>
+	<script type="text/javascript" src="/js/charts/echarts.min.js"></script>
+	<script type="text/javascript" src="/js/charts/china.js"></script>
+	<script type="text/javascript" src="/js/charts/area.js"></script>
+
+<!--网页变黑白
+<style type="text/css">
+html {
+filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);
+-webkit-filter: grayscale(100%);}
+</style>
+
+-->
+
+
+<!--首页弹窗
+<script type="text/javascript" src="/adspace.jspx?id=2"></script>
+
+-->
+
+
+</head>
+<body>
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script>
+function qkeypress(){
+	var q=$("input[name=q]");
+	if(q.val().trim()!=""){
+		$("input[name=q]").autocomplete("enable");
+	}else{
+		$("input[name=q]").autocomplete("disable");
+	}
+}
+function query(){
+	$.post("/createToken.jspx", {}, function(data) {
+		$("#token").val(data.token);
+		$("#searchForm").submit();
+	}, "json");
+}
+$(function() {
+	$("input[name='q']").bind('keypress',function(event){
+	    if(event.keyCode == 13)     
+	    {  
+	    	event.preventDefault();
+	    	query();
+	    }  
+	});
+});
+</script>
+	<!--头部：语言+logo+导航+搜索-->
+	<div class="top">
+		
+		<div class="logo_bg">
+		<div class="logo">
+			<h1 class="logo_area"><img src="/img/logo.png"></h1>
+			<!--
+			<div class="search_bg">
+				<div class="search">
+					<form action="/search.jspx" target="_blank" name="searchForm" id="searchForm">
+					<input  placeholder="请输入关键字" type="text" name="q" value=""   maxlength="50" autocomplete="off"  class="search_input" >
+					<input type="hidden" name="token" id="token" value="" />
+					<a href="javascript:query()" class="search_icon" ></a>
+					</form>
+				</div>
+			</div>
+			-->
+
+
+
+		</div>
+		</div>
+		<div class="navigation1">
+			<a href="/" class="navigation_tab navigation_tab_now">首页</a>
+			<div class="navigation_tab">
+				<a  href='/html/gsxw/'>公司新闻</a>
+				<ul class="navigation_tab_menu">
+
+				</ul>
+			</div>
+			<div class="navigation_tab">
+				<a  href='/html/clbj.html'>关于我们</a>
+				<ul class="navigation_tab_menu">
+ 					<li class="navigation_tab_menu1">中心介绍</li>
+					<li class="navigation_tab_menu2" onclick="location.href='/html/clbj.html'" style='cursor:pointer'>成立背景</li>
+					<li class="navigation_tab_menu2" onclick="location.href='/html/lnhjzg.html'" style='cursor:pointer'>理念和价值观</li>
+					<li class="navigation_tab_menu2" onclick="location.href='/html/fzyj.html'" style='cursor:pointer'>发展愿景</li>
+					<li class="navigation_tab_menu1" onclick="location.href='/html/zzjg.html'" style='cursor:pointer'>组织架构</li>
+					<li class="navigation_tab_menu1" onclick="location.href='/html/tdjs.html'" style='cursor:pointer'>团队建设</li>
+					<li class="navigation_tab_menu1" onclick="location.href='/html/lxwm.html'" style='cursor:pointer'>联系我们</li>
+
+				</ul>
+			</div>
+			<div class="navigation_tab">
+				<a  href='/html/gdtrqgp/'>上市品种</a>
+				<ul class="navigation_tab_menu">
+ 					<li class="navigation_tab_menu1">管道天然气</li>
+					<li class="navigation_tab_menu2" onclick="location.href='/html/gdtrqgp/'" style='cursor:pointer'>管道天然气挂牌</li>
+					<li class="navigation_tab_menu2" onclick="location.href='/html/gdtrqjj/'" style='cursor:pointer'>管道天然气竞价</li>
+ 					<li class="navigation_tab_menu1">液化天然气</li>
+					<li class="navigation_tab_menu2" onclick="location.href='/html/yhtrqgp/'" style='cursor:pointer'>液化天然气挂牌</li>
+					<li class="navigation_tab_menu2" onclick="location.href='/html/yhtrqjj/'" style='cursor:pointer'>液化天然气竞价</li>
+ 					<li class="navigation_tab_menu1">油品</li>
+					<li class="navigation_tab_menu2" onclick="location.href='/html/ypgp/'" style='cursor:pointer'>油品挂牌</li>
+					<li class="navigation_tab_menu2" onclick="location.href='/html/ypjj/'" style='cursor:pointer'>油品竞价</li>
+					<li class="navigation_tab_menu1" onclick="location.href='/html/LNGjsz/20241227/7235.html'" style='cursor:pointer'>LNG接收站</li>
+
+				</ul>
+			</div>
+			<div class="navigation_tab">
+				<a  href='/html/rslc/'>入市指南</a>
+				<ul class="navigation_tab_menu">
+					<li class="navigation_tab_menu1" onclick="location.href='/html/rslc/'" style='cursor:pointer'>入市流程</li>
+					<li class="navigation_tab_menu1" onclick="location.href='/html/hygl/'" style='cursor:pointer'>会员管理</li>
+					<li class="navigation_tab_menu1" onclick="location.href='/html/jygl/'" style='cursor:pointer'>交易管理</li>
+					<li class="navigation_tab_menu1" onclick="location.href='/html/zjyjs/'" style='cursor:pointer'>资金与结算</li>
+					<li class="navigation_tab_menu1" onclick="location.href='/html/czzn/'" style='cursor:pointer'>操作指南</li>
+ 					<li class="navigation_tab_menu1">规章制度</li>
+					<li class="navigation_tab_menu2" onclick="location.href='/html/zfwj/'" style='cursor:pointer'>政府文件</li>
+					<li class="navigation_tab_menu2" onclick="location.href='/html/xgxygd/'" style='cursor:pointer'>相关行业规定</li>
+					<li class="navigation_tab_menu2" onclick="location.href='/html/jyzxglgd/'" style='cursor:pointer'>交易中心管理规定</li>
+					<li class="navigation_tab_menu1" onclick="location.href='/html/qtgf/'" style='cursor:pointer'>其他规范</li>
+
+				</ul>
+			</div>
+			<div class="navigation_tab">
+				<a  href='/html/qgjg.html'>价格与指数</a>
+				<ul class="navigation_tab_menu">
+ 					<li class="navigation_tab_menu1">中石油管道气公开市场价格(CNP)</li>
+					<li class="navigation_tab_menu2" onclick="location.href='/html/qgjgydjj.html'" style='cursor:pointer'>全国价格(月度均价)</li>
+					<li class="navigation_tab_menu2" onclick="location.href='/html/qyjgydjj.html'" style='cursor:pointer'>区域价格(月度均价)</li>
+					<li class="navigation_tab_menu2" onclick="location.href='/html/qgjgcjjg.html'" style='cursor:pointer'>全国价格(场均价格)</li>
+					<li class="navigation_tab_menu2" onclick="location.href='/html/qyjgcjjg.html'" style='cursor:pointer'>区域价格(场均价格)</li>
+					<li class="navigation_tab_menu2" onclick="location.href='/html/qgjgydlj.html'" style='cursor:pointer'>全国价格(月度累计)</li>
+					<li class="navigation_tab_menu2" onclick="location.href='/html/qyjgydlj.html'" style='cursor:pointer'>区域价格(月度累计)</li>
+ 					<li class="navigation_tab_menu1">中国LNG出厂价格</li>
+					<li class="navigation_tab_menu2" onclick="location.href='/html/qgjg.html'" style='cursor:pointer'>全国价格</li>
+					<li class="navigation_tab_menu2" onclick="location.href='/html/zgLNGccjgqyzs.html'" style='cursor:pointer'>区域价格</li>
+					<li class="navigation_tab_menu2" onclick="location.href='/html/czjg.html'" style='cursor:pointer'>出站价格</li>
+ 					<li class="navigation_tab_menu1">中国管道天然气现货价格</li>
+					<li class="navigation_tab_menu2" onclick="location.href='/html/zdjg.html'" style='cursor:pointer'>周度价格</li>
+					<li class="navigation_tab_menu2" onclick="location.href='/html/ydjj.html'" style='cursor:pointer'>月度均价</li>
+					<li class="navigation_tab_menu1" onclick="location.href='/html/zgLNGzhjkdajgzs.html'" style='cursor:pointer'>中国LNG综合进口到岸价格指数</li>
+					<li class="navigation_tab_menu1" onclick="location.href='/html/zgyyzhjkdajgzs.html'" style='cursor:pointer'>中国原油综合进口到岸价格指数</li>
+					<li class="navigation_tab_menu1" onclick="location.href='/html/zgLPGzhjkdajgzs.html'" style='cursor:pointer'>中国LPG综合进口到岸价格指数</li>
+ 					<li class="navigation_tab_menu1">中国进口现货LNG到岸价格(CLD)</li>
+					<li class="navigation_tab_menu2" onclick="location.href='/html/zgjkxhLNGdajg.html'" style='cursor:pointer'>日度价格</li>
+					<li class="navigation_tab_menu2" onclick="location.href='/html/zgjkxhLNGdajgyjj.html'" style='cursor:pointer'>月度均价</li>
+					<li class="navigation_tab_menu1" onclick="location.href='/html/LNGbjsj.html'" style='cursor:pointer'>LNG报价数据</li>
+					<li class="navigation_tab_menu1" onclick="location.href='/html/zgqcypfjg.html'" style='cursor:pointer'>中国汽柴油批发价格</li>
+					<li class="navigation_tab_menu1" onclick="location.href='/html/zgshrlybscgbj.html'" style='cursor:pointer'>中国上海燃料油保税船供报价</li>
+ 					<li class="navigation_tab_menu1">中国(华北)车用LNG加注价格</li>
+					<li class="navigation_tab_menu2" onclick="location.href='/html/sjg.html'" style='cursor:pointer'>省价格</li>
+					<li class="navigation_tab_menu2" onclick="location.href='/html/djsjg.html'" style='cursor:pointer'>地级市价格</li>
+
+				</ul>
+			</div>
+			<div class="navigation_tab">
+				<a  href='/html/xyzx/'>最新资讯</a>
+				<ul class="navigation_tab_menu">
+					<li class="navigation_tab_menu1" onclick="location.href='/html/bgyw/'" style='cursor:pointer'>保供有我</li>
+					<li class="navigation_tab_menu1" onclick="location.href='/html/xyzx/'" style='cursor:pointer'>行业资讯</li>
+					<li class="navigation_tab_menu1" onclick="location.href='/html/zcsd/'" style='cursor:pointer'>政策速递</li>
+					<li class="navigation_tab_menu1" onclick="location.href='/html/jgjx/'" style='cursor:pointer'>价格简讯</li>
+
+				</ul>
+			</div>
+			<div class="navigation_tab">
+				<a  href='/html/jygg/'>通知公告</a>
+				<ul class="navigation_tab_menu">
+					<li class="navigation_tab_menu1" onclick="location.href='/html/jygg/'" style='cursor:pointer'>交易公告</li>
+					<li class="navigation_tab_menu1" onclick="location.href='/html/hyzq/'" style='cursor:pointer'>调价公告</li>
+					<li class="navigation_tab_menu1" onclick="location.href='/html/qtgg/'" style='cursor:pointer'>其他公告</li>
+
+				</ul>
+			</div>
+			<div class="navigation_tab">
+				<a  href='/html/gdtrqsj.html'>历史行情</a>
+				<ul class="navigation_tab_menu">
+					<li class="navigation_tab_menu1" onclick="location.href='/html/gdtrqsj.html'" style='cursor:pointer'>管道天然气数据</li>
+					<li class="navigation_tab_menu1" onclick="location.href='/html/yhtrqsj.html'" style='cursor:pointer'>液化天然气数据</li>
+
+				</ul>
+			</div>
+			<div class="navigation_tab">
+				<a  href='https://kh.shpgx.com/open/step2'>会员中心</a>
+				<ul class="navigation_tab_menu">
+					<li class="navigation_tab_menu1" onclick="location.href='https://kh.shpgx.com/open/step2'" style='cursor:pointer'>会员注册</li>
+					<li class="navigation_tab_menu1" onclick="location.href='https://kh.shpgx.com/open/gpQuery'" style='cursor:pointer'>进度查询</li>
+					<li class="navigation_tab_menu1" onclick="location.href='https://egas.cnfin.com'" style='cursor:pointer'>会员信息平台</li>
+
+				</ul>
+			</div>
+			<div class="navigation_tab">
+				<a  href='/html/xzzq/'>下载专区</a>
+				<ul class="navigation_tab_menu">
+
+				</ul>
+			</div>
+			
+		</div>
+	</div>
+        <div id="thediv" style="z-index:100;position:absolute;top:0px;left:0px;height:120px;width:240px;"><button id="close" style="position: absolute;top: 0;right: 0; background: none;border: none; font-size: 25px; cursor: pointer; color: #333;">x</button><a href="https://www.shpgx.com/html/qtgg/20240806/6640.html" target="_blank"><img src="/img/law.png" style="height: 120px;width: 240px;"></a></div> 
+
+	<!--轮播图-->
+	<div class="slide-main" id="touchMain">
+		<div class="slide-box" id="slideContent">
+
+                        <div class="slide">
+				<a stat="sslink-4" href="##" ><img src="/images/1.jpg"></a>
+			</div>
+
+			<div class="slide">
+				<a stat="sslink-3" href="##" ><img src="/images/2.jpg"></a>
+			</div>
+
+                         <div class="slide">
+				<a stat="sslink-2" href="##" ><img src="/images/3.jpg"></a>
+			 </div>
+
+			<div class="slide">
+				<a stat="sslink-1" href="##" ><img src="/images/4.jpg"></a>
+			</div>
+
+			<div class="slide">
+				<a stat="sslink-1" href="##" ><img src="/images/5.jpg"></a>
+			</div>
+
+
+			<a class="prev" href="javascript:;" stat="prev1001"><img src="/images/l-btn.png" /></a>
+			<a class="next" href="javascript:;" stat="next1002"><img src="/images/r-btn.png" /></a>
+		</div>
+
+		<div class="item">
+			<a class="cur" stat="item1001" href="javascript:;"></a><a href="javascript:;" stat="item1002"></a><a href="javascript:;" stat="item1003"></a><a href="javascript:;" stat="item1004"></a><a href="javascript:;" stat="item1005"></a>
+		</div>
+	</div>
+	
+	<!------以下为内容------>
+	
+	<div class="centent1_bg">
+	<div class="centent1 centent2" style="background: #f5f5f5;">
+		<!--最新资讯-->
+		<div class="news_bg">
+			<div class="content_tlt news_tlt">最新资讯<span class="content_tlt_eng">丨News</span></div>
+			<div class="news_img">
+				<ul class="pic">
+			<!-- 		<li>
+					 <target="_blank" >    
+                                         <img src="/u/cms/www/202401/11111344cwwx.jpg"/>
+					 </a>
+					</li>
+ -->   
+					<li>
+					 <a href="/html/gsxw/20231228/5773.html" target="_blank" >    
+                                         <img src="/u/cms/www/202401/11111344cwwx.jpg"/>
+					 </a>
+					</li>
+
+
+		<!-- 删除页面左侧轮播图
+					<li>
+					 <target="_blank" >    
+                                         <img src="/u/cms/www/202305/2214343415d7.jpg"/>
+					 </a>
+					</li>
+
+					<li>			
+                                        <a href="/html/LNG2019/20230518/5170.html" target="_blank" >                        
+                                        <a href="https://www.shpgx.com/html/zxdt/20231228/5773.html" target="_blank" >  
+                                         <img src="/u/cms/www/202305/2214343415d7.jpg"/>
+					 </a>
+					</li>
+
+                -->   
+
+
+
+
+				</ul>
+			</div>
+			<ul class="news_class">
+				<li class="news_class_tlt news_class_tlt_now" id="2">公司新闻</li>
+				<li class="news_class_tlt"  id="1">通知公告</li>
+				<li class="news_class_tlt" id="3">行业资讯</li>
+				<li class="news_class_tlt" id="4">会员专区</li>
+				<li class="news_class_tlt" id="5">保供有我</li>
+                         
+			</ul>
+			<ul class="news_list_bg" id="news_list_2" style="display:none;">
+				<li class="news_list"><a href="/html/gsxw/20250319/7592.html" target="_blank" >上海石油天然气交易中心关于虚假“推荐信”的严正声明</a></li>
+				<li class="news_list"><a href="/html/gsxw/20240527/6323.html" target="_blank" >关于防范电信诈骗的风险提示</a></li>
+				<li class="news_list"><a href="/html/gsxw/20231228/5773.html" target="_blank" >上海石油天然气交易中心入选2023年国际金融十大新闻</a></li>
+				<li class="news_list"><a href="/html/gsxw/20260213/8759.html" target="_blank" >上海石油天然气交易中心2025年度回顾</a></li>
+				<li class="news_list"><a href="/html/gsxw/20260730/9574.html" target="_blank" >全国首单迎峰度夏气电日交易试点上线</a></li>
+				<li class="news_list"><a href="/html/gsxw/20260701/9435.html" target="_blank" >陕西液化首单4500方高纯氦气（99.999%）公开竞价成交 上海石油天然气交易中心氦气品种正式上线</a></li>
+				<li class="news_list"><a href="/html/gsxw/20260629/9423.html" target="_blank" >LNG船货“跨境通”首轮交易在沪完成 贸易及人民币结算模式进一步丰富</a></li>
+				<li class="news_list"><a href="/html/gsxw/20260623/9378.html" target="_blank" >生物天然气迈入产业化快车道 统一价格指数破解行业痛点</a></li>
+				<li class="news_list"><a href="/html/gsxw/20260421/9061.html" target="_blank" >熊维：中东冲突冲击全球天然气供需格局，高气价与区域溢价或将持续</a></li>
+				<li class="news_list"><a href="/html/gsxw/20260420/9059.html" target="_blank" >郑洪弢：2026年非采暖季国内天然气供需整体偏紧，全行业应增强应变能力</a></li>
+				<li class="news_list"><a href="/html/gsxw/20260420/9058.html" target="_blank" >肖宏伟：加快新兴业务布局，打造城燃第二增长曲线</a></li>
+				<li class="news_list"><a href="/html/gsxw/20260420/9057.html" target="_blank" >熊力：天然气是新型能源体系建设的关键支撑力量</a></li>
+				<div class="more">
+					<a href="/html/gsxw/">更多&gt;&gt;</a>
+				</div>
+			</ul>
+			<ul class="news_list_bg" id="news_list_1">
+				<li class="news_list"><a href="/html/jygg/20261030/10252.html" target="_blank" >关于开展2026年11月-2027年3月安平管道天然气竞价交易的公告</a></li>
+				<li class="news_list"><a href="/html/jygg/20261029/10246.html" target="_blank" >中国石油天然气股份有限公司天津销售分公司2026年11月成品油常态化竞价交易公告</a></li>
+				<li class="news_list"><a href="/html/jygg/20261027/10232.html" target="_blank" >关于开展中海石油气电集团有限责任公司浙江分公司LNG竞价交易的公告</a></li>
+				<li class="news_list"><a href="/html/jygg/20261027/10227.html" target="_blank" >关于开展2026年12月-2027年3月十字镇输气站管道天然气竞价交易的公告</a></li>
+				<li class="news_list"><a href="/html/jygg/20261027/10222.html" target="_blank" >关于开展中海石油气电集团有限责任公司广东分公司LNG竞价交易（金湾专场）的公告</a></li>
+				<li class="news_list"><a href="/html/jygg/20261026/10213.html" target="_blank" >关于开展中海石油气电集团有限责任公司福建分公司LNG竞价交易的公告</a></li>
+				<li class="news_list"><a href="/html/jygg/20261026/10212.html" target="_blank" >关于开展中国石油天然气股份有限公司天然气销售分公司管道气公开市场交易的通知（2026年11月场次）</a></li>
+				<li class="news_list"><a href="/html/jygg/20261026/10211.html" target="_blank" >关于发布10月年度合同转让交易价格的公告</a></li>
+				<li class="news_list"><a href="/html/jygg/20261023/10202.html" target="_blank" >关于开展中海油深燃能源有限公司2026年10月-11月LNG运力竞价补充交易公告</a></li>
+				<li class="news_list"><a href="/html/jygg/20261023/10207.html" target="_blank" >关于中国石化天然气分公司华南天然气销售中心重要会议筹备期间开展“易气无忧”保供深圳区域专场竞拍交易的通知</a></li>
+				<li class="news_list"><a href="/html/jygg/20261023/10203.html" target="_blank" >关于开展2026年11月安平管道天然气竞价交易的补充通知</a></li>
+				<li class="news_list"><a href="/html/jygg/20261022/10195.html" target="_blank" >关于开展山东港华燃气集团有限公司LNG竞价采购交易的公告</a></li>
+				<div class="more">
+					<a href="/html/jygg/">更多&gt;&gt;</a>
+				</div>
+			</ul>
+			<ul class="news_list_bg" id="news_list_3" style="display:none;">
+				<li class="news_list"><a href="/html/xyzx/20261030/10251.html" target="_blank" >中国石油前三季度业绩再创历史同期新高</a></li>
+				<li class="news_list"><a href="/html/xyzx/20261029/10245.html" target="_blank" >10月19日-25日中国液化丙烷、丁烷综合进口到岸价格指数为180.48、184.17点</a></li>
+				<li class="news_list"><a href="/html/xyzx/20261029/10244.html" target="_blank" >10月19日-25日中国原油综合进口到岸价格指数为180.52点</a></li>
+				<li class="news_list"><a href="/html/xyzx/20261029/10243.html" target="_blank" >10月19日-25日中国液化天然气综合进口到岸价格指数224.60点</a></li>
+				<li class="news_list"><a href="/html/xyzx/20261029/10242.html" target="_blank" >海油发展公布2026年第三季度业绩</a></li>
+				<li class="news_list"><a href="/html/xyzx/20261029/10241.html" target="_blank" >中国石油地热供暖面积超1亿平方米</a></li>
+				<li class="news_list"><a href="/html/xyzx/20261028/10234.html" target="_blank" >天然气或将成为新型能源体系的“稳定器”</a></li>
+				<li class="news_list"><a href="/html/xyzx/20261028/10233.html" target="_blank" >中国石化提前发力为冬供蓄能</a></li>
+				<li class="news_list"><a href="/html/xyzx/20261027/10231.html" target="_blank" >E-Gas系统：10月19日-10月25日当周中国LNG进口量约108万吨</a></li>
+				<li class="news_list"><a href="/html/xyzx/20261027/10230.html" target="_blank" >中国进口现货液化天然气到岸价格（CLD）| 周度简析（10月19日-23日）</a></li>
+				<li class="news_list"><a href="/html/xyzx/20261027/10229.html" target="_blank" >国家发展改革委有关负责同志就《能源保供中长期合同管理办法（试行）》答记者问</a></li>
+				<li class="news_list"><a href="/html/xyzx/20261026/10210.html" target="_blank" >英首相称批准北海气田项目是“务实之举”</a></li>
+				<div class="more">
+					<a href="/html/xyzx/">更多&gt;&gt;</a>
+				</div>
+			</ul>
+			<ul class="news_list_bg" id="news_list_4" style="display:none;">
+				<li class="news_list"><a href="/html/hyzq/20261028/10239.html" target="_blank" >中海石油气电集团有限责任公司江苏分公司关于2026年10月28日LNG交易挂牌价公告</a></li>
+				<li class="news_list"><a href="/html/hyzq/20261028/10236.html" target="_blank" >中海石油气电集团有限责任公司华北分公司关于2026年10月28日LNG交易挂牌价公告</a></li>
+				<li class="news_list"><a href="/html/hyzq/20261027/10226.html" target="_blank" >中海石油气电集团有限责任公司江苏分公司关于2026年10月27日LNG交易挂牌价公告</a></li>
+				<li class="news_list"><a href="/html/hyzq/20261027/10223.html" target="_blank" >中海石油气电集团有限责任公司华北分公司关于2026年10月27日LNG交易挂牌价公告</a></li>
+				<li class="news_list"><a href="/html/hyzq/20261026/10220.html" target="_blank" >中海石油气电集团有限责任公司广东分公司关于2026年10月22-31日LNG交易挂牌价公告</a></li>
+				<li class="news_list"><a href="/html/hyzq/20261022/10190.html" target="_blank" >中海石油气电集团有限责任公司江苏分公司关于2026年10月21日LNG交易挂牌价公告</a></li>
+				<li class="news_list"><a href="/html/hyzq/20261021/10176.html" target="_blank" >中海石油气电集团有限责任公司华北分公司关于2026年10月21日LNG交易挂牌价公告</a></li>
+				<li class="news_list"><a href="/html/hyzq/20261021/10171.html" target="_blank" >中海石油气电集团有限责任公司浙江分公司关于2026年10月21日LNG交易挂牌价公告</a></li>
+				<li class="news_list"><a href="/html/hyzq/20261020/10166.html" target="_blank" >中海石油气电集团有限责任公司华北分公司关于2026年10月20日LNG交易挂牌价公告</a></li>
+				<li class="news_list"><a href="/html/hyzq/20261020/10165.html" target="_blank" >中海石油气电集团有限责任公司浙江分公司关于2026年10月20日LNG交易挂牌价公告</a></li>
+				<li class="news_list"><a href="/html/hyzq/20261020/10163.html" target="_blank" >中海石油气电集团有限责任公司广东分公司关于2026年10月14-31日LNG交易挂牌价公告</a></li>
+				<li class="news_list"><a href="/html/hyzq/20261019/10150.html" target="_blank" >中海石油气电集团有限责任公司华北分公司关于2026年10月17日LNG交易挂牌价公告</a></li>
+				<div class="more">
+					<a href="/html/hyzq/">更多&gt;&gt;</a>
+				</div>
+			</ul>
+                    
+	<ul class="news_list_bg" id="news_list_5" style="display:none;">
+				<li class="news_list"><a href="/html/bgyw/20260413/9016.html" target="_blank" >「保供有我」第五届优秀“保供案例”正式揭晓！精彩作品邀您共赏~</a></li>
+				<li class="news_list"><a href="/html/bgyw/20260327/8967.html" target="_blank" >「保供有我」国家管网集团西部管道有限责任公司：用脚步丈量温度</a></li>
+				<li class="news_list"><a href="/html/bgyw/20260327/8959.html" target="_blank" >「保供有我」国家管网集团储能技术有限公司：冲锋保供</a></li>
+				<li class="news_list"><a href="/html/bgyw/20260325/8949.html" target="_blank" >「保供有我」燃守初心 护航万家——北京燃气保供一线纪实</a></li>
+				<li class="news_list"><a href="/html/bgyw/20260323/8929.html" target="_blank" >「保供有我」第五届网络投票现已开启，选出您心中的优秀保供案例！</a></li>
+				<li class="news_list"><a href="/html/bgyw/20260319/8923.html" target="_blank" >「保供有我」西安秦华燃气集团有限公司：风雪保供守初心 巡检护航生命线</a></li>
+				<li class="news_list"><a href="/html/bgyw/20260319/8912.html" target="_blank" >「保供有我」南京港华燃气有限公司：南京港华十二时辰</a></li>
+				<li class="news_list"><a href="/html/bgyw/20260318/8911.html" target="_blank" >「保供有我」西安秦华燃气集团有限公司：秦华燃气工程公司西二环中压主体燃气管道改造</a></li>
+				<li class="news_list"><a href="/html/bgyw/20260318/8926.html" target="_blank" >「保供有我」西安秦华燃气集团有限公司：燃心守万家</a></li>
+				<li class="news_list"><a href="/html/bgyw/20260318/8910.html" target="_blank" >「保供有我」国家石油天然气管网集团有限公司广西分公司：爸爸的留守</a></li>
+				<li class="news_list"><a href="/html/bgyw/20260318/8909.html" target="_blank" >「保供有我」国家管网集团储能技术有限公司：保供，我们一直在路上</a></li>
+				<li class="news_list"><a href="/html/bgyw/20260318/8908.html" target="_blank" >「保供有我」杭州港华燃气有限公司：科技赋能，安全保供</a></li>
+				<div class="more">
+					<a href="/html/bgyw/">更多&gt;&gt;</a>
+				</div>
+			</ul>			
+		</div>
+		<!--会员服务-->
+
+	</div>
+	</div>
+	
+	<div class="centent2_bg">
+	<div class="centent1">
+		<!--指数发布-->
+		<div class="index_bg">
+			<div class="content_tlt index_tlt">指数发布<span class="content_tlt_eng">丨Index</span></div>
+			<ul class="index_class">
+				<li class="index_class_tlt index_class_tlt_now"  id="6" style="width:192px;">中国LNG综合进口到岸价格指数</li>
+				<li class="index_class_tlt" id="5" style="width:122px;">中国LNG出厂价格</li>
+				<li class="index_class_tlt" id="7" style="width:132px;">中国汽柴油批发价格</li>
+				<li class="index_class_tlt" id="8" style="width:155px;">中海油华东市场基准价格</li>
+                                <li class="index_class_tlt" id="9" style="width:192px;">中国原油综合进口到岸价格指数</li>
+                                <li class="index_class_tlt" id="10" style="width:192px;">中国LPG综合进口到岸价格指数</li>
+				<li class="index_class_tlt" id="11" style="width:186px;">中国进口现货LNG到岸价格(CLD)</li>
+			</ul>
+	
+                        <div class="index_chart" id="index_chart_6">
+				<div id="chart2" class='chart'><img src="/img/indexzhishu1.jpg"/></div>
+			</div>
+
+			<div class="index_chart" id="index_chart_5" style="display:none">
+				<div id="chart1" class='chart'  style="width:1198px" ><img src="/img/indexzhishu2.jpg"/></div>
+			</div>
+
+			<div class="index_chart" id="index_chart_7" style="display:none">
+				<div id="chart3" class='chart' style="width:1198px" ><img src="/img/indexzhishu3.jpg"/></div>
+			</div>
+
+			<div class="index_chart" id="index_chart_8" style="display:none">
+				<div id="chart4" class='chart' style="width:1198px" ></div>
+			</div>
+
+			<div class="index_chart" id="index_chart_9" style="display:none">
+				<div id="chart5" class='chart' style="width:1198px" ><img src="/img/indexzhishu5.jpg"/></div>
+			</div>
+
+            <div class="index_chart" id="index_chart_10" style="display:none">
+				<div id="chart6" class='chart' style="width:1198px" ><img src="/img/indexzhishu6.jpg"/></div>
+			</div>
+
+			 <div class="index_chart" id="index_chart_11" style="display:none">
+				<div id="chart7" class='chart' style="width:599px;float: left;" ></div>
+				<div id="chart8" class='chart' style="width:599px;float: right;" ></div>
+			</div>
+			
+<ul class='index_desc'><span>&nbsp;&nbsp;&nbsp;&nbsp;在遵守中国有关法律与本声明的前提下，本网站数据仅供研究使用，未经上海石油天然气交易中心书面许可，任何机构或者个人不得以商业目的使用本网站的任何内容。</span></ul>	</div>
+
+
+		<!-- LNG报价行情 -->
+		<div class="price_bg">
+			<div class="content_tlt price_tlt" style="width: 1176px;">LNG报价行情<span class="content_tlt_eng">丨LNG Price</span>
+			</div>
+
+			<div id="Data_release" style="width:1176px;height: 374px;float: right;padding-right: 10px;;overflow-y: scroll;">
+				<form name="myform" id="myform" method="post">
+					<h2>
+						
+					</h2>
+				</form>
+		        <table class="form02" id="pngexchangedata-dt" style="width: 100%;margin:8px 0px 20px" data-page-length="25" data-language="{&#39;url&#39;:&#39;/exdata/static/datatables/i18n/zh_CN.json&#39;}" data-ajax-url="/exdata/pngexchangedata/pagelist.json" data-ordering="false" data-paging="true">
+					<thead>
+						<tr class="firstRow" style="padding-top: 10px;color:rgb(255, 255, 255);height:36px;background-color: #4e6189;position: sticky;top: 0;z-index: 10">
+							<th style="text-overflow: ellipsis;">
+								日期
+							</th>
+							<th style="text-overflow: ellipsis;">
+								报价单位
+							</th>
+							<th style="text-overflow: ellipsis;">
+								接收站名
+							</th>
+							<th style="text-overflow: ellipsis;">
+								销售地
+							</th>
+							<th style="text-overflow: ellipsis;">
+								价格
+							</th>
+							<th style="text-overflow: ellipsis;">
+								买卖方向
+							</th>
+							<!-- <th style="font-size:15px;">
+								日期
+							</th>
+							<th style="font-size:15px;">
+								报价单位
+							</th>
+							<th style="font-size:15px;">
+								接收站名
+							</th>
+							<th style="font-size:15px;">
+								销售地
+							</th>
+							<th style="font-size:15px;">
+								价格
+							</th>
+							<th style="font-size:15px;">
+								买卖方向
+							</th> -->
+						</tr>
+					</thead>
+					<tbody id="tbody_content"></tbody>
+				</table>
+			</div>
+
+
+		<!--近期行情-->
+		<div class="price_bg">
+			<div class="content_tlt price_tlt">近期行情<span class="content_tlt_eng">丨Price</span>
+				<ul class="price_tlt_class_bg">
+				
+					<li class="price_tlt_class price_tlt_class_now" id="1">挂牌</li>
+					<li class="price_tlt_class" id="2">竞价</li>
+				</ul>
+			</div>
+			<div class="price_form_bg" id="index_price_1">
+		        <div class="_3001_table_th">
+		        	
+		        </div>
+		        <div class="_3001_table_td _3001_scroll_list_ul" >
+		            <ul id="cxgp_data">
+		                
+		            </ul>
+		        </div>
+			</div>
+			<div class="price_form_bg"id="index_price_2">
+		        <div class="_3001_table_jj_th">
+		        </div>
+		        <div class="_3001_table_td _3001_scroll_list_ul" >
+		            <ul id="cxjj_data">
+		                
+		            </ul>
+		        </div>
+			</div>
+			<div class="price_form_bg" id="index_price_3">
+		        <div class="_3001_table_bj_th">
+		        	
+		        </div>
+		        <div class="_3001_table_td _3001_scroll_list_ul" >
+		            <ul id="cxbj_data">
+		                
+		            </ul>
+		        </div>
+			</div>
+		</div>
+		
+	</div>
+	</div>
+	<div class="foot_bg">
+	<div class="centent1">
+		<!--友情链接-->
+		<div class="link_bg">
+			<div class="foot_tlt">友情链接</div>
+			<div class="link_1">
+							<a href="http://www.ndrc.gov.cn" class="link" target="_blank">国家发展和改革委员会</a>
+				<a href="http://www.nea.gov.cn/" class="link" target="_blank">国家能源局</a>
+				<a href="https://fgw.sh.gov.cn/" class="link" target="_blank">上海市发展和改革委员会</a>
+				<a href="http://ceis.xinhua08.com/" class="link" target="_blank">中国经济信息社</a>
+			</div>
+			<div class="link_2">
+				<a href="http://www.cnpc.com.cn/cnpc/index.shtml" class="link" target="_blank">中国石油</a>
+				<a href="http://www.sinopec.com" class="link" target="_blank">中国石化</a>
+				<a href="http://www.cnooc.com.cn/" class="link" target="_blank">中国海油</a>
+				<a href="https://www.pipechina.com.cn/" class="link" target="_blank">国家管网</a>
+			</div>
+			<div class="link_2">
+				<a href="http://www.shenergy.com.cn/" class="link" target="_blank">申能集团</a>
+				<a href="http://www.bjgas.com/" class="link" target="_blank">北京燃气</a>
+				<a href="http://www.towngas.com.cn/" class="link" target="_blank">港华燃气</a>
+				<a href="https://www.enn.cn/business/energy.html" class="link" target="_blank">ENN新奥</a>
+			</div>
+			<div class="link_2">
+				<a href="http://www.chinagasholdings.com/" class="link" target="_blank">中国燃气</a>
+				<a href="https://www.chng.com.cn/" class="link" target="_blank">中国华能</a>
+				<a href="https://www.greatgas.cn" class="link" target="_blank">好气网</a>
+			</div>
+		</div>
+		<!--联系我们-->
+		<div class="link_contact">
+			<div class="foot_tlt">联系我们</div>
+			<div class="foot_contact_code"><img src="/img/foot_qr.png"></div>
+		<!--	<div class="foot_contact_text">地址：上海市浦东新区东园路18号中国金融信息中心17层</div>
+			<div class="foot_contact_text">电话：021-68821717</div> -->
+			<div class="foot_contact_text">地址：上海市浦东新区临港新片区云鹃北路18弄C1幢5层6层</div>
+			<div class="foot_contact_text">电话：021-68821717</div>
+                        
+		</div>
+		<!--版权所有-->
+		<!--  <div class="foot_copyright">©版权所有 2019 上海石油天然气交易中心 沪ICP备15013792号</div> -->
+                <div class="foot_copyright"><a href="https://www.shpgx.com/html/qtgg/20240806/6640.html" style="color: #fff;font-size: 13px;display: inline-block;line-height: 20px;margin-right: 20px;" target="_blank">法律声明</a><a href="https://beian.miit.gov.cn/" style="color: #fff;font-size: 13px;display: inline-block;line-height: 20px;" target="_blank" ><br>©版权所有 2019 上海石油天然气交易中心 沪ICP备15013792号-1</a></div>
+               
+	</div>
+	</div><script type="text/javascript" src="/static/js/common/jquery.SuperSlide.2.1.1.js" charset="utf-8"></script>
+<script type="text/javascript" src="/js/law.js"></script>
+<script type="text/javascript" src="/js/main.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+<script type="text/javascript" src="/js/data.js"></script>
+<script type="text/javascript" src="/js/index_chart.js"></script>
+
+<script type="text/javascript" charset="utf-8" src="/js/jquery.mypagination.js"></script>
+<script type="text/javascript" charset="utf-8" src="/js/charts/index_lngprice.js"></script>
+
+
+<script type="text/javascript">jQuery(".news_img").hover(function(){ jQuery(this).find(".prev,.next").stop(true,true).fadeTo("show",0.2) },function(){ jQuery(this).find(".prev,.next").fadeOut() });jQuery(".news_img").slide({ mainCell:".pic",effect:"fold", autoPlay:true, delayTime:100, trigger:"click"});</script><div class="blank20"></div>
+
+</body>
+</html>

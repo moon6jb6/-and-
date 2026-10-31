@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>中国电力企业联合会官网</title>
+  <meta http-equiv="x-ua-compatible" content="IE=edge">
+  <!--[if IE 8]>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
+    <![endif]-->
+  <meta name="keywords"
+    content="电力统计,电力分析,电力标准化,电力可靠性,电力工程造价,电力司法鉴定，电力行业发展,电力环境资源,电力教育培训,电力技能鉴定,电力行业信息,电力百科,电力知识,电力常识,电力招标,电力项目,电力节能,电力企业名录,电力项目咨询,脱硫脱硝技术,电力行业锅监信息,电力招投标,电力会议会展,电力科技成果鉴定,电力科技报告,电力论文,电力能源参考,电力国际合作,电力要闻,电网,发电,电力法规,电力新能源,国外电力,电力相关行业,中电联动态,省级电力行协,电力通知公告,电力视频,电力专题报道,电力行业CFB机组技">
+  <meta name="description"
+    content="中国电力企业联合会网是由中电联主办、全国1500多家会员单位支持的电力行业门户网站。为用户24小时提供全面及时的中文资讯,内容覆盖国内外电力要新闻、政策动向、财经资讯 等，设有新闻、会员与企业、行业发展与环境资源、统计与分析、标准化、可靠性、技能鉴定与培训、技经与定额、科技服务、国际合作、 电力视频、 网上展会、电力招投标、期刊图书、电力行业信息等30多个内容频道,同时开设网上投稿等互动交流空间。">
+  <script src="jquery.min.js"></script>
+  <link rel="stylesheet" href="bootstrap.min.css">
+  <script src="bootstrap.min.js"></script>
+  <link rel="stylesheet" href="swiper.min.css">
+  <script src="swiper.min.js"></script>
+  <link rel="stylesheet" href="layui/css/layui.css">
+  <link rel="stylesheet" href="font-awesome.css">
+  <link rel="stylesheet" href="verify.css">
+  <link rel="stylesheet" href="animate.css">
+  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="./header/index.css">
+  <script>
+    var DEFAULT_VERSION = 8.0;
+    var ua = navigator.userAgent.toLowerCase();
+    var isIE = ua.indexOf("msie") > -1;
+    var safariVersion;
+    var media = true;
+    if (isIE) {
+      safariVersion = ua.match(/msie ([\d.]+)/)[1];
+      if (safariVersion <= DEFAULT_VERSION) {
+        media = false;
+        $("#vvv").remove();
+        $("#dddm").hide();
+        $("#echart").remove();
+        $("#vertify").remove();
+      }
+    }
+  </script>
+</head>
+
+<style>
+  body {
+    margin: 0;
+    overflow: auto;
+  }
+
+  .layui-text {
+    line-height: 24px;
+  }
+
+  .layui-timeline-item {
+    padding-bottom: 10px;
+  }
+
+  .layui-tab-content {
+    height: 354px;
+  }
+
+  .zdl-zhuanti {
+    width: 1200px;
+    margin: 0 auto;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    overflow: hidden;
+  }
+
+  .zdl-zhuanti ul li {
+    width: 388px;
+    height: 160px;
+    display: block;
+    float: left;
+    margin-bottom: 15px;
+  }
+
+  .zdl-ceci-links {
+    width: 1200px;
+    height: 50px;
+    line-height: 50px;
+    background-color: #fff;
+    border: solid 1px #c3d3e3;
+    margin-top: 20px;
+
+  }
+
+  .zdl-ceci-links a {
+    display: block;
+    float: left;
+    line-height: 50px;
+    text-align: center;
+  }
+
+  .zdl-ceci-links a:hover {
+    color: #006dc0;
+  }
+
+  .zdl-ceci-links i {
+    display: block;
+    float: left;
+    width: 1px;
+    height: 30px;
+    background-color: #b0b1b1;
+    margin-top: 10px;
+  }
+
+  .itemtitle {
+    color: #21818d;
+    font-weight: bold;
+  }
+
+  .itemtitle1 {
+    color: #FFFFFF;
+    font-weight: bold;
+  }
+</style>
+
+<body>
+  <div class="zdl-content">
+    <div class="top-div"></div>
+    <div class="layui-carousel" id="test1">
+      <div carousel-item id="carsoul-content"></div>
+    </div>
+    <div class="zdl-item">
+      <img src="./img/title1.png" />
+    </div>
+    <div class="toutiaotop"></div>
+    <a id="toutiao" target="_blank" style="text-decoration: none;">
+      <div class="toutiaotitle" data-toggle="tooltip"></div>
+    </a>
+    <div class="toutiaosub"></div>
+
+    <!--中央精神、行业要闻-->
+    <div class="zdl-area">
+      <div class="zdl-area-l">
+        <div class="layui-carousel" id="test2">
+          <div carousel-item id="carousel-tupian">
+            <img src="blank.png" width="100%" height="100%" />
+          </div>
+        </div>
+      </div>
+      <div class="zdl-area-r">
+        <div class="layui-tab">
+          <ul class="layui-tab-title">
+            <li>中央精神</li>
+            <li class="layui-this">行业要闻</li>
+          </ul>
+          <div class="layui-tab-content" style="height: 310px;">
+            <div class="layui-tab-item">
+              <ul class="layui-timeline" id="zyjs"></ul>
+            </div>
+            <div class="layui-tab-item layui-show">
+              <ul class="layui-timeline" id="hyyw"></ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!--中电联动态、分支机构、部委信息、会员动态-->
+    <div class="zdl-news-subarea">
+      <div class="layui-tab" style="width: 590px;float: left;">
+        <ul class="layui-tab-title">
+          <li class="layui-this">中电联动态</li>
+          <li>分支机构</li>
+        </ul>
+        <div class="layui-tab-content">
+          <div class="layui-tab-item layui-show">
+            <ul class="layui-timeline" id="zdl"></ul>
+          </div>
+          <div class="layui-tab-item">
+            <ul class="layui-timeline" id="fzjg"></ul>
+          </div>
+        </div>
+      </div>
+      <div class="layui-tab" style="width: 590px;float: right;">
+        <ul class="layui-tab-title">
+          <li class="layui-this">部委信息</li>
+          <li>会员动态</li>
+        </ul>
+        <div class="layui-tab-content">
+          <div class="layui-tab-item layui-show">
+            <ul class="layui-timeline" id="bw"></ul>
+          </div>
+          <div class="layui-tab-item">
+            <ul class="layui-timeline" id="hy"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--通知公告、媒体聚焦-->
+    <div class="zdl-news-subarea">
+      <div class="layui-tab" style="width: 590px;float: left;">
+        <ul class="layui-tab-title">
+          <li class="layui-this">通知公告</li>
+        </ul>
+        <div class="layui-tab-content" style="height: 240px;">
+          <div class="layui-tab-item layui-show">
+            <ul class="layui-timeline" id="tzgg"></ul>
+          </div>
+        </div>
+      </div>
+      <div class="layui-tab" style="width: 590px;float: right;">
+        <ul class="layui-tab-title">
+          <li class="layui-this">媒体聚焦</li>
+        </ul>
+        <div class="layui-tab-content" style="height: 240px;">
+          <div class="layui-tab-item layui-show">
+            <ul class="layui-timeline" id="mtjj"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--专题报道-->
+    <div class="zdl-zhuanti">
+      <a href="https://cec.org.cn/menu/index.html?175" target="_blank">
+      <img src="./img/title62.png" style="margin-bottom: 25px" border="0"/>
+    </a>
+      <ul>
+        <li style="width: 1200px;"><a href="https://www.cec.org.cn/upload/zt/2026cllt/" target="_blank"><img src="img/2026cllt.jpg" alt="" width="1200" height="160"></a></li>
+        <li style="margin-right: 18px;"><a href="https://www.cec.org.cn/menu/index.html?860" target="_blank"><img src="img/zt2025-2b.jpg" alt="" width="388" height="160"></a>
+        </li>
+        <li style="margin-right: 18px;"><a href="https://www.cec.org.cn/upload/zt/2026dlztr/" target="_blank"><img src="img/2026dlztr.jpg" alt="" width="388" height="160"></a>
+        </li>
+        <li><a href="https://cec.org.cn/ytdxdh24/" target="_blank"><img src="img/zhuanti_05.png" alt="" width="388" height="160"></a></li>
+      </ul>
+    </div>
+
+    <!--中电联发布-->
+    <div class="zdl-dm" id="dddm">
+      <div class="zdl-dm-content" style="overflow: inherit">
+        <div style="overflow: hidden;width: 1200px">
+          <img src="./img/title2.png" />
+        </div>
+
+        <!--CECI echart-->
+        <div class="charttable">
+          <div class="morechart"><i class="layui-icon layui-icon-console" style="font-size: 18px;"></i></div>
+          <div class="charttableitem">
+            <div class="zdl-dm-itemtitle">CECI 曹妃甸指数</div>
+            <div id="chart" style="width: 285px; height: 160px;"></div>
+          </div>
+          <div class="charttableitem" style="margin-left: 19.5px">
+            <div class="zdl-dm-itemtitle" style="color:#333">CECI 沿海指数</div>
+            <div id="chart1" style="width: 285px; height: 160px;"></div>
+          </div>
+          <div class="charttableitem" style="margin-left: 19.5px">
+            <div class="zdl-dm-itemtitle">CECI 进口指数</div>
+            <div id="chart2" style="width: 285px; height: 160px;"></div>
+          </div>
+          <div class="charttableitem" style="margin-left: 19px">
+            <div class="zdl-dm-itemtitle">CECI 采购经理人指数</div>
+            <div id="chart3" style="width: 285px; height: 160px;"></div>
+          </div>
+        </div>
+
+        <!--CECI 3个链接-->
+        <div class="zdl-ceci-links">
+          <a href="https://www.cec.org.cn/detail/index.html?3-306559" target="_blank"
+            style="width: 412px">中国电煤采购价格指数（CECI）独立性声明</a><i></i>
+          <a href="https://www.cec.org.cn/detail/index.html?3-300458" target="_blank"
+            style="width: 300px">CECI系列指数编制方案</a><i></i>
+          <a href="https://www.cec.org.cn/detail/index.html?3-337707" target="_blank"
+            style="width: 480px">2023年度中国电煤采购价格指数（CECI）自我评估报告</a>
+        </div>
+
+        <!--CECI指数、CECI周报、电力消费、电力供应-->
+        <div class="zdl-news-subarea">
+          <div class="layui-tab" style="width: 590px;float: left;background-color: #FFFFFF;">
+            <ul class="layui-tab-title">
+              <li class="layui-this">CECI指数</li>
+              <li>CEGI指数</li>
+              <li>CECI周报</li>
+            </ul>
+            <div class="layui-tab-content">
+              <div class="layui-tab-item layui-show">
+                <ul class="layui-timeline" id="dmdm1"></ul>
+              </div>
+              <div class="layui-tab-item">
+                <ul class="layui-timeline" id="cegi"></ul>
+              </div>
+              <div class="layui-tab-item">
+                <ul class="layui-timeline" id="dmzb"></ul>
+              </div>
+            </div>
+          </div>
+          <div class="layui-tab" style="width: 590px;float: right;background-color: #FFFFFF;">
+            <ul class="layui-tab-title">
+              <li class="layui-this">电力消费</li>
+              <li>电力供应</li>
+            </ul>
+            <div class="layui-tab-content">
+              <div class="layui-tab-item layui-show">
+                <ul class="layui-timeline" id="dlxf"></ul>
+              </div>
+              <div class="layui-tab-item">
+                <ul class="layui-timeline" id="dlgy"></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--电力市场、供需报告、年度报告、研究成果-->
+        <div class="zdl-news-subarea">
+          <div class="layui-tab" style="width: 590px;float: left;background-color: #FFFFFF;">
+            <ul class="layui-tab-title">
+              <li class="layui-this">电力市场</li>
+              <li>供需报告</li>
+            </ul>
+            <div class="layui-tab-content">
+              <div class="layui-tab-item layui-show">
+                <ul class="layui-timeline" id="dlsc"></ul>
+              </div>
+              <div class="layui-tab-item">
+                <ul class="layui-timeline" id="gxbg"></ul>
+              </div>
+            </div>
+          </div>
+          <div class="layui-tab" style="width: 590px;float: right;background-color: #FFFFFF;">
+            <ul class="layui-tab-title">
+              <li class="layui-this">年度报告</li>
+              <li>研究成果</li>
+            </ul>
+            <div class="layui-tab-content">
+              <div class="layui-tab-item layui-show">
+                <!--ul class="layui-timeline" id="bw"></ul-->
+                <div class="dmdm-img" onclick="dmdm_img_click()"></div>
+                <div class="dmdm-news"></div>
+              </div>
+              <div class="layui-tab-item">
+                <ul class="layui-timeline" id="yjcg"></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--div class="newsbox newsbox3">
+          <ul class="layui-timeline" id="dmdm1"></ul>
+        </div>
+        <div class="newsbox newsbox4" style="margin-left: 40px;">
+          <ul class="layui-timeline" id="dmdm2"></ul>
+        </div>
+        <div class="newsbox newsbox1" style="margin-top:0px">
+          <ul class="layui-timeline" id="dmdm"></ul>
+        </div>
+        <div class="newsbox newsbox2" style="margin-left: 40px;margin-top:0px">
+          <div class="dmdm-img" onclick="dmdm_img_click()"></div>
+          <div class="dmdm-news"></div>
+        </div-->
+      </div>
+    </div>
+
+    <!--专业服务-->
+    <div class="zdl-dm-content" id="zyfw">
+      <img src="./img/title3.png" style="margin-bottom: 25px" />
+    </div>
+
+    <!--在线服务-->
+    <div class="zdl-dm-content" id="zxfw" style="position: relative;">
+      <img src="./img/title4.png" style="margin-bottom: 25px" />
+      <div class="swiper-container" id="zxfwswiper">
+        <div class="swiper-wrapper" id="zxfwwrapper"></div>
+      </div>
+      <div id="left-arrow"><i class="layui-icon layui-icon-left" style="font-size: 40px;line-height: 120px;"></i></div>
+      <div id="right-arrow"><i class="layui-icon layui-icon-right" style="font-size: 40px;line-height: 120px;"></i>
+      </div>
+    </div>
+
+    <!--专题-->
+    <div class="zdl-zt">
+      <div class="zdl-zt-content">
+        <a href="https://cec.org.cn/menu/index.html?828" target="_blank"><img src="./img/title61.png" border="0"/></a>
+        <div class="zdl-zt-group">
+          <div class="zdl-zt-item" style="width: 795px;float:left">
+            <a target="_blank" id="a1">
+              <video id="v1" src="" width="795" height="446" poster="blank.png" preload="none" controls playsinline
+                webkit-playsinline>
+                <img id="v1replace" src="blank.png" width="795" height="446">
+              </video>
+              <div class="zdl-zt-item-text" style="margin-top: -4px" id="zt1" data-toggle="tooltip">敬请期待</div>
+            </a>
+          </div>
+          <div style="width: 389px; float: right;">
+            <div class="zdl-zt-item" style="width: 389px">
+              <a target="_blank" id="a2">
+                <img id="v2" src="blank.png" width="389" height="191">
+                <div class="zdl-zt-item-text " style="background:rgb(114, 189, 18)" id="zt2" data-toggle="tooltip">敬请期待
+                </div>
+              </a>
+            </div>
+            <div class="zdl-zt-item" style="width: 389px;margin-top: 15px">
+              <a target="_blank" id="a3">
+                <img id="v3" src="blank.png" width="389" height="191">
+                <div class="zdl-zt-item-text " style="background:rgb(248, 182, 44)" id="zt3" data-toggle="tooltip">敬请期待
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <!--下面的3个专题-->
+          <div style="clear: both"></div>
+          <div style="width: 100%;margin-top: 15px;overflow: hidden;">
+            <div class="zdl-zt-item" style="width: 389px;float: left">
+              <a target="_blank" id="a4">
+                <img id="v4" src="blank.png" width="389" height="191">
+                <div class="zdl-zt-item-text " style="background:rgb(102, 167, 211)" id="zt4" data-toggle="tooltip">敬请期待
+                </div>
+              </a>
+            </div>
+            <div class="zdl-zt-item" style="width: 389px;float: left;margin-left: 16px;">
+              <a target="_blank" id="a5">
+                <img id="v5" src="blank.png" width="389" height="191">
+                <div class="zdl-zt-item-text " style="background:rgb(0, 175, 162)" id="zt5" data-toggle="tooltip">敬请期待
+                </div>
+              </a>
+            </div>
+            <div class="zdl-zt-item" style="width: 389px;float: left;margin-left: 16px;">
+              <a target="_blank" id="a6">
+                <img id="v6" src="blank.png" width="389" height="191">
+                <div class="zdl-zt-item-text " style="background:rgb(52, 190, 228)" id="zt6" data-toggle="tooltip">敬请期待
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--底部-->
+    <iframe></iframe>
+
+    <div class="ads-right">
+      <div class="close-b close-right"></div>
+      <a target="_blank" href=""><img src="" width="100%" /></a>
+    </div>
+    <div class="ads-left">
+      <div class="close-b close-left"></div>
+      <a target="_blank" href=""><img src="" width="100%" /></a>
+    </div>
+    <div class="ads-move">
+      <div class="close-b close-move"></div>
+      <a target="_blank" href=""><img src="" width="100%" /></a>
+    </div>
+
+    <div class="fixbtn">
+      <div class="fixbtnitem" title="官方微信公众号" data-trigger="hover" data-container="body" data-toggle="popover"
+        data-placement="left" data-html="true"
+        data-content='<img src="https://www.cec.org.cn/img/weixin.90be1ede.png" width="150" height="150">'>
+        <i class="fa fa-wechat"></i><br>
+        <span style="line-height: 20px">官方微信</span>
+      </div>
+      <a style="text-decoration: none" target="_blank" href="./detail/index.html?1-312699">
+        <div class="fixbtnitem" id="xuanchuan">
+          <i class="fa fa-video-camera"></i><br>
+          <span style="line-height: 20px">宣传片</span>
+        </div>
+      </a>
+      <a style="text-decoration: none" target="_blank" href="./menu/index.html?473">
+        <div class="fixbtnitem">
+          <i class="fa fa-pencil-square-o"></i><br>
+          <span style="line-height: 20px">申请入会</span>
+        </div>
+      </a>
+      <a style="text-decoration: none" target="_blank" href="./menu/index.html?200">
+        <div class="fixbtnitem">
+          <i class="fa fa-map-o"></i><br>
+          <span style="line-height: 20px">服务指南</span>
+        </div>
+      </a>
+      <a style="text-decoration: none" target="_blank" href="./menu/index.html?788">
+        <div class="fixbtnitem">
+          <i class="fa fa-phone"></i><br>
+          <span style="line-height: 20px">联系我们</span>
+        </div>
+      </a>
+
+      <a style="text-decoration: none" target="_blank" href="./feedback/index.html">
+        <div class="fixbtnitem" id="wenti">
+          <i class="fa fa-commenting-o"></i><br>
+          <span style="line-height: 20px">问题反馈</span>
+        </div>
+      </a>
+    </div>
+
+    <!--问题反馈弹窗-->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">问题反馈</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal" role="form">
+              <div class="form-group">
+                <label for="name" class="col-sm-3 control-label">姓名：</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="name" placeholder="请输入姓名">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="phone" class="col-sm-3 control-label">电话：</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="phone" placeholder="请输入电话">
+                </div>
+              </div>
+              <div class="form-group" id="vvv">
+                <label for="phone" class="col-sm-3 control-label">验证：</label>
+                <div id="mpanel1" class="col-sm-8"></div>
+              </div>
+              <div class="form-group">
+                <label for="des" class="col-sm-3 control-label">问题描述：</label>
+                <div class="col-sm-8">
+                  <textarea class="form-control" rows="5" id="content"></textarea>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-primary" id="sendmes">提交</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal -->
+    </div>
+  </div>
+</body>
+
+<script id="echart" src="echarts.min.js"></script>
+<script id="vertify" src="verify.js"></script>
+<script src="layui/layui.all.js"></script>
+<script>
+  $("iframe").attr("src", './footer/index.html?' + (new Date()).getTime());
+  document.write("<script type='text/javascript' src='https://www.cec.org.cn/g_index.js?v=" + (new Date()).getTime() + "'><\/script>");
+  document.write("<script type='text/javascript' src='./header/index.js?v=" + (new Date()).getTime() + "'><\/script>");
+  document.write("<script type='text/javascript' src='index.js?v=" + (new Date()).getTime() + "'><\/script>");
+  var fn = new Date().getDate();
+
+  //上卷广告
+  //if(fn==-1)
+  if (1 == 2) {
+    $(".top-div").append('<img src="https://www.cec.org.cn/header/clbigimg2.jpg" class="ytdxhd" style="width:100%;height:100%;position:absolute;z-index:999;cursor:pointer"/>');
+    // $("body").css("overflow", "hidden !important");
+    // $(".ytdxhd").click(function(){
+    //     window.open("https://www.cec.org.cn/upload/zt/ytdx/ytdxdh.html");
+    // })
+    setTimeout(function () {
+      $(".ytdxhd").animate({ top: '-100%' }, 2000);
+      // $("body").css("overflow", "auto");
+    }, 1000);
+  }
+</script>
+
+</html>

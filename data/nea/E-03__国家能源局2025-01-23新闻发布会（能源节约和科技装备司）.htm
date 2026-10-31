@@ -1,0 +1,139 @@
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml"><head><meta name="source" content="新华网"> <meta name="publishdate" content="2025-01-23"> <meta name="contentid" content="202501233e5379eb74b94d94bcdaf556268ad466"> <meta name="subject" content=""> <meta name="catalogs" content="01009005000"> <meta name="author" content=""> <meta name="publishedtype" content="1"> <meta name="filetype" content="0"> <meta name="pagetype" content="1"> <meta name="templateId" content="b5427b58c834414690d6e6f7dca0826e"> <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> <meta name="SiteName" content="国家能源局"> <meta name="SiteDomain" content="www.nea.gov.cn"> <meta name="SiteIDCode" content="bm62000002号"> <div data="datasource:202501233e5379eb74b94d94bcdaf556268ad466" datatype="content"><meta name="ArticleTitle" content="国家能源局举行新闻发布会 介绍新型储能发展相关情况"></div> <div data="datasource:202501233e5379eb74b94d94bcdaf556268ad466" datatype="content"><meta name="PubDate" content="2025-01-23 10:42:25"></div> <div data="datasource:202501233e5379eb74b94d94bcdaf556268ad466" datatype="content"><meta name="ContentSource" content="国家能源局"></div> <meta name="description" content="国家能源网"> <meta name="keywords" content="国家能源网"> <title data="datasource:202501233e5379eb74b94d94bcdaf556268ad466" datatype="content">
+            国家能源局举行新闻发布会 介绍新型储能发展相关情况---国家能源局
+        </title> <link href="http://www.nea.gov.cn/static/default/css/public/master_nyj_v1.0.css" rel="stylesheet" type="text/css"> <link href="http://www.nea.gov.cn/static/default/css/article.css" rel="stylesheet" type="text/css"> <link href="http://www.nea.gov.cn/2015nyj/xinban/topbase.css" rel="stylesheet"> <link href="http://www.nea.gov.cn/detail/css/cb_videoPlayer.css" rel="stylesheet"> <script src="http://www.nea.gov.cn/static/default/js/public/jquery-1.9.1.min.js" type="text/javascript"></script> <script language="javascript">
+        $(document).ready(function () {
+
+            var lefttmp = new Image();
+            lefttmp.src = "http://www.xinhuanet.com/photo/static/arr_left.cur";
+            var righttmp = new Image();
+            righttmp.src = "http://www.xinhuanet.com/photo/static/arr_right.cur";
+            leng = $("a", $("#div_currpage")).length;
+
+            if (leng != 0)
+            //curr里有a标签==稿件不止一页
+            {
+
+                //看一共有多少个a标签
+                leng = leng - 1;
+                var nextLin = $("a", $("#div_currpage"))[leng].href; //对于多页的情况，取得下一页的地址
+                var oneword = location.href + "#";
+                if (nextLin == oneword) {
+                    leng = leng - 1;
+                    nextLin = $("a", $("#div_currpage"))[leng].href;
+                }
+                var currurl = location
+                    .href; //当前页链接地址<meta http-equiv="expires" content="Sunday 26 October 2011 01:00 GMT" /> 
+
+                var underpd = currurl.substring(currurl.indexOf("c_") + 2, currurl.indexOf(".htm"));
+                if (underpd.indexOf("_") == -1) {
+
+                    prevLink = location.href; //如果是文章首页，则左键仍是替换到本页面
+                    nextLink = $("a", $("#div_currpage"))[0].href; //下一页的赋值
+                    setTimeout("window.opener=null;window.location.href='" + nextLink + "'", 60000); //30秒跳转到下一页
+                } else
+                //是末页，http://news.xinhuanet.com/photo/2011-08/06/c_121822530.htm
+                {
+                    //当前页分页号判断
+                    var currnum = currurl.indexOf(".htm"); //链接中第一次出现.htm的位置
+                    var underlineindex = currurl.lastIndexOf("_") + 1; //下划线甄别标识，第一页则不是下划线
+                    //下一页的分页号
+                    var nextnum = nextLin.indexOf(".htm"); //链接中第一次出现.htm的位置
+                    var underlinenext = nextLin.lastIndexOf("_") + 1; //下划线甄别标识，第一页则不是下划线
+                    var undernum = nextLin.substr(nextLin.indexOf("c_")).split("_").length - 1;
+
+                    var temp = currurl.substring(underlineindex, currnum); //当前页的分页号
+                    var nexttemp = nextLin.substring(underlinenext, nextnum); //最后a标签的分页号
+                    var boolx = parseInt(temp, 10) > parseInt(nexttemp, 10);
+
+                    if ((boolx) || (undernum == 1)) //末页
+
+                    {
+
+                        if ($("img", $("a", $("#content"))).length == 0) //没有带链接的图片
+
+                        {
+                            prevLink = nextLin;
+                            if (undernum == 1) {
+                                nextLink = nextLin;
+                            } else {
+                                nextLink = prevLink.substr(0, (prevLink.lastIndexOf("_"))) + ".htm";
+                            }
+                            setTimeout("window.opener=null;window.location.href='" + nextLink + "'",
+                                60000); //30秒跳转到下一页
+                        } else //末页正文图片有链接
+                        {
+                            prevLink = nextLin;
+                            nextLink = $("a", $("#content"))[0].href; //把正文第一个带链接的链接地址赋给下一页
+                        }
+
+                    } else //不是末页
+                    {
+
+                        prevLink = $("a", $("#div_currpage"))[0].href; //把正文第一个带链接的链接地址赋给下一页
+                        nextLink = nextLin; //把正文最后一个带链接的链接地址赋给下一页
+                    }
+
+                }
+            } else
+            //只有一页
+            {
+                prevLink = location.href;
+                nextLink = location.href;
+            }
+
+            document.onkeydown = pageEvent;
+
+            function pageEvent(evt) {
+                evt = evt || window.event;
+                var key = evt.which || evt.keyCode;
+                if (key == 37) location = prevLink;
+                if (key == 39) location = nextLink;
+            };
+
+            var lefturl = prevLink;
+            var righturl = nextLink;
+            var imgurl = righturl;
+
+            $("#content img").each(function () {
+                var width = $(this).width();
+                var thisImage = $(this);
+                //alert("01");
+                $(thisImage)[0].onmousemove = function () {
+
+                    if (event.offsetX < width / 2) {
+
+                        this.style.cursor = 'url(' + lefttmp.src + '),auto';
+                        imgurl = lefturl;
+                    } else {
+
+                        this.style.cursor = 'url(' + righttmp.src + '),auto';
+                        imgurl = righturl;
+                    }
+
+                }
+
+                $(thisImage)[0].onmouseup = function () {
+                    top.location = imgurl;
+
+                }
+            });
+
+        });
+    </script></head> <body><script src="http://www.nea.gov.cn/2015nyj/xinban/topnav.js" type="text/javascript"></script> <div class="main-colum"><div class="now-site">您当前位置：<a href="http://www.nea.gov.cn/" target="_blank">首页</a> &gt; 正文</div> <div class="channel-page"><div class="article-title" data="datasource:202501233e5379eb74b94d94bcdaf556268ad466" datatype="content"><div class="hr_10"></div> <div class="titles">
+                        国家能源局举行新闻发布会 介绍新型储能发展相关情况
+                    </div> <div class="hr_10"></div> <span class="times">
+                        发布时间：2025-01-23
+                    </span> <span class="author">
+                        来源：国家能源局
+                    </span> <span class="switchsize"><b class="bigger">大</b><b class="medium">中</b><b class="smaller">小</b></span> <div class="arrow"></div></div> <div class="article-box"><div class="hr_10"></div> <div class="hr_10"></div> <div class="hr_10"></div> <div id="detail" data="datasource:202501233e5379eb74b94d94bcdaf556268ad466" datatype="content"><div class="article-content"><span id="detailContent"><p>&emsp;&emsp;国家能源局举行新闻发布会，介绍新型储能发展、油气勘探开发和绿证核发有关情况，解读《分布式光伏发电开发建设管理办法》并回答记者提问。</p><p><span style="color: #000080;"><strong>&emsp;&emsp;[综合司副司长、新闻发言人 张星]</strong></span></p><p>&emsp;&emsp;各位记者朋友，大家上午好！欢迎大家出席国家能源局例行新闻发布会。今天的新闻发布会将介绍新型储能发展、油气勘探开发和绿证核发工作有关情况，解读《分布式光伏发电开发建设管理办法》并回答记者提问。</p><p><strong><span style="color: #000080;">&emsp;&emsp;[张星]</span></strong></p><p>&emsp;&emsp;出席今天发布会的有：能源节约和科技装备司副司长边广琦先生、石油天然气司副司长胡建武先生、新能源和可再生能源司副司长潘慧敏女士、电力业务资质管理中心副主任魏青山先生。我是综合司副司长、新闻发言人张星。各位司长发布内容之后，统一安排回答记者提问。现在，请边广琦副司长介绍新型储能发展相关情况。</p><p><span style="color: #000080;"><strong>&emsp;&emsp;[能源节约和科技装备司副司长 边广琦]</strong></span></p><p>&emsp;&emsp;各位记者朋友们，上午好，下面我介绍2024年新型储能发展情况。党中央、国务院高度重视新型储能发展工作。2024年，“发展新型储能”首次写入政府工作报告。日前颁布实施的《中华人民共和国能源法》规定，推进新型储能高质量发展，发挥各类储能在电力系统中的调节作用。国家能源局认真贯彻落实“四个革命，一个合作”能源安全新战略，科学统筹新型储能发展工作，推进新型储能迈上高质量发展新台阶，成为能源领域新质生产力的重要体现。</p><p>&emsp;&emsp;2024年，新型储能保持快速发展态势，装机规模突破7000万千瓦。截至2024年底，全国已建成投运新型储能项目累计装机规模达7376万千瓦/1.68亿千瓦时，约为“十三五”末的20倍，较2023年底增长超过130%。平均储能时长2.3小时，较2023年底增加约0.2小时。新型储能调度运用水平持续提升，据电网企业统计，2024年新型储能等效利用小时数约1000小时，发挥了促进新能源开发消纳、顶峰保供及保障电力系统安全稳定运行功效，有力支撑新型电力系统建设。</p><p>&emsp;&emsp;分地域看，新型储能累计装机规模排名前5的省区分别为：内蒙古1023万千瓦/2439万千瓦时，新疆857万千瓦/2871万千瓦时，山东717万千瓦/1555万千瓦时，江苏562万千瓦/1195万千瓦时，宁夏443万千瓦/882万千瓦时。河北、浙江、甘肃、广东、湖南、广西、河南、安徽、湖北、贵州等10省区装机规模超过200万千瓦。华北地区已投运新型储能装机规模占全国30.1%，西北地区占25.4%，华东地区占16.9%，华中地区占14.7%，南方地区占12.4%，东北地区占0.5%。</p><p>&emsp;&emsp;从单站装机规模看，新型储能电站逐步呈现集中式、大型化趋势。截至2024年底，10万千瓦及以上项目装机占比62.3%，较2023年提高约10个百分点，1万—10万千瓦项目装机占比32.8%，不足1万千瓦项目装机占比4.9%。</p><p>&emsp;&emsp;从储能时长看，4小时及以上新型储能电站项目逐步增加，装机占比15.4%，较2023年底提高约3个百分点，2—4小时项目装机占比71.2%，不足2小时项目装机占比13.4%。</p><p>&emsp;&emsp;新型储能快速发展的同时，技术创新不断取得突破。国家能源局以公告形式发布新型储能试点项目和第四批能源领域首台（套）重大技术装备，持续推进智能电网重大专项和储能相关重点研发计划，不断健全标准体系，有力促进新型储能技术创新应用。30万千瓦级压缩空气储能电站建成投产，推动国产化大容量空气压缩机、透平（装备）的研发应用，带动我国压缩空气储能技术走在世界前列。钠离子电池储能项目落地，进一步深化大型钠离子储能电站应用探索。多地建成构网型储能项目，有效提升新型储能支撑电网安全稳定运行能力。 下一步，国家能源局将立足行业健康有序发展要求，持续推动新型储能技术和产业发展，积极培育能源领域新质生产力。</p></span></div></div> <div class="back-top"></div> <div class="hr_10"></div> <div class="hr_10"></div> <div class="hr_10"></div></div> <div class="article-other"><div class="hr_10"></div> <div class="hr_10"></div> <div class="clear"></div></div> <div class="hr_10"></div> <div class="hr_10"></div> <div class="hr_10"></div></div></div> <script src="http://www.nea.gov.cn/2015nyj/xinban/bottom.js" type="text/javascript"></script> <script src="http://www.nea.gov.cn/static/default/js/public/article-font.js" type="text/javascript"></script> <script src="http://www.nea.gov.cn/detail/js/pager.js"></script> <script src="http://www.nea.gov.cn/detail/js/cb-video.js"></script> <script>
+        $(function () {
+            /* 分页调用 */
+            parsePagingFun({
+                // preText: 'prev',//上一页
+                // nextText: 'next',//下一页
+                id: 'detailContent', //正文分页id
+                num: 8 //显示页码数个数
+            })
+
+        })
+    </script><script src="//imgs.news.cn/webdig/xinhua_webdig.js" language="javascript" type="text/javascript" async></script></body></html>

@@ -5,9 +5,15 @@
 """
 import io
 import json
+import os
 
 from knowledge_core import build_knowledge_data
 from energy_core import build_energy_data
+
+# 网址索引（由 fetch_sources.py 生成）
+URL_INDEX = {"total": 0, "archived": 0, "failed": 0, "entries": []}
+if os.path.exists(os.path.join("data", "url-index.json")):
+    URL_INDEX = json.load(io.open(os.path.join("data", "url-index.json"), encoding="utf-8"))
 
 KD = build_knowledge_data()
 ED = build_energy_data()
@@ -34,6 +40,7 @@ DATA = {
         "anchorTraps": ED["anchorTraps"],
         "carbon": ED["carbon"],
     },
+    "urlIndex": URL_INDEX,
 }
 DATA_JSON = json.dumps(DATA, ensure_ascii=False, separators=(",", ":"))
 _t = KD["totals"]
@@ -257,6 +264,7 @@ HTML = r"""<!doctype html>
     <button class="stab" data-r="data">数据资源库</button>
     <button class="stab" data-r="model">方法库</button>
     <button class="stab" data-r="evid">证据与来源</button>
+    <button class="stab" data-r="url">网址索引</button>
   </div>
   <main id="mRef"></main>
 </div>
@@ -489,6 +497,53 @@ function drawRef(){
               <div style="font-size:11.5px;color:#fbbf24;margin-top:5px">限度：${esc(m.limit)}</div></td></tr>`).join('')}
         </table>
       </div>`;
+  } else if(refView==='url'){
+    const U = DATA.urlIndex;
+    const okU = U.entries.filter(e=>e.localFile);
+    const noU = U.entries.filter(e=>!e.localFile);
+    const grp = {};
+    okU.forEach(e=>{ (grp[e.kind]=grp[e.kind]||[]).push(e); });
+    box.innerHTML = `
+      <div class="card" style="border-left:3px solid #34d399">
+        <h2>网址索引（${U.total} 条：已归档 ${U.archived} · 未获取 ${U.failed}）</h2>
+        <div class="lead">
+          这是全部引用来源的<b>可点击索引</b>。左列点开即达原文；右列是已下载到本仓库的副本，
+          点击可直接打开（离线可读）。归档器 <code>fetch_sources.py</code> 会记录每个文件的 SHA256，
+          可校验内容未被篡改。
+        </div>
+        <div class="warn">未获取的 ${U.failed} 条不是遗漏，而是站点屏蔽自动抓取或本来就没有公开入口
+          （如 IEA / IRENA / EI 返回 403、海关总署返回 412、气象消纳中心无公开入口）。
+          这些条目保留原 URL，供人工打开。</div>
+      </div>
+      ${Object.keys(grp).map(k=>`
+        <div class="card">
+          <h2>${esc(k)}（${grp[k].length}）</h2>
+          <table class="tbl">
+            <tr><th style="width:8%">编号</th><th style="width:16%">机构</th>
+                <th>原文链接</th><th style="width:26%">本地归档副本</th></tr>
+            ${grp[k].map(e=>`<tr>
+              <td class="num" style="white-space:nowrap">${esc(e.id)}${e.alias&&e.alias.length?'<div style="font-size:10.5px;color:#6d86ab">'+e.alias.map(esc).join('<br>')+'</div>':''}</td>
+              <td style="font-size:12px">${esc(e.org)}</td>
+              <td style="font-size:12.5px"><a href="${e.url}" target="_blank" rel="noopener"
+                  style="color:#7dd3fc">${esc(e.title||e.url)}</a>
+                <div style="font-size:11px;color:#6d86ab">${(()=>{try{return new URL(e.url).hostname}catch(x){return ''}})()}</div></td>
+              <td style="font-size:11.5px"><a href="data/${e.localFile}" target="_blank" rel="noopener"
+                  style="color:#34d399">${esc(e.localFile.split('/').pop())}</a>
+                <div style="color:#6d86ab">${(e.bytes/1024).toFixed(0)} KB</div></td></tr>`).join('')}
+          </table>
+        </div>`).join('')}
+      <div class="card">
+        <h2>未获取（${noU.length}）</h2>
+        <div class="lead">保留原 URL 与失败原因。这些是最需要人工补的 ${noU.length} 条。</div>
+        <table class="tbl">
+          <tr><th style="width:8%">编号</th><th style="width:18%">机构</th>
+              <th style="width:28%">原因</th><th>原文链接</th></tr>
+          ${noU.map(e=>`<tr><td class="num">${esc(e.id)}</td>
+            <td style="font-size:12px">${esc(e.org)}</td>
+            <td style="font-size:12px;color:#fb7185">${esc(e.error||'—')}</td>
+            <td style="font-size:12px">${e.url?`<a href="${e.url}" target="_blank" rel="noopener" style="color:#7dd3fc">${esc(e.url.slice(0,70))}</a>`:'<span style="color:#6d86ab">无公开入口</span>'}</td></tr>`).join('')}
+        </table>
+      </div>`;
   } else {
     const A = T.anchors;
     box.innerHTML = `
@@ -616,6 +671,15 @@ document.addEventListener('click', e=>{
 
 (function deepLink(){
   const h = (location.hash||'').replace('#','');
+  // 支撑材料子页深链接：#ref/url #ref/data #ref/model #ref/evid #ref/ind
+  if(h.indexOf('ref/')===0){
+    const sub = h.slice(4);
+    const tb = document.querySelector('#tabs .tab[data-v="ref"]');
+    if(tb) tb.click();
+    const sb = document.querySelector('.stab[data-r="'+sub+'"]');
+    if(sb) sb.click();
+    return;
+  }
   // 模块深链接：#K01 ~ #K16
   if(/^K\d\d$/.test(h) && MODS[h]){
     renderModule(h);
